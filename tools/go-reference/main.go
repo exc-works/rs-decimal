@@ -138,6 +138,16 @@ func execute(req request) (r response) {
 		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
 		var err error
 		switch {
+		case params["format"] == "bson":
+			data, e := hex.DecodeString(params["text"])
+			if e != nil {
+				panic(e)
+			}
+			if nullable {
+				err = n.UnmarshalBSONValue(byte(integer("type")), data)
+			} else {
+				err = n.Decimal.UnmarshalBSONValue(byte(integer("type")), data)
+			}
 		case !nullable && params["format"] == "binary":
 			bytes, e := hex.DecodeString(params["text"])
 			if e != nil {
@@ -182,6 +192,23 @@ func execute(req request) (r response) {
 		} else {
 			r.Outcome = "ok"
 			r.Result = r.Receiver
+		}
+	case "encode_bson":
+		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		var kind byte
+		var data []byte
+		var err error
+		if params["nullable"] == "true" {
+			kind, data, err = n.MarshalBSONValue()
+		} else {
+			kind, data, err = n.Decimal.MarshalBSONValue()
+		}
+		if err != nil {
+			r.Outcome = "error"
+			r.Errors = kinds(err)
+		} else {
+			r.Outcome = "ok"
+			r.Result = map[string]string{"type": strconv.Itoa(int(kind)), "data": hex.EncodeToString(data)}
 		}
 	case "encode_binary":
 		bytes, err := values[0].MarshalBinary()

@@ -52,3 +52,5 @@ Decimal 保留系数和 scale；Default 为未初始化零，数值相等不代�
 `yaml` 使用保留原文的事件解析处理 scalar 文档和标签；marshal_yaml 返回可交给 YAML emitter 的字符串/可空字符串。Go 二进制互通通过 marshal_binary/unmarshal_binary，保留 wire 格式与失败原子性。
 
 `xml` 提供原文元素解码与属性值解码；编码返回字符内容/属性值，由调用者的 XML emitter 负责名称及转义。空元素清空值，失败保持原状态。
+
+`bson` 提供 BSON type byte/raw bytes 适配，支持 string、double、int32、int64、Decimal128 和 null，不依赖 MongoDB 客户端。

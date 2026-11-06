@@ -50,7 +50,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.Log10WithPrec` | `Decimal::log10_with_prec(&self, prec: isize) -> Result<Self, DecimalError>` | 核心 | 09 | 直接移植 | [PR 09 行为规则](#pr-09-行为规则) | [PR 09 行为规则](#pr-09-行为规则) | `tests/transcendentals.rs`；348 个差分，320 个区间证书；全量 45 个固定 must-succeed | 已验证 |
 | `Decimal.Log2` | `Decimal::log2(&self) -> Self` | 核心 | 09 | 直接移植 | [PR 09 行为规则](#pr-09-行为规则) | [PR 09 行为规则](#pr-09-行为规则) | `tests/transcendentals.rs`；348 个差分，320 个区间证书；全量 45 个固定 must-succeed | 已验证 |
 | `Decimal.Log2WithPrec` | `Decimal::log2_with_prec(&self, prec: isize) -> Result<Self, DecimalError>` | 核心 | 09 | 直接移植 | [PR 09 行为规则](#pr-09-行为规则) | [PR 09 行为规则](#pr-09-行为规则) | `tests/transcendentals.rs`；348 个差分，320 个区间证书；全量 45 个固定 must-succeed | 已验证 |
-| `Decimal.MarshalBSONValue` | Decimal::marshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.MarshalBSONValue` | `Decimal::marshal_bson_value(&self) -> Result<(u8, Vec<u8>), DecimalError>` | 协议 | 13c | 平台映射 | 见 PR 13c 行为规则 | 失败原子；只读无变化 | tests/bson.rs；bson.jsonl；check-bson.py | 已实现 |
 | `Decimal.MarshalBinary` | `Decimal::marshal_binary(&self) -> Result<Vec<u8>, DecimalError>` | 协议 | 12 | 直接移植 | [PR 12 行为规则](#pr-12-行为规则) | [PR 12 行为规则](#pr-12-行为规则) | `tests/binary.rs`；142 差分，109 个双向跨语言编码/解码；32 位实际 CI | 已验证 |
 | `Decimal.MarshalJSON` | `Decimal::marshal_json(&self) -> Vec<u8>` (`json`) | 协议 | 11 | 直接移植 | [PR 11 行为规则](#pr-11-行为规则) | [PR 11 行为规则](#pr-11-行为规则) | `tests/json.rs`；444 个 JSON 完整状态差分；独立 feature 组合 | 已验证 |
 | `Decimal.MarshalText` | `Decimal::marshal_text(&self) -> Vec<u8>` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
@@ -94,7 +94,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.Truncate` | `Decimal::truncate(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.TruncateWithPrec` | `Decimal::truncate_with_prec(&self, prec: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Uint64` | `Decimal::uint64(&self) -> (u64, bool)` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
-| `Decimal.UnmarshalBSONValue` | Decimal::unmarshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.UnmarshalBSONValue` | `Decimal::unmarshal_bson_value(&mut self, kind: u8, data: &[u8]) -> Result<(), DecimalError>` | 协议 | 13c | 平台映射 | 见 PR 13c 行为规则 | 失败原子；只读无变化 | tests/bson.rs；bson.jsonl；check-bson.py | 已实现 |
 | `Decimal.UnmarshalBinary` | `Decimal::unmarshal_binary(&mut self, bytes: &[u8]) -> Result<(), DecimalError>` | 协议 | 12 | 直接移植 | [PR 12 行为规则](#pr-12-行为规则) | [PR 12 行为规则](#pr-12-行为规则) | `tests/binary.rs`；142 差分，109 个双向跨语言编码/解码；32 位实际 CI | 已验证 |
 | `Decimal.UnmarshalJSON` | `Decimal::unmarshal_json(&mut self, bytes: &[u8]) -> Result<(), DecimalError>` (`json`) | 协议 | 11 | 直接移植 | [PR 11 行为规则](#pr-11-行为规则) | [PR 11 行为规则](#pr-11-行为规则) | `tests/json.rs`；444 个 JSON 完整状态差分；独立 feature 组合 | 已验证 |
 | `Decimal.UnmarshalParam` | `Decimal::unmarshal_param(&mut self, param: &str) -> Result<(), DecimalError>` | 协议 | 10b | 平台映射：保留输入规则，不实现 Gin 接口 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
@@ -139,7 +139,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `NewWithPrec` | `Decimal::new_with_prec(value: i64, prec: isize) -> Self` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `NullDecimal` | `NullDecimal { pub decimal: Decimal, pub valid: bool }` | 协议 | 03 | 直接移植 | Default 未初始化零；Valid 独立于内部 Decimal | 由类型和构造器保持内部不变量 | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `NullDecimal.Decimal` | `decimal: Decimal` | 协议 | 03 | 直接移植 | Default 未初始化零；Valid 独立于内部 Decimal | 由类型和构造器保持内部不变量 | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `NullDecimal.MarshalBSONValue` | NullDecimal::marshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.MarshalBSONValue` | `NullDecimal::marshal_bson_value(&self) -> Result<(u8, Vec<u8>), DecimalError>` | 协议 | 13c | 平台映射 | 见 PR 13c 行为规则 | 失败原子；只读无变化 | tests/bson.rs；bson.jsonl；check-bson.py | 已实现 |
 | `NullDecimal.MarshalJSON` | `NullDecimal::marshal_json(&self) -> Vec<u8>` (`json`) | 协议 | 11 | 直接移植 | [PR 11 行为规则](#pr-11-行为规则) | [PR 11 行为规则](#pr-11-行为规则) | `tests/json.rs`；444 个 JSON 完整状态差分；独立 feature 组合 | 已验证 |
 | `NullDecimal.MarshalText` | `NullDecimal::marshal_text(&self) -> Vec<u8>` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
 | `NullDecimal.MarshalXML` | `NullDecimal::marshal_xml(&self) -> String` | 协议 | 13b | 平台映射 | 见 PR 13b 行为规则 | 解码失败原子；只读无变化 | tests/xml.rs；xml.jsonl | 已实现 |
@@ -147,7 +147,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `NullDecimal.MarshalYAML` | `NullDecimal::marshal_yaml(&self) -> Option<String>` (`yaml`) | 协议 | 13a | 平台映射 | [PR 13a 行为规则](#pr-13a-行为规则) | [PR 13a 行为规则](#pr-13a-行为规则) | `tests/yaml.rs`；全部冻结 yaml_scalars；416 状态差分 | 已验证 |
 | `NullDecimal.Scan` | NullDecimal::scan（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `NullDecimal.String` | `NullDecimal::string(&self) -> String` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
-| `NullDecimal.UnmarshalBSONValue` | NullDecimal::unmarshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.UnmarshalBSONValue` | `NullDecimal::unmarshal_bson_value(&mut self, kind: u8, data: &[u8]) -> Result<(), DecimalError>` | 协议 | 13c | 平台映射 | 见 PR 13c 行为规则 | 失败原子；只读无变化 | tests/bson.rs；bson.jsonl；check-bson.py | 已实现 |
 | `NullDecimal.UnmarshalJSON` | `NullDecimal::unmarshal_json(&mut self, bytes: &[u8]) -> Result<(), DecimalError>` (`json`) | 协议 | 11 | 直接移植 | [PR 11 行为规则](#pr-11-行为规则) | [PR 11 行为规则](#pr-11-行为规则) | `tests/json.rs`；444 个 JSON 完整状态差分；独立 feature 组合 | 已验证 |
 | `NullDecimal.UnmarshalParam` | `NullDecimal::unmarshal_param(&mut self, param: &str) -> Result<(), DecimalError>` | 协议 | 10b | 平台映射：保留输入规则，不实现 Gin 接口 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
 | `NullDecimal.UnmarshalText` | `NullDecimal::unmarshal_text(&mut self, text: &[u8]) -> Result<(), DecimalError>` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
@@ -261,3 +261,9 @@ MarshalYAML 返回语义上的字符串 scalar（NullDecimal 为 Option<String>�
 xml 可选功能使用 quick-xml 解析第一个元素。MarshalXML 返回元素的字符内容，由调用方 emitter 提供元素名和 namespace；MarshalXMLAttr 返回已经解码的属性值，NullDecimal 无效时返回 None 表示省略属性。普通 nil 编码为空，有效 NullDecimal 内部 nil 编码为零，且不初始化原值。
 UnmarshalXML 接受整份 XML 原文，只读取根元素的直接字符内容（子元素内容忽略）；属性入口接收已完成实体解码的值。空白内容清空 Decimal/NullDecimal，非空值保留十进制原文精度。语法/实体错误为 Unmarshal，数值错误另含 InvalidFormat；所有失败保留状态。
 这是 Rust 文档便利入口与 Go Decoder/StartElement 回调的显式平台映射，不暴露 Go 类型，也不承诺两个 XML 解析器的全部扩展语法相同。Rust 将进入根元素前的解析错误也归类为 Unmarshal；差分 Go 外层包装器仅对尚无 Unmarshal 标记的解析错误补此标记，实际 Decimal 回调错误原样保留。第一元素后的内容按 Go Decode 行为不继续消费。184 个固定差分覆盖元素、属性、空值、CDATA、实体、嵌套元素与失败状态。
+
+## PR 13c 行为规则
+
+bson 功能提供 BSON type byte + raw value bytes，独立于任何 MongoDB 客户端。普通 nil/无效 NullDecimal 编码为 null，有效内部 nil 编码为字符串零；其他值编码为紧凑十进制字符串。解码接受 null/string/double/int32/int64/Decimal128，数值原文和 Decimal128 不经浮点转换；double 按输入 IEEE 值的最短往返文本转换，非有限值返回 Unmarshal。
+Decimal128 的非有限值返回 InvalidFormat+Unmarshal，steering bits 的非规范系数按固定 Go 驱动视作零；十进制指数 -6176..6111 精确处理。无效长度、未知类型和负字符串长度返回 Unmarshal；所有失败保持接收者及 Valid。按 Go RawValue 入口行为，固定宽度 payload 允许尾部数据，字符串末字节跳过但不验证 NUL；编码始终生成规范 NUL 终止载荷。null 清空全部状态。
+1404 例固定差分涵盖原始 bytes 与状态，另执行 Go→Rust、Rust→Go 双向 string/null 编码验证。参考程序启用固定基线 bson build tag。
