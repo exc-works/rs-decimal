@@ -90,7 +90,7 @@ fn execute(req: &Request) -> Value {
             }
             "encode_binary" if values.len() == 1 => values[0]
                 .marshal_binary()
-                .map(|bytes| json!(bytes.iter().map(|b| format!("{b:02x}")).collect::<String>())),
+                .map(|bytes| json!(encode_hex(&bytes))),
             "encode_json" if values.len() == 1 => {
                 let n = rs_decimal::NullDecimal {
                     decimal: values[0].clone(),
@@ -388,6 +388,16 @@ fn execute(req: &Request) -> Value {
         }
     }
     response
+}
+
+fn encode_hex(bytes: &[u8]) -> String {
+    const HEX: &[u8] = b"0123456789abcdef";
+    let mut out = String::with_capacity(bytes.len() * 2);
+    for b in bytes {
+        out.push(HEX[(b >> 4) as usize] as char);
+        out.push(HEX[(b & 15) as usize] as char);
+    }
+    out
 }
 
 fn decode_hex(text: &str) -> Vec<u8> {
