@@ -97,3 +97,36 @@ fn messages_are_owned_and_insertions_are_literal() {
         default_validation_messages("en")
     );
 }
+
+#[test]
+fn templates_reject_nested_and_unicode_placeholders() {
+    for template in [
+        "{1{0}}",
+        "{{0}}",
+        "{0{1}}",
+        "{中}",
+        "text}",
+        "{",
+        "{10}",
+        "{0}{1{0}}",
+    ] {
+        assert!(
+            ValidationMessages::with_messages(BTreeMap::from([(
+                "decimal_gt".into(),
+                template.into()
+            )]))
+            .unwrap_err()
+            .matches(ErrorKind::InvalidArgument)
+        );
+    }
+    let messages = ValidationMessages::with_messages(BTreeMap::from([(
+        "decimal_gt".into(),
+        "中文{0}/{1}/{0}".into(),
+    )]))
+    .unwrap();
+    let error = ValidationRule::parse("decimal_gt", "5")
+        .unwrap()
+        .validate("值", &Decimal::new(1))
+        .unwrap_err();
+    assert_eq!(messages.translate(&[error]), ["中文值/5/值"]);
+}

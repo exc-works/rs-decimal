@@ -129,9 +129,14 @@ impl ValidationMessages {
             if !out.templates.contains_key(&tag) || text.is_empty() {
                 return Err(invalid());
             }
-            let remainder = text.replace("{0}", "").replace("{1}", "");
-            if remainder.contains(['{', '}']) {
-                return Err(invalid());
+            let mut remainder = text.as_str();
+            while let Some(i) = remainder.find(['{', '}']) {
+                let rest = &remainder[i..];
+                if rest.starts_with("{0}") || rest.starts_with("{1}") {
+                    remainder = &rest[3..];
+                } else {
+                    return Err(invalid());
+                }
             }
             out.templates.insert(tag, text);
         }
