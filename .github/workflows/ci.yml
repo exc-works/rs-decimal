@@ -20,6 +20,8 @@ jobs:
       - run: cargo test --locked --workspace --release
       - run: cargo check --locked --no-default-features
       - run: cargo package --locked
+      - run: cargo test --locked --manifest-path target/package/rs-decimal-0.1.0-alpha.1/Cargo.toml
+      - run: cargo run --locked --manifest-path target/package/rs-decimal-0.1.0-alpha.1/Cargo.toml --example core
       - run: python3 tools/check-baseline.py
   baseline:
     runs-on: ubuntu-latest
@@ -70,3 +72,36 @@ jobs:
       - run: python3 tools/conformance/check-must-succeed.py --rust target/debug/decimal-conformance --oracle .cache/go-oracle
       - run: python3 tools/conformance/run.py --go .cache/go-reference --rust target/debug/decimal-conformance --cases testdata/conformance/transcendentals.jsonl
       - run: python3 tools/conformance/check-oracle.py --rust target/debug/decimal-conformance --oracle .cache/go-oracle --cases testdata/conformance/transcendentals.jsonl --operations ln log2 log10 exp ln_prec log2_prec log10_prec exp_prec
+      - run: python3 tools/conformance/run.py --go .cache/go-reference --rust target/debug/decimal-conformance --cases testdata/conformance/formatting.jsonl
+      - run: cargo build --locked --release -p decimal-conformance
+      - run: python3 tools/conformance/core-gates.py --go .cache/go-reference --rust target/release/decimal-conformance --oracle .cache/go-oracle
+      - uses: actions/upload-artifact@v4
+        with:
+          name: core-gates-64
+          path: .cache/core-gates.json
+  paired-32:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: i686-unknown-linux-gnu
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26.0"
+          cache-dependency-path: tools/go-reference/go.sum
+      - run: sudo apt-get update && sudo apt-get install -y gcc-multilib
+      - run: cargo test --locked --target i686-unknown-linux-gnu --workspace
+      - run: cargo test --locked --target i686-unknown-linux-gnu --workspace --release
+      - run: cargo build --locked --target i686-unknown-linux-gnu --release -p decimal-conformance
+      - run: mkdir -p .cache
+      - run: GOARCH=386 go build -mod=readonly -o ../../.cache/go-reference-32 .
+        working-directory: tools/go-reference
+      - run: GOARCH=386 go build -o ../../.cache/go-oracle-32 .
+        working-directory: tools/go-oracle
+      - run: python3 tools/conformance/core-gates.py --native-bits 32 --go .cache/go-reference-32 --rust target/i686-unknown-linux-gnu/release/decimal-conformance --oracle .cache/go-oracle-32
+      - run: python3 tools/conformance/check-must-succeed.py --rust target/i686-unknown-linux-gnu/release/decimal-conformance --oracle .cache/go-oracle-32
+      - uses: actions/upload-artifact@v4
+        with:
+          name: core-gates-32
+          path: .cache/core-gates.json

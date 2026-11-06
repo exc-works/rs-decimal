@@ -1,10 +1,10 @@
 # rs-decimal
 
-rs-decimal 计划提供与 exc-works/decimal 数值和状态行为兼容的 Rust 实现。当前已建立 Rust crate 骨架与固定兼容基线；类型、基础构造、解析与比较已实现，舍入和算术等 API 正在后续 PR 中实现，crate 尚未发布。
+rs-decimal 是保持 exc-works/decimal 数值和状态契约的 Rust 移植。当前数值核心与格式化已实现，正在执行核心预览门禁；协议和生态适配尚未完成，crate 尚未发布。
 
 ## 开发
 
-暂定 MSRV 为 Rust 1.85（edition 2024），CI 同时检查 MSRV 与 stable。核心依赖为固定版本的 num-bigint、num-integer、num-traits、num-rational。当前无默认 feature。
+MSRV 为 Rust 1.85（edition 2024），CI 同时检查 MSRV 与 stable。核心依赖为固定版本的 num-bigint、num-integer、num-traits、num-rational 和 ryu。当前无默认 feature。
 
 ```sh
 cargo check --locked
@@ -25,3 +25,22 @@ python3 tools/check-baseline.py
 计划基线为 Go 仓库提交 `a8791208e2d15483cf652cd2814b74b0c1a84187`，采用该提交的 v0.8.0 数值契约。仓库名称确定为 `rs-decimal`；crates.io 同名包的可发布性尚待核实。
 
 Git 仓库本地作者与提交者身份为 `Skywalker Luke <skywalkerO_0@proton.me>`。
+
+## 使用数值核心
+
+```rust
+use rs_decimal::{Decimal, GoFormat, RoundingMode};
+let price = Decimal::must_from_string("12.350");
+assert_eq!(price.string_with_trailing_zeros(), "12.350");
+let total = price.mul_exact(&Decimal::new(3));
+assert_eq!(total.string(), "37.05");
+let third = Decimal::new(1).quo_with_prec(&Decimal::new(3), 2, RoundingMode::HalfEven);
+assert_eq!(third.string_with_trailing_zeros(), "0.33");
+assert_eq!(Decimal::new(2).sqrt_with_prec(5)?.string(), "1.41421");
+assert_eq!(price.format_go(GoFormat { verb: 'f', precision: Some(2), ..GoFormat::default() }), "12.35");
+# Ok::<(), rs_decimal::DecimalError>(())
+```
+
+Decimal 保留系数和 scale；Default 为未初始化零，数值相等不代表表示相同。算术不改变输入。Ln/根等返回 Result，Log2 默认入口以及负精度、除零等契约使用 DecimalError 类型化 panic。七种舍入模式中 Up 为远离零，Ceiling 为向正无穷。
+
+版本 `0.1.0-alpha.1` 尚未发布；预览范围、错误规则和验证证据见 API 矩阵。`tools/conformance/core-gates.py` 执行全量差分、固定种子的 512 个随机用例及独立 oracle，再核对每次结果并报告包含进程/JSONL 开销的批量计时；不据此承诺算术加速。CI 实际运行 i686 Go/Rust 配对和 64 位配对、debug/release 测试，保存计时报告。极端原生 scale fixture 在 32 位配对时实例化为 isize::MAX，i64/u64 数值范围保持不变。

@@ -129,6 +129,32 @@ func execute(req request) (r response) {
 		return n
 	}
 	switch req.Operation {
+	case "format":
+		format := "%" + params["flags"] + params["width"]
+		if p, ok := params["precision"]; ok {
+			format += "." + p
+		}
+		format += params["verb"]
+		r.Outcome = "ok"
+		r.Result = fmt.Sprintf(format, values[0])
+	case "string":
+		r.Outcome = "ok"
+		r.Result = values[0].String()
+	case "trailing":
+		r.Outcome = "ok"
+		r.Result = values[0].StringWithTrailingZeros()
+	case "separators":
+		r.Outcome = "ok"
+		r.Result = values[0].FormatWithSeparators([]rune(params["thousands"])[0], []rune(params["decimal"])[0])
+	case "append":
+		var out []byte
+		if params["trailing"] == "true" {
+			out, _ = values[0].AppendTextWithTrailingZeros([]byte(params["prefix"]))
+		} else {
+			out, _ = values[0].AppendText([]byte(params["prefix"]))
+		}
+		r.Outcome = "ok"
+		r.Result = string(out)
 	case "ln":
 		set(values[0].Ln())
 	case "ln_prec":

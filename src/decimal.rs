@@ -188,37 +188,6 @@ impl Decimal {
         }
         (self.raw() * pow10(other.scale - self.scale)).cmp(other.raw())
     }
-
-    /// Compact decimal text; full format compatibility is added separately.
-    pub fn string(&self) -> String {
-        if self.is_zero() {
-            return "0".into();
-        }
-        let negative = self.is_negative();
-        let mut digits = self.raw().abs().to_string();
-        let mut scale = self.scale;
-        while scale > 0 && digits.ends_with('0') {
-            digits.pop();
-            scale -= 1;
-        }
-        let mut output = String::new();
-        if negative {
-            output.push('-');
-        }
-        if scale == 0 {
-            output.push_str(&digits);
-        } else if scale >= digits.len() {
-            output.push_str("0.");
-            output.extend(std::iter::repeat_n('0', scale - digits.len()));
-            output.push_str(&digits);
-        } else {
-            let cut = digits.len() - scale;
-            output.push_str(&digits[..cut]);
-            output.push('.');
-            output.push_str(&digits[cut..]);
-        }
-        output
-    }
 }
 
 impl FromStr for Decimal {

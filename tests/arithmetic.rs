@@ -77,8 +77,12 @@ fn extreme_scale_fast_paths_and_checked_overflow() {
             .precision(),
         isize::MAX
     );
+    // The fixed i32 scale cap itself is valid on both pointer widths.
+    let at_cap = Decimal::new_with_prec(3, i32::MAX as isize).mul_exact(&b);
+    assert_eq!(at_cap.big_int(), BigInt::from(6));
+    assert_eq!(at_cap.precision(), i32::MAX as isize);
     for err in [
-        std::panic::catch_unwind(|| a.mul_exact(&b)).unwrap_err(),
+        std::panic::catch_unwind(|| a.mul_exact(&Decimal::new_with_prec(2, 1))).unwrap_err(),
         std::panic::catch_unwind(|| b.quo_with_prec(&a, isize::MAX, M::Down)).unwrap_err(),
     ] {
         assert!(
