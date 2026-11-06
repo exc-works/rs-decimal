@@ -69,6 +69,43 @@ fn execute(req: &Request) -> Value {
         let values: Vec<_> = req.inputs.iter().map(State::decimal).collect();
         let p = |key: &str| req.params[key].as_str().expect("missing string parameter");
         let result: Result<Value, DecimalError> = match req.operation.as_str() {
+            "format" if values.len() == 1 => {
+                let flags = p("flags");
+                let f = rs_decimal::GoFormat {
+                    verb: p("verb").chars().next().unwrap(),
+                    width: req
+                        .params
+                        .get("width")
+                        .and_then(|v| v.as_str())
+                        .map(|v| v.parse().unwrap()),
+                    precision: req
+                        .params
+                        .get("precision")
+                        .and_then(|v| v.as_str())
+                        .map(|v| v.parse().unwrap()),
+                    left: flags.contains('-'),
+                    plus: flags.contains('+'),
+                    space: flags.contains(' '),
+                    zero: flags.contains('0'),
+                    alternate: flags.contains('#'),
+                };
+                Ok(json!(values[0].format_go(f)))
+            }
+            "string" if values.len() == 1 => Ok(json!(values[0].string())),
+            "trailing" if values.len() == 1 => Ok(json!(values[0].string_with_trailing_zeros())),
+            "separators" if values.len() == 1 => Ok(json!(values[0].format_with_separators(
+                p("thousands").chars().next().unwrap(),
+                p("decimal").chars().next().unwrap()
+            ))),
+            "append" if values.len() == 1 => {
+                let mut out = p("prefix").as_bytes().to_vec();
+                if p("trailing") == "true" {
+                    values[0].append_text_with_trailing_zeros(&mut out);
+                } else {
+                    values[0].append_text(&mut out);
+                }
+                Ok(json!(String::from_utf8(out).unwrap()))
+            }
             "ln" | "log2" | "log10" | "exp" | "ln_prec" | "log2_prec" | "log10_prec"
             | "exp_prec"
                 if values.len() == 1 =>

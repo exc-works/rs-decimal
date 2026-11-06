@@ -11,8 +11,8 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.Abs` | `Decimal::abs(&self) -> Self` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.Add` | `Decimal::add(&self, other: &Self) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
 | `Decimal.AddRaw` | `Decimal::add_raw(&self, value: i64) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
-| `Decimal.AppendText` | Decimal::append_text（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.AppendTextWithTrailingZeros` | Decimal::append_text_with_trailing_zeros（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.AppendText` | `Decimal::append_text(&self, dst: &mut Vec<u8>)` | 核心 | 10a | 直接移植 | [PR 10a 行为规则](#pr-10a-行为规则) | [PR 10a 行为规则](#pr-10a-行为规则) | `tests/formatting.rs`；7137 个 Go/Rust 格式差分 | 已验证 |
+| `Decimal.AppendTextWithTrailingZeros` | `Decimal::append_text_with_trailing_zeros(&self, dst: &mut Vec<u8>)` | 核心 | 10a | 直接移植 | [PR 10a 行为规则](#pr-10a-行为规则) | [PR 10a 行为规则](#pr-10a-行为规则) | `tests/formatting.rs`；7137 个 Go/Rust 格式差分 | 已验证 |
 | `Decimal.ApproxRoot` | `Decimal::approx_root(&self, degree: i64) -> Result<Self, DecimalError>` | 核心 | 07 | 直接移植 | [PR 07 行为规则](#pr-07-行为规则) | [PR 07 行为规则](#pr-07-行为规则) | `tests/roots.rs`；173 个差分，150 个根证书，18 个固定 must-succeed | 已验证 |
 | `Decimal.ApproxRootWithPrec` | `Decimal::approx_root_with_prec(&self, degree: i64, prec: isize) -> Result<Self, DecimalError>` | 核心 | 07 | 直接移植 | [PR 07 行为规则](#pr-07-行为规则) | [PR 07 行为规则](#pr-07-行为规则) | `tests/roots.rs`；173 个差分，150 个根证书，18 个固定 must-succeed | 已验证 |
 | `Decimal.BigInt` | `Decimal::big_int(&self) -> BigInt` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
@@ -29,8 +29,8 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.Float64` | `Decimal::float64(&self) -> (f64, bool)` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
 | `Decimal.Floor` | `Decimal::floor(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.FloorWithPrec` | `Decimal::floor_with_prec(&self, prec: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
-| `Decimal.Format` | Decimal::format（签名待设计） | 核心 | 10a | 平台映射：独立 Go 格式入口 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.FormatWithSeparators` | Decimal::format_with_separators（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Format` | `Decimal::format_go(&self, f: GoFormat) -> String` | 核心 | 10a | 平台映射：独立 Go 格式入口 | [PR 10a 行为规则](#pr-10a-行为规则) | [PR 10a 行为规则](#pr-10a-行为规则) | `tests/formatting.rs`；7137 个 Go/Rust 格式差分 | 已验证 |
+| `Decimal.FormatWithSeparators` | `Decimal::format_with_separators(&self, thousands: char, decimal: char) -> String` | 核心 | 10a | 直接移植 | [PR 10a 行为规则](#pr-10a-行为规则) | [PR 10a 行为规则](#pr-10a-行为规则) | `tests/formatting.rs`；7137 个 Go/Rust 格式差分 | 已验证 |
 | `Decimal.GT` | `Decimal::gt(&self, other: &Self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.GTE` | `Decimal::gte(&self, other: &Self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.HasFraction` | `Decimal::has_fraction(&self) -> bool` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
@@ -86,8 +86,8 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.SignificantFigures` | `Decimal::significant_figures(&self, figures: isize, mode: RoundingMode) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Sqrt` | `Decimal::sqrt(&self) -> Result<Self, DecimalError>` | 核心 | 07 | 直接移植 | [PR 07 行为规则](#pr-07-行为规则) | [PR 07 行为规则](#pr-07-行为规则) | `tests/roots.rs`；173 个差分，150 个根证书，18 个固定 must-succeed | 已验证 |
 | `Decimal.SqrtWithPrec` | `Decimal::sqrt_with_prec(&self, prec: isize) -> Result<Self, DecimalError>` | 核心 | 07 | 直接移植 | [PR 07 行为规则](#pr-07-行为规则) | [PR 07 行为规则](#pr-07-行为规则) | `tests/roots.rs`；173 个差分，150 个根证书，18 个固定 must-succeed | 已验证 |
-| `Decimal.String` | Decimal::string（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.StringWithTrailingZeros` | Decimal::string_with_trailing_zeros（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.String` | `Decimal::string(&self) -> String` | 核心 | 10a | 直接移植 | [PR 10a 行为规则](#pr-10a-行为规则) | [PR 10a 行为规则](#pr-10a-行为规则) | `tests/formatting.rs`；7137 个 Go/Rust 格式差分 | 已验证 |
+| `Decimal.StringWithTrailingZeros` | `Decimal::string_with_trailing_zeros(&self) -> String` | 核心 | 10a | 直接移植 | [PR 10a 行为规则](#pr-10a-行为规则) | [PR 10a 行为规则](#pr-10a-行为规则) | `tests/formatting.rs`；7137 个 Go/Rust 格式差分 | 已验证 |
 | `Decimal.StripTrailingZeros` | `Decimal::strip_trailing_zeros(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Sub` | `Decimal::sub(&self, other: &Self) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
 | `Decimal.SubRaw` | `Decimal::sub_raw(&self, value: i64) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
@@ -182,7 +182,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 - Cmp 返回 -1/0/1，Eq/Ord 按数学值。Min/Max 相等时保留第一操作数完整状态；Between 包含两端且不自动交换上下界。极端 scale 比较先用位长界，不无条件展开十次幂。
 - 数值检查和比较无额外语义错误；大整数分配仍受机器资源限制。常量映射为 zero/one/ten/hundred 构造函数，不提供可重赋值的全局变量。
 - NullDecimal::new 将 valid 设为 true 并保留传入 Decimal；字段允许 valid=false 时内部仍有值。
-- 初步 string/Display 仅用于调试与验证，完整格式化兼容仍属于 PR 10a。
+- string/Display 的完整格式化兼容已在 PR 10a 验证。
 
 ## PR 04 行为规则
 
@@ -228,3 +228,9 @@ Ziv 从 64 guard bits 开始倍增至 8192，总工作精度仍受 131072 十进
 Ln/Log2/Log10/Exp 默认 scale 为 max(input scale,20)，显式精度保留目标 scale；所有成功结果初始化、HalfEven 舍入且输入不变。Log2 默认入口在失败时使用 DecimalError 类型化 panic，Log2WithPrec 与其余入口返回 Result。负精度始终首先触发 InvalidPrecision panic；非正对数返回 InvalidLog。
 输入和输出 scale 超过 131072 返回 NoConvergence，预算检查先于 ln(1)/exp(0) 快路径；边界内的精确恒等式、二/十的整数次幂对数仍可成功。Exp 的整数位预算、负大数归零证明和区间重建保留基线顺序。区间端点同舍入才返回结果。
 独立 oracle 抽取测试中的精确有理级数及显式余项界，与生产固定点实现分离；变异测试拒绝系数、scale、状态及编码变化。45 个固定承诺成功用例全量匹配输出并独立认证，包括 131072 位精度边界恒等式，不以 NoConvergence 代替成功。
+
+## PR 10a 行为规则
+
+String/Display 输出紧凑固定点十进制；StringWithTrailingZeros 保留 scale，零没有负号。两个 AppendText 入口接受 &mut Vec<u8>，保留原缓冲区前缀并追加 ASCII；Go 返回的恒为 nil 的 error 在 Rust 省略。不承诺与 Go 相同的分配次数。
+GoFormat 显式描述单个 verb、width、precision 与五个 flags；format_go 处理 v/s/q/d/f/F/e/E/g/G/b，未知 verb 和非整数 d 返回 Go 错误标记，不是 printf 格式字符串解析器。数字符号、零填充及 d 显式精度的优先级保持基线；g 在舍入后选择记数法。科学格式从系数字符串计算指数，不展开大 scale 零。
+FormatWithSeparators 使用 char，NUL thousands 禁止分组，NUL decimal 回退为点。Rust Display 始终返回紧凑文本；Go 专有宽度/精度/flags 使用 format_go，不声称 Rust 的格式语法等同 fmt。

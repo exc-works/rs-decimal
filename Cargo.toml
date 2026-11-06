@@ -7,7 +7,7 @@ description = "Decimal arithmetic preserving the exc-works/decimal numerical con
 license = "MIT"
 repository = "https://github.com/exc-works/rs-decimal"
 readme = "README.md"
-include = ["src/**", "Cargo.toml", "Cargo.lock", "README.md", "LICENSE", "NOTICE"]
+include = ["src/**", "tests/**", "examples/**", "Cargo.toml", "Cargo.lock", "README.md", "LICENSE", "NOTICE"]
 
 [dependencies]
 num-bigint = "=0.4.6"
