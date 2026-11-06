@@ -216,3 +216,9 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 Sqrt/ApproxRoot 默认输出 scale 为 max(input scale, 20)，WithPrec 保留指定 scale，使用精确 HalfEven 中点判断。所有成功结果初始化且不改变输入。
 负精度触发 InvalidPrecision panic；非正 degree 返回 InvalidRoot，负偶次根返回 NegativeRoot。degree=1、零和一的快路径先于一般预算；其余输入/输出 scale、degree 及 degree*max(1,p) 受 131072 上限约束，Newton 最多 300 次，耗尽返回 NoConvergence。负奇次根保持符号。
 独立 oracle 使用固定 Go 测试中的舍入单元整数不等式，不调用生产根算法；系数、scale、初始化及编码变异必须拒绝。
+
+## PR 08 内部区间验证
+
+区间端点为独立 BigInt，以当前正二进制 scale 归一化。分数和乘除向外舍入，除法接受正分母区间并按分子符号选择极值角点。整数乘法交换负倍率下的端点。仅当完整区间两端 HalfEven 舍入一致时认证成功。
+Ziv 从 64 guard bits 开始倍增至 8192，总工作精度仍受 131072 十进制位预算；闭包错误立即返回，预算耗尽为 NoConvergence，输出 scale 不随重试变化。本层保持私有 API；临时 dead_code 标注将在 PR 09 接入使用时移除。
+`src/interval.rs` 的精确有理数包含测试覆盖负数、跨零、一般及二进制 scale、乘除和输入不变；`src/transcendental.rs` 覆盖强制重试、8 次耗尽、预算提前拒绝及错误传播。
