@@ -69,6 +69,24 @@ fn execute(req: &Request) -> Value {
         let values: Vec<_> = req.inputs.iter().map(State::decimal).collect();
         let p = |key: &str| req.params[key].as_str().expect("missing string parameter");
         let result: Result<Value, DecimalError> = match req.operation.as_str() {
+            "ln" | "log2" | "log10" | "exp" | "ln_prec" | "log2_prec" | "log10_prec"
+            | "exp_prec"
+                if values.len() == 1 =>
+            {
+                let a = &values[0];
+                let result = match req.operation.as_str() {
+                    "ln" => a.ln(),
+                    "ln_prec" => a.ln_with_prec(p("precision").parse().unwrap()),
+                    "log2" => Ok(a.log2()),
+                    "log2_prec" => a.log2_with_prec(p("precision").parse().unwrap()),
+                    "log10" => a.log10(),
+                    "log10_prec" => a.log10_with_prec(p("precision").parse().unwrap()),
+                    "exp" => a.exp(),
+                    "exp_prec" => a.exp_with_prec(p("precision").parse().unwrap()),
+                    _ => unreachable!(),
+                };
+                result.map(|d| capture(&d))
+            }
             "sqrt" | "root" | "sqrt_prec" | "root_prec" if values.len() == 1 => {
                 let a = &values[0];
                 let degree = req.params["degree"]

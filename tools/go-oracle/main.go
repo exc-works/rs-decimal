@@ -10,6 +10,7 @@ import (
 	"math/big"
 	"os"
 	"strconv"
+	"strings"
 )
 
 type state struct {
@@ -40,6 +41,46 @@ func rational(s state) (*big.Rat, int, error) {
 func verify(req request) (status, detail string) {
 	if req.Version != 1 || req.ID == "" {
 		return "uncertified", "invalid request"
+	}
+	operation := strings.TrimSuffix(req.Operation, "_prec")
+	if operation == "ln" || operation == "log2" || operation == "log10" || operation == "exp" {
+		if len(req.Inputs) != 1 {
+			return "uncertified", "expected one operand"
+		}
+		x, scale, err := rational(req.Inputs[0])
+		if err != nil || operation != "exp" && x.Sign() <= 0 {
+			return "uncertified", "invalid transcendental input"
+		}
+		p := max(scale, 20)
+		if strings.HasSuffix(req.Operation, "_prec") {
+			p, err = strconv.Atoi(req.Params["precision"])
+		}
+		if err != nil || p < 0 || p > 131072 {
+			return "uncertified", "transcendental oracle budget"
+		}
+		_, sg, err := rational(req.Candidate)
+		if err != nil || sg != p || !req.Candidate.Initialized {
+			return "mismatch", "invalid candidate state"
+		}
+		var want *big.Int
+		// Exact identities certify boundary-scale cases without a series.
+		if operation != "exp" && x.Cmp(big.NewRat(1, 1)) == 0 {
+			want = new(big.Int)
+		} else if operation == "exp" && x.Sign() == 0 {
+			want = new(big.Int).Exp(big.NewInt(10), big.NewInt(int64(p)), nil)
+		} else {
+			if p > 1000 {
+				return "uncertified", "series oracle precision budget"
+			}
+			want = independentlyRoundedTranscendental(operation, x, p)
+		}
+		if want == nil {
+			return "uncertified", "independent series cannot certify"
+		}
+		if req.Candidate.Coefficient != want.String() {
+			return "mismatch", "independent interval rounding differs"
+		}
+		return "verified", "exact rational interval endpoints agree"
 	}
 	if req.Operation == "sqrt" || req.Operation == "root" || req.Operation == "sqrt_prec" || req.Operation == "root_prec" {
 		if len(req.Inputs) != 1 {

@@ -1,6 +1,4 @@
 //! Outward fixed-point enclosures. Endpoints own their integers; inputs are borrowed.
-// Temporarily internal-only until the transcendental functions use this module.
-#![allow(dead_code)]
 use crate::{
     RoundingMode,
     integer::{ceil_div, floor_div},

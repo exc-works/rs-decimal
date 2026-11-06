@@ -1,6 +1,6 @@
 # API 兼容矩阵
 
-固定基线：`a8791208e2d15483cf652cd2814b74b0c1a84187`。PR 03 已实现类型、基础构造、解析和比较；仅标为已验证的条目通过了当前测试，其他入口仍未完成。完整 Go 签名、来源位置和构建条件见 [声明清单](api-inventory.json)。状态、字段和验收规则见 [技术方案](technical-design.md#api-兼容矩阵)。
+固定基线：`a8791208e2d15483cf652cd2814b74b0c1a84187`。PR 03—09 已实现类型、算术、转换和认证数学函数；仅标为已验证的条目通过了当前测试，其他入口仍未完成。完整 Go 签名、来源位置和构建条件见 [声明清单](api-inventory.json)。状态、字段和验收规则见 [技术方案](technical-design.md#api-兼容矩阵)。
 
 PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、失败顺序及测试证据在对应实现 PR 中补齐。表内“待设计”不可计为兼容通过。核心入口遵循 [数值契约](../testdata/upstream/docs/numeric-contract.md)，解码入口必须另列 null 与失败状态规则。
 
@@ -23,8 +23,8 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.Clone` | `Decimal::clone(&self) -> Self` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.Cmp` | `Decimal::cmp(&self, other: &Self) -> i32` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.Equal` | `Decimal::equal(&self, other: &Self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `Decimal.Exp` | Decimal::exp（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.ExpWithPrec` | Decimal::exp_with_prec（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Exp` | `Decimal::exp(&self) -> Result<Self, DecimalError>` | 核心 | 09 | 直接移植 | [PR 09 行为规则](#pr-09-行为规则) | [PR 09 行为规则](#pr-09-行为规则) | `tests/transcendentals.rs`；348 个差分，320 个区间证书；全量 45 个固定 must-succeed | 已验证 |
+| `Decimal.ExpWithPrec` | `Decimal::exp_with_prec(&self, prec: isize) -> Result<Self, DecimalError>` | 核心 | 09 | 直接移植 | [PR 09 行为规则](#pr-09-行为规则) | [PR 09 行为规则](#pr-09-行为规则) | `tests/transcendentals.rs`；348 个差分，320 个区间证书；全量 45 个固定 must-succeed | 已验证 |
 | `Decimal.Float32` | `Decimal::float32(&self) -> (f32, bool)` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
 | `Decimal.Float64` | `Decimal::float64(&self) -> (f64, bool)` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
 | `Decimal.Floor` | `Decimal::floor(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
@@ -44,12 +44,12 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.IsZero` | `Decimal::is_zero(&self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.LT` | `Decimal::lt(&self, other: &Self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.LTE` | `Decimal::lte(&self, other: &Self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `Decimal.Ln` | Decimal::ln（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.LnWithPrec` | Decimal::ln_with_prec（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.Log10` | Decimal::log10（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.Log10WithPrec` | Decimal::log10_with_prec（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.Log2` | Decimal::log2（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.Log2WithPrec` | Decimal::log2_with_prec（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Ln` | `Decimal::ln(&self) -> Result<Self, DecimalError>` | 核心 | 09 | 直接移植 | [PR 09 行为规则](#pr-09-行为规则) | [PR 09 行为规则](#pr-09-行为规则) | `tests/transcendentals.rs`；348 个差分，320 个区间证书；全量 45 个固定 must-succeed | 已验证 |
+| `Decimal.LnWithPrec` | `Decimal::ln_with_prec(&self, prec: isize) -> Result<Self, DecimalError>` | 核心 | 09 | 直接移植 | [PR 09 行为规则](#pr-09-行为规则) | [PR 09 行为规则](#pr-09-行为规则) | `tests/transcendentals.rs`；348 个差分，320 个区间证书；全量 45 个固定 must-succeed | 已验证 |
+| `Decimal.Log10` | `Decimal::log10(&self) -> Result<Self, DecimalError>` | 核心 | 09 | 直接移植 | [PR 09 行为规则](#pr-09-行为规则) | [PR 09 行为规则](#pr-09-行为规则) | `tests/transcendentals.rs`；348 个差分，320 个区间证书；全量 45 个固定 must-succeed | 已验证 |
+| `Decimal.Log10WithPrec` | `Decimal::log10_with_prec(&self, prec: isize) -> Result<Self, DecimalError>` | 核心 | 09 | 直接移植 | [PR 09 行为规则](#pr-09-行为规则) | [PR 09 行为规则](#pr-09-行为规则) | `tests/transcendentals.rs`；348 个差分，320 个区间证书；全量 45 个固定 must-succeed | 已验证 |
+| `Decimal.Log2` | `Decimal::log2(&self) -> Self` | 核心 | 09 | 直接移植 | [PR 09 行为规则](#pr-09-行为规则) | [PR 09 行为规则](#pr-09-行为规则) | `tests/transcendentals.rs`；348 个差分，320 个区间证书；全量 45 个固定 must-succeed | 已验证 |
+| `Decimal.Log2WithPrec` | `Decimal::log2_with_prec(&self, prec: isize) -> Result<Self, DecimalError>` | 核心 | 09 | 直接移植 | [PR 09 行为规则](#pr-09-行为规则) | [PR 09 行为规则](#pr-09-行为规则) | `tests/transcendentals.rs`；348 个差分，320 个区间证书；全量 45 个固定 must-succeed | 已验证 |
 | `Decimal.MarshalBSONValue` | Decimal::marshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.MarshalBinary` | Decimal::marshal_binary（签名待设计） | 协议 | 12 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.MarshalJSON` | Decimal::marshal_json（签名待设计） | 协议 | 11 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
@@ -220,5 +220,11 @@ Sqrt/ApproxRoot 默认输出 scale 为 max(input scale, 20)，WithPrec 保留指
 ## PR 08 内部区间验证
 
 区间端点为独立 BigInt，以当前正二进制 scale 归一化。分数和乘除向外舍入，除法接受正分母区间并按分子符号选择极值角点。整数乘法交换负倍率下的端点。仅当完整区间两端 HalfEven 舍入一致时认证成功。
-Ziv 从 64 guard bits 开始倍增至 8192，总工作精度仍受 131072 十进制位预算；闭包错误立即返回，预算耗尽为 NoConvergence，输出 scale 不随重试变化。本层保持私有 API；临时 dead_code 标注将在 PR 09 接入使用时移除。
+Ziv 从 64 guard bits 开始倍增至 8192，总工作精度仍受 131072 十进制位预算；闭包错误立即返回，预算耗尽为 NoConvergence，输出 scale 不随重试变化。本层保持私有 API；临时 dead_code 标注已在 PR 09 接入使用时移除。
 `src/interval.rs` 的精确有理数包含测试覆盖负数、跨零、一般及二进制 scale、乘除和输入不变；`src/transcendental.rs` 覆盖强制重试、8 次耗尽、预算提前拒绝及错误传播。
+
+## PR 09 行为规则
+
+Ln/Log2/Log10/Exp 默认 scale 为 max(input scale,20)，显式精度保留目标 scale；所有成功结果初始化、HalfEven 舍入且输入不变。Log2 默认入口在失败时使用 DecimalError 类型化 panic，Log2WithPrec 与其余入口返回 Result。负精度始终首先触发 InvalidPrecision panic；非正对数返回 InvalidLog。
+输入和输出 scale 超过 131072 返回 NoConvergence，预算检查先于 ln(1)/exp(0) 快路径；边界内的精确恒等式、二/十的整数次幂对数仍可成功。Exp 的整数位预算、负大数归零证明和区间重建保留基线顺序。区间端点同舍入才返回结果。
+独立 oracle 抽取测试中的精确有理级数及显式余项界，与生产固定点实现分离；变异测试拒绝系数、scale、状态及编码变化。45 个固定承诺成功用例全量匹配输出并独立认证，包括 131072 位精度边界恒等式，不以 NoConvergence 代替成功。
