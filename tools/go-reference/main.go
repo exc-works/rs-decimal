@@ -225,6 +225,58 @@ func execute(req request) (r response) {
 			r.Outcome = "ok"
 			r.Result = r.Receiver
 		}
+	case "config":
+		var value any
+		var err error
+		switch params["type"] {
+		case "null":
+			value = nil
+		case "text":
+			value = params["text"]
+		case "bytes":
+			value, err = hex.DecodeString(params["text"])
+		case "number":
+			value = json.Number(params["text"])
+		case "i64":
+			value, err = strconv.ParseInt(params["text"], 10, 64)
+		case "u64":
+			value, err = strconv.ParseUint(params["text"], 10, 64)
+		case "f32":
+			var bits uint64
+			bits, err = strconv.ParseUint(params["text"], 16, 32)
+			value = math.Float32frombits(uint32(bits))
+		case "f64":
+			var bits uint64
+			bits, err = strconv.ParseUint(params["text"], 16, 64)
+			value = math.Float64frombits(bits)
+		case "decimal":
+			value = values[0]
+		case "nullable":
+			value = d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		default:
+			value = true
+		}
+		if err != nil {
+			panic(err)
+		}
+		var result any
+		if params["nullable"] == "true" {
+			result, err = d.DecodeHook()(reflect.TypeOf(value), reflect.TypeOf(d.NullDecimal{}), value)
+		} else {
+			result, err = d.DecodeHook()(reflect.TypeOf(value), reflect.TypeOf(d.Decimal{}), value)
+		}
+		if err != nil {
+			r.Outcome = "error"
+			r.Errors = kinds(err)
+		} else {
+			r.Outcome = "ok"
+			if params["nullable"] == "true" {
+				n := result.(d.NullDecimal)
+				r.Result = map[string]any{"decimal": capture(n.Decimal), "valid": n.Valid}
+			} else {
+				r.Result = map[string]any{"decimal": capture(result.(d.Decimal)), "valid": nil}
+			}
+		}
 	case "validate":
 		v := validator.New()
 		if err := d.RegisterGoPlaygroundValidator(v); err != nil {

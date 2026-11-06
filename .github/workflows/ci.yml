@@ -22,6 +22,7 @@ jobs:
       - run: cargo test --locked -p rs-decimal --no-default-features
       - run: cargo test --locked -p rs-decimal --no-default-features --features serde
       - run: cargo test --locked -p rs-decimal --no-default-features --features json
+      - run: cargo test --locked -p rs-decimal --no-default-features --features config
       - run: cargo test --locked -p rs-decimal --no-default-features --features validation
       - run: cargo test --locked -p rs-decimal --no-default-features --features postgres
       - run: cargo test --locked -p rs-decimal --no-default-features --features bson
@@ -51,6 +52,7 @@ jobs:
       - run: python3 tools/check-baseline.py --source .cache/go-source
       - run: python3 tools/check-release-matrix.py
       - run: python3 tools/test-baseline.py --source .cache/go-source
+      - run: go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.7 -shellcheck= .github/workflows/ci.yml .github/workflows/fuzz.yml
   conformance:
     runs-on: ubuntu-latest
     steps:

@@ -50,3 +50,6 @@ mod postgres;
 
 #[cfg(feature = "validation")]
 pub mod validation;
+
+#[cfg(feature = "config")]
+pub mod config;

@@ -103,7 +103,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.UnmarshalXMLAttr` | `Decimal::unmarshal_xml_attr(&mut self, value: &str) -> Result<(), DecimalError>` | 协议 | 13b | 平台映射 | 见 PR 13b 行为规则 | 解码失败原子；只读无变化 | tests/xml.rs；xml.jsonl | 已验证 |
 | `Decimal.UnmarshalYAML` | `Decimal::unmarshal_yaml(&mut self, source: &str) -> Result<(), DecimalError>` (`yaml`) | 协议 | 13a | 平台映射 | [PR 13a 行为规则](#pr-13a-行为规则) | [PR 13a 行为规则](#pr-13a-行为规则) | `tests/yaml.rs`；全部冻结 yaml_scalars；416 状态差分 | 已验证 |
 | `Decimal.Value` | `Decimal::value(&self) -> String` | 协议 | 13d | 平台映射 | 见 PR 13d 行为规则 | 失败原子；只读无变化 | tests/sql.rs；sql.jsonl | 已验证 |
-| `DecodeHook` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
+| `DecodeHook` | `config::decode_decimal/decode_nullable(ConfigValue) -> Result<_, DecimalError>`；`deserialize_json_decimal/deserialize_json_nullable` | 生态 | 15 | 平台映射：类型化配置输入与 Serde JSON 字段 | 见 PR 15c 行为规则 | 新建目标；null/非有限/非法输入返回错误 | tests/config.rs；config.jsonl | 已验证 |
 | `DefaultGoPlaygroundValidatorTranslationMessages` | `default_validation_messages(locale: &str) -> BTreeMap<String, String>` | 生态 | 15 | 平台映射：无全局注册的 Rust 精确规则/消息 | 见 PR 15b 行为规则 | 非法规则参数返回 InvalidArgument；数值只读 | tests/validation.rs；validation.jsonl | 已验证 |
 | `ErrDivideByZero` | `ErrorKind::DivideByZero` | 核心 | 03 | 直接移植 | 稳定类别声明；可通过 matches 查询，允许多类别 | 声明本身不失败；具体入口失败行为随相应 PR 验证 | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `ErrInvalidArgument` | `ErrorKind::InvalidArgument` | 核心 | 03 | 直接移植 | 稳定类别声明；可通过 matches 查询，允许多类别 | 声明本身不失败；具体入口失败行为随相应 PR 验证 | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
@@ -283,3 +283,9 @@ validation 可选功能提供 ValidationRule::parse、matches/validate、validat
 非法规则参数在构造时返回 InvalidArgument，代替 Go 在使用非法静态 struct tag 时 panic；批量验证按输入顺序返回全部失败规则（Go 框架通常先返回字段的首个失败规则）。框架反射、omitempty 和其他字段类型由应用显式处理，不隐式接受 Nullable 或浮点。传入 NullDecimal 时由应用先检查 valid，再验证 decimal。
 13 组内置 locale 模板保留固定基线文本及语言后缀回退，未知语言使用英语。with_messages 以英语补缺省项；空模板、未知 tag 和非 {0}/{1} 占位符返回 InvalidArgument，代替 translator 的运行期注册错误。translate 插入字段与参数字面文本，不再次解析替换后的占位符，也不提供 HTML 转义；输出按普通文本处理。模板每次返回独立拥有的 map，调用者修改不会污染默认值。
 136 例差分使用真实 Go Struct 动态字段 tag 调用（Var 对 struct 不执行这些字段规则），覆盖数值/状态规则及全部 locale；额外 Rust 回归验证超 f64 精度、非法参数、消息顺序、占位符字面插入及独立模板所有权。
+
+## PR 15c 配置解码
+
+config 功能启用 serde/json 和 serde_json/raw_value。ConfigValue 接收 text/bytes/原文 Number、有/无符号整数、显式 f32/f64、Decimal/NullDecimal 与 null；对象值以 clone 交付。Rust 的 i128/u128 精确扩展 Go 64 位整数输入范围。bool/其他类型、非有限浮点被拒绝。普通 Decimal 目标拒绝 null 和空文本；NullDecimal 目标接受 null、长度为零的 text/bytes 为无效默认状态，Number 空文本仍非法，纯空白不等于空文本。有效内部 nil 状态在类型化克隆时保持，不强制初始化。
+Serde 的 deserialize_json_decimal/deserialize_json_nullable 是 JSON 原文专用字段适配，以 RawValue 获取数字 token，任何小数或超大整数均不经过 f64。它们支持 serde_json 原文反序列化，不声称任意 Serde 后端或已转换为 Value/f64 的数据仍保留原始表示。普通字段 null/空字符串报错，可空字段 null/空字符串为无效；缺失字段由调用者的 #[serde(default)] 明确决定。配置新建目标不使用协议层 Decimal null=no-op 规则。
+152 例 Go DecodeHook 差分覆盖类型与空值/错误，Serde 配置结构体回归覆盖超过 f64 精度的数字、科学记数法、缺失/null/空字符串、恶意伪 Number 对象和完整状态。全部 166 项 Go API 已有明确 Rust 实现或平台映射和验证证据，发布检查不再允许延后入口。

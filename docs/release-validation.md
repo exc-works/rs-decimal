@@ -28,3 +28,9 @@ Rust 1.85 MSRV Clippy、全 feature 单元测试、cargo package 和打包产物
 复跑：`python3 tools/conformance/benchmark.py --go .cache/go-reference --rust target/release/decimal-conformance`。CI 将 core-gates、fuzz 与 benchmark JSON 保存为工件。计时不设跨机器绝对阈值；正确性失败始终阻止通过。
 
 版本保持 0.1.0-alpha.1，MSRV 1.85，尚未发布或合并。后续框架入口在各自独立 PR 中验证真实数据库、精确配置 token 和验证错误消息。已说明的兼容差异集中在 API 矩阵：极端零除数先报错防资源耗尽、Rust 格式/Serde 类型系统、XML 文档与回调边界、Go 框架的 Rust 映射。
+
+## 生态实施完成
+
+PR 15a/15b/15c 已加入用户选定的 PostgreSQL SQLx、精确规则/13 组消息与 Serde JSON 配置。166 项基线 API 均有对应映射，门禁不再允许“延后”。新增验证/配置差分 288 例，全量固定语料为 21,579 例；真实 PostgreSQL 最大合法 NUMERIC、NULL/数组、文本/二进制往返通过。
+
+发布门禁审核修复了固定上游源码调用参数误移以及 Windows 无后缀可执行文件问题，另修复 job env 中不支持的 runner 上下文，改为 matrix.os。最新发布门禁 PR #18 与 PostgreSQL PR #19 已在 Linux 32/64、macOS、Windows 实际通过，PostgreSQL CI 服务通过；增加固定 actionlint 1.7.7 校验防止类似工作流表达式错误。后续新增 PR 持续沿用同一验证组合。
