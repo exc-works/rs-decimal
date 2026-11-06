@@ -224,3 +224,31 @@ fn null_semantics_and_parser_boundaries() {
     );
     assert_eq!(NullDecimal::default().marshal_yaml(), None);
 }
+
+#[test]
+fn custom_tags_and_later_document_syntax() {
+    for text in [
+        "!null 123",
+        "!bool 123",
+        "!int 012",
+        "!str 012",
+        "!<tag:example.com,2026:null> 123",
+    ] {
+        let mut d = Decimal::new(9);
+        d.unmarshal_yaml(text).unwrap();
+        assert_eq!(
+            d,
+            Decimal::new(if text.ends_with("012") { 12 } else { 123 })
+        );
+    }
+    for text in ["---\n1\n---\n[2", "---\n1\n---\n{a:"] {
+        let mut n = NullDecimal::new(Decimal::new_with_prec(1230, 2));
+        assert!(
+            n.unmarshal_yaml(text)
+                .unwrap_err()
+                .matches(ErrorKind::Unmarshal)
+        );
+        assert!(n.valid);
+        assert_eq!(n.decimal.string_with_trailing_zeros(), "12.30");
+    }
+}

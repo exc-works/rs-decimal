@@ -40,14 +40,12 @@ fn decode(source: &str) -> Result<Option<Decimal>, DecimalError> {
     loop {
         match parser.next_token().map_err(|_| invalid())?.0 {
             Event::StreamStart => {}
-            Event::DocumentEnd => break,
+            Event::DocumentEnd => {}
             Event::DocumentStart => {
                 docs += 1;
-                if docs > 1 {
-                    return Err(invalid());
-                }
             }
             Event::StreamEnd => break,
+            _ if docs > 1 => {}
             Event::Scalar(value, style, _, tag) => {
                 if scalar.is_some() {
                     return Err(invalid());
@@ -70,7 +68,13 @@ fn scalar_value(
     if matches!(style, TScalarStyle::Literal | TScalarStyle::Folded) {
         return Err(number_error());
     }
-    let tagged = tag.map(|t| t.suffix.as_str());
+    let tagged = tag.map(|t| {
+        if t.handle == "tag:yaml.org,2002:" {
+            t.suffix.as_str()
+        } else {
+            "custom"
+        }
+    });
     let plain = style == TScalarStyle::Plain;
     if tagged == Some("null")
         || tagged.is_none() && plain && matches!(text, "" | "null" | "Null" | "NULL" | "~")

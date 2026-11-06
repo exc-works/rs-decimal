@@ -254,4 +254,4 @@ MarshalBinary 为四字节大端 scale 加 Go math/big.Int Gob version=1/sign �
 ## PR 13a 行为规则
 
 yaml 功能通过 yaml-rust2 0.13.0 事件解析器读取原文 scalar、引号和标签；普通 012 按基线整数解析为八进制十，带引号/!!str 的 012 按十进制字符串解析为十二。整数前缀/下划线及 float 小数点规范化保持基线，超过 resolver 整数范围时退回原文字符串；任何 resolver 浮点仅用于判断类型，不提供数值位数。
-MarshalYAML 返回语义上的字符串 scalar（NullDecimal 为 Option<String>），由调用者 YAML emitter 输出。原地 YAML null 对 Decimal no-op，对 NullDecimal 清空。错误保留状态；类别区分结构/解析的 Unmarshal 与数值的 InvalidFormat+Unmarshal。映射、序列、布尔值不能作为 Decimal。块 scalar 按固定 Go 适配器拒绝，多文档入口只解码第一份；保持基线，不扩充为通用文档对象映射。
+MarshalYAML 返回语义上的字符串 scalar（NullDecimal 为 Option<String>），由调用者 YAML emitter 输出。原地 YAML null 对 Decimal no-op，对 NullDecimal 清空。错误保留状态；类别区分结构/解析的 Unmarshal 与数值的 InvalidFormat+Unmarshal。映射、序列、布尔值不能作为 Decimal。块 scalar 按固定 Go 适配器拒绝，多文档入口校验整个输入流语法，仅使用第一份的值；内置标签须匹配标准 tag:yaml.org,2002: 命名空间，自定义同名标签按底层值解析；保持基线，不扩充为通用文档对象映射。
