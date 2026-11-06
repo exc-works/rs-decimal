@@ -76,6 +76,7 @@ fn execute(req: &Request) -> Value {
                     valid: p("valid") == "true",
                 };
                 let err = match (nullable, p("format")) {
+                    (false, "binary") => n.decimal.unmarshal_binary(&decode_hex(p("text"))),
                     (true, "json") => n.unmarshal_json(p("text").as_bytes()),
                     (false, "json") => n.decimal.unmarshal_json(p("text").as_bytes()),
                     (true, "text") => n.unmarshal_text(p("text").as_bytes()),
@@ -87,6 +88,9 @@ fn execute(req: &Request) -> Value {
                 response["receiver_after"] = json!({"decimal":capture(&n.decimal),"valid":if nullable {json!(n.valid)}else{Value::Null}});
                 err.map(|_| response["receiver_after"].clone())
             }
+            "encode_binary" if values.len() == 1 => values[0]
+                .marshal_binary()
+                .map(|bytes| json!(encode_hex(&bytes))),
             "encode_json" if values.len() == 1 => {
                 let n = rs_decimal::NullDecimal {
                     decimal: values[0].clone(),
@@ -384,6 +388,24 @@ fn execute(req: &Request) -> Value {
         }
     }
     response
+}
+
+fn encode_hex(bytes: &[u8]) -> String {
+    const HEX: &[u8] = b"0123456789abcdef";
+    let mut out = String::with_capacity(bytes.len() * 2);
+    for b in bytes {
+        out.push(HEX[(b >> 4) as usize] as char);
+        out.push(HEX[(b & 15) as usize] as char);
+    }
+    out
+}
+
+fn decode_hex(text: &str) -> Vec<u8> {
+    assert!(text.len() % 2 == 0);
+    (0..text.len())
+        .step_by(2)
+        .map(|i| u8::from_str_radix(&text[i..i + 2], 16).unwrap())
+        .collect()
 }
 
 fn capture(d: &Decimal) -> Value {

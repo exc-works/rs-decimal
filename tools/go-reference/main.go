@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -135,6 +136,12 @@ func execute(req request) (r response) {
 		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
 		var err error
 		switch {
+		case !nullable && params["format"] == "binary":
+			bytes, e := hex.DecodeString(params["text"])
+			if e != nil {
+				panic(e)
+			}
+			err = n.Decimal.UnmarshalBinary(bytes)
 		case nullable && params["format"] == "json":
 			err = n.UnmarshalJSON([]byte(params["text"]))
 		case !nullable && params["format"] == "json":
@@ -161,6 +168,15 @@ func execute(req request) (r response) {
 		} else {
 			r.Outcome = "ok"
 			r.Result = r.Receiver
+		}
+	case "encode_binary":
+		bytes, err := values[0].MarshalBinary()
+		if err != nil {
+			r.Outcome = "error"
+			r.Errors = kinds(err)
+		} else {
+			r.Outcome = "ok"
+			r.Result = hex.EncodeToString(bytes)
 		}
 	case "encode_json":
 		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}

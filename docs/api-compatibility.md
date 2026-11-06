@@ -51,7 +51,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.Log2` | `Decimal::log2(&self) -> Self` | 核心 | 09 | 直接移植 | [PR 09 行为规则](#pr-09-行为规则) | [PR 09 行为规则](#pr-09-行为规则) | `tests/transcendentals.rs`；348 个差分，320 个区间证书；全量 45 个固定 must-succeed | 已验证 |
 | `Decimal.Log2WithPrec` | `Decimal::log2_with_prec(&self, prec: isize) -> Result<Self, DecimalError>` | 核心 | 09 | 直接移植 | [PR 09 行为规则](#pr-09-行为规则) | [PR 09 行为规则](#pr-09-行为规则) | `tests/transcendentals.rs`；348 个差分，320 个区间证书；全量 45 个固定 must-succeed | 已验证 |
 | `Decimal.MarshalBSONValue` | Decimal::marshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.MarshalBinary` | Decimal::marshal_binary（签名待设计） | 协议 | 12 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.MarshalBinary` | `Decimal::marshal_binary(&self) -> Result<Vec<u8>, DecimalError>` | 协议 | 12 | 直接移植 | [PR 12 行为规则](#pr-12-行为规则) | [PR 12 行为规则](#pr-12-行为规则) | `tests/binary.rs`；142 差分，109 个双向跨语言编码/解码；32 位实际 CI | 已验证 |
 | `Decimal.MarshalJSON` | `Decimal::marshal_json(&self) -> Vec<u8>` (`json`) | 协议 | 11 | 直接移植 | [PR 11 行为规则](#pr-11-行为规则) | [PR 11 行为规则](#pr-11-行为规则) | `tests/json.rs`；444 个 JSON 完整状态差分；独立 feature 组合 | 已验证 |
 | `Decimal.MarshalText` | `Decimal::marshal_text(&self) -> Vec<u8>` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
 | `Decimal.MarshalXML` | Decimal::marshal_xml（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
@@ -95,7 +95,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.TruncateWithPrec` | `Decimal::truncate_with_prec(&self, prec: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Uint64` | `Decimal::uint64(&self) -> (u64, bool)` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
 | `Decimal.UnmarshalBSONValue` | Decimal::unmarshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.UnmarshalBinary` | Decimal::unmarshal_binary（签名待设计） | 协议 | 12 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.UnmarshalBinary` | `Decimal::unmarshal_binary(&mut self, bytes: &[u8]) -> Result<(), DecimalError>` | 协议 | 12 | 直接移植 | [PR 12 行为规则](#pr-12-行为规则) | [PR 12 行为规则](#pr-12-行为规则) | `tests/binary.rs`；142 差分，109 个双向跨语言编码/解码；32 位实际 CI | 已验证 |
 | `Decimal.UnmarshalJSON` | `Decimal::unmarshal_json(&mut self, bytes: &[u8]) -> Result<(), DecimalError>` (`json`) | 协议 | 11 | 直接移植 | [PR 11 行为规则](#pr-11-行为规则) | [PR 11 行为规则](#pr-11-行为规则) | `tests/json.rs`；444 个 JSON 完整状态差分；独立 feature 组合 | 已验证 |
 | `Decimal.UnmarshalParam` | `Decimal::unmarshal_param(&mut self, param: &str) -> Result<(), DecimalError>` | 协议 | 10b | 平台映射：保留输入规则，不实现 Gin 接口 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
 | `Decimal.UnmarshalText` | `Decimal::unmarshal_text(&mut self, text: &[u8]) -> Result<(), DecimalError>` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
@@ -157,7 +157,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `NullDecimal.Valid` | `valid: bool` | 协议 | 03 | 直接移植 | Default 未初始化零；Valid 独立于内部 Decimal | 由类型和构造器保持内部不变量 | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `NullDecimal.Value` | NullDecimal::value（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `One` | `one() -> Decimal` | 核心 | 03 | 平台映射：只读构造函数 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `PrecisionFixedSize` | 待设计 | 协议 | 12 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `PrecisionFixedSize` | `PRECISION_FIXED_SIZE: usize = 4` | 协议 | 12 | 直接移植 | [PR 12 行为规则](#pr-12-行为规则) | [PR 12 行为规则](#pr-12-行为规则) | `tests/binary.rs`；142 差分，109 个双向跨语言编码/解码；32 位实际 CI | 已验证 |
 | `RegisterGoPlaygroundValidator` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
 | `RegisterGoPlaygroundValidatorTranslations` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
 | `RegisterGoPlaygroundValidatorTranslationsWithMessages` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
@@ -245,3 +245,8 @@ Decimal 的空文本非法，NullDecimal 仅对长度为零的文本/参数重�
 
 json 可选功能的 MarshalJSON 编码初始化 Decimal 为紧凑字符串、未初始化为 null；NullDecimal 只依 Valid 决定 null，有效内部 nil 编码为字符串零。UnmarshalJSON 的普通 Decimal null 为 no-op，NullDecimal null 清空全部状态；缺失字段不触发入口。JSON 数字用 arbitrary_precision 验证语法后按原文精确解析，空字符串非法，失败原子并保留 Unmarshal/InvalidFormat 的适用类别。JSON 空白仅四种 ASCII；字符串转义、非法 UTF-8 和未配对 surrogate 的替换行为匹配 Go。
 serde 为独立可选类型集成：Serialize 采用上述字符串/null 规则；Deserialize 新建值，null 产生默认状态，接受字符串和精确整数 visitor，拒绝浮点和对象。它不声称所有 Serde 后端保留 JSON 数字 token；小数或超大原文数值请调用 json 的 unmarshal_json，避免 f64 丢位。JSON 与 serde 可分别启用；json 不隐式开启 serde 类型实现。
+
+## PR 12 行为规则
+
+MarshalBinary 为四字节大端 scale 加 Go math/big.Int Gob version=1/sign 字节及大端绝对值；先去尾零，未初始化返回空 bytes，零归一化为 scale=0。归一化后 scale 超过 131072 返回 InvalidPrecision。解码空 bytes 为初始化零，只有 precision 前缀且没有 Gob 载荷时按 Go 规则接受零，允许非规范前导零和零符号。
+解码先以 u32 验证 precision 再转 usize，非法长度、版本或 precision 返回 Unmarshal，接收者保持原样。规范编码字节一致，双向跨语言测试以源状态独立计算规范化预期；原生极端 scale 测例按指针位宽实例化。
