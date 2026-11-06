@@ -60,3 +60,5 @@ Decimal 保留系数和 scale；Default 为未初始化零，数值相等不代�
 完整协议门禁、分组计时与长期随机验证见 [发布候选验证](docs/release-validation.md)。执行 `python3 tools/check-release-matrix.py` 检查 API 承诺状态；本仓库工作流不自动发布 crate。
 
 `postgres` 为 SQLx 0.8.6 提供精确 NUMERIC/NUMERIC[] 类型实现，支持 Nullable 与范围拒绝；运行时/TLS 由应用选择。见 [PostgreSQL 使用与真实验证](docs/postgres.md)。
+
+`validation` 提供 `ValidationRule` 的 12 种精确数值规则、scale 检查和 `ValidationMessages` 的 13 组语言模板；非法规则在构造时返回错误，无全局注册或浮点比较。

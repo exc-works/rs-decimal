@@ -83,6 +83,10 @@ def compare(requests, left, right, expected=None):
                 result = response["result"]
                 if not isinstance(result, dict) or set(result) != {"type", "data"} or result["type"] not in {"2", "10"} or not isinstance(result["data"], str) or not re.fullmatch(r"(?:[0-9a-f]{2})*", result["data"]):
                     raise ConformanceError("invalid BSON payload")
+            if want == "ok" and req["operation"] == "validate" and type(response["result"]) is not bool:
+                raise ConformanceError("invalid validation result")
+            if want == "ok" and req["operation"] == "messages" and (not isinstance(response["result"], dict) or len(response["result"]) != 12 or not all(isinstance(k,str) and isinstance(v,str) for k,v in response["result"].items())):
+                raise ConformanceError("invalid validation templates")
             if req["operation"] == "decode":
                 receiver = response.get("receiver_after")
                 nullable = req["params"]["nullable"] == "true"
