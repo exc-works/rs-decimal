@@ -1,3 +1,4 @@
+use rs_decimal::{BigInt, Decimal, DecimalError};
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use std::io::{self, BufRead, Write};
@@ -11,6 +12,16 @@ struct State {
 }
 
 impl State {
+    fn decimal(&self) -> Decimal {
+        if self.initialized {
+            Decimal::new_from_big_int_with_prec(
+                &self.coefficient.parse::<BigInt>().unwrap(),
+                self.scale.parse().unwrap(),
+            )
+        } else {
+            Decimal::default()
+        }
+    }
     fn valid(&self) -> bool {
         let digits = self
             .coefficient
@@ -43,7 +54,6 @@ struct Request {
 }
 
 fn execute(req: &Request) -> Value {
-    let _ = &req.params;
     let mut response = json!({"schema_version": 1, "case_id": req.case_id,
         "outcome": "unsupported", "inputs_after": req.inputs, "error_kinds": []});
     if req.schema_version != 1 || req.case_id.is_empty() || !req.inputs.iter().all(State::valid) {
@@ -53,10 +63,81 @@ fn execute(req: &Request) -> Value {
             response["outcome"] = json!("protocol_error");
         } else {
             response["outcome"] = json!("ok");
-            response["result"] = json!(req.inputs[0]);
+            response["result"] = capture(&req.inputs[0].decimal());
+        }
+    } else {
+        let values: Vec<_> = req.inputs.iter().map(State::decimal).collect();
+        let p = |key: &str| req.params[key].as_str().expect("missing string parameter");
+        let result: Result<Value, DecimalError> = match req.operation.as_str() {
+            "parse" => Decimal::new_from_string(p("text")).map(|d| capture(&d)),
+            "must_parse" => Ok(capture(&Decimal::must_from_string(p("text")))),
+            "construct" => {
+                let prec = req.params["precision"]
+                    .as_str()
+                    .unwrap_or("0")
+                    .parse()
+                    .unwrap();
+                let d = match p("kind") {
+                    "new" => Decimal::new(p("value").parse().unwrap()),
+                    "int" => Decimal::new_from_int(p("value").parse().unwrap()),
+                    "with_prec" => Decimal::new_with_prec(p("value").parse().unwrap(), prec),
+                    "int64" => Decimal::new_from_int64(p("value").parse().unwrap(), prec),
+                    "uint64" => Decimal::new_from_uint64(p("value").parse().unwrap(), prec),
+                    "big_int" => Decimal::new_from_big_int(&p("value").parse().unwrap()),
+                    "big_int_prec" => {
+                        Decimal::new_from_big_int_with_prec(&p("value").parse().unwrap(), prec)
+                    }
+                    "append" => Decimal::new_with_append_prec(p("value").parse().unwrap(), prec),
+                    "uint_append" => {
+                        Decimal::new_from_uint_with_append_prec(p("value").parse().unwrap(), prec)
+                    }
+                    _ => return response,
+                };
+                Ok(capture(&d))
+            }
+            "inspect" if values.len() == 1 => {
+                let d = &values[0];
+                Ok(
+                    json!({"sign":d.sign().to_string(),"nil":d.is_nil(),"zero":d.is_zero(),"not_zero":d.is_not_zero(),"positive":d.is_positive(),"negative":d.is_negative(),"precision":d.precision().to_string()}),
+                )
+            }
+            "cmp" if values.len() == 2 => {
+                let (a, b) = (&values[0], &values[1]);
+                Ok(
+                    json!({"cmp":a.cmp(b).to_string(),"equal":a.equal(b),"not_equal":a.not_equal(b),"gt":a.gt(b),"gte":a.gte(b),"lt":a.lt(b),"lte":a.lte(b)}),
+                )
+            }
+            "max" if values.len() == 2 => Ok(capture(&Decimal::max(&values[0], &values[1]))),
+            "min" if values.len() == 2 => Ok(capture(&Decimal::min(&values[0], &values[1]))),
+            "between" if values.len() == 3 => Ok(json!(rs_decimal::between(
+                &values[0], &values[1], &values[2]
+            ))),
+            "clone" if values.len() == 1 => Ok(capture(&Decimal::new_from_decimal(&values[0]))),
+            "abs" if values.len() == 1 => Ok(capture(&values[0].abs())),
+            "neg" if values.len() == 1 => Ok(capture(&values[0].neg())),
+            _ => return response,
+        };
+        match result {
+            Ok(value) => {
+                response["outcome"] = json!("ok");
+                response["result"] = value;
+            }
+            Err(e) => {
+                response["outcome"] = json!("error");
+                response["error_kinds"] = json!(
+                    e.kinds()
+                        .iter()
+                        .map(|k| format!("{k:?}"))
+                        .collect::<Vec<_>>()
+                );
+            }
         }
     }
     response
+}
+
+fn capture(d: &Decimal) -> Value {
+    json!({"coefficient":d.big_int().to_string(),"scale":d.precision().to_string(),"initialized":!d.is_nil()})
 }
 
 fn main() -> io::Result<()> {
@@ -65,9 +146,17 @@ fn main() -> io::Result<()> {
         let line = line?;
         let request: Request = serde_json::from_str(&line)
             .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))?;
-        let result = std::panic::catch_unwind(|| execute(&request)).unwrap_or_else(|_| {
+        let result = std::panic::catch_unwind(|| execute(&request)).unwrap_or_else(|panic| {
+            let kinds = if let Some(e) = panic.downcast_ref::<DecimalError>() {
+                e.kinds()
+                    .iter()
+                    .map(|k| format!("{k:?}"))
+                    .collect::<Vec<_>>()
+            } else {
+                vec!["Assertion".into()]
+            };
             json!({"schema_version":1,"case_id":request.case_id,
-                "outcome":"panic","error_kinds":["Unclassified"],"inputs_after":request.inputs})
+                "outcome":"panic","error_kinds":kinds,"inputs_after":request.inputs})
         });
         serde_json::to_writer(&mut stdout, &result)?;
         writeln!(&mut stdout)?;
