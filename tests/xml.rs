@@ -5,6 +5,8 @@ use rs_decimal::{Decimal, ErrorKind, NullDecimal};
 fn content_attributes_and_exact_digits() {
     let mut d = Decimal::default();
     for source in [
+        "<v a='&lt;'>1.2300</v>",
+        "<v>1.2300<child>]]&gt;</child></v>",
         "<v> 1.2300 </v>",
         "<v><![CDATA[1.2300]]></v>",
         "<v>&#49;.2300</v>",
@@ -28,6 +30,9 @@ fn content_attributes_and_exact_digits() {
 fn nullable_state_and_atomic_failure() {
     let mut n = NullDecimal::new(Decimal::new_with_prec(1230, 2));
     for text in [
+        "<v a='<'>1</v>",
+        "<v a='<'/>",
+        "<v>1<child>]]></child></v>",
         "<1>1</1>",
         "<v 1='x'>1</v>",
         "<v>bad</v>",
