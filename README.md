@@ -1,6 +1,6 @@
 # rs-decimal
 
-rs-decimal 计划提供与 exc-works/decimal 数值和状态行为兼容的 Rust 实现。当前已建立 Rust crate 骨架与固定兼容基线；数值 API 尚未实现，crate 尚未发布。
+rs-decimal 计划提供与 exc-works/decimal 数值和状态行为兼容的 Rust 实现。当前已建立 Rust crate 骨架与固定兼容基线；类型、基础构造、解析与比较已实现，舍入和算术等 API 正在后续 PR 中实现，crate 尚未发布。
 
 ## 开发
 

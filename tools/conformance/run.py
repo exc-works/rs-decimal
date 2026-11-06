@@ -71,8 +71,20 @@ def compare(requests, left, right, expected=None):
                 validate_state(state)
             if want == "ok" and "result" not in response:
                 raise ConformanceError("missing successful result")
-            if want == "ok" and req["operation"] == "state":
+            if response["inputs_after"] != req["inputs"]:
+                raise ConformanceError("operation mutated input operands")
+            if want == "ok" and req["operation"] in {"state", "parse", "must_parse", "construct", "min", "max", "clone", "abs", "neg"}:
                 validate_state(response["result"])
+            if want == "ok" and req["operation"] in {"inspect", "cmp"}:
+                result = response["result"]
+                numeric = {"sign", "precision"} if req["operation"] == "inspect" else {"cmp"}
+                boolean = {"nil", "zero", "not_zero", "positive", "negative"} if req["operation"] == "inspect" else {"equal", "not_equal", "gt", "gte", "lt", "lte"}
+                if not isinstance(result, dict) or set(result) != numeric | boolean:
+                    raise ConformanceError("incomplete inspection/comparison result")
+                if any(type(result[k]) is not bool for k in boolean) or any(not isinstance(result[k], str) or not re.fullmatch(r"0|-?[1-9][0-9]*", result[k]) for k in numeric):
+                    raise ConformanceError("invalid inspection/comparison result types")
+            if want == "ok" and req["operation"] == "between" and type(response["result"]) is not bool:
+                raise ConformanceError("invalid boolean result")
         a, b = dict(a), dict(b)
         a["error_kinds"] = sorted(set(a["error_kinds"]))
         b["error_kinds"] = sorted(set(b["error_kinds"]))

@@ -100,7 +100,84 @@ func execute(req request) (r response) {
 		}
 		values = append(values, v)
 	}
+	params := map[string]string{}
+	if len(req.Params) > 0 {
+		if err := json.Unmarshal(req.Params, &params); err != nil {
+			r.Outcome = "protocol_error"
+			return
+		}
+	}
+	set := func(v d.Decimal, err error) {
+		if err != nil {
+			r.Outcome = "error"
+			r.Errors = kinds(err)
+		} else {
+			r.Outcome = "ok"
+			r.Result = capture(v)
+		}
+	}
+	integer := func(key string) int {
+		s := params[key]
+		if s == "" {
+			return 0
+		}
+		n, err := strconv.Atoi(s)
+		if err != nil {
+			panic(err)
+		}
+		return n
+	}
 	switch req.Operation {
+	case "parse":
+		set(d.NewFromString(params["text"]))
+	case "must_parse":
+		set(d.MustFromString(params["text"]), nil)
+	case "construct":
+		p := integer("precision")
+		i, _ := strconv.ParseInt(params["value"], 10, 64)
+		u, _ := strconv.ParseUint(params["value"], 10, 64)
+		b, _ := new(big.Int).SetString(params["value"], 10)
+		switch params["kind"] {
+		case "new":
+			set(d.New(i), nil)
+		case "int":
+			set(d.NewFromInt(int(i)), nil)
+		case "with_prec":
+			set(d.NewWithPrec(i, p), nil)
+		case "int64":
+			set(d.NewFromInt64(i, p), nil)
+		case "uint64":
+			set(d.NewFromUint64(u, p), nil)
+		case "big_int":
+			set(d.NewFromBigInt(b), nil)
+		case "big_int_prec":
+			set(d.NewFromBigIntWithPrec(b, p), nil)
+		case "append":
+			set(d.NewWithAppendPrec(i, p), nil)
+		case "uint_append":
+			set(d.NewFromUintWithAppendPrec(u, p), nil)
+		}
+	case "inspect":
+		v := values[0]
+		r.Outcome = "ok"
+		r.Result = map[string]any{"sign": strconv.Itoa(v.Sign()), "nil": v.IsNil(), "zero": v.IsZero(), "not_zero": v.IsNotZero(), "positive": v.IsPositive(), "negative": v.IsNegative(), "precision": strconv.Itoa(v.Precision())}
+	case "cmp":
+		a, b := values[0], values[1]
+		r.Outcome = "ok"
+		r.Result = map[string]any{"cmp": strconv.Itoa(a.Cmp(b)), "equal": a.Equal(b), "not_equal": a.NotEqual(b), "gt": a.GT(b), "gte": a.GTE(b), "lt": a.LT(b), "lte": a.LTE(b)}
+	case "max":
+		set(values[0].Max(values[1]), nil)
+	case "min":
+		set(values[0].Min(values[1]), nil)
+	case "between":
+		r.Outcome = "ok"
+		r.Result = d.Between(values[0], values[1], values[2])
+	case "clone":
+		set(d.NewFromDecimal(values[0]), nil)
+	case "abs":
+		set(values[0].Abs(), nil)
+	case "neg":
+		set(values[0].Neg(), nil)
 	case "state":
 		if len(values) != 1 {
 			r.Outcome = "protocol_error"

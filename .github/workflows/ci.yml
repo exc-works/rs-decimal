@@ -57,4 +57,5 @@ jobs:
         working-directory: tools/go-oracle
       - run: python3 tools/conformance/test_driver.py
       - run: python3 tools/conformance/run.py --go .cache/go-reference --rust target/debug/decimal-conformance --cases testdata/conformance/state.jsonl
+      - run: python3 tools/conformance/run.py --go .cache/go-reference --rust target/debug/decimal-conformance --cases testdata/conformance/representation.jsonl
       - run: python3 tools/conformance/smoke-oracle.py .cache/go-oracle
