@@ -1,5 +1,6 @@
 use crate::{ErrorKind, error::fail};
 use num_bigint::BigInt;
+use num_integer::Integer;
 
 pub(crate) const MAX_PARSED_PRECISION: usize = 1 << 17;
 
@@ -23,4 +24,14 @@ pub(crate) fn pow10(mut exponent: usize) -> BigInt {
         }
     }
     value
+}
+
+pub(crate) fn trunc_div_rem(a: &BigInt, b: &BigInt) -> (BigInt, BigInt) {
+    a.div_rem(b)
+}
+pub(crate) fn floor_div(a: &BigInt, b: &BigInt) -> BigInt {
+    a.div_floor(b)
+}
+pub(crate) fn ceil_div(a: &BigInt, b: &BigInt) -> BigInt {
+    a.div_ceil(b)
 }

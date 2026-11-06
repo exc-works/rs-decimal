@@ -1,4 +1,4 @@
-use rs_decimal::{BigInt, Decimal, DecimalError};
+use rs_decimal::{BigInt, Decimal, DecimalError, RoundingMode};
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use std::io::{self, BufRead, Write};
@@ -69,6 +69,38 @@ fn execute(req: &Request) -> Value {
         let values: Vec<_> = req.inputs.iter().map(State::decimal).collect();
         let p = |key: &str| req.params[key].as_str().expect("missing string parameter");
         let result: Result<Value, DecimalError> = match req.operation.as_str() {
+            "mode" => Ok(json!(
+                (RoundingMode::from_raw(p("mode").parse().unwrap()) as i32).to_string()
+            )),
+            "rescale" | "rescale_down" | "floor" | "ceil" | "round" | "truncate" | "shift"
+            | "strip" | "significant"
+                if values.len() == 1 =>
+            {
+                let a = &values[0];
+                let prec = req.params["precision"]
+                    .as_str()
+                    .unwrap_or("0")
+                    .parse()
+                    .unwrap();
+                let result = match req.operation.as_str() {
+                    "rescale" => {
+                        a.rescale(prec, RoundingMode::from_raw(p("mode").parse().unwrap()))
+                    }
+                    "rescale_down" => a.rescale_down(prec),
+                    "floor" => a.floor_with_prec(prec),
+                    "ceil" => a.ceil_with_prec(prec),
+                    "round" => a.round_with_prec(prec),
+                    "truncate" => a.truncate_with_prec(prec),
+                    "shift" => a.shift(p("places").parse().unwrap()),
+                    "strip" => a.strip_trailing_zeros(),
+                    "significant" => a.significant_figures(
+                        p("figures").parse().unwrap(),
+                        RoundingMode::from_raw(p("mode").parse().unwrap()),
+                    ),
+                    _ => unreachable!(),
+                };
+                Ok(capture(&result))
+            }
             "parse" => Decimal::new_from_string(p("text")).map(|d| capture(&d)),
             "must_parse" => Ok(capture(&Decimal::must_from_string(p("text")))),
             "construct" => {

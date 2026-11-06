@@ -128,6 +128,29 @@ func execute(req request) (r response) {
 		return n
 	}
 	switch req.Operation {
+	case "mode":
+		mode := integer("mode")
+		d.New(0).Rescale(0, d.RoundingMode(mode))
+		r.Outcome = "ok"
+		r.Result = strconv.Itoa(mode)
+	case "rescale":
+		set(values[0].Rescale(integer("precision"), d.RoundingMode(integer("mode"))), nil)
+	case "rescale_down":
+		set(values[0].RescaleDown(integer("precision")), nil)
+	case "floor":
+		set(values[0].FloorWithPrec(integer("precision")), nil)
+	case "ceil":
+		set(values[0].CeilWithPrec(integer("precision")), nil)
+	case "round":
+		set(values[0].RoundWithPrec(integer("precision")), nil)
+	case "truncate":
+		set(values[0].TruncateWithPrec(integer("precision")), nil)
+	case "shift":
+		set(values[0].Shift(integer("places")), nil)
+	case "strip":
+		set(values[0].StripTrailingZeros(), nil)
+	case "significant":
+		set(values[0].SignificantFigures(integer("figures"), d.RoundingMode(integer("mode"))), nil)
 	case "parse":
 		set(d.NewFromString(params["text"]))
 	case "must_parse":

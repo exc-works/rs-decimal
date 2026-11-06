@@ -41,6 +41,35 @@ func verify(req request) (status, detail string) {
 	if req.Version != 1 || req.ID == "" {
 		return "uncertified", "invalid request"
 	}
+	if req.Operation == "rescale" {
+		if len(req.Inputs) != 1 {
+			return "uncertified", "expected one operand"
+		}
+		x, _, err := rational(req.Inputs[0])
+		if err != nil {
+			return "uncertified", err.Error()
+		}
+		p, err := strconv.Atoi(req.Params["precision"])
+		if err != nil || p < 0 || p > 131072 {
+			return "uncertified", "invalid precision"
+		}
+		mode, err := strconv.Atoi(req.Params["mode"])
+		if err != nil || mode < 0 || mode > 6 {
+			return "uncertified", "invalid mode"
+		}
+		_, sg, err := rational(req.Candidate)
+		if err != nil {
+			return "mismatch", err.Error()
+		}
+		want, ok := roundedRationalReference(x, p, mode)
+		if !ok {
+			return "mismatch", "successful rounding forbidden by Unnecessary"
+		}
+		if !req.Candidate.Initialized || sg != p || req.Candidate.Coefficient != want.String() {
+			return "mismatch", "rounded coefficient or state differs"
+		}
+		return "verified", "independent exact distances to grid neighbors agree"
+	}
 	if req.Operation != "add" {
 		return "unsupported", "unknown operation"
 	}
