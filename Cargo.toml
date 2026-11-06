@@ -18,10 +18,13 @@ ryu = "=1.0.23"
 serde = { version = "=1.0.228", optional = true }
 serde_json = { version = "=1.0.145", features = ["arbitrary_precision"], optional = true }
 
+yaml-rust2 = { version = "=0.13.0", default-features = false, optional = true }
+
 [features]
 default = []
 serde = ["dep:serde"]
 json = ["dep:serde_json"]
+yaml = ["dep:yaml-rust2"]
 
 [workspace]
 members = ["tools/conformance"]

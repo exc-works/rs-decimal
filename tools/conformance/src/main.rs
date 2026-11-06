@@ -77,6 +77,8 @@ fn execute(req: &Request) -> Value {
                 };
                 let err = match (nullable, p("format")) {
                     (false, "binary") => n.decimal.unmarshal_binary(&decode_hex(p("text"))),
+                    (true, "yaml") => n.unmarshal_yaml(p("text")),
+                    (false, "yaml") => n.decimal.unmarshal_yaml(p("text")),
                     (true, "json") => n.unmarshal_json(p("text").as_bytes()),
                     (false, "json") => n.decimal.unmarshal_json(p("text").as_bytes()),
                     (true, "text") => n.unmarshal_text(p("text").as_bytes()),
@@ -91,6 +93,17 @@ fn execute(req: &Request) -> Value {
             "encode_binary" if values.len() == 1 => values[0]
                 .marshal_binary()
                 .map(|bytes| json!(encode_hex(&bytes))),
+            "encode_yaml" if values.len() == 1 => {
+                let n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                Ok(if p("nullable") == "true" {
+                    json!(n.marshal_yaml())
+                } else {
+                    json!(n.decimal.marshal_yaml())
+                })
+            }
             "encode_json" if values.len() == 1 => {
                 let n = rs_decimal::NullDecimal {
                     decimal: values[0].clone(),

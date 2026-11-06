@@ -48,3 +48,5 @@ Decimal 保留系数和 scale；Default 为未初始化零，数值相等不代�
 ## 可选 JSON 与 Serde
 
 `json` 提供 marshal_json/unmarshal_json，直接保留 JSON 数字 token，适合高精度外部输入；普通 Decimal 的 null 不修改旧值，NullDecimal 的 null 清空状态。`serde` 提供 Serialize/Deserialize，使用精确字符串、整数和 null；新建对象的 null 为默认值，没有旧状态。通用 Deserialize 拒绝浮点输入；通过 serde_json 读取原文小数时使用 json 入口或将十进制值编码为字符串。两个功能可以单独启用。
+
+`yaml` 使用保留原文的事件解析处理 scalar 文档和标签；marshal_yaml 返回可交给 YAML emitter 的字符串/可空字符串。Go 二进制互通通过 marshal_binary/unmarshal_binary，保留 wire 格式与失败原子性。

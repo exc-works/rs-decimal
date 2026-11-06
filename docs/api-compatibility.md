@@ -56,7 +56,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.MarshalText` | `Decimal::marshal_text(&self) -> Vec<u8>` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
 | `Decimal.MarshalXML` | Decimal::marshal_xml（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.MarshalXMLAttr` | Decimal::marshal_xml_attr（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.MarshalYAML` | Decimal::marshal_yaml（签名待设计） | 协议 | 13a | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.MarshalYAML` | `Decimal::marshal_yaml(&self) -> String` (`yaml`) | 协议 | 13a | 平台映射 | [PR 13a 行为规则](#pr-13a-行为规则) | [PR 13a 行为规则](#pr-13a-行为规则) | `tests/yaml.rs`；全部冻结 yaml_scalars；416 状态差分 | 已验证 |
 | `Decimal.Max` | `Decimal::max(a: &Decimal, b: &Decimal) -> Decimal` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.Min` | `Decimal::min(a: &Decimal, b: &Decimal) -> Decimal` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.Mod` | `Decimal::r#mod(&self, other: &Self) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
@@ -101,7 +101,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.UnmarshalText` | `Decimal::unmarshal_text(&mut self, text: &[u8]) -> Result<(), DecimalError>` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
 | `Decimal.UnmarshalXML` | Decimal::unmarshal_xml（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.UnmarshalXMLAttr` | Decimal::unmarshal_xml_attr（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.UnmarshalYAML` | Decimal::unmarshal_yaml（签名待设计） | 协议 | 13a | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.UnmarshalYAML` | `Decimal::unmarshal_yaml(&mut self, source: &str) -> Result<(), DecimalError>` (`yaml`) | 协议 | 13a | 平台映射 | [PR 13a 行为规则](#pr-13a-行为规则) | [PR 13a 行为规则](#pr-13a-行为规则) | `tests/yaml.rs`；全部冻结 yaml_scalars；416 状态差分 | 已验证 |
 | `Decimal.Value` | Decimal::value（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `DecodeHook` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
 | `DefaultGoPlaygroundValidatorTranslationMessages` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
@@ -144,7 +144,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `NullDecimal.MarshalText` | `NullDecimal::marshal_text(&self) -> Vec<u8>` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
 | `NullDecimal.MarshalXML` | NullDecimal::marshal_xml（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `NullDecimal.MarshalXMLAttr` | NullDecimal::marshal_xml_attr（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `NullDecimal.MarshalYAML` | NullDecimal::marshal_yaml（签名待设计） | 协议 | 13a | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.MarshalYAML` | `NullDecimal::marshal_yaml(&self) -> Option<String>` (`yaml`) | 协议 | 13a | 平台映射 | [PR 13a 行为规则](#pr-13a-行为规则) | [PR 13a 行为规则](#pr-13a-行为规则) | `tests/yaml.rs`；全部冻结 yaml_scalars；416 状态差分 | 已验证 |
 | `NullDecimal.Scan` | NullDecimal::scan（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `NullDecimal.String` | `NullDecimal::string(&self) -> String` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
 | `NullDecimal.UnmarshalBSONValue` | NullDecimal::unmarshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
@@ -153,7 +153,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `NullDecimal.UnmarshalText` | `NullDecimal::unmarshal_text(&mut self, text: &[u8]) -> Result<(), DecimalError>` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
 | `NullDecimal.UnmarshalXML` | NullDecimal::unmarshal_xml（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `NullDecimal.UnmarshalXMLAttr` | NullDecimal::unmarshal_xml_attr（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `NullDecimal.UnmarshalYAML` | NullDecimal::unmarshal_yaml（签名待设计） | 协议 | 13a | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.UnmarshalYAML` | `NullDecimal::unmarshal_yaml(&mut self, source: &str) -> Result<(), DecimalError>` (`yaml`) | 协议 | 13a | 平台映射 | [PR 13a 行为规则](#pr-13a-行为规则) | [PR 13a 行为规则](#pr-13a-行为规则) | `tests/yaml.rs`；全部冻结 yaml_scalars；416 状态差分 | 已验证 |
 | `NullDecimal.Valid` | `valid: bool` | 协议 | 03 | 直接移植 | Default 未初始化零；Valid 独立于内部 Decimal | 由类型和构造器保持内部不变量 | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `NullDecimal.Value` | NullDecimal::value（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `One` | `one() -> Decimal` | 核心 | 03 | 平台映射：只读构造函数 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
@@ -250,3 +250,8 @@ serde 为独立可选类型集成：Serialize 采用上述字符串/null 规则�
 
 MarshalBinary 为四字节大端 scale 加 Go math/big.Int Gob version=1/sign 字节及大端绝对值；先去尾零，未初始化返回空 bytes，零归一化为 scale=0。归一化后 scale 超过 131072 返回 InvalidPrecision。解码空 bytes 为初始化零，只有 precision 前缀且没有 Gob 载荷时按 Go 规则接受零，允许非规范前导零和零符号。
 解码先以 u32 验证 precision 再转 usize，非法长度、版本或 precision 返回 Unmarshal，接收者保持原样。规范编码字节一致，双向跨语言测试以源状态独立计算规范化预期；原生极端 scale 测例按指针位宽实例化。
+
+## PR 13a 行为规则
+
+yaml 功能通过 yaml-rust2 0.13.0 事件解析器读取原文 scalar、引号和标签；普通 012 按基线整数解析为八进制十，带引号/!!str 的 012 按十进制字符串解析为十二。整数前缀/下划线及 float 小数点规范化保持基线，超过 resolver 整数范围时退回原文字符串；任何 resolver 浮点仅用于判断类型，不提供数值位数。
+MarshalYAML 返回语义上的字符串 scalar（NullDecimal 为 Option<String>），由调用者 YAML emitter 输出。原地 YAML null 对 Decimal no-op，对 NullDecimal 清空。错误保留状态；类别区分结构/解析的 Unmarshal 与数值的 InvalidFormat+Unmarshal。映射、序列、布尔值不能作为 Decimal。块 scalar 按固定 Go 适配器拒绝，多文档入口只解码第一份；保持基线，不扩充为通用文档对象映射。
