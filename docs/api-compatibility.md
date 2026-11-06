@@ -53,7 +53,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.MarshalBSONValue` | Decimal::marshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.MarshalBinary` | Decimal::marshal_binary（签名待设计） | 协议 | 12 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.MarshalJSON` | Decimal::marshal_json（签名待设计） | 协议 | 11 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.MarshalText` | Decimal::marshal_text（签名待设计） | 协议 | 10b | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.MarshalText` | `Decimal::marshal_text(&self) -> Vec<u8>` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
 | `Decimal.MarshalXML` | Decimal::marshal_xml（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.MarshalXMLAttr` | Decimal::marshal_xml_attr（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.MarshalYAML` | Decimal::marshal_yaml（签名待设计） | 协议 | 13a | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
@@ -97,8 +97,8 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.UnmarshalBSONValue` | Decimal::unmarshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.UnmarshalBinary` | Decimal::unmarshal_binary（签名待设计） | 协议 | 12 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.UnmarshalJSON` | Decimal::unmarshal_json（签名待设计） | 协议 | 11 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.UnmarshalParam` | Decimal::unmarshal_param（签名待设计） | 协议 | 10b | 平台映射：保留输入规则，不实现 Gin 接口 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.UnmarshalText` | Decimal::unmarshal_text（签名待设计） | 协议 | 10b | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.UnmarshalParam` | `Decimal::unmarshal_param(&mut self, param: &str) -> Result<(), DecimalError>` | 协议 | 10b | 平台映射：保留输入规则，不实现 Gin 接口 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
+| `Decimal.UnmarshalText` | `Decimal::unmarshal_text(&mut self, text: &[u8]) -> Result<(), DecimalError>` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
 | `Decimal.UnmarshalXML` | Decimal::unmarshal_xml（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.UnmarshalXMLAttr` | Decimal::unmarshal_xml_attr（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.UnmarshalYAML` | Decimal::unmarshal_yaml（签名待设计） | 协议 | 13a | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
@@ -141,16 +141,16 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `NullDecimal.Decimal` | `decimal: Decimal` | 协议 | 03 | 直接移植 | Default 未初始化零；Valid 独立于内部 Decimal | 由类型和构造器保持内部不变量 | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `NullDecimal.MarshalBSONValue` | NullDecimal::marshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `NullDecimal.MarshalJSON` | NullDecimal::marshal_json（签名待设计） | 协议 | 11 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `NullDecimal.MarshalText` | NullDecimal::marshal_text（签名待设计） | 协议 | 10b | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.MarshalText` | `NullDecimal::marshal_text(&self) -> Vec<u8>` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
 | `NullDecimal.MarshalXML` | NullDecimal::marshal_xml（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `NullDecimal.MarshalXMLAttr` | NullDecimal::marshal_xml_attr（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `NullDecimal.MarshalYAML` | NullDecimal::marshal_yaml（签名待设计） | 协议 | 13a | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `NullDecimal.Scan` | NullDecimal::scan（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `NullDecimal.String` | NullDecimal::string（签名待设计） | 协议 | 10b | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.String` | `NullDecimal::string(&self) -> String` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
 | `NullDecimal.UnmarshalBSONValue` | NullDecimal::unmarshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `NullDecimal.UnmarshalJSON` | NullDecimal::unmarshal_json（签名待设计） | 协议 | 11 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `NullDecimal.UnmarshalParam` | NullDecimal::unmarshal_param（签名待设计） | 协议 | 10b | 平台映射：保留输入规则，不实现 Gin 接口 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `NullDecimal.UnmarshalText` | NullDecimal::unmarshal_text（签名待设计） | 协议 | 10b | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.UnmarshalParam` | `NullDecimal::unmarshal_param(&mut self, param: &str) -> Result<(), DecimalError>` | 协议 | 10b | 平台映射：保留输入规则，不实现 Gin 接口 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
+| `NullDecimal.UnmarshalText` | `NullDecimal::unmarshal_text(&mut self, text: &[u8]) -> Result<(), DecimalError>` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
 | `NullDecimal.UnmarshalXML` | NullDecimal::unmarshal_xml（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `NullDecimal.UnmarshalXMLAttr` | NullDecimal::unmarshal_xml_attr（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `NullDecimal.UnmarshalYAML` | NullDecimal::unmarshal_yaml（签名待设计） | 协议 | 13a | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
@@ -234,3 +234,9 @@ Ln/Log2/Log10/Exp 默认 scale 为 max(input scale,20)，显式精度保留目�
 String/Display 输出紧凑固定点十进制；StringWithTrailingZeros 保留 scale，零没有负号。两个 AppendText 入口接受 &mut Vec<u8>，保留原缓冲区前缀并追加 ASCII；Go 返回的恒为 nil 的 error 在 Rust 省略。不承诺与 Go 相同的分配次数。
 GoFormat 显式描述单个 verb、width、precision 与五个 flags；format_go 处理 v/s/q/d/f/F/e/E/g/G/b，未知 verb 和非整数 d 返回 Go 错误标记，不是 printf 格式字符串解析器。数字符号、零填充及 d 显式精度的优先级保持基线；g 在舍入后选择记数法。科学格式从系数字符串计算指数，不展开大 scale 零。
 FormatWithSeparators 使用 char，NUL thousands 禁止分组，NUL decimal 回退为点。Rust Display 始终返回紧凑文本；Go 专有宽度/精度/flags 使用 format_go，不声称 Rust 的格式语法等同 fmt。
+
+## PR 10b 行为规则
+
+MarshalText 为紧凑十进制字节，NullDecimal 无效时为空，有效但内部未初始化时为零且不初始化接收者；NullDecimal.String/Display 无效时为 null。
+Decimal 的空文本非法，NullDecimal 仅对长度为零的文本/参数重置为无效且内部未初始化；纯空白不等于空文本。其余输入精确解析，成功后整体替换，失败保留全部状态并匹配 Unmarshal 和 InvalidFormat。非法 UTF-8 与 Go 的非法十进制文本一致报错。
+差分 decode 操作在克隆的接收者上执行，另报 receiver_after 的 Decimal 完整状态及 nullable Valid；失败即使两边一致改变状态也拒绝。只读输入列表保持不变。成功状态、失败原子性和两边同时缺失接收者状态均有验证。

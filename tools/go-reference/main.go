@@ -27,12 +27,13 @@ type request struct {
 	Params    json.RawMessage `json:"params"`
 }
 type response struct {
-	Version int      `json:"schema_version"`
-	ID      string   `json:"case_id"`
-	Outcome string   `json:"outcome"`
-	Result  any      `json:"result,omitempty"`
-	Inputs  []state  `json:"inputs_after"`
-	Errors  []string `json:"error_kinds"`
+	Receiver any      `json:"receiver_after,omitempty"`
+	Version  int      `json:"schema_version"`
+	ID       string   `json:"case_id"`
+	Outcome  string   `json:"outcome"`
+	Result   any      `json:"result,omitempty"`
+	Inputs   []state  `json:"inputs_after"`
+	Errors   []string `json:"error_kinds"`
 }
 
 func capture(v d.Decimal) state {
@@ -129,6 +130,48 @@ func execute(req request) (r response) {
 		return n
 	}
 	switch req.Operation {
+	case "decode":
+		nullable := params["nullable"] == "true"
+		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		var err error
+		switch {
+		case nullable && params["format"] == "text":
+			err = n.UnmarshalText([]byte(params["text"]))
+		case nullable && params["format"] == "param":
+			err = n.UnmarshalParam(params["text"])
+		case !nullable && params["format"] == "text":
+			err = n.Decimal.UnmarshalText([]byte(params["text"]))
+		case !nullable && params["format"] == "param":
+			err = n.Decimal.UnmarshalParam(params["text"])
+		default:
+			panic("unknown decoder")
+		}
+		var valid any
+		if nullable {
+			valid = n.Valid
+		}
+		r.Receiver = map[string]any{"decimal": capture(n.Decimal), "valid": valid}
+		if err != nil {
+			r.Outcome = "error"
+			r.Errors = kinds(err)
+		} else {
+			r.Outcome = "ok"
+			r.Result = r.Receiver
+		}
+	case "encode_text":
+		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		var out []byte
+		if params["nullable"] == "true" {
+			if params["format"] == "string" {
+				out = []byte(n.String())
+			} else {
+				out, _ = n.MarshalText()
+			}
+		} else {
+			out, _ = n.Decimal.MarshalText()
+		}
+		r.Outcome = "ok"
+		r.Result = string(out)
 	case "format":
 		format := "%" + params["flags"] + params["width"]
 		if p, ok := params["precision"]; ok {

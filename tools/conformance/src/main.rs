@@ -69,6 +69,38 @@ fn execute(req: &Request) -> Value {
         let values: Vec<_> = req.inputs.iter().map(State::decimal).collect();
         let p = |key: &str| req.params[key].as_str().expect("missing string parameter");
         let result: Result<Value, DecimalError> = match req.operation.as_str() {
+            "decode" if values.len() == 1 => {
+                let nullable = p("nullable") == "true";
+                let mut n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                let err = match (nullable, p("format")) {
+                    (true, "text") => n.unmarshal_text(p("text").as_bytes()),
+                    (true, "param") => n.unmarshal_param(p("text")),
+                    (false, "text") => n.decimal.unmarshal_text(p("text").as_bytes()),
+                    (false, "param") => n.decimal.unmarshal_param(p("text")),
+                    _ => panic!("unknown decoder"),
+                };
+                response["receiver_after"] = json!({"decimal":capture(&n.decimal),"valid":if nullable {json!(n.valid)}else{Value::Null}});
+                err.map(|_| response["receiver_after"].clone())
+            }
+            "encode_text" if values.len() == 1 => {
+                let n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                let out = if p("nullable") == "true" {
+                    if p("format") == "string" {
+                        n.string().into_bytes()
+                    } else {
+                        n.marshal_text()
+                    }
+                } else {
+                    n.decimal.marshal_text()
+                };
+                Ok(json!(String::from_utf8(out).unwrap()))
+            }
             "format" if values.len() == 1 => {
                 let flags = p("flags");
                 let f = rs_decimal::GoFormat {

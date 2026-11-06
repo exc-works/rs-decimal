@@ -18,6 +18,7 @@ mod interval;
 mod logarithm;
 mod root;
 mod rounding;
+mod text;
 mod transcendental;
 pub use conversion::most_significant_bit;
 pub use decimal::{Decimal, NullDecimal, between, hundred, max, min, one, ten, zero};

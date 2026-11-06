@@ -64,6 +64,16 @@ class DriverTests(unittest.TestCase):
             with self.subTest(fields=fields), self.assertRaises(driver.ConformanceError):
                 driver.compare([req], [response], [response])
 
+    def test_decode_requires_complete_state_even_on_matching_failures(self):
+        state = self.response["result"]
+        req = dict(self.request, operation="decode", inputs=[state], params={"nullable": "true", "valid": "false"})
+        response = dict(self.response, outcome="error", inputs_after=[state], error_kinds=["Unmarshal"], receiver_after={"decimal": state, "valid": False})
+        self.assertEqual(driver.compare([req], [response], [response], ["error"]), {"error": 1})
+        for bad in [{}, {"decimal": state}, {"decimal": state, "valid": True}, {"decimal": dict(state, scale="3"), "valid": False}]:
+            mutated = dict(response, receiver_after=bad)
+            with self.subTest(bad=bad), self.assertRaises(driver.ConformanceError):
+                driver.compare([req], [mutated], [mutated], ["error"])
+
     def test_noncanonical_states_are_rejected(self):
         for fields in [{"coefficient": "+0100"}, {"scale": "02"}, {"coefficient": "-0"}, {"scale": 2}]:
             with self.subTest(fields=fields), self.assertRaises(driver.ConformanceError):
