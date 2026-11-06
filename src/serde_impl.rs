@@ -25,7 +25,7 @@ impl Serialize for NullDecimal {
     }
 }
 struct DecimalVisitor;
-impl<'de> Visitor<'de> for DecimalVisitor {
+impl Visitor<'_> for DecimalVisitor {
     type Value = Option<Decimal>;
     fn expecting(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.write_str(
