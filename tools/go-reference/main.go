@@ -8,6 +8,7 @@ import (
 	"fmt"
 	d "github.com/exc-works/decimal"
 	"io"
+	"math"
 	"math/big"
 	"os"
 	"strconv"
@@ -128,6 +129,56 @@ func execute(req request) (r response) {
 		return n
 	}
 	switch req.Operation {
+	case "from_float":
+		bits, err := strconv.ParseUint(params["bits"], 16, 64)
+		if err != nil {
+			panic(err)
+		}
+		if params["width"] == "32" {
+			set(d.NewFromFloat32(math.Float32frombits(uint32(bits))), nil)
+		} else {
+			set(d.NewFromFloat64(math.Float64frombits(bits)), nil)
+		}
+	case "to_float":
+		r.Outcome = "ok"
+		if params["width"] == "32" {
+			v, e := values[0].Float32()
+			r.Result = map[string]any{"width": "32", "bits": fmt.Sprintf("%08x", math.Float32bits(v)), "exact": e}
+		} else {
+			v, e := values[0].Float64()
+			r.Result = map[string]any{"width": "64", "bits": fmt.Sprintf("%016x", math.Float64bits(v)), "exact": e}
+		}
+	case "from_rat", "from_rat_prec":
+		n, ok := new(big.Int).SetString(params["numerator"], 10)
+		if !ok {
+			panic("invalid numerator")
+		}
+		den, ok := new(big.Int).SetString(params["denominator"], 10)
+		if !ok {
+			panic("invalid denominator")
+		}
+		v := new(big.Rat).SetFrac(n, den)
+		if req.Operation == "from_rat" {
+			set(d.NewFromBigRat(v))
+		} else {
+			set(d.NewFromBigRatWithPrec(v, integer("precision"), d.RoundingMode(integer("mode"))))
+		}
+	case "to_rat":
+		v := values[0].BigRat()
+		r.Outcome = "ok"
+		r.Result = map[string]any{"numerator": v.Num().String(), "denominator": v.Denom().String()}
+	case "native_int":
+		a, ea := values[0].Int64()
+		b, eb := values[0].Uint64()
+		r.Outcome = "ok"
+		r.Result = map[string]any{"signed": strconv.FormatInt(a, 10), "signed_exact": ea, "unsigned": strconv.FormatUint(b, 10), "unsigned_exact": eb, "bit_len": strconv.Itoa(values[0].BitLen())}
+	case "msb":
+		v, ok := new(big.Int).SetString(params["value"], 10)
+		if !ok {
+			panic("invalid msb input")
+		}
+		r.Outcome = "ok"
+		r.Result = strconv.FormatUint(uint64(d.MostSignificantBit(v)), 10)
 	case "add":
 		set(values[0].Add(values[1]), nil)
 	case "sub":

@@ -94,6 +94,7 @@ dependencies = [
  "num-integer",
  "num-rational",
  "num-traits",
+ "ryu",
 ]
 
 [[package]]

@@ -1,4 +1,4 @@
-use rs_decimal::{BigInt, Decimal, DecimalError, RoundingMode};
+use rs_decimal::{BigInt, BigRational, Decimal, DecimalError, RoundingMode};
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use std::io::{self, BufRead, Write};
@@ -69,6 +69,55 @@ fn execute(req: &Request) -> Value {
         let values: Vec<_> = req.inputs.iter().map(State::decimal).collect();
         let p = |key: &str| req.params[key].as_str().expect("missing string parameter");
         let result: Result<Value, DecimalError> = match req.operation.as_str() {
+            "from_float" => {
+                let bits = u64::from_str_radix(p("bits"), 16).unwrap();
+                let d = if p("width") == "32" {
+                    Decimal::new_from_float32(f32::from_bits(bits as u32))
+                } else {
+                    Decimal::new_from_float64(f64::from_bits(bits))
+                };
+                Ok(capture(&d))
+            }
+            "to_float" if values.len() == 1 => {
+                let (bits, exact) = if p("width") == "32" {
+                    let (v, e) = values[0].float32();
+                    (format!("{:08x}", v.to_bits()), e)
+                } else {
+                    let (v, e) = values[0].float64();
+                    (format!("{:016x}", v.to_bits()), e)
+                };
+                Ok(json!({"width":p("width"),"bits":bits,"exact":exact}))
+            }
+            "from_rat" | "from_rat_prec" => {
+                let r = BigRational::new(
+                    p("numerator").parse().unwrap(),
+                    p("denominator").parse().unwrap(),
+                );
+                let d = if req.operation == "from_rat" {
+                    Decimal::new_from_big_rat(&r)
+                } else {
+                    Decimal::new_from_big_rat_with_prec(
+                        &r,
+                        p("precision").parse().unwrap(),
+                        RoundingMode::from_raw(p("mode").parse().unwrap()),
+                    )
+                };
+                d.map(|d| capture(&d))
+            }
+            "to_rat" if values.len() == 1 => {
+                let r = values[0].big_rat();
+                Ok(json!({"numerator":r.numer().to_string(),"denominator":r.denom().to_string()}))
+            }
+            "native_int" if values.len() == 1 => {
+                let (a, ea) = values[0].int64();
+                let (b, eb) = values[0].uint64();
+                Ok(
+                    json!({"signed":a.to_string(),"signed_exact":ea,"unsigned":b.to_string(),"unsigned_exact":eb,"bit_len":values[0].bit_len().to_string()}),
+                )
+            }
+            "msb" => Ok(json!(
+                rs_decimal::most_significant_bit(&p("value").parse().unwrap()).to_string()
+            )),
             "add" | "sub" | "safe_add" | "safe_sub" | "mul" | "mul_down" | "mul_exact"
             | "mul_prec" | "quo" | "quo_down" | "quo_prec" | "quo_rem" | "mod"
                 if values.len() == 2 =>

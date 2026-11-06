@@ -11,8 +11,11 @@ pub(crate) fn precision(p: isize) -> usize {
     p as usize
 }
 
-pub(crate) fn pow10(mut exponent: usize) -> BigInt {
-    let mut power = BigInt::from(10);
+pub(crate) fn pow10(exponent: usize) -> BigInt {
+    pow_integer(BigInt::from(10), exponent)
+}
+
+pub(crate) fn pow_integer(mut power: BigInt, mut exponent: usize) -> BigInt {
     let mut value = BigInt::from(1);
     while exponent > 0 {
         if exponent & 1 != 0 {
