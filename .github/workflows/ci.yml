@@ -128,7 +128,7 @@ jobs:
   portability:
     runs-on: ${{ matrix.os }}
     env:
-      BIN_SUFFIX: ${{ runner.os == 'Windows' && '.exe' || '' }}
+      BIN_SUFFIX: ${{ matrix.os == 'windows-latest' && '.exe' || '' }}
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
