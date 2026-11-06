@@ -1,0 +1,174 @@
+# API 兼容矩阵
+
+固定基线：`a8791208e2d15483cf652cd2814b74b0c1a84187`。当前仅建立工程；全部数值与协议入口均未开始，不能视为已兼容。完整 Go 签名、来源位置和构建条件见 [声明清单](api-inventory.json)。状态、字段和验收规则见 [技术方案](technical-design.md#api-兼容矩阵)。
+
+PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、失败顺序及测试证据在对应实现 PR 中补齐。表内“待设计”不可计为兼容通过。核心入口遵循 [数值契约](../testdata/upstream/docs/numeric-contract.md)，解码入口必须另列 null 与失败状态规则。
+
+| Go API ID | Rust 映射/签名 | 层次 | PR | 处理方式 | 数值/scale/状态 | 失败形态/顺序 | 验证证据 | 状态 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `Between` | between（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal` | 待设计 | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Abs` | Decimal::abs（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Add` | Decimal::add（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.AddRaw` | Decimal::add_raw（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.AppendText` | Decimal::append_text（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.AppendTextWithTrailingZeros` | Decimal::append_text_with_trailing_zeros（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.ApproxRoot` | Decimal::approx_root（签名待设计） | 核心 | 07 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.ApproxRootWithPrec` | Decimal::approx_root_with_prec（签名待设计） | 核心 | 07 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.BigInt` | Decimal::big_int（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.BigRat` | Decimal::big_rat（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.BitLen` | Decimal::bit_len（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Ceil` | Decimal::ceil（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.CeilWithPrec` | Decimal::ceil_with_prec（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Clone` | Decimal::clone（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Cmp` | Decimal::cmp（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Equal` | Decimal::equal（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Exp` | Decimal::exp（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.ExpWithPrec` | Decimal::exp_with_prec（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Float32` | Decimal::float32（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Float64` | Decimal::float64（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Floor` | Decimal::floor（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.FloorWithPrec` | Decimal::floor_with_prec（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Format` | Decimal::format（签名待设计） | 核心 | 10a | 平台映射：独立 Go 格式入口 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.FormatWithSeparators` | Decimal::format_with_separators（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.GT` | Decimal::gt（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.GTE` | Decimal::gte（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.HasFraction` | Decimal::has_fraction（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Int64` | Decimal::int64（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.IntPart` | Decimal::int_part（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.IsInteger` | Decimal::is_integer（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.IsNegative` | Decimal::is_negative（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.IsNil` | Decimal::is_nil（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.IsNotZero` | Decimal::is_not_zero（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.IsPositive` | Decimal::is_positive（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.IsZero` | Decimal::is_zero（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.LT` | Decimal::lt（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.LTE` | Decimal::lte（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Ln` | Decimal::ln（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.LnWithPrec` | Decimal::ln_with_prec（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Log10` | Decimal::log10（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Log10WithPrec` | Decimal::log10_with_prec（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Log2` | Decimal::log2（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Log2WithPrec` | Decimal::log2_with_prec（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.MarshalBSONValue` | Decimal::marshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.MarshalBinary` | Decimal::marshal_binary（签名待设计） | 协议 | 12 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.MarshalJSON` | Decimal::marshal_json（签名待设计） | 协议 | 11 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.MarshalText` | Decimal::marshal_text（签名待设计） | 协议 | 10b | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.MarshalXML` | Decimal::marshal_xml（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.MarshalXMLAttr` | Decimal::marshal_xml_attr（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.MarshalYAML` | Decimal::marshal_yaml（签名待设计） | 协议 | 13a | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Max` | Decimal::max（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Min` | Decimal::min（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Mod` | Decimal::mod（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Mul` | Decimal::mul（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.MulDown` | Decimal::mul_down（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.MulExact` | Decimal::mul_exact（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.MulWithPrec` | Decimal::mul_with_prec（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.MustNonNegative` | Decimal::must_non_negative（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Neg` | Decimal::neg（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.NotEqual` | Decimal::not_equal（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Power` | Decimal::power（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Precision` | Decimal::precision（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Quo` | Decimal::quo（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.QuoDown` | Decimal::quo_down（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.QuoRem` | Decimal::quo_rem（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.QuoWithPrec` | Decimal::quo_with_prec（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Remainder` | Decimal::remainder（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Rescale` | Decimal::rescale（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.RescaleDown` | Decimal::rescale_down（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Round` | Decimal::round（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.RoundWithPrec` | Decimal::round_with_prec（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.SafeAdd` | Decimal::safe_add（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.SafeSub` | Decimal::safe_sub（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Scan` | Decimal::scan（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Shift` | Decimal::shift（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Sign` | Decimal::sign（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.SignificantFigures` | Decimal::significant_figures（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Sqrt` | Decimal::sqrt（签名待设计） | 核心 | 07 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.SqrtWithPrec` | Decimal::sqrt_with_prec（签名待设计） | 核心 | 07 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.String` | Decimal::string（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.StringWithTrailingZeros` | Decimal::string_with_trailing_zeros（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.StripTrailingZeros` | Decimal::strip_trailing_zeros（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Sub` | Decimal::sub（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.SubRaw` | Decimal::sub_raw（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Truncate` | Decimal::truncate（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.TruncateWithPrec` | Decimal::truncate_with_prec（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Uint64` | Decimal::uint64（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.UnmarshalBSONValue` | Decimal::unmarshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.UnmarshalBinary` | Decimal::unmarshal_binary（签名待设计） | 协议 | 12 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.UnmarshalJSON` | Decimal::unmarshal_json（签名待设计） | 协议 | 11 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.UnmarshalParam` | Decimal::unmarshal_param（签名待设计） | 协议 | 10b | 平台映射：保留输入规则，不实现 Gin 接口 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.UnmarshalText` | Decimal::unmarshal_text（签名待设计） | 协议 | 10b | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.UnmarshalXML` | Decimal::unmarshal_xml（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.UnmarshalXMLAttr` | Decimal::unmarshal_xml_attr（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.UnmarshalYAML` | Decimal::unmarshal_yaml（签名待设计） | 协议 | 13a | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Value` | Decimal::value（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `DecodeHook` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
+| `DefaultGoPlaygroundValidatorTranslationMessages` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
+| `ErrDivideByZero` | 待设计 | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `ErrInvalidArgument` | 待设计 | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `ErrInvalidFormat` | 待设计 | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `ErrInvalidLog` | 待设计 | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `ErrInvalidPrecision` | 待设计 | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `ErrInvalidRoot` | 待设计 | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `ErrNegativeRoot` | 待设计 | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `ErrNoConvergence` | 待设计 | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `ErrOverflow` | 待设计 | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `ErrRoundUnnecessary` | 待设计 | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `ErrUnmarshal` | 待设计 | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Hundred` | 待设计 | 核心 | 03 | 平台映射：只读构造函数 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Max` | max（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Min` | min（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `MostSignificantBit` | most_significant_bit（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `MustFromString` | must_from_string（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `New` | new（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewFromBigInt` | new_from_big_int（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewFromBigIntWithPrec` | new_from_big_int_with_prec（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewFromBigRat` | new_from_big_rat（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewFromBigRatWithPrec` | new_from_big_rat_with_prec（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewFromDecimal` | new_from_decimal（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewFromFloat32` | new_from_float32（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewFromFloat64` | new_from_float64（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewFromInt` | new_from_int（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewFromInt64` | new_from_int64（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewFromString` | new_from_string（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewFromUint64` | new_from_uint64（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewFromUintWithAppendPrec` | new_from_uint_with_append_prec（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewNullDecimal` | new_null_decimal（签名待设计） | 协议 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewWithAppendPrec` | new_with_append_prec（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewWithPrec` | new_with_prec（签名待设计） | 核心 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal` | 待设计 | 协议 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.Decimal` | 待设计 | 协议 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.MarshalBSONValue` | NullDecimal::marshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.MarshalJSON` | NullDecimal::marshal_json（签名待设计） | 协议 | 11 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.MarshalText` | NullDecimal::marshal_text（签名待设计） | 协议 | 10b | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.MarshalXML` | NullDecimal::marshal_xml（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.MarshalXMLAttr` | NullDecimal::marshal_xml_attr（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.MarshalYAML` | NullDecimal::marshal_yaml（签名待设计） | 协议 | 13a | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.Scan` | NullDecimal::scan（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.String` | NullDecimal::string（签名待设计） | 协议 | 10b | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.UnmarshalBSONValue` | NullDecimal::unmarshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.UnmarshalJSON` | NullDecimal::unmarshal_json（签名待设计） | 协议 | 11 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.UnmarshalParam` | NullDecimal::unmarshal_param（签名待设计） | 协议 | 10b | 平台映射：保留输入规则，不实现 Gin 接口 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.UnmarshalText` | NullDecimal::unmarshal_text（签名待设计） | 协议 | 10b | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.UnmarshalXML` | NullDecimal::unmarshal_xml（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.UnmarshalXMLAttr` | NullDecimal::unmarshal_xml_attr（签名待设计） | 协议 | 13b | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.UnmarshalYAML` | NullDecimal::unmarshal_yaml（签名待设计） | 协议 | 13a | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.Valid` | 待设计 | 协议 | 03 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.Value` | NullDecimal::value（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `One` | 待设计 | 核心 | 03 | 平台映射：只读构造函数 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `PrecisionFixedSize` | 待设计 | 协议 | 12 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `RegisterGoPlaygroundValidator` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
+| `RegisterGoPlaygroundValidatorTranslations` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
+| `RegisterGoPlaygroundValidatorTranslationsWithMessages` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
+| `RoundCeiling` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `RoundDown` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `RoundHalfDown` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `RoundHalfEven` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `RoundHalfUp` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `RoundUnnecessary` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `RoundUp` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `RoundingMode` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Ten` | 待设计 | 核心 | 03 | 平台映射：只读构造函数 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `TranslateGoPlaygroundValidationErrors` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
+| `Zero` | 待设计 | 核心 | 03 | 平台映射：只读构造函数 | 待设计 | 待设计 | 待实现 | 未开始 |

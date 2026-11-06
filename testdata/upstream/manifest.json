@@ -1,0 +1,17 @@
+{
+  "repository": "https://github.com/exc-works/decimal",
+  "commit": "a8791208e2d15483cf652cd2814b74b0c1a84187",
+  "files": {
+    "LICENSE": "26049c4a96d35cd349e38b094b02f94247ef7eb1859362bb5539a0ad92afda2e",
+    "docs/correctness-gates.md": "d92be66a07466f8e7e1a0ab56ead1f4a15f025e248aa18d150d7a6316c2dfa57",
+    "docs/numeric-contract-migration.md": "1aa1e1de461fb6882fb0ba83d65780a34da2992a20bf5de55e8d5f031e5def55",
+    "docs/numeric-contract.md": "a8899a726ee3279eca654fa5c981780aeb300fbe6302012f22e926c1020893fb",
+    "testdata/generate_must_succeed.py": "4d84dc660cd90fedbf75a0bd3827b12b9600ddc95c13f98f47d2e50c2cbecb3e",
+    "testdata/generate_roots.py": "c0bf9f0225b6d1d59057643e537b907a753bf748a3313298122505adafce6f58",
+    "testdata/generate_transcendental.py": "d80091c5f3e70ad566959106ade2e176291a68c9cdc734912c7609d0c64c17ec",
+    "testdata/must_succeed.json": "f5896550114b27667bbfb45faaf5bedec649b6352bfb710ffe4f9e9280ad7dd1",
+    "testdata/roots.json": "35c83272ced4eb362b6df484eed0584547070b3ddbd977fedaf01c3a14ee5ddb",
+    "testdata/transcendental.json": "55f0a112610b265c00e1f75ffbe612d8b49d603bcd96ccd2026c4480b7ebc038",
+    "testdata/yaml_scalars.json": "3b4062722539c85561d44c585ece90433d823baa8bbacf081587b608fd248b19"
+  }
+}

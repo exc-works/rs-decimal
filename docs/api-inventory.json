@@ -1,0 +1,1330 @@
+[
+  {
+    "id": "Between",
+    "kind": "func",
+    "signature": "func Between(v, lower, upper Decimal) bool",
+    "file": "math.go",
+    "line": 20,
+    "build": ""
+  },
+  {
+    "id": "Decimal",
+    "kind": "type",
+    "signature": "Decimal struct { i *big.Int prec int }",
+    "file": "decimal.go",
+    "line": 48,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Abs",
+    "kind": "func",
+    "signature": "func (d Decimal) Abs() Decimal",
+    "file": "decimal.go",
+    "line": 1074,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Add",
+    "kind": "func",
+    "signature": "func (d Decimal) Add(d2 Decimal) Decimal",
+    "file": "decimal.go",
+    "line": 352,
+    "build": ""
+  },
+  {
+    "id": "Decimal.AddRaw",
+    "kind": "func",
+    "signature": "func (d Decimal) AddRaw(i int64) Decimal",
+    "file": "decimal.go",
+    "line": 368,
+    "build": ""
+  },
+  {
+    "id": "Decimal.AppendText",
+    "kind": "func",
+    "signature": "func (d Decimal) AppendText(b []byte) ([]byte, error)",
+    "file": "marshal.go",
+    "line": 65,
+    "build": ""
+  },
+  {
+    "id": "Decimal.AppendTextWithTrailingZeros",
+    "kind": "func",
+    "signature": "func (d Decimal) AppendTextWithTrailingZeros(b []byte) ([]byte, error)",
+    "file": "marshal.go",
+    "line": 71,
+    "build": ""
+  },
+  {
+    "id": "Decimal.ApproxRoot",
+    "kind": "func",
+    "signature": "func (d Decimal) ApproxRoot(root int64) (Decimal, error)",
+    "file": "decimal.go",
+    "line": 699,
+    "build": ""
+  },
+  {
+    "id": "Decimal.ApproxRootWithPrec",
+    "kind": "func",
+    "signature": "func (d Decimal) ApproxRootWithPrec(root int64, prec int) (Decimal, error)",
+    "file": "decimal.go",
+    "line": 714,
+    "build": ""
+  },
+  {
+    "id": "Decimal.BigInt",
+    "kind": "func",
+    "signature": "func (d Decimal) BigInt() *big.Int",
+    "file": "decimal.go",
+    "line": 1084,
+    "build": ""
+  },
+  {
+    "id": "Decimal.BigRat",
+    "kind": "func",
+    "signature": "func (d Decimal) BigRat() *big.Rat",
+    "file": "decimal.go",
+    "line": 1091,
+    "build": ""
+  },
+  {
+    "id": "Decimal.BitLen",
+    "kind": "func",
+    "signature": "func (d Decimal) BitLen() int",
+    "file": "decimal.go",
+    "line": 1172,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Ceil",
+    "kind": "func",
+    "signature": "func (d Decimal) Ceil() Decimal",
+    "file": "decimal.go",
+    "line": 543,
+    "build": ""
+  },
+  {
+    "id": "Decimal.CeilWithPrec",
+    "kind": "func",
+    "signature": "func (d Decimal) CeilWithPrec(prec int) Decimal",
+    "file": "decimal.go",
+    "line": 549,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Clone",
+    "kind": "func",
+    "signature": "func (d Decimal) Clone() Decimal",
+    "file": "decimal.go",
+    "line": 1255,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Cmp",
+    "kind": "func",
+    "signature": "func (d Decimal) Cmp(d2 Decimal) int",
+    "file": "decimal.go",
+    "line": 952,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Equal",
+    "kind": "func",
+    "signature": "func (d Decimal) Equal(d2 Decimal) bool",
+    "file": "decimal.go",
+    "line": 985,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Exp",
+    "kind": "func",
+    "signature": "func (d Decimal) Exp() (Decimal, error)",
+    "file": "math.go",
+    "line": 67,
+    "build": ""
+  },
+  {
+    "id": "Decimal.ExpWithPrec",
+    "kind": "func",
+    "signature": "func (d Decimal) ExpWithPrec(prec int) (Decimal, error)",
+    "file": "math.go",
+    "line": 73,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Float32",
+    "kind": "func",
+    "signature": "func (d Decimal) Float32() (float32, bool)",
+    "file": "decimal.go",
+    "line": 1113,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Float64",
+    "kind": "func",
+    "signature": "func (d Decimal) Float64() (float64, bool)",
+    "file": "decimal.go",
+    "line": 1099,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Floor",
+    "kind": "func",
+    "signature": "func (d Decimal) Floor() Decimal",
+    "file": "decimal.go",
+    "line": 526,
+    "build": ""
+  },
+  {
+    "id": "Decimal.FloorWithPrec",
+    "kind": "func",
+    "signature": "func (d Decimal) FloorWithPrec(prec int) Decimal",
+    "file": "decimal.go",
+    "line": 532,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Format",
+    "kind": "func",
+    "signature": "func (d Decimal) Format(f fmt.State, verb rune)",
+    "file": "decimal.go",
+    "line": 1279,
+    "build": ""
+  },
+  {
+    "id": "Decimal.FormatWithSeparators",
+    "kind": "func",
+    "signature": "func (d Decimal) FormatWithSeparators(thousands, decimal rune) string",
+    "file": "decimal.go",
+    "line": 1705,
+    "build": ""
+  },
+  {
+    "id": "Decimal.GT",
+    "kind": "func",
+    "signature": "func (d Decimal) GT(d2 Decimal) bool",
+    "file": "decimal.go",
+    "line": 995,
+    "build": ""
+  },
+  {
+    "id": "Decimal.GTE",
+    "kind": "func",
+    "signature": "func (d Decimal) GTE(d2 Decimal) bool",
+    "file": "decimal.go",
+    "line": 1000,
+    "build": ""
+  },
+  {
+    "id": "Decimal.HasFraction",
+    "kind": "func",
+    "signature": "func (d Decimal) HasFraction() bool",
+    "file": "decimal.go",
+    "line": 1063,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Int64",
+    "kind": "func",
+    "signature": "func (d Decimal) Int64() (int64, bool)",
+    "file": "decimal.go",
+    "line": 1129,
+    "build": ""
+  },
+  {
+    "id": "Decimal.IntPart",
+    "kind": "func",
+    "signature": "func (d Decimal) IntPart() *big.Int",
+    "file": "decimal.go",
+    "line": 601,
+    "build": ""
+  },
+  {
+    "id": "Decimal.IsInteger",
+    "kind": "func",
+    "signature": "func (d Decimal) IsInteger() bool",
+    "file": "decimal.go",
+    "line": 1050,
+    "build": ""
+  },
+  {
+    "id": "Decimal.IsNegative",
+    "kind": "func",
+    "signature": "func (d Decimal) IsNegative() bool",
+    "file": "decimal.go",
+    "line": 1025,
+    "build": ""
+  },
+  {
+    "id": "Decimal.IsNil",
+    "kind": "func",
+    "signature": "func (d Decimal) IsNil() bool",
+    "file": "decimal.go",
+    "line": 1030,
+    "build": ""
+  },
+  {
+    "id": "Decimal.IsNotZero",
+    "kind": "func",
+    "signature": "func (d Decimal) IsNotZero() bool",
+    "file": "decimal.go",
+    "line": 1040,
+    "build": ""
+  },
+  {
+    "id": "Decimal.IsPositive",
+    "kind": "func",
+    "signature": "func (d Decimal) IsPositive() bool",
+    "file": "decimal.go",
+    "line": 1045,
+    "build": ""
+  },
+  {
+    "id": "Decimal.IsZero",
+    "kind": "func",
+    "signature": "func (d Decimal) IsZero() bool",
+    "file": "decimal.go",
+    "line": 1035,
+    "build": ""
+  },
+  {
+    "id": "Decimal.LT",
+    "kind": "func",
+    "signature": "func (d Decimal) LT(d2 Decimal) bool",
+    "file": "decimal.go",
+    "line": 1005,
+    "build": ""
+  },
+  {
+    "id": "Decimal.LTE",
+    "kind": "func",
+    "signature": "func (d Decimal) LTE(d2 Decimal) bool",
+    "file": "decimal.go",
+    "line": 1010,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Ln",
+    "kind": "func",
+    "signature": "func (d Decimal) Ln() (Decimal, error)",
+    "file": "math.go",
+    "line": 56,
+    "build": ""
+  },
+  {
+    "id": "Decimal.LnWithPrec",
+    "kind": "func",
+    "signature": "func (d Decimal) LnWithPrec(prec int) (Decimal, error)",
+    "file": "math.go",
+    "line": 63,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Log10",
+    "kind": "func",
+    "signature": "func (d Decimal) Log10() (Decimal, error)",
+    "file": "math.go",
+    "line": 46,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Log10WithPrec",
+    "kind": "func",
+    "signature": "func (d Decimal) Log10WithPrec(prec int) (Decimal, error)",
+    "file": "math.go",
+    "line": 52,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Log2",
+    "kind": "func",
+    "signature": "func (d Decimal) Log2() Decimal",
+    "file": "decimal.go",
+    "line": 749,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Log2WithPrec",
+    "kind": "func",
+    "signature": "func (d Decimal) Log2WithPrec(prec int) (Decimal, error)",
+    "file": "decimal.go",
+    "line": 761,
+    "build": ""
+  },
+  {
+    "id": "Decimal.MarshalBSONValue",
+    "kind": "func",
+    "signature": "func (d Decimal) MarshalBSONValue() (byte, []byte, error)",
+    "file": "marshal_bson.go",
+    "line": 15,
+    "build": "bson"
+  },
+  {
+    "id": "Decimal.MarshalBinary",
+    "kind": "func",
+    "signature": "func (d Decimal) MarshalBinary() (data []byte, err error)",
+    "file": "marshal.go",
+    "line": 246,
+    "build": ""
+  },
+  {
+    "id": "Decimal.MarshalJSON",
+    "kind": "func",
+    "signature": "func (d Decimal) MarshalJSON() ([]byte, error)",
+    "file": "marshal.go",
+    "line": 157,
+    "build": ""
+  },
+  {
+    "id": "Decimal.MarshalText",
+    "kind": "func",
+    "signature": "func (d Decimal) MarshalText() ([]byte, error)",
+    "file": "marshal.go",
+    "line": 224,
+    "build": ""
+  },
+  {
+    "id": "Decimal.MarshalXML",
+    "kind": "func",
+    "signature": "func (d Decimal) MarshalXML(e *xml.Encoder, start xml.StartElement) error",
+    "file": "marshal_xml.go",
+    "line": 11,
+    "build": ""
+  },
+  {
+    "id": "Decimal.MarshalXMLAttr",
+    "kind": "func",
+    "signature": "func (d Decimal) MarshalXMLAttr(name xml.Name) (xml.Attr, error)",
+    "file": "marshal_xml.go",
+    "line": 44,
+    "build": ""
+  },
+  {
+    "id": "Decimal.MarshalYAML",
+    "kind": "func",
+    "signature": "func (d Decimal) MarshalYAML() (any, error)",
+    "file": "marshal.go",
+    "line": 201,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Max",
+    "kind": "func",
+    "signature": "func (d Decimal) Max(d2 Decimal) Decimal",
+    "file": "decimal.go",
+    "line": 1183,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Min",
+    "kind": "func",
+    "signature": "func (d Decimal) Min(d2 Decimal) Decimal",
+    "file": "decimal.go",
+    "line": 1191,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Mod",
+    "kind": "func",
+    "signature": "func (d Decimal) Mod(d2 Decimal) Decimal",
+    "file": "decimal.go",
+    "line": 595,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Mul",
+    "kind": "func",
+    "signature": "func (d Decimal) Mul(d2 Decimal, roundingMode RoundingMode) Decimal",
+    "file": "decimal.go",
+    "line": 402,
+    "build": ""
+  },
+  {
+    "id": "Decimal.MulDown",
+    "kind": "func",
+    "signature": "func (d Decimal) MulDown(d2 Decimal) Decimal",
+    "file": "decimal.go",
+    "line": 463,
+    "build": ""
+  },
+  {
+    "id": "Decimal.MulExact",
+    "kind": "func",
+    "signature": "func (d Decimal) MulExact(d2 Decimal) Decimal",
+    "file": "decimal.go",
+    "line": 468,
+    "build": ""
+  },
+  {
+    "id": "Decimal.MulWithPrec",
+    "kind": "func",
+    "signature": "func (d Decimal) MulWithPrec(d2 Decimal, prec int, roundingMode RoundingMode) Decimal",
+    "file": "decimal.go",
+    "line": 427,
+    "build": ""
+  },
+  {
+    "id": "Decimal.MustNonNegative",
+    "kind": "func",
+    "signature": "func (d Decimal) MustNonNegative() Decimal",
+    "file": "decimal.go",
+    "line": 935,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Neg",
+    "kind": "func",
+    "signature": "func (d Decimal) Neg() Decimal",
+    "file": "decimal.go",
+    "line": 1068,
+    "build": ""
+  },
+  {
+    "id": "Decimal.NotEqual",
+    "kind": "func",
+    "signature": "func (d Decimal) NotEqual(d2 Decimal) bool",
+    "file": "decimal.go",
+    "line": 990,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Power",
+    "kind": "func",
+    "signature": "func (d Decimal) Power(power int64) Decimal",
+    "file": "decimal.go",
+    "line": 623,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Precision",
+    "kind": "func",
+    "signature": "func (d Decimal) Precision() int",
+    "file": "decimal.go",
+    "line": 1178,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Quo",
+    "kind": "func",
+    "signature": "func (d Decimal) Quo(d2 Decimal, roundingMode RoundingMode) Decimal",
+    "file": "decimal.go",
+    "line": 516,
+    "build": ""
+  },
+  {
+    "id": "Decimal.QuoDown",
+    "kind": "func",
+    "signature": "func (d Decimal) QuoDown(d2 Decimal) Decimal",
+    "file": "decimal.go",
+    "line": 521,
+    "build": ""
+  },
+  {
+    "id": "Decimal.QuoRem",
+    "kind": "func",
+    "signature": "func (d Decimal) QuoRem(d2 Decimal) (Decimal, Decimal)",
+    "file": "decimal.go",
+    "line": 583,
+    "build": ""
+  },
+  {
+    "id": "Decimal.QuoWithPrec",
+    "kind": "func",
+    "signature": "func (d Decimal) QuoWithPrec(d2 Decimal, prec int, roundingMode RoundingMode) Decimal",
+    "file": "decimal.go",
+    "line": 482,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Remainder",
+    "kind": "func",
+    "signature": "func (d Decimal) Remainder() (intPart *big.Int, fractionPart *big.Int)",
+    "file": "decimal.go",
+    "line": 614,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Rescale",
+    "kind": "func",
+    "signature": "func (d Decimal) Rescale(prec int, roundingMode RoundingMode) Decimal",
+    "file": "decimal.go",
+    "line": 772,
+    "build": ""
+  },
+  {
+    "id": "Decimal.RescaleDown",
+    "kind": "func",
+    "signature": "func (d Decimal) RescaleDown(prec int) Decimal",
+    "file": "decimal.go",
+    "line": 765,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Round",
+    "kind": "func",
+    "signature": "func (d Decimal) Round() Decimal",
+    "file": "decimal.go",
+    "line": 571,
+    "build": ""
+  },
+  {
+    "id": "Decimal.RoundWithPrec",
+    "kind": "func",
+    "signature": "func (d Decimal) RoundWithPrec(prec int) Decimal",
+    "file": "decimal.go",
+    "line": 577,
+    "build": ""
+  },
+  {
+    "id": "Decimal.SafeAdd",
+    "kind": "func",
+    "signature": "func (d Decimal) SafeAdd(d2 Decimal) Decimal",
+    "file": "decimal.go",
+    "line": 362,
+    "build": ""
+  },
+  {
+    "id": "Decimal.SafeSub",
+    "kind": "func",
+    "signature": "func (d Decimal) SafeSub(d2 Decimal) Decimal",
+    "file": "decimal.go",
+    "line": 387,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Scan",
+    "kind": "func",
+    "signature": "func (d *Decimal) Scan(value any) error",
+    "file": "marshal.go",
+    "line": 307,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Shift",
+    "kind": "func",
+    "signature": "func (d Decimal) Shift(places int) Decimal",
+    "file": "decimal.go",
+    "line": 799,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Sign",
+    "kind": "func",
+    "signature": "func (d Decimal) Sign() int",
+    "file": "decimal.go",
+    "line": 1019,
+    "build": ""
+  },
+  {
+    "id": "Decimal.SignificantFigures",
+    "kind": "func",
+    "signature": "func (d Decimal) SignificantFigures(figures int, roundingMode RoundingMode) Decimal",
+    "file": "decimal.go",
+    "line": 884,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Sqrt",
+    "kind": "func",
+    "signature": "func (d Decimal) Sqrt() (Decimal, error)",
+    "file": "decimal.go",
+    "line": 671,
+    "build": ""
+  },
+  {
+    "id": "Decimal.SqrtWithPrec",
+    "kind": "func",
+    "signature": "func (d Decimal) SqrtWithPrec(prec int) (Decimal, error)",
+    "file": "decimal.go",
+    "line": 685,
+    "build": ""
+  },
+  {
+    "id": "Decimal.String",
+    "kind": "func",
+    "signature": "func (d Decimal) String() string",
+    "file": "marshal.go",
+    "line": 46,
+    "build": ""
+  },
+  {
+    "id": "Decimal.StringWithTrailingZeros",
+    "kind": "func",
+    "signature": "func (d Decimal) StringWithTrailingZeros() string",
+    "file": "marshal.go",
+    "line": 37,
+    "build": ""
+  },
+  {
+    "id": "Decimal.StripTrailingZeros",
+    "kind": "func",
+    "signature": "func (d Decimal) StripTrailingZeros() Decimal",
+    "file": "decimal.go",
+    "line": 826,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Sub",
+    "kind": "func",
+    "signature": "func (d Decimal) Sub(d2 Decimal) Decimal",
+    "file": "decimal.go",
+    "line": 377,
+    "build": ""
+  },
+  {
+    "id": "Decimal.SubRaw",
+    "kind": "func",
+    "signature": "func (d Decimal) SubRaw(i int64) Decimal",
+    "file": "decimal.go",
+    "line": 393,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Truncate",
+    "kind": "func",
+    "signature": "func (d Decimal) Truncate() Decimal",
+    "file": "decimal.go",
+    "line": 560,
+    "build": ""
+  },
+  {
+    "id": "Decimal.TruncateWithPrec",
+    "kind": "func",
+    "signature": "func (d Decimal) TruncateWithPrec(prec int) Decimal",
+    "file": "decimal.go",
+    "line": 566,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Uint64",
+    "kind": "func",
+    "signature": "func (d Decimal) Uint64() (uint64, bool)",
+    "file": "decimal.go",
+    "line": 1149,
+    "build": ""
+  },
+  {
+    "id": "Decimal.UnmarshalBSONValue",
+    "kind": "func",
+    "signature": "func (d *Decimal) UnmarshalBSONValue(t byte, data []byte) error",
+    "file": "marshal_bson.go",
+    "line": 34,
+    "build": "bson"
+  },
+  {
+    "id": "Decimal.UnmarshalBinary",
+    "kind": "func",
+    "signature": "func (d *Decimal) UnmarshalBinary(data []byte) error",
+    "file": "marshal.go",
+    "line": 270,
+    "build": ""
+  },
+  {
+    "id": "Decimal.UnmarshalJSON",
+    "kind": "func",
+    "signature": "func (d *Decimal) UnmarshalJSON(bz []byte) error",
+    "file": "marshal.go",
+    "line": 174,
+    "build": ""
+  },
+  {
+    "id": "Decimal.UnmarshalParam",
+    "kind": "func",
+    "signature": "func (d *Decimal) UnmarshalParam(param string) error",
+    "file": "marshal.go",
+    "line": 239,
+    "build": ""
+  },
+  {
+    "id": "Decimal.UnmarshalText",
+    "kind": "func",
+    "signature": "func (d *Decimal) UnmarshalText(text []byte) error",
+    "file": "marshal.go",
+    "line": 229,
+    "build": ""
+  },
+  {
+    "id": "Decimal.UnmarshalXML",
+    "kind": "func",
+    "signature": "func (d *Decimal) UnmarshalXML(dec *xml.Decoder, start xml.StartElement) error",
+    "file": "marshal_xml.go",
+    "line": 21,
+    "build": ""
+  },
+  {
+    "id": "Decimal.UnmarshalXMLAttr",
+    "kind": "func",
+    "signature": "func (d *Decimal) UnmarshalXMLAttr(attr xml.Attr) error",
+    "file": "marshal_xml.go",
+    "line": 53,
+    "build": ""
+  },
+  {
+    "id": "Decimal.UnmarshalYAML",
+    "kind": "func",
+    "signature": "func (d *Decimal) UnmarshalYAML(unmarshal func(any) error) error",
+    "file": "marshal.go",
+    "line": 207,
+    "build": ""
+  },
+  {
+    "id": "Decimal.Value",
+    "kind": "func",
+    "signature": "func (d Decimal) Value() (driver.Value, error)",
+    "file": "marshal.go",
+    "line": 299,
+    "build": ""
+  },
+  {
+    "id": "DecodeHook",
+    "kind": "func",
+    "signature": "func DecodeHook() func(from, to reflect.Type, data any) (any, error)",
+    "file": "mapstructure.go",
+    "line": 44,
+    "build": ""
+  },
+  {
+    "id": "DefaultGoPlaygroundValidatorTranslationMessages",
+    "kind": "func",
+    "signature": "func DefaultGoPlaygroundValidatorTranslationMessages(locale string) map[string]string",
+    "file": "validator.go",
+    "line": 162,
+    "build": ""
+  },
+  {
+    "id": "ErrDivideByZero",
+    "kind": "var",
+    "signature": "ErrDivideByZero = errors.New(\"decimal: division by zero\")",
+    "file": "errors.go",
+    "line": 31,
+    "build": ""
+  },
+  {
+    "id": "ErrInvalidArgument",
+    "kind": "var",
+    "signature": "ErrInvalidArgument = errors.New(\"decimal: invalid argument\")",
+    "file": "errors.go",
+    "line": 67,
+    "build": ""
+  },
+  {
+    "id": "ErrInvalidFormat",
+    "kind": "var",
+    "signature": "ErrInvalidFormat = errors.New(\"decimal: invalid format\")",
+    "file": "errors.go",
+    "line": 38,
+    "build": ""
+  },
+  {
+    "id": "ErrInvalidLog",
+    "kind": "var",
+    "signature": "ErrInvalidLog = errors.New(\"decimal: log of non-positive value\")",
+    "file": "errors.go",
+    "line": 54,
+    "build": ""
+  },
+  {
+    "id": "ErrInvalidPrecision",
+    "kind": "var",
+    "signature": "ErrInvalidPrecision = errors.New(\"decimal: invalid precision\")",
+    "file": "errors.go",
+    "line": 35,
+    "build": ""
+  },
+  {
+    "id": "ErrInvalidRoot",
+    "kind": "var",
+    "signature": "ErrInvalidRoot = errors.New(\"decimal: invalid root\")",
+    "file": "errors.go",
+    "line": 46,
+    "build": ""
+  },
+  {
+    "id": "ErrNegativeRoot",
+    "kind": "var",
+    "signature": "ErrNegativeRoot = errors.New(\"decimal: negative value for even root\")",
+    "file": "errors.go",
+    "line": 42,
+    "build": ""
+  },
+  {
+    "id": "ErrNoConvergence",
+    "kind": "var",
+    "signature": "ErrNoConvergence = errors.New(\"decimal: iteration did not converge\")",
+    "file": "errors.go",
+    "line": 50,
+    "build": ""
+  },
+  {
+    "id": "ErrOverflow",
+    "kind": "var",
+    "signature": "ErrOverflow = errors.New(\"decimal: overflow\")",
+    "file": "errors.go",
+    "line": 27,
+    "build": ""
+  },
+  {
+    "id": "ErrRoundUnnecessary",
+    "kind": "var",
+    "signature": "ErrRoundUnnecessary = errors.New(\"decimal: rounding is necessary but RoundUnnecessary specified\")",
+    "file": "errors.go",
+    "line": 58,
+    "build": ""
+  },
+  {
+    "id": "ErrUnmarshal",
+    "kind": "var",
+    "signature": "ErrUnmarshal = errors.New(\"decimal: unmarshal failed\")",
+    "file": "errors.go",
+    "line": 62,
+    "build": ""
+  },
+  {
+    "id": "Hundred",
+    "kind": "var",
+    "signature": "Hundred = New(100)",
+    "file": "decimal.go",
+    "line": 44,
+    "build": ""
+  },
+  {
+    "id": "Max",
+    "kind": "func",
+    "signature": "func Max(a, b Decimal) Decimal",
+    "file": "math.go",
+    "line": 4,
+    "build": ""
+  },
+  {
+    "id": "Min",
+    "kind": "func",
+    "signature": "func Min(a, b Decimal) Decimal",
+    "file": "math.go",
+    "line": 12,
+    "build": ""
+  },
+  {
+    "id": "MostSignificantBit",
+    "kind": "func",
+    "signature": "func MostSignificantBit(x *big.Int) uint",
+    "file": "support.go",
+    "line": 29,
+    "build": ""
+  },
+  {
+    "id": "MustFromString",
+    "kind": "func",
+    "signature": "func MustFromString(str string) Decimal",
+    "file": "decimal.go",
+    "line": 343,
+    "build": ""
+  },
+  {
+    "id": "New",
+    "kind": "func",
+    "signature": "func New(value int64) Decimal",
+    "file": "decimal.go",
+    "line": 71,
+    "build": ""
+  },
+  {
+    "id": "NewFromBigInt",
+    "kind": "func",
+    "signature": "func NewFromBigInt(value *big.Int) Decimal",
+    "file": "decimal.go",
+    "line": 200,
+    "build": ""
+  },
+  {
+    "id": "NewFromBigIntWithPrec",
+    "kind": "func",
+    "signature": "func NewFromBigIntWithPrec(value *big.Int, precision int) Decimal",
+    "file": "decimal.go",
+    "line": 206,
+    "build": ""
+  },
+  {
+    "id": "NewFromBigRat",
+    "kind": "func",
+    "signature": "func NewFromBigRat(value *big.Rat) (Decimal, error)",
+    "file": "decimal.go",
+    "line": 107,
+    "build": ""
+  },
+  {
+    "id": "NewFromBigRatWithPrec",
+    "kind": "func",
+    "signature": "func NewFromBigRatWithPrec(value *big.Rat, prec int, roundingMode RoundingMode) (Decimal, error)",
+    "file": "decimal.go",
+    "line": 153,
+    "build": ""
+  },
+  {
+    "id": "NewFromDecimal",
+    "kind": "func",
+    "signature": "func NewFromDecimal(d Decimal) Decimal",
+    "file": "decimal.go",
+    "line": 77,
+    "build": ""
+  },
+  {
+    "id": "NewFromFloat32",
+    "kind": "func",
+    "signature": "func NewFromFloat32(value float32) Decimal",
+    "file": "decimal.go",
+    "line": 99,
+    "build": ""
+  },
+  {
+    "id": "NewFromFloat64",
+    "kind": "func",
+    "signature": "func NewFromFloat64(value float64) Decimal",
+    "file": "decimal.go",
+    "line": 94,
+    "build": ""
+  },
+  {
+    "id": "NewFromInt",
+    "kind": "func",
+    "signature": "func NewFromInt(value int) Decimal",
+    "file": "decimal.go",
+    "line": 82,
+    "build": ""
+  },
+  {
+    "id": "NewFromInt64",
+    "kind": "func",
+    "signature": "func NewFromInt64(value int64, precision int) Decimal",
+    "file": "decimal.go",
+    "line": 216,
+    "build": ""
+  },
+  {
+    "id": "NewFromString",
+    "kind": "func",
+    "signature": "func NewFromString(str string) (d Decimal, err error)",
+    "file": "decimal.go",
+    "line": 241,
+    "build": ""
+  },
+  {
+    "id": "NewFromUint64",
+    "kind": "func",
+    "signature": "func NewFromUint64(value uint64, precision int) Decimal",
+    "file": "decimal.go",
+    "line": 226,
+    "build": ""
+  },
+  {
+    "id": "NewFromUintWithAppendPrec",
+    "kind": "func",
+    "signature": "func NewFromUintWithAppendPrec(value uint64, prec int) Decimal",
+    "file": "decimal.go",
+    "line": 191,
+    "build": ""
+  },
+  {
+    "id": "NewNullDecimal",
+    "kind": "func",
+    "signature": "func NewNullDecimal(d Decimal) NullDecimal",
+    "file": "null_decimal.go",
+    "line": 18,
+    "build": ""
+  },
+  {
+    "id": "NewWithAppendPrec",
+    "kind": "func",
+    "signature": "func NewWithAppendPrec(value int64, prec int) Decimal",
+    "file": "decimal.go",
+    "line": 181,
+    "build": ""
+  },
+  {
+    "id": "NewWithPrec",
+    "kind": "func",
+    "signature": "func NewWithPrec(value int64, prec int) Decimal",
+    "file": "decimal.go",
+    "line": 88,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal",
+    "kind": "type",
+    "signature": "NullDecimal struct { Decimal Decimal Valid bool // Valid is true if Decimal is not NULL }",
+    "file": "null_decimal.go",
+    "line": 12,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.Decimal",
+    "kind": "field",
+    "signature": "Decimal Decimal",
+    "file": "null_decimal.go",
+    "line": 13,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.MarshalBSONValue",
+    "kind": "func",
+    "signature": "func (n NullDecimal) MarshalBSONValue() (byte, []byte, error)",
+    "file": "marshal_bson.go",
+    "line": 97,
+    "build": "bson"
+  },
+  {
+    "id": "NullDecimal.MarshalJSON",
+    "kind": "func",
+    "signature": "func (n NullDecimal) MarshalJSON() ([]byte, error)",
+    "file": "null_decimal.go",
+    "line": 49,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.MarshalText",
+    "kind": "func",
+    "signature": "func (n NullDecimal) MarshalText() ([]byte, error)",
+    "file": "null_decimal.go",
+    "line": 93,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.MarshalXML",
+    "kind": "func",
+    "signature": "func (n NullDecimal) MarshalXML(e *xml.Encoder, start xml.StartElement) error",
+    "file": "null_decimal.go",
+    "line": 118,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.MarshalXMLAttr",
+    "kind": "func",
+    "signature": "func (n NullDecimal) MarshalXMLAttr(name xml.Name) (xml.Attr, error)",
+    "file": "null_decimal.go",
+    "line": 150,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.MarshalYAML",
+    "kind": "func",
+    "signature": "func (n NullDecimal) MarshalYAML() (any, error)",
+    "file": "null_decimal.go",
+    "line": 73,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.Scan",
+    "kind": "func",
+    "signature": "func (n *NullDecimal) Scan(value any) error",
+    "file": "null_decimal.go",
+    "line": 25,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.String",
+    "kind": "func",
+    "signature": "func (n NullDecimal) String() string",
+    "file": "null_decimal.go",
+    "line": 189,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.UnmarshalBSONValue",
+    "kind": "func",
+    "signature": "func (n *NullDecimal) UnmarshalBSONValue(t byte, data []byte) error",
+    "file": "marshal_bson.go",
+    "line": 107,
+    "build": "bson"
+  },
+  {
+    "id": "NullDecimal.UnmarshalJSON",
+    "kind": "func",
+    "signature": "func (n *NullDecimal) UnmarshalJSON(data []byte) error",
+    "file": "null_decimal.go",
+    "line": 58,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.UnmarshalParam",
+    "kind": "func",
+    "signature": "func (n *NullDecimal) UnmarshalParam(param string) error",
+    "file": "null_decimal.go",
+    "line": 175,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.UnmarshalText",
+    "kind": "func",
+    "signature": "func (n *NullDecimal) UnmarshalText(text []byte) error",
+    "file": "null_decimal.go",
+    "line": 102,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.UnmarshalXML",
+    "kind": "func",
+    "signature": "func (n *NullDecimal) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error",
+    "file": "null_decimal.go",
+    "line": 128,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.UnmarshalXMLAttr",
+    "kind": "func",
+    "signature": "func (n *NullDecimal) UnmarshalXMLAttr(attr xml.Attr) error",
+    "file": "null_decimal.go",
+    "line": 160,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.UnmarshalYAML",
+    "kind": "func",
+    "signature": "func (n *NullDecimal) UnmarshalYAML(unmarshal func(any) error) error",
+    "file": "null_decimal.go",
+    "line": 82,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.Valid",
+    "kind": "field",
+    "signature": "Valid bool",
+    "file": "null_decimal.go",
+    "line": 14,
+    "build": ""
+  },
+  {
+    "id": "NullDecimal.Value",
+    "kind": "func",
+    "signature": "func (n NullDecimal) Value() (driver.Value, error)",
+    "file": "null_decimal.go",
+    "line": 40,
+    "build": ""
+  },
+  {
+    "id": "One",
+    "kind": "var",
+    "signature": "One = New(1)",
+    "file": "decimal.go",
+    "line": 40,
+    "build": ""
+  },
+  {
+    "id": "PrecisionFixedSize",
+    "kind": "const",
+    "signature": "PrecisionFixedSize = 4",
+    "file": "marshal.go",
+    "line": 33,
+    "build": ""
+  },
+  {
+    "id": "RegisterGoPlaygroundValidator",
+    "kind": "func",
+    "signature": "func RegisterGoPlaygroundValidator(v *validator.Validate) error",
+    "file": "validator.go",
+    "line": 39,
+    "build": ""
+  },
+  {
+    "id": "RegisterGoPlaygroundValidatorTranslations",
+    "kind": "func",
+    "signature": "func RegisterGoPlaygroundValidatorTranslations(v *validator.Validate, trans ut.Translator) error",
+    "file": "validator.go",
+    "line": 90,
+    "build": ""
+  },
+  {
+    "id": "RegisterGoPlaygroundValidatorTranslationsWithMessages",
+    "kind": "func",
+    "signature": "func RegisterGoPlaygroundValidatorTranslationsWithMessages(v *validator.Validate, trans ut.Translator, messages map[string]string) error",
+    "file": "validator.go",
+    "line": 108,
+    "build": ""
+  },
+  {
+    "id": "RoundCeiling",
+    "kind": "const",
+    "signature": "RoundCeiling",
+    "file": "support.go",
+    "line": 16,
+    "build": ""
+  },
+  {
+    "id": "RoundDown",
+    "kind": "const",
+    "signature": "RoundDown RoundingMode = iota",
+    "file": "support.go",
+    "line": 12,
+    "build": ""
+  },
+  {
+    "id": "RoundHalfDown",
+    "kind": "const",
+    "signature": "RoundHalfDown",
+    "file": "support.go",
+    "line": 20,
+    "build": ""
+  },
+  {
+    "id": "RoundHalfEven",
+    "kind": "const",
+    "signature": "RoundHalfEven",
+    "file": "support.go",
+    "line": 22,
+    "build": ""
+  },
+  {
+    "id": "RoundHalfUp",
+    "kind": "const",
+    "signature": "RoundHalfUp",
+    "file": "support.go",
+    "line": 18,
+    "build": ""
+  },
+  {
+    "id": "RoundUnnecessary",
+    "kind": "const",
+    "signature": "RoundUnnecessary",
+    "file": "support.go",
+    "line": 24,
+    "build": ""
+  },
+  {
+    "id": "RoundUp",
+    "kind": "const",
+    "signature": "RoundUp",
+    "file": "support.go",
+    "line": 14,
+    "build": ""
+  },
+  {
+    "id": "RoundingMode",
+    "kind": "type",
+    "signature": "RoundingMode int",
+    "file": "support.go",
+    "line": 8,
+    "build": ""
+  },
+  {
+    "id": "Ten",
+    "kind": "var",
+    "signature": "Ten = New(10)",
+    "file": "decimal.go",
+    "line": 42,
+    "build": ""
+  },
+  {
+    "id": "TranslateGoPlaygroundValidationErrors",
+    "kind": "func",
+    "signature": "func TranslateGoPlaygroundValidationErrors(err error, trans ut.Translator) []string",
+    "file": "validator.go",
+    "line": 372,
+    "build": ""
+  },
+  {
+    "id": "Zero",
+    "kind": "var",
+    "signature": "Zero = New(0)",
+    "file": "decimal.go",
+    "line": 38,
+    "build": ""
+  }
+]

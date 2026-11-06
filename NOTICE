@@ -1,0 +1,7 @@
+rs-decimal is a Rust port of https://github.com/exc-works/decimal.
+Compatibility baseline: a8791208e2d15483cf652cd2814b74b0c1a84187.
+Upstream copyright (c) 2026 exc-works, MIT license (see LICENSE).
+Unmodified upstream contracts and fixtures are in testdata/upstream/;
+manifest.json records their original paths and SHA-256 checksums.
+The Rust crate has an independent version and does not claim full compatibility
+until the corresponding API matrix entries have been validated.
