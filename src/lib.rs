@@ -7,6 +7,8 @@
 pub const COMPATIBILITY_REVISION: &str = "a8791208e2d15483cf652cd2814b74b0c1a84187";
 
 mod arithmetic;
+mod binary;
+pub use binary::PRECISION_FIXED_SIZE;
 mod conversion;
 mod decimal;
 mod error;
