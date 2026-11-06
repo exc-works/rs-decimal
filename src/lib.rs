@@ -32,3 +32,6 @@ pub use error::{DecimalError, ErrorKind};
 pub use num_bigint::BigInt;
 pub use num_rational::BigRational;
 pub use rounding::RoundingMode;
+
+#[cfg(feature = "yaml")]
+mod yaml;

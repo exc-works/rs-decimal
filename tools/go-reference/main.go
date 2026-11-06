@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	d "github.com/exc-works/decimal"
+	yaml "github.com/goccy/go-yaml"
 	"io"
 	"math"
 	"math/big"
@@ -142,6 +143,10 @@ func execute(req request) (r response) {
 				panic(e)
 			}
 			err = n.Decimal.UnmarshalBinary(bytes)
+		case nullable && params["format"] == "yaml":
+			err = n.UnmarshalYAML(func(target any) error { return yaml.Unmarshal([]byte(params["text"]), target) })
+		case !nullable && params["format"] == "yaml":
+			err = n.Decimal.UnmarshalYAML(func(target any) error { return yaml.Unmarshal([]byte(params["text"]), target) })
 		case nullable && params["format"] == "json":
 			err = n.UnmarshalJSON([]byte(params["text"]))
 		case !nullable && params["format"] == "json":
@@ -177,6 +182,20 @@ func execute(req request) (r response) {
 		} else {
 			r.Outcome = "ok"
 			r.Result = hex.EncodeToString(bytes)
+		}
+	case "encode_yaml":
+		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		var value any
+		if params["nullable"] == "true" {
+			value, _ = n.MarshalYAML()
+		} else {
+			value, _ = n.Decimal.MarshalYAML()
+		}
+		r.Outcome = "ok"
+		if value == nil {
+			r.Result = json.RawMessage("null")
+		} else {
+			r.Result = value
 		}
 	case "encode_json":
 		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
