@@ -11,6 +11,7 @@ mod conversion;
 mod decimal;
 mod error;
 mod integer;
+mod root;
 mod rounding;
 pub use conversion::most_significant_bit;
 pub use decimal::{Decimal, NullDecimal, between, hundred, max, min, one, ten, zero};

@@ -65,3 +65,6 @@ jobs:
       - run: python3 tools/conformance/run.py --go .cache/go-reference --rust target/debug/decimal-conformance --cases testdata/conformance/conversion.jsonl --timeout 60
       - run: python3 tools/conformance/check-floats.py --rust target/debug/decimal-conformance --cases testdata/conformance/conversion.jsonl
       - run: python3 tools/conformance/smoke-oracle.py .cache/go-oracle
+      - run: python3 tools/conformance/run.py --go .cache/go-reference --rust target/debug/decimal-conformance --cases testdata/conformance/roots.jsonl
+      - run: python3 tools/conformance/check-oracle.py --rust target/debug/decimal-conformance --oracle .cache/go-oracle --cases testdata/conformance/roots.jsonl --operations sqrt root sqrt_prec root_prec
+      - run: python3 tools/conformance/check-must-succeed.py --rust target/debug/decimal-conformance --oracle .cache/go-oracle

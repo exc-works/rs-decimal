@@ -73,7 +73,7 @@ def compare(requests, left, right, expected=None):
                 raise ConformanceError("missing successful result")
             if response["inputs_after"] != req["inputs"]:
                 raise ConformanceError("operation mutated input operands")
-            if want == "ok" and req["operation"] in {"state", "parse", "must_parse", "construct", "min", "max", "clone", "abs", "neg", "rescale", "rescale_down", "floor", "ceil", "round", "truncate", "shift", "strip", "significant", "add", "sub", "safe_add", "safe_sub", "mul", "mul_down", "mul_exact", "mul_prec", "quo", "quo_down", "quo_prec", "mod", "power", "add_raw", "sub_raw", "must_non_negative", "from_float", "from_rat", "from_rat_prec"}:
+            if want == "ok" and req["operation"] in {"state", "parse", "must_parse", "construct", "min", "max", "clone", "abs", "neg", "rescale", "rescale_down", "floor", "ceil", "round", "truncate", "shift", "strip", "significant", "add", "sub", "safe_add", "safe_sub", "mul", "mul_down", "mul_exact", "mul_prec", "quo", "quo_down", "quo_prec", "mod", "power", "add_raw", "sub_raw", "must_non_negative", "from_float", "from_rat", "from_rat_prec", "sqrt", "root", "sqrt_prec", "root_prec"}:
                 validate_state(response["result"])
             if want == "ok" and req["operation"] == "to_float":
                 result = response["result"]
