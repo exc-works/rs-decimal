@@ -260,7 +260,7 @@ MarshalYAML 返回语义上的字符串 scalar（NullDecimal 为 Option<String>�
 
 xml 可选功能使用 quick-xml 解析第一个元素。MarshalXML 返回元素的字符内容，由调用方 emitter 提供元素名和 namespace；MarshalXMLAttr 返回已经解码的属性值，NullDecimal 无效时返回 None 表示省略属性。普通 nil 编码为空，有效 NullDecimal 内部 nil 编码为零，且不初始化原值。
 UnmarshalXML 接受整份 XML 原文，只读取根元素的直接字符内容（子元素内容忽略）；属性入口接收已完成实体解码的值。空白内容清空 Decimal/NullDecimal，非空值保留十进制原文精度。语法/实体错误为 Unmarshal，数值错误另含 InvalidFormat；所有失败保留状态。
-这是 Rust 文档便利入口与 Go Decoder/StartElement 回调的显式平台映射，不暴露 Go 类型，也不承诺两个 XML 解析器的全部扩展语法相同。Rust 将进入根元素前的解析错误也归类为 Unmarshal；差分 Go 外层包装器仅对尚无 Unmarshal 标记的解析错误补此标记，实际 Decimal 回调错误原样保留。第一元素后的内容按 Go Decode 行为不继续消费。184 个固定差分覆盖元素、属性、空值、CDATA、实体、嵌套元素与失败状态。
+这是 Rust 文档便利入口与 Go Decoder/StartElement 回调的显式平台映射，不暴露 Go 类型，也不承诺两个 XML 解析器的全部扩展语法相同。Rust 将进入根元素前的解析错误也归类为 Unmarshal；差分 Go 外层包装器仅对尚无 Unmarshal 标记的解析错误补此标记，实际 Decimal 回调错误原样保留。第一元素后的内容按 Go Decode 行为不继续消费。204 个固定差分覆盖元素、属性、空值、CDATA、实体、嵌套元素与失败状态。
 
 ## PR 13c 行为规则
 

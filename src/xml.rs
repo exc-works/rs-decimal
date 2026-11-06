@@ -85,7 +85,7 @@ fn element_text(source: &str) -> Result<String, DecimalError> {
                 }
                 for attr in start.attributes().with_checks(false) {
                     let attr = attr.map_err(|_| invalid())?;
-                    if !valid_name(attr.key.as_ref()) {
+                    if !valid_name(attr.key.as_ref()) || attr.value.contains(&b'<') {
                         return Err(invalid());
                     }
                     let value = attr
@@ -103,7 +103,7 @@ fn element_text(source: &str) -> Result<String, DecimalError> {
                 }
                 for attr in start.attributes().with_checks(false) {
                     let attr = attr.map_err(|_| invalid())?;
-                    if !valid_name(attr.key.as_ref()) {
+                    if !valid_name(attr.key.as_ref()) || attr.value.contains(&b'<') {
                         return Err(invalid());
                     }
                     let value = attr
@@ -128,6 +128,9 @@ fn element_text(source: &str) -> Result<String, DecimalError> {
                 }
             }
             Event::Text(value) => {
+                if value.as_ref().windows(3).any(|s| s == b"]]>") {
+                    return Err(invalid());
+                }
                 let value = value.xml10_content().map_err(|_| invalid())?;
                 if !value.chars().all(valid_char) {
                     return Err(invalid());
