@@ -79,6 +79,10 @@ def compare(requests, left, right, expected=None):
                 raise ConformanceError("invalid text result")
             if want == "ok" and req["operation"] in {"encode_yaml", "encode_xml"} and response["result"] is not None and not isinstance(response["result"], str):
                 raise ConformanceError("invalid YAML scalar")
+            if want == "ok" and req["operation"] == "encode_bson":
+                result = response["result"]
+                if not isinstance(result, dict) or set(result) != {"type", "data"} or result["type"] not in {"2", "10"} or not isinstance(result["data"], str) or not re.fullmatch(r"(?:[0-9a-f]{2})*", result["data"]):
+                    raise ConformanceError("invalid BSON payload")
             if req["operation"] == "decode":
                 receiver = response.get("receiver_after")
                 nullable = req["params"]["nullable"] == "true"

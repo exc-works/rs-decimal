@@ -76,6 +76,12 @@ fn execute(req: &Request) -> Value {
                     valid: p("valid") == "true",
                 };
                 let err = match (nullable, p("format")) {
+                    (true, "bson") => {
+                        n.unmarshal_bson_value(p("type").parse().unwrap(), &decode_hex(p("text")))
+                    }
+                    (false, "bson") => n
+                        .decimal
+                        .unmarshal_bson_value(p("type").parse().unwrap(), &decode_hex(p("text"))),
                     (false, "binary") => n.decimal.unmarshal_binary(&decode_hex(p("text"))),
                     (true, "xml") => n.unmarshal_xml(p("text")),
                     (false, "xml") => n.decimal.unmarshal_xml(p("text")),
@@ -93,6 +99,19 @@ fn execute(req: &Request) -> Value {
                 };
                 response["receiver_after"] = json!({"decimal":capture(&n.decimal),"valid":if nullable {json!(n.valid)}else{Value::Null}});
                 err.map(|_| response["receiver_after"].clone())
+            }
+            "encode_bson" if values.len() == 1 => {
+                let n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                let encoded = if p("nullable") == "true" {
+                    n.marshal_bson_value()
+                } else {
+                    n.decimal.marshal_bson_value()
+                };
+                encoded
+                    .map(|(kind, data)| json!({"type":kind.to_string(),"data":encode_hex(&data)}))
             }
             "encode_binary" if values.len() == 1 => values[0]
                 .marshal_binary()

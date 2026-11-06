@@ -38,3 +38,6 @@ mod yaml;
 
 #[cfg(feature = "xml")]
 mod xml;
+
+#[cfg(feature = "bson")]
+mod bson;
