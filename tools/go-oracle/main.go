@@ -29,7 +29,7 @@ type request struct {
 func rational(s state) (*big.Rat, int, error) {
 	c, ok := new(big.Int).SetString(s.Coefficient, 10)
 	p, err := strconv.Atoi(s.Scale)
-	if !ok || err != nil || p < 0 || p > 131072 {
+	if !ok || err != nil || p < 0 || p > 131072 || c.String() != s.Coefficient || strconv.Itoa(p) != s.Scale {
 		return nil, 0, fmt.Errorf("invalid or unaffordable state")
 	}
 	if !s.Initialized && (c.Sign() != 0 || p != 0) {

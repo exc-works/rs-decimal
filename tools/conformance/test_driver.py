@@ -54,6 +54,21 @@ class DriverTests(unittest.TestCase):
         with self.assertRaises(driver.ConformanceError):
             driver.verify_oracle([sys.executable, "-c", code], [self.request])
 
+    def test_both_executors_omitting_state_is_rejected(self):
+        req = dict(self.request, inputs=[self.response["result"]])
+        for fields in [{"inputs_after": [], "result": {}},
+                       {"inputs_after": [{}]},
+                       {"inputs_after": [self.response["result"]], "result": {}},
+                       {"inputs_after": [dict(self.response["result"], initialized=1)]}]:
+            response = dict(self.response, **fields)
+            with self.subTest(fields=fields), self.assertRaises(driver.ConformanceError):
+                driver.compare([req], [response], [response])
+
+    def test_noncanonical_states_are_rejected(self):
+        for fields in [{"coefficient": "+0100"}, {"scale": "02"}, {"coefficient": "-0"}, {"scale": 2}]:
+            with self.subTest(fields=fields), self.assertRaises(driver.ConformanceError):
+                driver.validate_state(dict(self.response["result"], **fields))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -4,10 +4,23 @@ import collections
 import json
 from pathlib import Path
 import subprocess
+import re
 
 
 class ConformanceError(RuntimeError):
     pass
+
+
+def validate_state(state):
+    if not isinstance(state, dict) or set(state) != {"coefficient", "scale", "initialized"}:
+        raise ConformanceError("incomplete decimal state")
+    c, s, initialized = state["coefficient"], state["scale"], state["initialized"]
+    if not isinstance(c, str) or not re.fullmatch(r"0|-?[1-9][0-9]*", c):
+        raise ConformanceError("noncanonical coefficient")
+    if not isinstance(s, str) or not re.fullmatch(r"0|[1-9][0-9]*", s):
+        raise ConformanceError("noncanonical scale")
+    if type(initialized) is not bool or (not initialized and (c != "0" or s != "0")):
+        raise ConformanceError("invalid initialization state")
 
 
 def run(command, requests, timeout=30):
@@ -50,8 +63,16 @@ def compare(requests, left, right, expected=None):
                 raise ConformanceError(f"{req['case_id']}: unexpected {response.get('outcome')}")
             if not isinstance(response.get("error_kinds"), list) or not isinstance(response.get("inputs_after"), list):
                 raise ConformanceError("incomplete response state")
+            if not all(isinstance(k, str) and k for k in response["error_kinds"]):
+                raise ConformanceError("invalid error categories")
+            if len(response["inputs_after"]) != len(req["inputs"]):
+                raise ConformanceError("input state count mismatch")
+            for state in response["inputs_after"]:
+                validate_state(state)
             if want == "ok" and "result" not in response:
                 raise ConformanceError("missing successful result")
+            if want == "ok" and req["operation"] == "state":
+                validate_state(response["result"])
         a, b = dict(a), dict(b)
         a["error_kinds"] = sorted(set(a["error_kinds"]))
         b["error_kinds"] = sorted(set(b["error_kinds"]))

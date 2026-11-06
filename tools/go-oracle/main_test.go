@@ -7,7 +7,7 @@ func TestExactSumAndCandidateMutations(t *testing.T) {
 	if status, _ := verify(req); status != "verified" {
 		t.Fatal(status)
 	}
-	for _, candidate := range []state{{"358", "2", true}, {"3570", "3", true}, {"357", "2", false}} {
+	for _, candidate := range []state{{"358", "2", true}, {"3570", "3", true}, {"357", "2", false}, {"+0357", "02", true}, {"357", "02", true}, {"+357", "2", true}} {
 		req.Candidate = candidate
 		if status, _ := verify(req); status != "mismatch" {
 			t.Fatal(status)
