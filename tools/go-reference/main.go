@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/hex"
 	"encoding/json"
+	"encoding/xml"
 	"errors"
 	"fmt"
 	d "github.com/exc-works/decimal"
@@ -143,6 +144,14 @@ func execute(req request) (r response) {
 				panic(e)
 			}
 			err = n.Decimal.UnmarshalBinary(bytes)
+		case nullable && params["format"] == "xml":
+			err = decodeXML(params["text"], &n)
+		case !nullable && params["format"] == "xml":
+			err = decodeXML(params["text"], &n.Decimal)
+		case nullable && params["format"] == "xml_attr":
+			err = n.UnmarshalXMLAttr(xml.Attr{Value: params["text"]})
+		case !nullable && params["format"] == "xml_attr":
+			err = n.Decimal.UnmarshalXMLAttr(xml.Attr{Value: params["text"]})
 		case nullable && params["format"] == "yaml":
 			err = n.UnmarshalYAML(func(target any) error { return yaml.Unmarshal([]byte(params["text"]), target) })
 		case !nullable && params["format"] == "yaml":
@@ -182,6 +191,33 @@ func execute(req request) (r response) {
 		} else {
 			r.Outcome = "ok"
 			r.Result = hex.EncodeToString(bytes)
+		}
+	case "encode_xml":
+		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		r.Outcome = "ok"
+		if params["format"] == "attribute" {
+			var attr xml.Attr
+			if params["nullable"] == "true" {
+				attr, _ = n.MarshalXMLAttr(xml.Name{Local: "v"})
+			} else {
+				attr, _ = n.Decimal.MarshalXMLAttr(xml.Name{Local: "v"})
+			}
+			if attr.Name.Local == "" {
+				r.Result = json.RawMessage("null")
+			} else {
+				r.Result = attr.Value
+			}
+		} else {
+			var out bytes.Buffer
+			encoder := xml.NewEncoder(&out)
+			start := xml.StartElement{Name: xml.Name{Local: "v"}}
+			if params["nullable"] == "true" {
+				_ = n.MarshalXML(encoder, start)
+			} else {
+				_ = n.Decimal.MarshalXML(encoder, start)
+			}
+			_ = encoder.Flush()
+			r.Result = out.String()
 		}
 	case "encode_yaml":
 		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
@@ -490,4 +526,14 @@ func main() {
 			panic(e)
 		}
 	}
+}
+
+// Rust exposes a whole-document convenience method rather than Decoder/StartElement.
+// Normalize errors before the Go hook is entered to the public decoder error kind.
+func decodeXML(source string, value any) error {
+	err := xml.Unmarshal([]byte(source), value)
+	if err != nil && !errors.Is(err, d.ErrUnmarshal) {
+		return fmt.Errorf("%w: %w", d.ErrUnmarshal, err)
+	}
+	return err
 }

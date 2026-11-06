@@ -77,6 +77,10 @@ fn execute(req: &Request) -> Value {
                 };
                 let err = match (nullable, p("format")) {
                     (false, "binary") => n.decimal.unmarshal_binary(&decode_hex(p("text"))),
+                    (true, "xml") => n.unmarshal_xml(p("text")),
+                    (false, "xml") => n.decimal.unmarshal_xml(p("text")),
+                    (true, "xml_attr") => n.unmarshal_xml_attr(p("text")),
+                    (false, "xml_attr") => n.decimal.unmarshal_xml_attr(p("text")),
                     (true, "yaml") => n.unmarshal_yaml(p("text")),
                     (false, "yaml") => n.decimal.unmarshal_yaml(p("text")),
                     (true, "json") => n.unmarshal_json(p("text").as_bytes()),
@@ -93,6 +97,29 @@ fn execute(req: &Request) -> Value {
             "encode_binary" if values.len() == 1 => values[0]
                 .marshal_binary()
                 .map(|bytes| json!(encode_hex(&bytes))),
+            "encode_xml" if values.len() == 1 => {
+                let n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                let nullable = p("nullable") == "true";
+                Ok(if p("format") == "attribute" {
+                    if nullable {
+                        json!(n.marshal_xml_attr())
+                    } else {
+                        json!(n.decimal.marshal_xml_attr())
+                    }
+                } else {
+                    json!(format!(
+                        "<v>{}</v>",
+                        if nullable {
+                            n.marshal_xml()
+                        } else {
+                            n.decimal.marshal_xml()
+                        }
+                    ))
+                })
+            }
             "encode_yaml" if values.len() == 1 => {
                 let n = rs_decimal::NullDecimal {
                     decimal: values[0].clone(),

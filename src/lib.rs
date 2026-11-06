@@ -35,3 +35,6 @@ pub use rounding::RoundingMode;
 
 #[cfg(feature = "yaml")]
 mod yaml;
+
+#[cfg(feature = "xml")]
+mod xml;

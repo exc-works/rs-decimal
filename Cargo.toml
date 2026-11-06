@@ -20,11 +20,14 @@ serde_json = { version = "=1.0.145", features = ["arbitrary_precision"], optiona
 
 yaml-rust2 = { version = "=0.13.0", default-features = false, optional = true }
 
+quick-xml = { version = "=0.38.4", optional = true }
+
 [features]
 default = []
 serde = ["dep:serde"]
 json = ["dep:serde_json"]
 yaml = ["dep:yaml-rust2"]
+xml = ["dep:quick-xml"]
 
 [workspace]
 members = ["tools/conformance"]
