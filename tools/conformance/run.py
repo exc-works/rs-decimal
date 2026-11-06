@@ -73,8 +73,20 @@ def compare(requests, left, right, expected=None):
                 raise ConformanceError("missing successful result")
             if response["inputs_after"] != req["inputs"]:
                 raise ConformanceError("operation mutated input operands")
-            if want == "ok" and req["operation"] in {"state", "parse", "must_parse", "construct", "min", "max", "clone", "abs", "neg", "rescale", "rescale_down", "floor", "ceil", "round", "truncate", "shift", "strip", "significant", "add", "sub", "safe_add", "safe_sub", "mul", "mul_down", "mul_exact", "mul_prec", "quo", "quo_down", "quo_prec", "mod", "power", "add_raw", "sub_raw", "must_non_negative"}:
+            if want == "ok" and req["operation"] in {"state", "parse", "must_parse", "construct", "min", "max", "clone", "abs", "neg", "rescale", "rescale_down", "floor", "ceil", "round", "truncate", "shift", "strip", "significant", "add", "sub", "safe_add", "safe_sub", "mul", "mul_down", "mul_exact", "mul_prec", "quo", "quo_down", "quo_prec", "mod", "power", "add_raw", "sub_raw", "must_non_negative", "from_float", "from_rat", "from_rat_prec"}:
                 validate_state(response["result"])
+            if want == "ok" and req["operation"] == "to_float":
+                result = response["result"]
+                if not isinstance(result, dict) or set(result) != {"width", "bits", "exact"} or result["width"] not in ("32", "64") or type(result["exact"]) is not bool or not isinstance(result["bits"], str) or not re.fullmatch(r"[0-9a-f]{"+str(int(result["width"])//4)+r"}",result["bits"]):
+                    raise ConformanceError("invalid float result")
+            if want == "ok" and req["operation"] in {"to_rat", "native_int"}:
+                result = response["result"]
+                nums = {"numerator", "denominator"} if req["operation"] == "to_rat" else {"signed", "unsigned", "bit_len"}
+                bools = set() if req["operation"] == "to_rat" else {"signed_exact", "unsigned_exact"}
+                if not isinstance(result, dict) or set(result) != nums | bools or any(type(result[k]) is not bool for k in bools) or any(not isinstance(result[k], str) or not re.fullmatch(r"0|-?[1-9][0-9]*",result[k]) for k in nums):
+                    raise ConformanceError("invalid rational/native result")
+            if want == "ok" and req["operation"] == "msb" and (not isinstance(response["result"], str) or not re.fullmatch(r"0|[1-9][0-9]*",response["result"])):
+                raise ConformanceError("invalid bit index")
             if want == "ok" and req["operation"] == "quo_rem":
                 result = response["result"]
                 if not isinstance(result, list) or len(result) != 2:

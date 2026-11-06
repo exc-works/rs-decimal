@@ -15,9 +15,9 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.AppendTextWithTrailingZeros` | Decimal::append_text_with_trailing_zeros（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.ApproxRoot` | Decimal::approx_root（签名待设计） | 核心 | 07 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.ApproxRootWithPrec` | Decimal::approx_root_with_prec（签名待设计） | 核心 | 07 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.BigInt` | `Decimal::big_int(&self) -> BigInt` | 核心 | 06 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `Decimal.BigRat` | Decimal::big_rat（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.BitLen` | Decimal::bit_len（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.BigInt` | `Decimal::big_int(&self) -> BigInt` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
+| `Decimal.BigRat` | `Decimal::big_rat(&self) -> BigRational` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
+| `Decimal.BitLen` | `Decimal::bit_len(&self) -> usize` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
 | `Decimal.Ceil` | `Decimal::ceil(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.CeilWithPrec` | `Decimal::ceil_with_prec(&self, prec: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Clone` | `Decimal::clone(&self) -> Self` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
@@ -25,8 +25,8 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.Equal` | `Decimal::equal(&self, other: &Self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.Exp` | Decimal::exp（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.ExpWithPrec` | Decimal::exp_with_prec（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.Float32` | Decimal::float32（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.Float64` | Decimal::float64（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Float32` | `Decimal::float32(&self) -> (f32, bool)` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
+| `Decimal.Float64` | `Decimal::float64(&self) -> (f64, bool)` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
 | `Decimal.Floor` | `Decimal::floor(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.FloorWithPrec` | `Decimal::floor_with_prec(&self, prec: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Format` | Decimal::format（签名待设计） | 核心 | 10a | 平台映射：独立 Go 格式入口 | 待设计 | 待设计 | 待实现 | 未开始 |
@@ -34,7 +34,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.GT` | `Decimal::gt(&self, other: &Self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.GTE` | `Decimal::gte(&self, other: &Self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.HasFraction` | `Decimal::has_fraction(&self) -> bool` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
-| `Decimal.Int64` | Decimal::int64（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Int64` | `Decimal::int64(&self) -> (i64, bool)` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
 | `Decimal.IntPart` | `Decimal::int_part(&self) -> BigInt` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
 | `Decimal.IsInteger` | `Decimal::is_integer(&self) -> bool` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
 | `Decimal.IsNegative` | `Decimal::is_negative(&self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
@@ -93,7 +93,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.SubRaw` | `Decimal::sub_raw(&self, value: i64) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
 | `Decimal.Truncate` | `Decimal::truncate(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.TruncateWithPrec` | `Decimal::truncate_with_prec(&self, prec: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
-| `Decimal.Uint64` | Decimal::uint64（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Uint64` | `Decimal::uint64(&self) -> (u64, bool)` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
 | `Decimal.UnmarshalBSONValue` | Decimal::unmarshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.UnmarshalBinary` | Decimal::unmarshal_binary（签名待设计） | 协议 | 12 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.UnmarshalJSON` | Decimal::unmarshal_json（签名待设计） | 协议 | 11 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
@@ -119,16 +119,16 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Hundred` | `hundred() -> Decimal` | 核心 | 03 | 平台映射：只读构造函数 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Max` | `max(a: &Decimal, b: &Decimal) -> Decimal` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Min` | `min(a: &Decimal, b: &Decimal) -> Decimal` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `MostSignificantBit` | most_significant_bit（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `MostSignificantBit` | `most_significant_bit(value: &BigInt) -> usize` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
 | `MustFromString` | `Decimal::must_from_string(text: &str) -> Self` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `New` | `Decimal::new(value: i64) -> Self` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `NewFromBigInt` | `Decimal::new_from_big_int(value: &BigInt) -> Self` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `NewFromBigIntWithPrec` | `Decimal::new_from_big_int_with_prec(value: &BigInt, prec: isize) -> Self` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `NewFromBigRat` | new_from_big_rat（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `NewFromBigRatWithPrec` | new_from_big_rat_with_prec（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewFromBigRat` | `Decimal::new_from_big_rat(value: &BigRational) -> Result<Self, DecimalError>` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
+| `NewFromBigRatWithPrec` | `Decimal::new_from_big_rat_with_prec( value: &BigRational, prec: isize, mode: RoundingMode, ) -> Result<Self, DecimalError>` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
 | `NewFromDecimal` | `Decimal::new_from_decimal(value: &Self) -> Self` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `NewFromFloat32` | new_from_float32（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `NewFromFloat64` | new_from_float64（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NewFromFloat32` | `Decimal::new_from_float32(value: f32) -> Self` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
+| `NewFromFloat64` | `Decimal::new_from_float64(value: f64) -> Self` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
 | `NewFromInt` | `Decimal::new_from_int(value: isize) -> Self` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `NewFromInt64` | `Decimal::new_from_int64(value: i64, prec: isize) -> Self` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `NewFromString` | `Decimal::new_from_string(text: &str) -> Result<Self, DecimalError>` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
@@ -202,3 +202,11 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 - 已确认的资源行为差异：Go 基线的 QuoRem 在检查零除数前对齐 scale；对 `1 / (0 × 10^-isize::MAX)` 可能先耗尽资源。Rust 在对齐前检查零除数，保持契约中的 DivideByZero 类型化 panic，避免无意义分配；Mod 两个入口同样受益。该差异不改变数值结果、scale 或错误类别，属于不要求匹配的分配行为；极端输入只在 Rust 回归中执行，不用 Go 进程耗尽资源来验证。
 - Power 保留输入 scale、最终 HalfEven；0^0=1，零的负幂 panic DivideByZero。去尾零后先处理 ±1；其他幂的绝对指数乘 max(1,scale,系数位长) 超过 i32::MAX 时 panic Overflow，包含 i64::MIN 防溢出路径。
 - IntPart 向零取整数；Remainder 返回整数部分和未缩放的带符号分数系数；IsInteger/HasFraction 不经浮点判断。输入均不变，返回大整数独立持有。
+
+## PR 06 行为规则
+
+- NewFromFloat32/64 使用固定 Ryu 版本产生对应原位宽的最短往返十进制，去掉格式器额外的 .0 后精确解析。负零归一化为初始化零；非有限输入 panic InvalidFormat。随机位模式与 Go 的最短文本选择/scale 逐项比较。
+- Float32/64 从精确整数比直接定位二进制网格并 ties-to-even，f32 不经过 f64；保留次正规数与带符号下溢零。溢出返回同号 infinity、exact=false，exact=true 只表示数学上精确相等。
+- NewFromBigRat 只接受分母约分后仅含 2/5 因子的有理数，否则返回 InvalidFormat；输出最小终止 scale。WithPrec 先拒绝负 precision，再一次舍入到目标 scale，Unnecessary 非精确时 panic RoundUnnecessary。Rust 的有效引用排除了 Go 的 nil rational 参数，该类型映射不提供空指针入口。
+- BigInt/BigRat 返回独立副本。Int64/Uint64 仅接受范围内精确整数，否则返回 (0,false)，不以截断值冒充成功。BitLen 按系数绝对值；MostSignificantBit 的零结果为 0、负输入断言 panic。
+- 除 Go 差分外，独立 Python Fraction 验证浮点结果所在的精确中点舍入单元、边界奇偶、符号、overflow/underflow 和 exact 标志；该验证器不调用生产整数舍入。
