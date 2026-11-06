@@ -1210,7 +1210,7 @@
   {
     "id": "PrecisionFixedSize",
     "kind": "const",
-    "signature": "PrecisionFixedSize = 4",
+    "signature": "PrecisionFixedSize untyped int = 4",
     "file": "marshal.go",
     "line": 33,
     "build": ""
@@ -1242,7 +1242,7 @@
   {
     "id": "RoundCeiling",
     "kind": "const",
-    "signature": "RoundCeiling",
+    "signature": "RoundCeiling RoundingMode = 2",
     "file": "support.go",
     "line": 16,
     "build": ""
@@ -1250,7 +1250,7 @@
   {
     "id": "RoundDown",
     "kind": "const",
-    "signature": "RoundDown RoundingMode = iota",
+    "signature": "RoundDown RoundingMode = 0",
     "file": "support.go",
     "line": 12,
     "build": ""
@@ -1258,7 +1258,7 @@
   {
     "id": "RoundHalfDown",
     "kind": "const",
-    "signature": "RoundHalfDown",
+    "signature": "RoundHalfDown RoundingMode = 4",
     "file": "support.go",
     "line": 20,
     "build": ""
@@ -1266,7 +1266,7 @@
   {
     "id": "RoundHalfEven",
     "kind": "const",
-    "signature": "RoundHalfEven",
+    "signature": "RoundHalfEven RoundingMode = 5",
     "file": "support.go",
     "line": 22,
     "build": ""
@@ -1274,7 +1274,7 @@
   {
     "id": "RoundHalfUp",
     "kind": "const",
-    "signature": "RoundHalfUp",
+    "signature": "RoundHalfUp RoundingMode = 3",
     "file": "support.go",
     "line": 18,
     "build": ""
@@ -1282,7 +1282,7 @@
   {
     "id": "RoundUnnecessary",
     "kind": "const",
-    "signature": "RoundUnnecessary",
+    "signature": "RoundUnnecessary RoundingMode = 6",
     "file": "support.go",
     "line": 24,
     "build": ""
@@ -1290,7 +1290,7 @@
   {
     "id": "RoundUp",
     "kind": "const",
-    "signature": "RoundUp",
+    "signature": "RoundUp RoundingMode = 1",
     "file": "support.go",
     "line": 14,
     "build": ""

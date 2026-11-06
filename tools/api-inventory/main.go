@@ -9,6 +9,7 @@ import (
 	"go/parser"
 	"go/printer"
 	"go/token"
+	"go/types"
 	"os"
 	"path/filepath"
 	"sort"
@@ -33,6 +34,43 @@ func main() {
 		panic(err)
 	}
 	fset := token.NewFileSet()
+	// Type-check just scalar type declarations and constants. This resolves
+	// inherited expressions and iota without loading framework dependencies.
+	constantFile := &ast.File{Name: ast.NewIdent("decimal")}
+	for _, path := range files {
+		if strings.HasSuffix(path, "_test.go") {
+			continue
+		}
+		f, err := parser.ParseFile(fset, path, nil, 0)
+		if err != nil {
+			panic(err)
+		}
+		if f.Name.Name != "decimal" {
+			continue
+		}
+		for _, decl := range f.Decls {
+			g, ok := decl.(*ast.GenDecl)
+			if !ok {
+				continue
+			}
+			if g.Tok == token.CONST {
+				constantFile.Decls = append(constantFile.Decls, g)
+			}
+			if g.Tok == token.TYPE {
+				for _, spec := range g.Specs {
+					s := spec.(*ast.TypeSpec)
+					if _, ok := s.Type.(*ast.Ident); ok {
+						constantFile.Decls = append(constantFile.Decls, &ast.GenDecl{Tok: token.TYPE, Specs: []ast.Spec{s}})
+					}
+				}
+			}
+		}
+	}
+	config := types.Config{}
+	constantPackage, err := config.Check("decimal", fset, []*ast.File{constantFile}, nil)
+	if err != nil {
+		panic(fmt.Errorf("cannot resolve constant baseline: %w", err))
+	}
 	var entries []entry
 	for _, path := range files {
 		if strings.HasSuffix(path, "_test.go") {
@@ -113,6 +151,14 @@ func main() {
 								s.Doc = nil
 								s.Comment = nil
 								add(name.Name, d.Tok.String(), s)
+								if d.Tok == token.CONST {
+									c, ok := constantPackage.Scope().Lookup(name.Name).(*types.Const)
+									if !ok {
+										panic("missing evaluated constant " + name.Name)
+									}
+									typeName := types.TypeString(c.Type(), func(*types.Package) string { return "" })
+									entries[len(entries)-1].Signature = name.Name + " " + typeName + " = " + c.Val().ExactString()
+								}
 							}
 						}
 					}
