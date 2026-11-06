@@ -56,3 +56,5 @@ Decimal 保留系数和 scale；Default 为未初始化零，数值相等不代�
 `bson` 提供 BSON type byte/raw bytes 适配，支持 string、double、int32、int64、Decimal128 和 null，不依赖 MongoDB 客户端。
 
 `ScanValue` 与 `scan/value` 提供无驱动依赖的 SQL 输入/输出语义；文本保持精度，SQL NULL 使用 NullDecimal 的 valid 状态，浮点 NaN/Infinity 被拒绝。
+
+完整协议门禁、分组计时与长期随机验证见 [发布候选验证](docs/release-validation.md)。执行 `python3 tools/check-release-matrix.py` 检查 API 承诺状态；本仓库工作流不自动发布 crate。
