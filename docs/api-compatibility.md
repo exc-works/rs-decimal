@@ -18,8 +18,8 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.BigInt` | `Decimal::big_int(&self) -> BigInt` | 核心 | 06 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.BigRat` | Decimal::big_rat（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.BitLen` | Decimal::bit_len（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.Ceil` | Decimal::ceil（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.CeilWithPrec` | Decimal::ceil_with_prec（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Ceil` | `Decimal::ceil(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
+| `Decimal.CeilWithPrec` | `Decimal::ceil_with_prec(&self, prec: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Clone` | `Decimal::clone(&self) -> Self` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.Cmp` | `Decimal::cmp(&self, other: &Self) -> i32` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.Equal` | `Decimal::equal(&self, other: &Self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
@@ -27,8 +27,8 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.ExpWithPrec` | Decimal::exp_with_prec（签名待设计） | 核心 | 09 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.Float32` | Decimal::float32（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.Float64` | Decimal::float64（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.Floor` | Decimal::floor（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.FloorWithPrec` | Decimal::floor_with_prec（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Floor` | `Decimal::floor(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
+| `Decimal.FloorWithPrec` | `Decimal::floor_with_prec(&self, prec: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Format` | Decimal::format（签名待设计） | 核心 | 10a | 平台映射：独立 Go 格式入口 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.FormatWithSeparators` | Decimal::format_with_separators（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.GT` | `Decimal::gt(&self, other: &Self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
@@ -74,25 +74,25 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.QuoRem` | Decimal::quo_rem（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.QuoWithPrec` | Decimal::quo_with_prec（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.Remainder` | Decimal::remainder（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.Rescale` | Decimal::rescale（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.RescaleDown` | Decimal::rescale_down（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.Round` | Decimal::round（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.RoundWithPrec` | Decimal::round_with_prec（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Rescale` | `Decimal::rescale(&self, prec: isize, mode: RoundingMode) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
+| `Decimal.RescaleDown` | `Decimal::rescale_down(&self, prec: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
+| `Decimal.Round` | `Decimal::round(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
+| `Decimal.RoundWithPrec` | `Decimal::round_with_prec(&self, prec: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.SafeAdd` | Decimal::safe_add（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.SafeSub` | Decimal::safe_sub（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.Scan` | Decimal::scan（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.Shift` | Decimal::shift（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Shift` | `Decimal::shift(&self, places: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Sign` | `Decimal::sign(&self) -> i32` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `Decimal.SignificantFigures` | Decimal::significant_figures（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.SignificantFigures` | `Decimal::significant_figures(&self, figures: isize, mode: RoundingMode) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Sqrt` | Decimal::sqrt（签名待设计） | 核心 | 07 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.SqrtWithPrec` | Decimal::sqrt_with_prec（签名待设计） | 核心 | 07 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.String` | Decimal::string（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.StringWithTrailingZeros` | Decimal::string_with_trailing_zeros（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.StripTrailingZeros` | Decimal::strip_trailing_zeros（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.StripTrailingZeros` | `Decimal::strip_trailing_zeros(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Sub` | Decimal::sub（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.SubRaw` | Decimal::sub_raw（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.Truncate` | Decimal::truncate（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.TruncateWithPrec` | Decimal::truncate_with_prec（签名待设计） | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Truncate` | `Decimal::truncate(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
+| `Decimal.TruncateWithPrec` | `Decimal::truncate_with_prec(&self, prec: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Uint64` | Decimal::uint64（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.UnmarshalBSONValue` | Decimal::unmarshal_bson_value（签名待设计） | 协议 | 13c | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.UnmarshalBinary` | Decimal::unmarshal_binary（签名待设计） | 协议 | 12 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
@@ -161,14 +161,14 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `RegisterGoPlaygroundValidator` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
 | `RegisterGoPlaygroundValidatorTranslations` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
 | `RegisterGoPlaygroundValidatorTranslationsWithMessages` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
-| `RoundCeiling` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `RoundDown` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `RoundHalfDown` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `RoundHalfEven` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `RoundHalfUp` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `RoundUnnecessary` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `RoundUp` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `RoundingMode` | 待设计 | 核心 | 04 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `RoundCeiling` | `RoundingMode::Ceiling` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
+| `RoundDown` | `RoundingMode::Down` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
+| `RoundHalfDown` | `RoundingMode::HalfDown` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
+| `RoundHalfEven` | `RoundingMode::HalfEven` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
+| `RoundHalfUp` | `RoundingMode::HalfUp` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
+| `RoundUnnecessary` | `RoundingMode::Unnecessary` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
+| `RoundUp` | `RoundingMode::Up` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
+| `RoundingMode` | `RoundingMode`；`from_raw(i32) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Ten` | `ten() -> Decimal` | 核心 | 03 | 平台映射：只读构造函数 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `TranslateGoPlaygroundValidationErrors` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
 | `Zero` | `zero() -> Decimal` | 核心 | 03 | 平台映射：只读构造函数 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
@@ -183,3 +183,12 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 - 数值检查和比较无额外语义错误；大整数分配仍受机器资源限制。常量映射为 zero/one/ten/hundred 构造函数，不提供可重赋值的全局变量。
 - NullDecimal::new 将 valid 设为 true 并保留传入 Decimal；字段允许 valid=false 时内部仍有值。
 - 初步 string/Display 仅用于调试与验证，完整格式化兼容仍属于 PR 10a。
+
+## PR 04 行为规则
+
+- 七种模式的整数值为 Down=0、Up=1、Ceiling=2、HalfUp=3、HalfDown=4、HalfEven=5、Unnecessary=6。`from_raw` 对非法值使用断言 panic；类型化 API 不可能接收非法枚举。
+- Rescale/RescaleDown 和 Floor/Ceil/Truncate/Round 的 WithPrec 版本先拒绝负 precision（InvalidPrecision panic），再按目标 scale 构造初始化结果。无参数方法目标 scale=0。Unnecessary 只在需要舍入时 panic RoundUnnecessary。
+- 舍入基于精确商余数，负中点 HalfUp 远离零、HalfDown 趋向零、HalfEven 取偶数系数。Floor 向负无穷，Ceil 向正无穷。
+- Shift 保持精确值乘 10^places；places=0 保留 scale 并初始化 nil。非零 shift 的非负目标 scale 超过 i32::MAX 时 panic Overflow；负目标 scale 转为整数系数、scale=0。
+- StripTrailingZeros 不减至负 scale；零归一化为初始化零、scale=0。SignificantFigures 的 figures<=0 为断言 panic；不为达到位数补零，零保留原 scale 并初始化 nil。
+- 算术输入均不变。独立 Rust 邻点测试覆盖 22,736 个舍入组合；Go oracle 从上游独立测试抽取，来源及变更见 [PROVENANCE](../tools/go-oracle/PROVENANCE.md)。

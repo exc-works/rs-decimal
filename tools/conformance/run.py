@@ -73,8 +73,10 @@ def compare(requests, left, right, expected=None):
                 raise ConformanceError("missing successful result")
             if response["inputs_after"] != req["inputs"]:
                 raise ConformanceError("operation mutated input operands")
-            if want == "ok" and req["operation"] in {"state", "parse", "must_parse", "construct", "min", "max", "clone", "abs", "neg"}:
+            if want == "ok" and req["operation"] in {"state", "parse", "must_parse", "construct", "min", "max", "clone", "abs", "neg", "rescale", "rescale_down", "floor", "ceil", "round", "truncate", "shift", "strip", "significant"}:
                 validate_state(response["result"])
+            if want == "ok" and req["operation"] == "mode" and response["result"] not in [str(i) for i in range(7)]:
+                raise ConformanceError("invalid rounding mode result")
             if want == "ok" and req["operation"] in {"inspect", "cmp"}:
                 result = response["result"]
                 numeric = {"sign", "precision"} if req["operation"] == "inspect" else {"cmp"}
