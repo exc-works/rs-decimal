@@ -199,5 +199,6 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 - Mul/Quo 的默认 scale=max 输入 scale；MulExact 使用两者之和，超过 i32::MAX 时先 panic Overflow（包括零输入）。MulWithPrec 不继承这一中间 scale 上限，直接在目标 scale 舍入。所有舍入只发生在最终目标；Unnecessary 的非精确结果 panic RoundUnnecessary。
 - WithPrec 首先拒绝负 precision（InvalidPrecision）；Quo 接着拒绝零除数（DivideByZero），零被除数随后直接返回目标 scale 的零。非零除法的缩放偏移超出原生有符号上限时 panic Overflow。
 - QuoRem 的商向零截断且 scale=0；余数 scale=max 输入 scale，与被除数同号。Mod 返回相同余数；Rust 名称为 `r#mod`，另有 `modulo` 别名。零除数 panic DivideByZero。
+- 已确认的资源行为差异：Go 基线的 QuoRem 在检查零除数前对齐 scale；对 `1 / (0 × 10^-isize::MAX)` 可能先耗尽资源。Rust 在对齐前检查零除数，保持契约中的 DivideByZero 类型化 panic，避免无意义分配；Mod 两个入口同样受益。该差异不改变数值结果、scale 或错误类别，属于不要求匹配的分配行为；极端输入只在 Rust 回归中执行，不用 Go 进程耗尽资源来验证。
 - Power 保留输入 scale、最终 HalfEven；0^0=1，零的负幂 panic DivideByZero。去尾零后先处理 ±1；其他幂的绝对指数乘 max(1,scale,系数位长) 超过 i32::MAX 时 panic Overflow，包含 i64::MIN 防溢出路径。
 - IntPart 向零取整数；Remainder 返回整数部分和未缩放的带符号分数系数；IsInteger/HasFraction 不经浮点判断。输入均不变，返回大整数独立持有。

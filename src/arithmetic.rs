@@ -108,10 +108,12 @@ impl Decimal {
         self.quo(other, M::Down)
     }
     pub fn quo_rem(&self, other: &Self) -> (Self, Self) {
-        let (a, b, p) = self.aligned(other);
-        if b.is_zero() {
+        // A zero divisor's representation must never force an enormous
+        // alignment allocation before the promised DivideByZero panic.
+        if other.is_zero() {
             fail(ErrorKind::DivideByZero);
         }
+        let (a, b, p) = self.aligned(other);
         let (q, r) = trunc_div_rem(&a, &b);
         (Self::from_parts(q, 0), Self::from_parts(r, p))
     }

@@ -95,3 +95,24 @@ fn extreme_scale_fast_paths_and_checked_overflow() {
         (BigInt::from(-12), BigInt::from(-34))
     );
 }
+
+#[test]
+fn zero_divisor_is_checked_before_extreme_scale_alignment() {
+    let divisor = Decimal::new_with_prec(0, isize::MAX);
+    let a = Decimal::new(1);
+    for op in [0, 1, 2] {
+        let err = std::panic::catch_unwind(|| match op {
+            0 => a.quo_rem(&divisor).1,
+            1 => a.modulo(&divisor),
+            _ => a.r#mod(&divisor),
+        })
+        .unwrap_err();
+        assert!(
+            err.downcast_ref::<DecimalError>()
+                .unwrap()
+                .matches(ErrorKind::DivideByZero)
+        );
+    }
+    assert_eq!(divisor.precision(), isize::MAX);
+    assert_eq!(a.big_int(), BigInt::from(1));
+}
