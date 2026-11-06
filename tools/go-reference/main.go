@@ -129,6 +129,22 @@ func execute(req request) (r response) {
 		return n
 	}
 	switch req.Operation {
+	case "sqrt":
+		set(values[0].Sqrt())
+	case "sqrt_prec":
+		set(values[0].SqrtWithPrec(integer("precision")))
+	case "root":
+		n, err := strconv.ParseInt(params["degree"], 10, 64)
+		if err != nil {
+			panic(err)
+		}
+		set(values[0].ApproxRoot(n))
+	case "root_prec":
+		n, err := strconv.ParseInt(params["degree"], 10, 64)
+		if err != nil {
+			panic(err)
+		}
+		set(values[0].ApproxRootWithPrec(n, integer("precision")))
 	case "from_float":
 		bits, err := strconv.ParseUint(params["bits"], 16, 64)
 		if err != nil {

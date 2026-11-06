@@ -69,6 +69,21 @@ fn execute(req: &Request) -> Value {
         let values: Vec<_> = req.inputs.iter().map(State::decimal).collect();
         let p = |key: &str| req.params[key].as_str().expect("missing string parameter");
         let result: Result<Value, DecimalError> = match req.operation.as_str() {
+            "sqrt" | "root" | "sqrt_prec" | "root_prec" if values.len() == 1 => {
+                let a = &values[0];
+                let degree = req.params["degree"]
+                    .as_str()
+                    .unwrap_or("2")
+                    .parse()
+                    .unwrap();
+                let result = match req.operation.as_str() {
+                    "sqrt" => a.sqrt(),
+                    "root" => a.approx_root(degree),
+                    "sqrt_prec" => a.sqrt_with_prec(p("precision").parse().unwrap()),
+                    _ => a.approx_root_with_prec(degree, p("precision").parse().unwrap()),
+                };
+                result.map(|d| capture(&d))
+            }
             "from_float" => {
                 let bits = u64::from_str_radix(p("bits"), 16).unwrap();
                 let d = if p("width") == "32" {

@@ -13,8 +13,8 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.AddRaw` | `Decimal::add_raw(&self, value: i64) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
 | `Decimal.AppendText` | Decimal::append_text（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.AppendTextWithTrailingZeros` | Decimal::append_text_with_trailing_zeros（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.ApproxRoot` | Decimal::approx_root（签名待设计） | 核心 | 07 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.ApproxRootWithPrec` | Decimal::approx_root_with_prec（签名待设计） | 核心 | 07 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.ApproxRoot` | `Decimal::approx_root(&self, degree: i64) -> Result<Self, DecimalError>` | 核心 | 07 | 直接移植 | [PR 07 行为规则](#pr-07-行为规则) | [PR 07 行为规则](#pr-07-行为规则) | `tests/roots.rs`；173 个差分，150 个根证书，18 个固定 must-succeed | 已验证 |
+| `Decimal.ApproxRootWithPrec` | `Decimal::approx_root_with_prec(&self, degree: i64, prec: isize) -> Result<Self, DecimalError>` | 核心 | 07 | 直接移植 | [PR 07 行为规则](#pr-07-行为规则) | [PR 07 行为规则](#pr-07-行为规则) | `tests/roots.rs`；173 个差分，150 个根证书，18 个固定 must-succeed | 已验证 |
 | `Decimal.BigInt` | `Decimal::big_int(&self) -> BigInt` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
 | `Decimal.BigRat` | `Decimal::big_rat(&self) -> BigRational` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
 | `Decimal.BitLen` | `Decimal::bit_len(&self) -> usize` | 核心 | 06 | 直接移植 | [PR 06 行为规则](#pr-06-行为规则) | [PR 06 失败规则](#pr-06-行为规则) | `tests/conversion.rs`；`conversion-0..6144` 差分；2046 个浮点中点证书 | 已验证 |
@@ -84,8 +84,8 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.Shift` | `Decimal::shift(&self, places: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Sign` | `Decimal::sign(&self) -> i32` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.SignificantFigures` | `Decimal::significant_figures(&self, figures: isize, mode: RoundingMode) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
-| `Decimal.Sqrt` | Decimal::sqrt（签名待设计） | 核心 | 07 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.SqrtWithPrec` | Decimal::sqrt_with_prec（签名待设计） | 核心 | 07 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Sqrt` | `Decimal::sqrt(&self) -> Result<Self, DecimalError>` | 核心 | 07 | 直接移植 | [PR 07 行为规则](#pr-07-行为规则) | [PR 07 行为规则](#pr-07-行为规则) | `tests/roots.rs`；173 个差分，150 个根证书，18 个固定 must-succeed | 已验证 |
+| `Decimal.SqrtWithPrec` | `Decimal::sqrt_with_prec(&self, prec: isize) -> Result<Self, DecimalError>` | 核心 | 07 | 直接移植 | [PR 07 行为规则](#pr-07-行为规则) | [PR 07 行为规则](#pr-07-行为规则) | `tests/roots.rs`；173 个差分，150 个根证书，18 个固定 must-succeed | 已验证 |
 | `Decimal.String` | Decimal::string（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.StringWithTrailingZeros` | Decimal::string_with_trailing_zeros（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.StripTrailingZeros` | `Decimal::strip_trailing_zeros(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
@@ -210,3 +210,9 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 - NewFromBigRat 只接受分母约分后仅含 2/5 因子的有理数，否则返回 InvalidFormat；输出最小终止 scale。WithPrec 先拒绝负 precision，再一次舍入到目标 scale，Unnecessary 非精确时 panic RoundUnnecessary。Rust 的有效引用排除了 Go 的 nil rational 参数，该类型映射不提供空指针入口。
 - BigInt/BigRat 返回独立副本。Int64/Uint64 仅接受范围内精确整数，否则返回 (0,false)，不以截断值冒充成功。BitLen 按系数绝对值；MostSignificantBit 的零结果为 0、负输入断言 panic。
 - 除 Go 差分外，独立 Python Fraction 验证浮点结果所在的精确中点舍入单元、边界奇偶、符号、overflow/underflow 和 exact 标志；该验证器不调用生产整数舍入。
+
+## PR 07 行为规则
+
+Sqrt/ApproxRoot 默认输出 scale 为 max(input scale, 20)，WithPrec 保留指定 scale，使用精确 HalfEven 中点判断。所有成功结果初始化且不改变输入。
+负精度触发 InvalidPrecision panic；非正 degree 返回 InvalidRoot，负偶次根返回 NegativeRoot。degree=1、零和一的快路径先于一般预算；其余输入/输出 scale、degree 及 degree*max(1,p) 受 131072 上限约束，Newton 最多 300 次，耗尽返回 NoConvergence。负奇次根保持符号。
+独立 oracle 使用固定 Go 测试中的舍入单元整数不等式，不调用生产根算法；系数、scale、初始化及编码变异必须拒绝。

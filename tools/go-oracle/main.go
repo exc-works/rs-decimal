@@ -41,6 +41,30 @@ func verify(req request) (status, detail string) {
 	if req.Version != 1 || req.ID == "" {
 		return "uncertified", "invalid request"
 	}
+	if req.Operation == "sqrt" || req.Operation == "root" || req.Operation == "sqrt_prec" || req.Operation == "root_prec" {
+		if len(req.Inputs) != 1 {
+			return "uncertified", "expected one operand"
+		}
+		x, scale, err := rational(req.Inputs[0])
+		if err != nil {
+			return "uncertified", err.Error()
+		}
+		degree := int64(2)
+		if req.Operation == "root" || req.Operation == "root_prec" {
+			degree, err = strconv.ParseInt(req.Params["degree"], 10, 64)
+			if err != nil {
+				return "uncertified", "invalid degree"
+			}
+		}
+		p := max(scale, 20)
+		if req.Operation == "sqrt_prec" || req.Operation == "root_prec" {
+			p, err = strconv.Atoi(req.Params["precision"])
+			if err != nil {
+				return "uncertified", "invalid precision"
+			}
+		}
+		return certifyRoot(x, degree, p, req.Candidate)
+	}
 	if req.Operation == "rescale" {
 		if len(req.Inputs) != 1 {
 			return "uncertified", "expected one operand"
