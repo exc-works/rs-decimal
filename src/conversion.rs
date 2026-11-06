@@ -70,10 +70,12 @@ impl Decimal {
         }
         let p = twos.max(fives);
         let mut c = value.numer().clone();
-        if twos > fives {
-            c *= crate::integer::pow_integer(BigInt::from(5), twos - fives);
-        } else if fives > twos {
-            c <<= fives - twos;
+        match twos.cmp(&fives) {
+            std::cmp::Ordering::Greater => {
+                c *= crate::integer::pow_integer(BigInt::from(5), twos - fives)
+            }
+            std::cmp::Ordering::Less => c <<= fives - twos,
+            std::cmp::Ordering::Equal => {}
         }
         Ok(Self::from_parts(c, p))
     }
