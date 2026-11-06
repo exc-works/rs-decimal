@@ -11,7 +11,7 @@ parser.add_argument("--go",required=True)
 parser.add_argument("--rust",required=True)
 parser.add_argument("--native-bits",type=int,choices=[32,64],default=64)
 args=parser.parse_args()
-cases=[json.loads(l) for l in Path("testdata/conformance/bson.jsonl").read_text().splitlines()]
+cases=[json.loads(l) for l in Path("testdata/conformance/bson.jsonl").read_text(encoding="utf-8").splitlines()]
 cases=[c for c in cases if c["operation"]=="encode_bson" and c.pop("expected_outcome","ok")=="ok"]
 for c in cases:
     if c["inputs"][0]["scale"]==str(2**63-1):c["inputs"][0]["scale"]=str(2**(args.native_bits-1)-1)

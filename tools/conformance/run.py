@@ -29,7 +29,7 @@ def run(command, requests, timeout=30):
         raise ConformanceError("missing or duplicate case IDs")
     payload = "".join(json.dumps(r) + "\n" for r in requests)
     try:
-        process = subprocess.run(command, input=payload, text=True, capture_output=True, timeout=timeout)
+        process = subprocess.run(command, input=payload, text=True, encoding="utf-8", capture_output=True, timeout=timeout)
     except subprocess.TimeoutExpired as exc:
         raise ConformanceError("timeout") from exc
     if process.returncode:
@@ -167,7 +167,7 @@ def main():
     parser.add_argument("--cases", required=True)
     parser.add_argument("--timeout", type=float, default=30)
     args = parser.parse_args()
-    cases = [json.loads(line) for line in Path(args.cases).read_text().splitlines() if line.strip()]
+    cases = [json.loads(line) for line in Path(args.cases).read_text(encoding="utf-8").splitlines() if line.strip()]
     if not cases:
         raise ConformanceError("empty corpus")
     expectations = [c.pop("expected_outcome", "ok") for c in cases]
@@ -178,7 +178,7 @@ def main():
     except ConformanceError:
         failure_dir = Path(".cache/conformance-failures")
         failure_dir.mkdir(parents=True, exist_ok=True)
-        (failure_dir / "latest.json").write_text(json.dumps({"requests": cases, "go": left, "rust": right}, indent=2)+"\n")
+        (failure_dir / "latest.json").write_text(json.dumps({"requests": cases, "go": left, "rust": right}, indent=2)+"\n", encoding="utf-8")
         raise
     print(json.dumps({"cases": len(cases), "outcomes": counts}))
 

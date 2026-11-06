@@ -57,12 +57,12 @@ def main():
             certified += len(candidates)
         except Exception:
             Path(".cache").mkdir(exist_ok=True)
-            Path(".cache/fuzz-failure.json").write_text(json.dumps({"seed": args.seed, "offset": count, "cases": cases, "go": left, "rust": right}, indent=2))
+            Path(".cache/fuzz-failure.json").write_text(json.dumps({"seed": args.seed, "offset": count, "cases": cases, "go": left, "rust": right}, indent=2), encoding="utf-8")
             raise
         count += len(cases)
     report = {"seed": args.seed, "cases": count, "certified": certified, "elapsed_seconds": time.monotonic()-started}
     Path(".cache").mkdir(exist_ok=True)
-    Path(".cache/fuzz-report.json").write_text(json.dumps(report, indent=2)+"\n")
+    Path(".cache/fuzz-report.json").write_text(json.dumps(report, indent=2)+"\n", encoding="utf-8")
     print(json.dumps(report))
 
 
