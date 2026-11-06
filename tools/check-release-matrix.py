@@ -1,6 +1,8 @@
 """Reject incomplete promised API entries; explicitly track the PR 15 platform mappings."""
+import argparse
 import json
 from pathlib import Path
+argparse.ArgumentParser(description=__doc__).parse_args()
 root = Path(__file__).resolve().parent.parent
 inventory = {row["id"] for row in json.loads((root / "docs/api-inventory.json").read_text())}
 rows = [line.strip("| ").split(" | ") for line in (root / "docs/api-compatibility.md").read_text().splitlines() if line.startswith("| `")]

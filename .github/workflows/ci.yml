@@ -46,8 +46,8 @@ jobs:
           cache: false
       - run: go run tools/api-inventory/main.go .cache/go-source > .cache/api-inventory.json
       - run: diff -u docs/api-inventory.json .cache/api-inventory.json
-      - run: python3 tools/check-baseline.py
-      - run: python3 tools/check-release-matrix.py --source .cache/go-source
+      - run: python3 tools/check-baseline.py --source .cache/go-source
+      - run: python3 tools/check-release-matrix.py
       - run: python3 tools/test-baseline.py --source .cache/go-source
   conformance:
     runs-on: ubuntu-latest
@@ -127,6 +127,8 @@ jobs:
 
   portability:
     runs-on: ${{ matrix.os }}
+    env:
+      BIN_SUFFIX: ${{ runner.os == 'Windows' && '.exe' || '' }}
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -147,11 +149,11 @@ jobs:
       - run: cargo test --locked --workspace --all-features --release
       - run: cargo build --locked --release -p decimal-conformance
       - run: mkdir -p .cache
-      - run: go build -tags bson -mod=readonly -o ../../.cache/go-reference .
+      - run: go build -tags bson -mod=readonly -o ../../.cache/go-reference${BIN_SUFFIX} .
         working-directory: tools/go-reference
-      - run: go build -o ../../.cache/go-oracle .
+      - run: go build -o ../../.cache/go-oracle${BIN_SUFFIX} .
         working-directory: tools/go-oracle
-      - run: python tools/conformance/core-gates.py --go .cache/go-reference --rust target/release/decimal-conformance --oracle .cache/go-oracle
+      - run: python tools/conformance/core-gates.py --go .cache/go-reference${BIN_SUFFIX} --rust target/release/decimal-conformance${BIN_SUFFIX} --oracle .cache/go-oracle${BIN_SUFFIX}
       - uses: actions/upload-artifact@v4
         with:
           name: portability-${{ matrix.os }}
