@@ -15,9 +15,13 @@ mod formatting;
 mod integer;
 pub use formatting::GoFormat;
 mod interval;
+#[cfg(feature = "json")]
+mod json;
 mod logarithm;
 mod root;
 mod rounding;
+#[cfg(feature = "serde")]
+mod serde_impl;
 mod text;
 mod transcendental;
 pub use conversion::most_significant_bit;

@@ -135,6 +135,10 @@ func execute(req request) (r response) {
 		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
 		var err error
 		switch {
+		case nullable && params["format"] == "json":
+			err = n.UnmarshalJSON([]byte(params["text"]))
+		case !nullable && params["format"] == "json":
+			err = n.Decimal.UnmarshalJSON([]byte(params["text"]))
 		case nullable && params["format"] == "text":
 			err = n.UnmarshalText([]byte(params["text"]))
 		case nullable && params["format"] == "param":
@@ -158,6 +162,16 @@ func execute(req request) (r response) {
 			r.Outcome = "ok"
 			r.Result = r.Receiver
 		}
+	case "encode_json":
+		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		var out []byte
+		if params["nullable"] == "true" {
+			out, _ = n.MarshalJSON()
+		} else {
+			out, _ = n.Decimal.MarshalJSON()
+		}
+		r.Outcome = "ok"
+		r.Result = string(out)
 	case "encode_text":
 		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
 		var out []byte

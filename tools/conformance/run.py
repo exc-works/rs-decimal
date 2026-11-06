@@ -75,7 +75,7 @@ def compare(requests, left, right, expected=None):
                 raise ConformanceError("operation mutated input operands")
             if want == "ok" and req["operation"] in {"state", "parse", "must_parse", "construct", "min", "max", "clone", "abs", "neg", "rescale", "rescale_down", "floor", "ceil", "round", "truncate", "shift", "strip", "significant", "add", "sub", "safe_add", "safe_sub", "mul", "mul_down", "mul_exact", "mul_prec", "quo", "quo_down", "quo_prec", "mod", "power", "add_raw", "sub_raw", "must_non_negative", "from_float", "from_rat", "from_rat_prec", "sqrt", "root", "sqrt_prec", "root_prec", "ln", "log2", "log10", "exp", "ln_prec", "log2_prec", "log10_prec", "exp_prec"}:
                 validate_state(response["result"])
-            if want == "ok" and req["operation"] in {"format", "string", "trailing", "separators", "append", "encode_text"} and not isinstance(response["result"], str):
+            if want == "ok" and req["operation"] in {"format", "string", "trailing", "separators", "append", "encode_text", "encode_json"} and not isinstance(response["result"], str):
                 raise ConformanceError("invalid text result")
             if req["operation"] == "decode":
                 receiver = response.get("receiver_after")
