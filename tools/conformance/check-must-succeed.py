@@ -1,5 +1,7 @@
 """Run the frozen promised-success corpus against Rust and independent certificates."""
 import argparse
+import sys
+sys.set_int_max_str_digits(0)
 from decimal import Decimal
 import importlib.util
 import json
@@ -23,7 +25,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--rust", required=True)
     parser.add_argument("--oracle", required=True)
-    parser.add_argument("--operations", nargs="+", default=["sqrt", "root"])
+    parser.add_argument("--operations", nargs="+", default=["sqrt", "root", "ln", "log2", "log10", "exp"])
     args = parser.parse_args()
     corpus = json.loads((ROOT/"testdata/upstream/testdata/must_succeed.json").read_text())
     cases = [c for c in corpus["cases"] if c["op"] in args.operations]

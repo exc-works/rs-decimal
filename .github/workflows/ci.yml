@@ -68,3 +68,5 @@ jobs:
       - run: python3 tools/conformance/run.py --go .cache/go-reference --rust target/debug/decimal-conformance --cases testdata/conformance/roots.jsonl
       - run: python3 tools/conformance/check-oracle.py --rust target/debug/decimal-conformance --oracle .cache/go-oracle --cases testdata/conformance/roots.jsonl --operations sqrt root sqrt_prec root_prec
       - run: python3 tools/conformance/check-must-succeed.py --rust target/debug/decimal-conformance --oracle .cache/go-oracle
+      - run: python3 tools/conformance/run.py --go .cache/go-reference --rust target/debug/decimal-conformance --cases testdata/conformance/transcendentals.jsonl
+      - run: python3 tools/conformance/check-oracle.py --rust target/debug/decimal-conformance --oracle .cache/go-oracle --cases testdata/conformance/transcendentals.jsonl --operations ln log2 log10 exp ln_prec log2_prec log10_prec exp_prec

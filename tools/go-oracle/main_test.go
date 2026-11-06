@@ -36,3 +36,18 @@ func TestRootCellsAndMutations(t *testing.T) {
 		}
 	}
 }
+
+func TestTranscendentalCertificatesRejectMutations(t *testing.T) {
+	for _, tc := range []struct{ op, input, want string }{{"ln_prec", "2", "69"}, {"log2_prec", "3", "158"}, {"log10_prec", "2", "30"}, {"exp_prec", "1", "272"}} {
+		req := request{Version: 1, ID: "transcendental", Operation: tc.op, Inputs: []state{{tc.input, "0", true}}, Params: map[string]string{"precision": "2"}, Candidate: state{tc.want, "2", true}}
+		if status, detail := verify(req); status != "verified" {
+			t.Fatal(tc, status, detail)
+		}
+		for _, candidate := range []state{{"99", "2", true}, {tc.want, "3", true}, {tc.want, "2", false}, {"+" + tc.want, "2", true}} {
+			req.Candidate = candidate
+			if status, _ := verify(req); status != "mismatch" {
+				t.Fatal(tc, candidate, status)
+			}
+		}
+	}
+}

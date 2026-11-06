@@ -1,5 +1,4 @@
 //! Bounded Ziv refinement accepts agreement of enclosure endpoints only.
-#![allow(dead_code)] // Used by public logarithm/exponential functions in PR 09.
 use crate::{
     Decimal, DecimalError, ErrorKind,
     integer::{MAX_PARSED_PRECISION, pow10},

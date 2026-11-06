@@ -129,6 +129,22 @@ func execute(req request) (r response) {
 		return n
 	}
 	switch req.Operation {
+	case "ln":
+		set(values[0].Ln())
+	case "ln_prec":
+		set(values[0].LnWithPrec(integer("precision")))
+	case "log2":
+		set(values[0].Log2(), nil)
+	case "log2_prec":
+		set(values[0].Log2WithPrec(integer("precision")))
+	case "log10":
+		set(values[0].Log10())
+	case "log10_prec":
+		set(values[0].Log10WithPrec(integer("precision")))
+	case "exp":
+		set(values[0].Exp())
+	case "exp_prec":
+		set(values[0].ExpWithPrec(integer("precision")))
 	case "sqrt":
 		set(values[0].Sqrt())
 	case "sqrt_prec":
