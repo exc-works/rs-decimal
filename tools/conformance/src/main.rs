@@ -76,6 +76,8 @@ fn execute(req: &Request) -> Value {
                     valid: p("valid") == "true",
                 };
                 let err = match (nullable, p("format")) {
+                    (true, "json") => n.unmarshal_json(p("text").as_bytes()),
+                    (false, "json") => n.decimal.unmarshal_json(p("text").as_bytes()),
                     (true, "text") => n.unmarshal_text(p("text").as_bytes()),
                     (true, "param") => n.unmarshal_param(p("text")),
                     (false, "text") => n.decimal.unmarshal_text(p("text").as_bytes()),
@@ -84,6 +86,18 @@ fn execute(req: &Request) -> Value {
                 };
                 response["receiver_after"] = json!({"decimal":capture(&n.decimal),"valid":if nullable {json!(n.valid)}else{Value::Null}});
                 err.map(|_| response["receiver_after"].clone())
+            }
+            "encode_json" if values.len() == 1 => {
+                let n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                let out = if p("nullable") == "true" {
+                    n.marshal_json()
+                } else {
+                    n.decimal.marshal_json()
+                };
+                Ok(json!(String::from_utf8(out).unwrap()))
             }
             "encode_text" if values.len() == 1 => {
                 let n = rs_decimal::NullDecimal {

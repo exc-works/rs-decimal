@@ -1,6 +1,6 @@
 # rs-decimal
 
-rs-decimal 是保持 exc-works/decimal 数值和状态契约的 Rust 移植。当前数值核心与格式化已实现，正在执行核心预览门禁；协议和生态适配尚未完成，crate 尚未发布。
+rs-decimal 是保持 exc-works/decimal 数值和状态契约的 Rust 移植。数值核心、格式化及核心预览门禁已通过；Text/Param、JSON 与可选 Serde 已实现，其余协议和生态适配尚未完成，crate 尚未发布。
 
 ## 开发
 
@@ -44,3 +44,7 @@ assert_eq!(price.format_go(GoFormat { verb: 'f', precision: Some(2), ..GoFormat:
 Decimal 保留系数和 scale；Default 为未初始化零，数值相等不代表表示相同。算术不改变输入。Ln/根等返回 Result，Log2 默认入口以及负精度、除零等契约使用 DecimalError 类型化 panic。七种舍入模式中 Up 为远离零，Ceiling 为向正无穷。
 
 版本 `0.1.0-alpha.1` 尚未发布；预览范围、错误规则和验证证据见 API 矩阵。`tools/conformance/core-gates.py` 执行全量差分、固定种子的 512 个随机用例及独立 oracle，再核对每次结果并报告包含进程/JSONL 开销的批量计时；不据此承诺算术加速。CI 实际运行 i686 Go/Rust 配对和 64 位配对、debug/release 测试，保存计时报告。极端原生 scale fixture 在 32 位配对时实例化为 isize::MAX，i64/u64 数值范围保持不变。
+
+## 可选 JSON 与 Serde
+
+`json` 提供 marshal_json/unmarshal_json，直接保留 JSON 数字 token，适合高精度外部输入；普通 Decimal 的 null 不修改旧值，NullDecimal 的 null 清空状态。`serde` 提供 Serialize/Deserialize，使用精确字符串、整数和 null；新建对象的 null 为默认值，没有旧状态。通用 Deserialize 拒绝浮点输入；通过 serde_json 读取原文小数时使用 json 入口或将十进制值编码为字符串。两个功能可以单独启用。

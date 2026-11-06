@@ -15,9 +15,13 @@ num-integer = "=0.1.46"
 num-traits = "=0.2.19"
 num-rational = "=0.4.2"
 ryu = "=1.0.23"
+serde = { version = "=1.0.228", optional = true }
+serde_json = { version = "=1.0.145", features = ["arbitrary_precision"], optional = true }
 
 [features]
 default = []
+serde = ["dep:serde"]
+json = ["dep:serde_json"]
 
 [workspace]
 members = ["tools/conformance"]

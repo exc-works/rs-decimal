@@ -95,6 +95,8 @@ dependencies = [
  "num-rational",
  "num-traits",
  "ryu",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
