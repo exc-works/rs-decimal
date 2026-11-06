@@ -9,8 +9,8 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Between` | `between(v: &Decimal, lower: &Decimal, upper: &Decimal) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal` | `Decimal { coefficient: Option<BigInt>, scale: usize }`（私有字段） | 核心 | 03 | 直接移植 | Default 未初始化零；Valid 独立于内部 Decimal | 由类型和构造器保持内部不变量 | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.Abs` | `Decimal::abs(&self) -> Self` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `Decimal.Add` | Decimal::add（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.AddRaw` | Decimal::add_raw（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Add` | `Decimal::add(&self, other: &Self) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
+| `Decimal.AddRaw` | `Decimal::add_raw(&self, value: i64) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
 | `Decimal.AppendText` | Decimal::append_text（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.AppendTextWithTrailingZeros` | Decimal::append_text_with_trailing_zeros（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.ApproxRoot` | Decimal::approx_root（签名待设计） | 核心 | 07 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
@@ -33,10 +33,10 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.FormatWithSeparators` | Decimal::format_with_separators（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.GT` | `Decimal::gt(&self, other: &Self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.GTE` | `Decimal::gte(&self, other: &Self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `Decimal.HasFraction` | Decimal::has_fraction（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.HasFraction` | `Decimal::has_fraction(&self) -> bool` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
 | `Decimal.Int64` | Decimal::int64（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.IntPart` | Decimal::int_part（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.IsInteger` | Decimal::is_integer（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.IntPart` | `Decimal::int_part(&self) -> BigInt` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
+| `Decimal.IsInteger` | `Decimal::is_integer(&self) -> bool` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
 | `Decimal.IsNegative` | `Decimal::is_negative(&self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.IsNil` | `Decimal::is_nil(&self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.IsNotZero` | `Decimal::is_not_zero(&self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
@@ -59,27 +59,27 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.MarshalYAML` | Decimal::marshal_yaml（签名待设计） | 协议 | 13a | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.Max` | `Decimal::max(a: &Decimal, b: &Decimal) -> Decimal` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.Min` | `Decimal::min(a: &Decimal, b: &Decimal) -> Decimal` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `Decimal.Mod` | Decimal::mod（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.Mul` | Decimal::mul（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.MulDown` | Decimal::mul_down（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.MulExact` | Decimal::mul_exact（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.MulWithPrec` | Decimal::mul_with_prec（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.MustNonNegative` | Decimal::must_non_negative（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Mod` | `Decimal::r#mod(&self, other: &Self) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
+| `Decimal.Mul` | `Decimal::mul(&self, other: &Self, mode: M) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
+| `Decimal.MulDown` | `Decimal::mul_down(&self, other: &Self) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
+| `Decimal.MulExact` | `Decimal::mul_exact(&self, other: &Self) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
+| `Decimal.MulWithPrec` | `Decimal::mul_with_prec(&self, other: &Self, prec: isize, mode: M) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
+| `Decimal.MustNonNegative` | `Decimal::must_non_negative(&self) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
 | `Decimal.Neg` | `Decimal::neg(&self) -> Self` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.NotEqual` | `Decimal::not_equal(&self, other: &Self) -> bool` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `Decimal.Power` | Decimal::power（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Power` | `Decimal::power(&self, power: i64) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
 | `Decimal.Precision` | `Decimal::precision(&self) -> isize` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `Decimal.Quo` | Decimal::quo（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.QuoDown` | Decimal::quo_down（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.QuoRem` | Decimal::quo_rem（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.QuoWithPrec` | Decimal::quo_with_prec（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.Remainder` | Decimal::remainder（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Quo` | `Decimal::quo(&self, other: &Self, mode: M) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
+| `Decimal.QuoDown` | `Decimal::quo_down(&self, other: &Self) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
+| `Decimal.QuoRem` | `Decimal::quo_rem(&self, other: &Self) -> (Self, Self)` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
+| `Decimal.QuoWithPrec` | `Decimal::quo_with_prec(&self, other: &Self, prec: isize, mode: M) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
+| `Decimal.Remainder` | `Decimal::remainder(&self) -> (BigInt, BigInt)` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
 | `Decimal.Rescale` | `Decimal::rescale(&self, prec: isize, mode: RoundingMode) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.RescaleDown` | `Decimal::rescale_down(&self, prec: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Round` | `Decimal::round(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.RoundWithPrec` | `Decimal::round_with_prec(&self, prec: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
-| `Decimal.SafeAdd` | Decimal::safe_add（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.SafeSub` | Decimal::safe_sub（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.SafeAdd` | `Decimal::safe_add(&self, other: &Self) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
+| `Decimal.SafeSub` | `Decimal::safe_sub(&self, other: &Self) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
 | `Decimal.Scan` | Decimal::scan（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.Shift` | `Decimal::shift(&self, places: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Sign` | `Decimal::sign(&self) -> i32` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
@@ -89,8 +89,8 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.String` | Decimal::string（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.StringWithTrailingZeros` | Decimal::string_with_trailing_zeros（签名待设计） | 核心 | 10a | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
 | `Decimal.StripTrailingZeros` | `Decimal::strip_trailing_zeros(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
-| `Decimal.Sub` | Decimal::sub（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
-| `Decimal.SubRaw` | Decimal::sub_raw（签名待设计） | 核心 | 05 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Sub` | `Decimal::sub(&self, other: &Self) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
+| `Decimal.SubRaw` | `Decimal::sub_raw(&self, value: i64) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
 | `Decimal.Truncate` | `Decimal::truncate(&self) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.TruncateWithPrec` | `Decimal::truncate_with_prec(&self, prec: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Uint64` | Decimal::uint64（签名待设计） | 核心 | 06 | 直接移植 | 待设计 | 待设计 | 待实现 | 未开始 |
@@ -192,3 +192,13 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 - Shift 保持精确值乘 10^places；places=0 保留 scale 并初始化 nil。非零 shift 的非负目标 scale 超过 i32::MAX 时 panic Overflow；负目标 scale 转为整数系数、scale=0。
 - StripTrailingZeros 不减至负 scale；零归一化为初始化零、scale=0。SignificantFigures 的 figures<=0 为断言 panic；不为达到位数补零，零保留原 scale 并初始化 nil。
 - 算术输入均不变。独立 Rust 邻点测试覆盖 22,736 个舍入组合；Go oracle 从上游独立测试抽取，来源及变更见 [PROVENANCE](../tools/go-oracle/PROVENANCE.md)。
+
+## PR 05 行为规则
+
+- Add/Sub 精确对齐到 max 输入 scale；AddRaw/SubRaw 修改系数并保留 scale。SafeAdd/SafeSub 和 MustNonNegative 对负结果使用断言 panic，成功结果初始化。
+- Mul/Quo 的默认 scale=max 输入 scale；MulExact 使用两者之和，超过 i32::MAX 时先 panic Overflow（包括零输入）。MulWithPrec 不继承这一中间 scale 上限，直接在目标 scale 舍入。所有舍入只发生在最终目标；Unnecessary 的非精确结果 panic RoundUnnecessary。
+- WithPrec 首先拒绝负 precision（InvalidPrecision）；Quo 接着拒绝零除数（DivideByZero），零被除数随后直接返回目标 scale 的零。非零除法的缩放偏移超出原生有符号上限时 panic Overflow。
+- QuoRem 的商向零截断且 scale=0；余数 scale=max 输入 scale，与被除数同号。Mod 返回相同余数；Rust 名称为 `r#mod`，另有 `modulo` 别名。零除数 panic DivideByZero。
+- 已确认的资源行为差异：Go 基线的 QuoRem 在检查零除数前对齐 scale；对 `1 / (0 × 10^-isize::MAX)` 可能先耗尽资源。Rust 在对齐前检查零除数，保持契约中的 DivideByZero 类型化 panic，避免无意义分配；Mod 两个入口同样受益。该差异不改变数值结果、scale 或错误类别，属于不要求匹配的分配行为；极端输入只在 Rust 回归中执行，不用 Go 进程耗尽资源来验证。
+- Power 保留输入 scale、最终 HalfEven；0^0=1，零的负幂 panic DivideByZero。去尾零后先处理 ±1；其他幂的绝对指数乘 max(1,scale,系数位长) 超过 i32::MAX 时 panic Overflow，包含 i64::MIN 防溢出路径。
+- IntPart 向零取整数；Remainder 返回整数部分和未缩放的带符号分数系数；IsInteger/HasFraction 不经浮点判断。输入均不变，返回大整数独立持有。

@@ -70,7 +70,36 @@ func verify(req request) (status, detail string) {
 		}
 		return "verified", "independent exact distances to grid neighbors agree"
 	}
-	if req.Operation != "add" {
+	if req.Operation == "power" {
+		if len(req.Inputs) != 1 {
+			return "uncertified", "expected one operand"
+		}
+		a, p, err := rational(req.Inputs[0])
+		if err != nil {
+			return "uncertified", err.Error()
+		}
+		n, err := strconv.ParseInt(req.Params["value"], 10, 64)
+		if err != nil || n < -1000 || n > 1000 {
+			return "uncertified", "oracle power budget"
+		}
+		if a.Sign() == 0 && n < 0 {
+			return "mismatch", "zero negative power cannot succeed"
+		}
+		magnitude := n
+		if n < 0 {
+			magnitude = -n
+		}
+		num := new(big.Int).Exp(a.Num(), big.NewInt(magnitude), nil)
+		den := new(big.Int).Exp(a.Denom(), big.NewInt(magnitude), nil)
+		exact := new(big.Rat).SetFrac(num, den)
+		if n < 0 {
+			exact.Inv(exact)
+		}
+		return verifyRounded(exact, p, RoundHalfEven, req.Candidate)
+	}
+	switch req.Operation {
+	case "add", "sub", "mul", "mul_exact", "mul_prec", "quo", "quo_prec":
+	default:
 		return "unsupported", "unknown operation"
 	}
 	if len(req.Inputs) != 2 {
@@ -84,15 +113,57 @@ func verify(req request) (status, detail string) {
 	if err != nil {
 		return "uncertified", err.Error()
 	}
-	got, sg, err := rational(req.Candidate)
+	p := max(sa, sb)
+	mode := RoundUnnecessary
+	exact := new(big.Rat)
+	switch req.Operation {
+	case "add":
+		exact.Add(a, b)
+	case "sub":
+		exact.Sub(a, b)
+	case "mul_exact":
+		exact.Mul(a, b)
+		p = sa + sb
+	default:
+		mode, err = strconv.Atoi(req.Params["mode"])
+		if err != nil || mode < 0 || mode > 6 {
+			return "uncertified", "invalid mode"
+		}
+		if req.Operation == "mul_prec" || req.Operation == "quo_prec" {
+			p, err = strconv.Atoi(req.Params["precision"])
+			if err != nil {
+				return "uncertified", "invalid precision"
+			}
+		}
+		if req.Operation == "mul" || req.Operation == "mul_prec" {
+			exact.Mul(a, b)
+		} else {
+			if b.Sign() == 0 {
+				return "mismatch", "division by zero cannot succeed"
+			}
+			exact.Quo(a, b)
+		}
+	}
+	return verifyRounded(exact, p, mode, req.Candidate)
+}
+func verifyRounded(x *big.Rat, p, mode int, candidate state) (string, string) {
+	if p < 0 || p > 131072 {
+		return "uncertified", "oracle precision budget"
+	}
+	_, sg, err := rational(candidate)
 	if err != nil {
 		return "mismatch", err.Error()
 	}
-	if !req.Candidate.Initialized || sg != max(sa, sb) || got.Cmp(new(big.Rat).Add(a, b)) != 0 {
+	want, ok := roundedRationalReference(x, p, mode)
+	if !ok {
+		return "mismatch", "Unnecessary forbids successful result"
+	}
+	if !candidate.Initialized || sg != p || candidate.Coefficient != want.String() {
 		return "mismatch", "coefficient, scale, or initialization differs"
 	}
-	return "verified", "exact rational sum and target scale agree"
+	return "verified", "exact rational operation and independent grid-neighbor rounding agree"
 }
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	enc := json.NewEncoder(os.Stdout)

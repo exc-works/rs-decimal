@@ -69,6 +69,59 @@ fn execute(req: &Request) -> Value {
         let values: Vec<_> = req.inputs.iter().map(State::decimal).collect();
         let p = |key: &str| req.params[key].as_str().expect("missing string parameter");
         let result: Result<Value, DecimalError> = match req.operation.as_str() {
+            "add" | "sub" | "safe_add" | "safe_sub" | "mul" | "mul_down" | "mul_exact"
+            | "mul_prec" | "quo" | "quo_down" | "quo_prec" | "quo_rem" | "mod"
+                if values.len() == 2 =>
+            {
+                let (a, b) = (&values[0], &values[1]);
+                let mode = RoundingMode::from_raw(
+                    req.params["mode"].as_str().unwrap_or("5").parse().unwrap(),
+                );
+                let prec = req.params["precision"]
+                    .as_str()
+                    .unwrap_or("0")
+                    .parse()
+                    .unwrap();
+                let result = match req.operation.as_str() {
+                    "add" => a.add(b),
+                    "sub" => a.sub(b),
+                    "safe_add" => a.safe_add(b),
+                    "safe_sub" => a.safe_sub(b),
+                    "mul" => a.mul(b, mode),
+                    "mul_down" => a.mul_down(b),
+                    "mul_exact" => a.mul_exact(b),
+                    "mul_prec" => a.mul_with_prec(b, prec, mode),
+                    "quo" => a.quo(b, mode),
+                    "quo_down" => a.quo_down(b),
+                    "quo_prec" => a.quo_with_prec(b, prec, mode),
+                    "mod" => a.r#mod(b),
+                    "quo_rem" => {
+                        let (q, r) = a.quo_rem(b);
+                        return json!({"schema_version":1,"case_id":req.case_id,"outcome":"ok","error_kinds":[],"inputs_after":req.inputs,"result":[capture(&q),capture(&r)]});
+                    }
+                    _ => unreachable!(),
+                };
+                Ok(capture(&result))
+            }
+            "power" | "add_raw" | "sub_raw" | "must_non_negative" | "integer_parts"
+                if values.len() == 1 =>
+            {
+                let a = &values[0];
+                let value = req.params["value"].as_str().unwrap_or("0").parse().unwrap();
+                match req.operation.as_str() {
+                    "power" => Ok(capture(&a.power(value))),
+                    "add_raw" => Ok(capture(&a.add_raw(value))),
+                    "sub_raw" => Ok(capture(&a.sub_raw(value))),
+                    "must_non_negative" => Ok(capture(&a.must_non_negative())),
+                    "integer_parts" => {
+                        let (i, f) = a.remainder();
+                        Ok(
+                            json!({"int_part":a.int_part().to_string(),"integer":i.to_string(),"fraction":f.to_string(),"is_integer":a.is_integer(),"has_fraction":a.has_fraction()}),
+                        )
+                    }
+                    _ => unreachable!(),
+                }
+            }
             "mode" => Ok(json!(
                 (RoundingMode::from_raw(p("mode").parse().unwrap()) as i32).to_string()
             )),

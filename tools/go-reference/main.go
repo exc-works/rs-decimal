@@ -128,6 +128,59 @@ func execute(req request) (r response) {
 		return n
 	}
 	switch req.Operation {
+	case "add":
+		set(values[0].Add(values[1]), nil)
+	case "sub":
+		set(values[0].Sub(values[1]), nil)
+	case "safe_add":
+		set(values[0].SafeAdd(values[1]), nil)
+	case "safe_sub":
+		set(values[0].SafeSub(values[1]), nil)
+	case "mul":
+		set(values[0].Mul(values[1], d.RoundingMode(integer("mode"))), nil)
+	case "mul_down":
+		set(values[0].MulDown(values[1]), nil)
+	case "mul_exact":
+		set(values[0].MulExact(values[1]), nil)
+	case "mul_prec":
+		set(values[0].MulWithPrec(values[1], integer("precision"), d.RoundingMode(integer("mode"))), nil)
+	case "quo":
+		set(values[0].Quo(values[1], d.RoundingMode(integer("mode"))), nil)
+	case "quo_down":
+		set(values[0].QuoDown(values[1]), nil)
+	case "quo_prec":
+		set(values[0].QuoWithPrec(values[1], integer("precision"), d.RoundingMode(integer("mode"))), nil)
+	case "quo_rem":
+		q, rem := values[0].QuoRem(values[1])
+		r.Outcome = "ok"
+		r.Result = []state{capture(q), capture(rem)}
+	case "mod":
+		set(values[0].Mod(values[1]), nil)
+	case "power":
+		n, err := strconv.ParseInt(params["value"], 10, 64)
+		if err != nil {
+			panic(err)
+		}
+		set(values[0].Power(n), nil)
+	case "add_raw":
+		n, err := strconv.ParseInt(params["value"], 10, 64)
+		if err != nil {
+			panic(err)
+		}
+		set(values[0].AddRaw(n), nil)
+	case "sub_raw":
+		n, err := strconv.ParseInt(params["value"], 10, 64)
+		if err != nil {
+			panic(err)
+		}
+		set(values[0].SubRaw(n), nil)
+	case "must_non_negative":
+		set(values[0].MustNonNegative(), nil)
+	case "integer_parts":
+		a := values[0]
+		i, f := a.Remainder()
+		r.Outcome = "ok"
+		r.Result = map[string]any{"int_part": a.IntPart().String(), "integer": i.String(), "fraction": f.String(), "is_integer": a.IsInteger(), "has_fraction": a.HasFraction()}
 	case "mode":
 		mode := integer("mode")
 		d.New(0).Rescale(0, d.RoundingMode(mode))
