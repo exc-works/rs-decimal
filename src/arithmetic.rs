@@ -67,17 +67,17 @@ impl Decimal {
             return Self::from_parts(product, p);
         }
         let scale = self.scale as u128 + other.scale as u128;
-        let c = if scale < p as u128 {
-            product * pow10(p - scale as usize)
-        } else if scale > p as u128 {
-            let discard = scale - p as u128;
-            if discard > product.bits() as u128 {
-                rounded_div(&product.signum(), &BigInt::from(10), mode)
-            } else {
-                rounded_div(&product, &pow10(discard as usize), mode)
+        let c = match scale.cmp(&(p as u128)) {
+            std::cmp::Ordering::Less => product * pow10(p - scale as usize),
+            std::cmp::Ordering::Greater => {
+                let discard = scale - p as u128;
+                if discard > product.bits() as u128 {
+                    rounded_div(&product.signum(), &BigInt::from(10), mode)
+                } else {
+                    rounded_div(&product, &pow10(discard as usize), mode)
+                }
             }
-        } else {
-            product
+            std::cmp::Ordering::Equal => product,
         };
         Self::from_parts(c, p)
     }
@@ -94,10 +94,10 @@ impl Decimal {
             fail(ErrorKind::Overflow);
         }
         let (mut n, mut d) = (self.raw().clone(), other.raw().clone());
-        if shift > 0 {
-            n *= pow10(shift as usize);
-        } else if shift < 0 {
-            d *= pow10((-shift) as usize);
+        match shift.cmp(&0) {
+            std::cmp::Ordering::Greater => n *= pow10(shift as usize),
+            std::cmp::Ordering::Less => d *= pow10((-shift) as usize),
+            std::cmp::Ordering::Equal => {}
         }
         Self::from_parts(rounded_div(&n, &d, mode), p)
     }
