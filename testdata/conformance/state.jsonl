@@ -1,0 +1,3 @@
+{"schema_version":1,"case_id":"nil","operation":"state","inputs":[{"coefficient":"0","scale":"0","initialized":false}],"params":{}}
+{"schema_version":1,"case_id":"zero-scaled","operation":"state","inputs":[{"coefficient":"0","scale":"30","initialized":true}],"params":{}}
+{"schema_version":1,"case_id":"large-negative","operation":"state","inputs":[{"coefficient":"-123456789012345678901234567890","scale":"20","initialized":true}],"params":{}}
