@@ -58,3 +58,5 @@ Decimal 保留系数和 scale；Default 为未初始化零，数值相等不代�
 `ScanValue` 与 `scan/value` 提供无驱动依赖的 SQL 输入/输出语义；文本保持精度，SQL NULL 使用 NullDecimal 的 valid 状态，浮点 NaN/Infinity 被拒绝。
 
 完整协议门禁、分组计时与长期随机验证见 [发布候选验证](docs/release-validation.md)。执行 `python3 tools/check-release-matrix.py` 检查 API 承诺状态；本仓库工作流不自动发布 crate。
+
+`postgres` 为 SQLx 0.8.6 提供精确 NUMERIC/NUMERIC[] 类型实现，支持 Nullable 与范围拒绝；运行时/TLS 由应用选择。见 [PostgreSQL 使用与真实验证](docs/postgres.md)。

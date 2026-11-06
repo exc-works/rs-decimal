@@ -272,3 +272,7 @@ Decimal128 的非有限值返回 InvalidFormat+Unmarshal，steering bits 的非�
 
 ScanValue 显式区分 Null、Float32、Float64、Int64、Text、Bytes 和 Unsupported，不隐式强制转换其他类型。float 保持对应宽度的最短往返值并拒绝 NaN/Infinity 为 Unmarshal；文本/bytes 在长度大于二且首尾为双引号时去掉外层引号，不执行 JSON 转义解码。空字符串、非法 UTF-8、数值格式错误保留 InvalidFormat+Unmarshal。
 scan(null) 清空 Decimal 和 NullDecimal；非 null 成功标记 NullDecimal valid，失败保留全部状态。value 返回紧凑十进制字符串，普通未初始化 Decimal 为字符串零，无效 NullDecimal 为 None，有效内部 nil 为 Some("0")。Go 始终 nil 的 Value error 在 Rust 省略。320 例差分验证类型分支、精确文本、非有限浮点、原地状态和纯读输出。此层是通用协议，实际 PostgreSQL SQLx 集成在 PR 15 独立交付。
+
+## PR 15a PostgreSQL 集成
+
+用户选择 PostgreSQL/SQLx 0.8.6。postgres feature 实现 Decimal/NullDecimal 的 Type/Encode/Decode/PgHasArrayType，直接处理 NUMERIC 二进制和文本、NULL 和数组；详见 [驱动契约与验证](postgres.md)。这是一项额外 Rust 驱动集成，不冒充 Go 通用 Scan 的底层类型。SQL NULL 解码到非 nullable Decimal 返回错误，普通 nil 写为数值零并读回初始化零。实际 PostgreSQL 18 的最大范围、高精度、空值、数组和拒绝测试通过。
