@@ -73,8 +73,20 @@ def compare(requests, left, right, expected=None):
                 raise ConformanceError("missing successful result")
             if response["inputs_after"] != req["inputs"]:
                 raise ConformanceError("operation mutated input operands")
-            if want == "ok" and req["operation"] in {"state", "parse", "must_parse", "construct", "min", "max", "clone", "abs", "neg", "rescale", "rescale_down", "floor", "ceil", "round", "truncate", "shift", "strip", "significant"}:
+            if want == "ok" and req["operation"] in {"state", "parse", "must_parse", "construct", "min", "max", "clone", "abs", "neg", "rescale", "rescale_down", "floor", "ceil", "round", "truncate", "shift", "strip", "significant", "add", "sub", "safe_add", "safe_sub", "mul", "mul_down", "mul_exact", "mul_prec", "quo", "quo_down", "quo_prec", "mod", "power", "add_raw", "sub_raw", "must_non_negative"}:
                 validate_state(response["result"])
+            if want == "ok" and req["operation"] == "quo_rem":
+                result = response["result"]
+                if not isinstance(result, list) or len(result) != 2:
+                    raise ConformanceError("incomplete quotient/remainder result")
+                for state in result:
+                    validate_state(state)
+            if want == "ok" and req["operation"] == "integer_parts":
+                result = response["result"]
+                if not isinstance(result, dict) or set(result) != {"int_part", "integer", "fraction", "is_integer", "has_fraction"}:
+                    raise ConformanceError("incomplete integer inspection")
+                if any(type(result[k]) is not bool for k in ["is_integer", "has_fraction"]) or any(not isinstance(result[k], str) or not re.fullmatch(r"0|-?[1-9][0-9]*", result[k]) for k in ["int_part", "integer", "fraction"]):
+                    raise ConformanceError("invalid integer inspection types")
             if want == "ok" and req["operation"] == "mode" and response["result"] not in [str(i) for i in range(7)]:
                 raise ConformanceError("invalid rounding mode result")
             if want == "ok" and req["operation"] in {"inspect", "cmp"}:

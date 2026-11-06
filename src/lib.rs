@@ -6,6 +6,7 @@
 /// Immutable Go source revision used by the compatibility suite.
 pub const COMPATIBILITY_REVISION: &str = "a8791208e2d15483cf652cd2814b74b0c1a84187";
 
+mod arithmetic;
 mod decimal;
 mod error;
 mod integer;
