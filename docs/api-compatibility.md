@@ -80,7 +80,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.RoundWithPrec` | `Decimal::round_with_prec(&self, prec: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.SafeAdd` | `Decimal::safe_add(&self, other: &Self) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
 | `Decimal.SafeSub` | `Decimal::safe_sub(&self, other: &Self) -> Self` | 核心 | 05 | 直接移植 | [PR 05 行为规则](#pr-05-行为规则) | [PR 05 失败规则](#pr-05-行为规则) | `tests/arithmetic.rs`；`arithmetic-0..3378` 差分；2853 个独立 oracle 结果 | 已验证 |
-| `Decimal.Scan` | Decimal::scan（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Scan` | `Decimal::scan(&mut self, value: ScanValue<'_>) -> Result<(), DecimalError>` | 协议 | 13d | 平台映射 | 见 PR 13d 行为规则 | 失败原子；只读无变化 | tests/sql.rs；sql.jsonl | 已实现 |
 | `Decimal.Shift` | `Decimal::shift(&self, places: isize) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Decimal.Sign` | `Decimal::sign(&self) -> i32` | 核心 | 03 | 直接移植 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `Decimal.SignificantFigures` | `Decimal::significant_figures(&self, figures: isize, mode: RoundingMode) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
@@ -102,7 +102,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.UnmarshalXML` | `Decimal::unmarshal_xml(&mut self, source: &str) -> Result<(), DecimalError>` | 协议 | 13b | 平台映射 | 见 PR 13b 行为规则 | 解码失败原子；只读无变化 | tests/xml.rs；xml.jsonl | 已实现 |
 | `Decimal.UnmarshalXMLAttr` | `Decimal::unmarshal_xml_attr(&mut self, value: &str) -> Result<(), DecimalError>` | 协议 | 13b | 平台映射 | 见 PR 13b 行为规则 | 解码失败原子；只读无变化 | tests/xml.rs；xml.jsonl | 已实现 |
 | `Decimal.UnmarshalYAML` | `Decimal::unmarshal_yaml(&mut self, source: &str) -> Result<(), DecimalError>` (`yaml`) | 协议 | 13a | 平台映射 | [PR 13a 行为规则](#pr-13a-行为规则) | [PR 13a 行为规则](#pr-13a-行为规则) | `tests/yaml.rs`；全部冻结 yaml_scalars；416 状态差分 | 已验证 |
-| `Decimal.Value` | Decimal::value（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `Decimal.Value` | `Decimal::value(&self) -> String` | 协议 | 13d | 平台映射 | 见 PR 13d 行为规则 | 失败原子；只读无变化 | tests/sql.rs；sql.jsonl | 已实现 |
 | `DecodeHook` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
 | `DefaultGoPlaygroundValidatorTranslationMessages` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
 | `ErrDivideByZero` | `ErrorKind::DivideByZero` | 核心 | 03 | 直接移植 | 稳定类别声明；可通过 matches 查询，允许多类别 | 声明本身不失败；具体入口失败行为随相应 PR 验证 | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
@@ -145,7 +145,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `NullDecimal.MarshalXML` | `NullDecimal::marshal_xml(&self) -> String` | 协议 | 13b | 平台映射 | 见 PR 13b 行为规则 | 解码失败原子；只读无变化 | tests/xml.rs；xml.jsonl | 已实现 |
 | `NullDecimal.MarshalXMLAttr` | `NullDecimal::marshal_xml_attr(&self) -> Option<String>` | 协议 | 13b | 平台映射 | 见 PR 13b 行为规则 | 解码失败原子；只读无变化 | tests/xml.rs；xml.jsonl | 已实现 |
 | `NullDecimal.MarshalYAML` | `NullDecimal::marshal_yaml(&self) -> Option<String>` (`yaml`) | 协议 | 13a | 平台映射 | [PR 13a 行为规则](#pr-13a-行为规则) | [PR 13a 行为规则](#pr-13a-行为规则) | `tests/yaml.rs`；全部冻结 yaml_scalars；416 状态差分 | 已验证 |
-| `NullDecimal.Scan` | NullDecimal::scan（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.Scan` | `NullDecimal::scan(&mut self, value: ScanValue<'_>) -> Result<(), DecimalError>` | 协议 | 13d | 平台映射 | 见 PR 13d 行为规则 | 失败原子；只读无变化 | tests/sql.rs；sql.jsonl | 已实现 |
 | `NullDecimal.String` | `NullDecimal::string(&self) -> String` | 协议 | 10b | 直接移植 | [PR 10b 行为规则](#pr-10b-行为规则) | [PR 10b 行为规则](#pr-10b-行为规则) | `tests/text.rs`；288 个状态差分与完整接收者/失败原子性门禁 | 已验证 |
 | `NullDecimal.UnmarshalBSONValue` | `NullDecimal::unmarshal_bson_value(&mut self, kind: u8, data: &[u8]) -> Result<(), DecimalError>` | 协议 | 13c | 平台映射 | 见 PR 13c 行为规则 | 失败原子；只读无变化 | tests/bson.rs；bson.jsonl；check-bson.py | 已实现 |
 | `NullDecimal.UnmarshalJSON` | `NullDecimal::unmarshal_json(&mut self, bytes: &[u8]) -> Result<(), DecimalError>` (`json`) | 协议 | 11 | 直接移植 | [PR 11 行为规则](#pr-11-行为规则) | [PR 11 行为规则](#pr-11-行为规则) | `tests/json.rs`；444 个 JSON 完整状态差分；独立 feature 组合 | 已验证 |
@@ -155,7 +155,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `NullDecimal.UnmarshalXMLAttr` | `NullDecimal::unmarshal_xml_attr(&mut self, value: &str) -> Result<(), DecimalError>` | 协议 | 13b | 平台映射 | 见 PR 13b 行为规则 | 解码失败原子；只读无变化 | tests/xml.rs；xml.jsonl | 已实现 |
 | `NullDecimal.UnmarshalYAML` | `NullDecimal::unmarshal_yaml(&mut self, source: &str) -> Result<(), DecimalError>` (`yaml`) | 协议 | 13a | 平台映射 | [PR 13a 行为规则](#pr-13a-行为规则) | [PR 13a 行为规则](#pr-13a-行为规则) | `tests/yaml.rs`；全部冻结 yaml_scalars；416 状态差分 | 已验证 |
 | `NullDecimal.Valid` | `valid: bool` | 协议 | 03 | 直接移植 | Default 未初始化零；Valid 独立于内部 Decimal | 由类型和构造器保持内部不变量 | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `NullDecimal.Value` | NullDecimal::value（签名待设计） | 协议 | 13d | 平台映射 | 待设计 | 待设计 | 待实现 | 未开始 |
+| `NullDecimal.Value` | `NullDecimal::value(&self) -> Option<String>` | 协议 | 13d | 平台映射 | 见 PR 13d 行为规则 | 失败原子；只读无变化 | tests/sql.rs；sql.jsonl | 已实现 |
 | `One` | `one() -> Decimal` | 核心 | 03 | 平台映射：只读构造函数 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `PrecisionFixedSize` | `PRECISION_FIXED_SIZE: usize = 4` | 协议 | 12 | 直接移植 | [PR 12 行为规则](#pr-12-行为规则) | [PR 12 行为规则](#pr-12-行为规则) | `tests/binary.rs`；142 差分，109 个双向跨语言编码/解码；32 位实际 CI | 已验证 |
 | `RegisterGoPlaygroundValidator` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
@@ -267,3 +267,8 @@ UnmarshalXML 接受整份 XML 原文，只读取根元素的直接字符内容�
 bson 功能提供 BSON type byte + raw value bytes，独立于任何 MongoDB 客户端。普通 nil/无效 NullDecimal 编码为 null，有效内部 nil 编码为字符串零；其他值编码为紧凑十进制字符串。解码接受 null/string/double/int32/int64/Decimal128，数值原文和 Decimal128 不经浮点转换；double 按输入 IEEE 值的最短往返文本转换，非有限值返回 Unmarshal。
 Decimal128 的非有限值返回 InvalidFormat+Unmarshal，steering bits 的非规范系数按固定 Go 驱动视作零；十进制指数 -6176..6111 精确处理。无效长度、未知类型和负字符串长度返回 Unmarshal；所有失败保持接收者及 Valid。按 Go RawValue 入口行为，固定宽度 payload 允许尾部数据，字符串末字节跳过但不验证 NUL；编码始终生成规范 NUL 终止载荷。null 清空全部状态。
 1404 例固定差分涵盖原始 bytes 与状态，另执行 Go→Rust、Rust→Go 双向 string/null 编码验证。参考程序启用固定基线 bson build tag。
+
+## PR 13d 行为规则
+
+ScanValue 显式区分 Null、Float32、Float64、Int64、Text、Bytes 和 Unsupported，不隐式强制转换其他类型。float 保持对应宽度的最短往返值并拒绝 NaN/Infinity 为 Unmarshal；文本/bytes 在长度大于二且首尾为双引号时去掉外层引号，不执行 JSON 转义解码。空字符串、非法 UTF-8、数值格式错误保留 InvalidFormat+Unmarshal。
+scan(null) 清空 Decimal 和 NullDecimal；非 null 成功标记 NullDecimal valid，失败保留全部状态。value 返回紧凑十进制字符串，普通未初始化 Decimal 为字符串零，无效 NullDecimal 为 None，有效内部 nil 为 Some("0")。Go 始终 nil 的 Value error 在 Rust 省略。320 例差分验证类型分支、精确文本、非有限浮点、原地状态和纯读输出。此层是通用协议，实际 PostgreSQL SQLx 集成在 PR 15 独立交付。
