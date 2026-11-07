@@ -7,6 +7,8 @@
 pub const COMPATIBILITY_REVISION: &str = "a8791208e2d15483cf652cd2814b74b0c1a84187";
 
 mod arithmetic;
+mod binary;
+pub use binary::PRECISION_FIXED_SIZE;
 mod conversion;
 mod decimal;
 mod error;
@@ -15,9 +17,14 @@ mod formatting;
 mod integer;
 pub use formatting::GoFormat;
 mod interval;
+#[cfg(feature = "json")]
+mod json;
 mod logarithm;
 mod root;
 mod rounding;
+#[cfg(feature = "serde")]
+mod serde_impl;
+mod text;
 mod transcendental;
 pub use conversion::most_significant_bit;
 pub use decimal::{Decimal, NullDecimal, between, hundred, max, min, one, ten, zero};
@@ -25,3 +32,24 @@ pub use error::{DecimalError, ErrorKind};
 pub use num_bigint::BigInt;
 pub use num_rational::BigRational;
 pub use rounding::RoundingMode;
+
+#[cfg(feature = "yaml")]
+mod yaml;
+
+#[cfg(feature = "xml")]
+mod xml;
+
+#[cfg(feature = "bson")]
+mod bson;
+
+mod sql;
+pub use sql::ScanValue;
+
+#[cfg(feature = "postgres")]
+mod postgres;
+
+#[cfg(feature = "validation")]
+pub mod validation;
+
+#[cfg(feature = "config")]
+pub mod config;

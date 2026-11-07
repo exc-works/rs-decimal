@@ -27,7 +27,7 @@ def main():
     parser.add_argument("--oracle", required=True)
     parser.add_argument("--operations", nargs="+", default=["sqrt", "root", "ln", "log2", "log10", "exp"])
     args = parser.parse_args()
-    corpus = json.loads((ROOT/"testdata/upstream/testdata/must_succeed.json").read_text())
+    corpus = json.loads((ROOT/"testdata/upstream/testdata/must_succeed.json").read_text(encoding="utf-8"))
     cases = [c for c in corpus["cases"] if c["op"] in args.operations]
     assert cases, "empty promised-success selection"
     requests = []

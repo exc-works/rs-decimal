@@ -14,7 +14,7 @@ parser.add_argument("--cases", required=True)
 parser.add_argument("--operations", nargs="+", required=True)
 parser.add_argument("--timeout", type=float, default=60)
 args = parser.parse_args()
-cases = [json.loads(line) for line in Path(args.cases).read_text().splitlines() if line.strip()]
+cases = [json.loads(line) for line in Path(args.cases).read_text(encoding="utf-8").splitlines() if line.strip()]
 selected = [c for c in cases if c["operation"] in args.operations and c.get("expected_outcome", "ok") == "ok"]
 if not selected:
     raise driver.ConformanceError("empty oracle selection")

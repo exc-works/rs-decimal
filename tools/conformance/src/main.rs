@@ -69,6 +69,192 @@ fn execute(req: &Request) -> Value {
         let values: Vec<_> = req.inputs.iter().map(State::decimal).collect();
         let p = |key: &str| req.params[key].as_str().expect("missing string parameter");
         let result: Result<Value, DecimalError> = match req.operation.as_str() {
+            "decode" if values.len() == 1 => {
+                let nullable = p("nullable") == "true";
+                let mut n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                let err = match (nullable, p("format")) {
+                    (_, "sql") => {
+                        let bytes = if p("type") == "bytes" {
+                            decode_hex(p("text"))
+                        } else {
+                            Vec::new()
+                        };
+                        let value = match p("type") {
+                            "null" => rs_decimal::ScanValue::Null,
+                            "i64" => rs_decimal::ScanValue::Int64(p("text").parse().unwrap()),
+                            "f32" => rs_decimal::ScanValue::Float32(f32::from_bits(
+                                u32::from_str_radix(p("text"), 16).unwrap(),
+                            )),
+                            "f64" => rs_decimal::ScanValue::Float64(f64::from_bits(
+                                u64::from_str_radix(p("text"), 16).unwrap(),
+                            )),
+                            "text" => rs_decimal::ScanValue::Text(p("text")),
+                            "bytes" => rs_decimal::ScanValue::Bytes(&bytes),
+                            _ => rs_decimal::ScanValue::Unsupported,
+                        };
+                        if nullable {
+                            n.scan(value)
+                        } else {
+                            n.decimal.scan(value)
+                        }
+                    }
+                    (true, "bson") => {
+                        n.unmarshal_bson_value(p("type").parse().unwrap(), &decode_hex(p("text")))
+                    }
+                    (false, "bson") => n
+                        .decimal
+                        .unmarshal_bson_value(p("type").parse().unwrap(), &decode_hex(p("text"))),
+                    (false, "binary") => n.decimal.unmarshal_binary(&decode_hex(p("text"))),
+                    (true, "xml") => n.unmarshal_xml(p("text")),
+                    (false, "xml") => n.decimal.unmarshal_xml(p("text")),
+                    (true, "xml_attr") => n.unmarshal_xml_attr(p("text")),
+                    (false, "xml_attr") => n.decimal.unmarshal_xml_attr(p("text")),
+                    (true, "yaml") => n.unmarshal_yaml(p("text")),
+                    (false, "yaml") => n.decimal.unmarshal_yaml(p("text")),
+                    (true, "json") => n.unmarshal_json(p("text").as_bytes()),
+                    (false, "json") => n.decimal.unmarshal_json(p("text").as_bytes()),
+                    (true, "text") => n.unmarshal_text(p("text").as_bytes()),
+                    (true, "param") => n.unmarshal_param(p("text")),
+                    (false, "text") => n.decimal.unmarshal_text(p("text").as_bytes()),
+                    (false, "param") => n.decimal.unmarshal_param(p("text")),
+                    _ => panic!("unknown decoder"),
+                };
+                response["receiver_after"] = json!({"decimal":capture(&n.decimal),"valid":if nullable {json!(n.valid)}else{Value::Null}});
+                err.map(|_| response["receiver_after"].clone())
+            }
+            "config" => {
+                use rs_decimal::config::{ConfigValue, decode_decimal, decode_nullable};
+                let bytes = if p("type") == "bytes" {
+                    decode_hex(p("text"))
+                } else {
+                    Vec::new()
+                };
+                let n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                let value = match p("type") {
+                    "null" => ConfigValue::Null,
+                    "text" => ConfigValue::Text(p("text")),
+                    "bytes" => ConfigValue::Bytes(&bytes),
+                    "number" => ConfigValue::Number(p("text")),
+                    "i64" => ConfigValue::Signed(p("text").parse().unwrap()),
+                    "u64" => ConfigValue::Unsigned(p("text").parse().unwrap()),
+                    "f32" => ConfigValue::Float32(f32::from_bits(
+                        u32::from_str_radix(p("text"), 16).unwrap(),
+                    )),
+                    "f64" => ConfigValue::Float64(f64::from_bits(
+                        u64::from_str_radix(p("text"), 16).unwrap(),
+                    )),
+                    "decimal" => ConfigValue::Decimal(&values[0]),
+                    "nullable" => ConfigValue::Nullable(&n),
+                    _ => ConfigValue::Unsupported,
+                };
+                if p("nullable") == "true" {
+                    decode_nullable(value)
+                        .map(|n| json!({"decimal":capture(&n.decimal),"valid":n.valid}))
+                } else {
+                    decode_decimal(value)
+                        .map(|d| json!({"decimal":capture(&d),"valid":Value::Null}))
+                }
+            }
+            "validate" => rs_decimal::validation::ValidationRule::parse(p("tag"), p("parameter"))
+                .map(|rule| json!(rule.matches(&values[0]))),
+            "messages" => Ok(json!(rs_decimal::validation::default_validation_messages(
+                p("locale")
+            ))),
+            "sql_value" if values.len() == 1 => {
+                let n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                Ok(if p("nullable") == "true" {
+                    json!(n.value())
+                } else {
+                    json!(n.decimal.value())
+                })
+            }
+            "encode_bson" if values.len() == 1 => {
+                let n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                let encoded = if p("nullable") == "true" {
+                    n.marshal_bson_value()
+                } else {
+                    n.decimal.marshal_bson_value()
+                };
+                encoded
+                    .map(|(kind, data)| json!({"type":kind.to_string(),"data":encode_hex(&data)}))
+            }
+            "encode_binary" if values.len() == 1 => values[0]
+                .marshal_binary()
+                .map(|bytes| json!(encode_hex(&bytes))),
+            "encode_xml" if values.len() == 1 => {
+                let n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                let nullable = p("nullable") == "true";
+                Ok(if p("format") == "attribute" {
+                    if nullable {
+                        json!(n.marshal_xml_attr())
+                    } else {
+                        json!(n.decimal.marshal_xml_attr())
+                    }
+                } else {
+                    json!(format!(
+                        "<v>{}</v>",
+                        if nullable {
+                            n.marshal_xml()
+                        } else {
+                            n.decimal.marshal_xml()
+                        }
+                    ))
+                })
+            }
+            "encode_yaml" if values.len() == 1 => {
+                let n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                Ok(if p("nullable") == "true" {
+                    json!(n.marshal_yaml())
+                } else {
+                    json!(n.decimal.marshal_yaml())
+                })
+            }
+            "encode_json" if values.len() == 1 => {
+                let n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                let out = if p("nullable") == "true" {
+                    n.marshal_json()
+                } else {
+                    n.decimal.marshal_json()
+                };
+                Ok(json!(String::from_utf8(out).unwrap()))
+            }
+            "encode_text" if values.len() == 1 => {
+                let n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                let out = if p("nullable") == "true" {
+                    if p("format") == "string" {
+                        n.string().into_bytes()
+                    } else {
+                        n.marshal_text()
+                    }
+                } else {
+                    n.decimal.marshal_text()
+                };
+                Ok(json!(String::from_utf8(out).unwrap()))
+            }
             "format" if values.len() == 1 => {
                 let flags = p("flags");
                 let f = rs_decimal::GoFormat {
@@ -338,6 +524,24 @@ fn execute(req: &Request) -> Value {
         }
     }
     response
+}
+
+fn encode_hex(bytes: &[u8]) -> String {
+    const HEX: &[u8] = b"0123456789abcdef";
+    let mut out = String::with_capacity(bytes.len() * 2);
+    for b in bytes {
+        out.push(HEX[(b >> 4) as usize] as char);
+        out.push(HEX[(b & 15) as usize] as char);
+    }
+    out
+}
+
+fn decode_hex(text: &str) -> Vec<u8> {
+    assert!(text.len() % 2 == 0);
+    (0..text.len())
+        .step_by(2)
+        .map(|i| u8::from_str_radix(&text[i..i + 2], 16).unwrap())
+        .collect()
 }
 
 fn capture(d: &Decimal) -> Value {
