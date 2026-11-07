@@ -104,7 +104,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `Decimal.UnmarshalYAML` | `Decimal::unmarshal_yaml(&mut self, source: &str) -> Result<(), DecimalError>` (`yaml`) | 协议 | 13a | 平台映射 | [PR 13a 行为规则](#pr-13a-行为规则) | [PR 13a 行为规则](#pr-13a-行为规则) | `tests/yaml.rs`；全部冻结 yaml_scalars；416 状态差分 | 已验证 |
 | `Decimal.Value` | `Decimal::value(&self) -> String` | 协议 | 13d | 平台映射 | 见 PR 13d 行为规则 | 失败原子；只读无变化 | tests/sql.rs；sql.jsonl | 已验证 |
 | `DecodeHook` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
-| `DefaultGoPlaygroundValidatorTranslationMessages` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
+| `DefaultGoPlaygroundValidatorTranslationMessages` | `default_validation_messages(locale: &str) -> BTreeMap<String, String>` | 生态 | 15 | 平台映射：无全局注册的 Rust 精确规则/消息 | 见 PR 15b 行为规则 | 非法规则参数返回 InvalidArgument；数值只读 | tests/validation.rs；validation.jsonl | 已验证 |
 | `ErrDivideByZero` | `ErrorKind::DivideByZero` | 核心 | 03 | 直接移植 | 稳定类别声明；可通过 matches 查询，允许多类别 | 声明本身不失败；具体入口失败行为随相应 PR 验证 | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `ErrInvalidArgument` | `ErrorKind::InvalidArgument` | 核心 | 03 | 直接移植 | 稳定类别声明；可通过 matches 查询，允许多类别 | 声明本身不失败；具体入口失败行为随相应 PR 验证 | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `ErrInvalidFormat` | `ErrorKind::InvalidFormat` | 核心 | 03 | 直接移植 | 稳定类别声明；可通过 matches 查询，允许多类别 | 声明本身不失败；具体入口失败行为随相应 PR 验证 | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
@@ -158,9 +158,9 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `NullDecimal.Value` | `NullDecimal::value(&self) -> Option<String>` | 协议 | 13d | 平台映射 | 见 PR 13d 行为规则 | 失败原子；只读无变化 | tests/sql.rs；sql.jsonl | 已验证 |
 | `One` | `one() -> Decimal` | 核心 | 03 | 平台映射：只读构造函数 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 | `PrecisionFixedSize` | `PRECISION_FIXED_SIZE: usize = 4` | 协议 | 12 | 直接移植 | [PR 12 行为规则](#pr-12-行为规则) | [PR 12 行为规则](#pr-12-行为规则) | `tests/binary.rs`；142 差分，109 个双向跨语言编码/解码；32 位实际 CI | 已验证 |
-| `RegisterGoPlaygroundValidator` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
-| `RegisterGoPlaygroundValidatorTranslations` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
-| `RegisterGoPlaygroundValidatorTranslationsWithMessages` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
+| `RegisterGoPlaygroundValidator` | `ValidationRule::parse(tag: &str, parameter: &str) -> Result<Self, DecimalError>` | 生态 | 15 | 平台映射：无全局注册的 Rust 精确规则/消息 | 见 PR 15b 行为规则 | 非法规则参数返回 InvalidArgument；数值只读 | tests/validation.rs；validation.jsonl | 已验证 |
+| `RegisterGoPlaygroundValidatorTranslations` | `ValidationMessages::new(locale: &str) -> Self` | 生态 | 15 | 平台映射：无全局注册的 Rust 精确规则/消息 | 见 PR 15b 行为规则 | 非法规则参数返回 InvalidArgument；数值只读 | tests/validation.rs；validation.jsonl | 已验证 |
+| `RegisterGoPlaygroundValidatorTranslationsWithMessages` | `ValidationMessages::with_messages(BTreeMap<String,String>) -> Result<Self,DecimalError>` | 生态 | 15 | 平台映射：无全局注册的 Rust 精确规则/消息 | 见 PR 15b 行为规则 | 非法规则参数返回 InvalidArgument；数值只读 | tests/validation.rs；validation.jsonl | 已验证 |
 | `RoundCeiling` | `RoundingMode::Ceiling` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `RoundDown` | `RoundingMode::Down` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `RoundHalfDown` | `RoundingMode::HalfDown` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
@@ -170,7 +170,7 @@ PR 01 确定交付归属和处理方式；Rust 签名、逐入口行为细节、
 | `RoundUp` | `RoundingMode::Up` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `RoundingMode` | `RoundingMode`；`from_raw(i32) -> Self` | 核心 | 04 | 直接移植 | [PR 04 行为规则](#pr-04-行为规则) | [PR 04 失败规则](#pr-04-行为规则) | `tests/rounding.rs`；`rounding-0..555` 差分；rescale 独立 oracle | 已验证 |
 | `Ten` | `ten() -> Decimal` | 核心 | 03 | 平台映射：只读构造函数 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
-| `TranslateGoPlaygroundValidationErrors` | 待设计 | 生态 | 15 | 明确延后：由 Rust 验证/配置适配器承接，Go 框架类型不直接移植 | 待设计 | 待设计 | 待实现 | 延后 |
+| `TranslateGoPlaygroundValidationErrors` | `ValidationMessages::translate(&self, errors: &[ValidationError]) -> Vec<String>` | 生态 | 15 | 平台映射：无全局注册的 Rust 精确规则/消息 | 见 PR 15b 行为规则 | 非法规则参数返回 InvalidArgument；数值只读 | tests/validation.rs；validation.jsonl | 已验证 |
 | `Zero` | `zero() -> Decimal` | 核心 | 03 | 平台映射：只读构造函数 | [PR 03 行为规则](#pr-03-行为规则) | [PR 03 失败规则](#pr-03-行为规则) | `tests/representation.rs`；`representation-0..299` 差分（声明项由类型/错误测试覆盖） | 已验证 |
 
 ## PR 03 行为规则
@@ -276,3 +276,10 @@ scan(null) 清空 Decimal 和 NullDecimal；非 null 成功标记 NullDecimal va
 ## PR 15a PostgreSQL 集成
 
 用户选择 PostgreSQL/SQLx 0.8.6。postgres feature 实现 Decimal/NullDecimal 的 Type/Encode/Decode/PgHasArrayType，直接处理 NUMERIC 二进制和文本、NULL 和数组；详见 [驱动契约与验证](postgres.md)。这是一项额外 Rust 驱动集成，不冒充 Go 通用 Scan 的底层类型。SQL NULL 解码到非 nullable Decimal 返回错误，普通 nil 写为数值零并读回初始化零。实际 PostgreSQL 18 的最大范围、高精度、空值、数组和拒绝测试通过。
+
+## PR 15b 精确验证和翻译
+
+validation 可选功能提供 ValidationRule::parse、matches/validate、validate_decimal 及 ValidationMessages；不注册 Go 反射框架或全局处理器。十二个 decimal_* 规则采用 Decimal 精确比较，max_precision 检查表示 scale，不是有效位数；nil 的 required/between/positive/negative/nonzero 为 false，eq/ne/比较规则仍按数值零、max_precision 按零 scale 处理。参数原文保留用于消息。
+非法规则参数在构造时返回 InvalidArgument，代替 Go 在使用非法静态 struct tag 时 panic；批量验证按输入顺序返回全部失败规则（Go 框架通常先返回字段的首个失败规则）。框架反射、omitempty 和其他字段类型由应用显式处理，不隐式接受 Nullable 或浮点。传入 NullDecimal 时由应用先检查 valid，再验证 decimal。
+13 组内置 locale 模板保留固定基线文本及语言后缀回退，未知语言使用英语。with_messages 以英语补缺省项；空模板、未知 tag 和非 {0}/{1} 占位符返回 InvalidArgument，代替 translator 的运行期注册错误。translate 插入字段与参数字面文本，不再次解析替换后的占位符，也不提供 HTML 转义；输出按普通文本处理。模板每次返回独立拥有的 map，调用者修改不会污染默认值。
+136 例差分使用真实 Go Struct 动态字段 tag 调用（Var 对 struct 不执行这些字段规则），覆盖数值/状态规则及全部 locale；额外 Rust 回归验证超 f64 精度、非法参数、消息顺序、占位符字面插入及独立模板所有权。

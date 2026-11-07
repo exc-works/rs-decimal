@@ -47,3 +47,6 @@ pub use sql::ScanValue;
 
 #[cfg(feature = "postgres")]
 mod postgres;
+
+#[cfg(feature = "validation")]
+pub mod validation;

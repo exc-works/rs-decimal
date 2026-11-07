@@ -1,4 +1,5 @@
 import copy
+import json
 import importlib.util
 from pathlib import Path
 import sys
@@ -78,6 +79,17 @@ class DriverTests(unittest.TestCase):
         for fields in [{"coefficient": "+0100"}, {"scale": "02"}, {"coefficient": "-0"}, {"scale": 2}]:
             with self.subTest(fields=fields), self.assertRaises(driver.ConformanceError):
                 driver.validate_state(dict(self.response["result"], **fields))
+
+
+class Utf8TransportTests(unittest.TestCase):
+    def test_non_ascii_protocol_is_independent_of_system_encoding(self):
+        from unittest.mock import patch
+        import sys
+        request={"schema_version":1,"case_id":"unicode","operation":"messages","inputs":[],"params":{}}
+        response={"schema_version":1,"case_id":"unicode","outcome":"ok","result":"中文日本語🙂","inputs_after":[],"error_kinds":[]}
+        script="import sys; sys.stdout.buffer.write("+repr((json.dumps(response,ensure_ascii=False)+"\n").encode("utf-8"))+")"
+        with patch("subprocess._text_encoding",return_value="cp1252"):
+            self.assertEqual(driver.run([sys.executable,"-c",script],[request]),[response])
 
 
 if __name__ == "__main__":

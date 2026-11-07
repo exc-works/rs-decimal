@@ -22,6 +22,7 @@ jobs:
       - run: cargo test --locked -p rs-decimal --no-default-features
       - run: cargo test --locked -p rs-decimal --no-default-features --features serde
       - run: cargo test --locked -p rs-decimal --no-default-features --features json
+      - run: cargo test --locked -p rs-decimal --no-default-features --features validation
       - run: cargo test --locked -p rs-decimal --no-default-features --features postgres
       - run: cargo test --locked -p rs-decimal --no-default-features --features bson
       - run: cargo test --locked -p rs-decimal --no-default-features --features xml

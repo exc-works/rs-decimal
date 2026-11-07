@@ -125,6 +125,11 @@ fn execute(req: &Request) -> Value {
                 response["receiver_after"] = json!({"decimal":capture(&n.decimal),"valid":if nullable {json!(n.valid)}else{Value::Null}});
                 err.map(|_| response["receiver_after"].clone())
             }
+            "validate" => rs_decimal::validation::ValidationRule::parse(p("tag"), p("parameter"))
+                .map(|rule| json!(rule.matches(&values[0]))),
+            "messages" => Ok(json!(rs_decimal::validation::default_validation_messages(
+                p("locale")
+            ))),
             "sql_value" if values.len() == 1 => {
                 let n = rs_decimal::NullDecimal {
                     decimal: values[0].clone(),

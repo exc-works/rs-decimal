@@ -9,11 +9,13 @@ import (
 	"errors"
 	"fmt"
 	d "github.com/exc-works/decimal"
+	"github.com/go-playground/validator/v10"
 	yaml "github.com/goccy/go-yaml"
 	"io"
 	"math"
 	"math/big"
 	"os"
+	"reflect"
 	"strconv"
 )
 
@@ -223,6 +225,23 @@ func execute(req request) (r response) {
 			r.Outcome = "ok"
 			r.Result = r.Receiver
 		}
+	case "validate":
+		v := validator.New()
+		if err := d.RegisterGoPlaygroundValidator(v); err != nil {
+			panic(err)
+		}
+		tag := params["tag"]
+		if params["parameter"] != "" {
+			tag += "=" + params["parameter"]
+		}
+		r.Outcome = "ok"
+		typ := reflect.StructOf([]reflect.StructField{{Name: "Amount", Type: reflect.TypeOf(d.Decimal{}), Tag: reflect.StructTag(`validate:"` + tag + `"`)}})
+		sample := reflect.New(typ).Elem()
+		sample.Field(0).Set(reflect.ValueOf(values[0]))
+		r.Result = v.Struct(sample.Interface()) == nil
+	case "messages":
+		r.Outcome = "ok"
+		r.Result = d.DefaultGoPlaygroundValidatorTranslationMessages(params["locale"])
 	case "sql_value":
 		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
 		r.Outcome = "ok"

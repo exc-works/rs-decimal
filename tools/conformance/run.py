@@ -29,7 +29,7 @@ def run(command, requests, timeout=30):
         raise ConformanceError("missing or duplicate case IDs")
     payload = "".join(json.dumps(r) + "\n" for r in requests)
     try:
-        process = subprocess.run(command, input=payload, text=True, capture_output=True, timeout=timeout)
+        process = subprocess.run(command, input=payload, text=True, encoding="utf-8", capture_output=True, timeout=timeout)
     except subprocess.TimeoutExpired as exc:
         raise ConformanceError("timeout") from exc
     if process.returncode:
@@ -83,6 +83,10 @@ def compare(requests, left, right, expected=None):
                 result = response["result"]
                 if not isinstance(result, dict) or set(result) != {"type", "data"} or result["type"] not in {"2", "10"} or not isinstance(result["data"], str) or not re.fullmatch(r"(?:[0-9a-f]{2})*", result["data"]):
                     raise ConformanceError("invalid BSON payload")
+            if want == "ok" and req["operation"] == "validate" and type(response["result"]) is not bool:
+                raise ConformanceError("invalid validation result")
+            if want == "ok" and req["operation"] == "messages" and (not isinstance(response["result"], dict) or len(response["result"]) != 12 or not all(isinstance(k,str) and isinstance(v,str) for k,v in response["result"].items())):
+                raise ConformanceError("invalid validation templates")
             if req["operation"] == "decode":
                 receiver = response.get("receiver_after")
                 nullable = req["params"]["nullable"] == "true"
@@ -155,7 +159,7 @@ def main():
     parser.add_argument("--cases", required=True)
     parser.add_argument("--timeout", type=float, default=30)
     args = parser.parse_args()
-    cases = [json.loads(line) for line in Path(args.cases).read_text().splitlines() if line.strip()]
+    cases = [json.loads(line) for line in Path(args.cases).read_text(encoding="utf-8").splitlines() if line.strip()]
     if not cases:
         raise ConformanceError("empty corpus")
     expectations = [c.pop("expected_outcome", "ok") for c in cases]
@@ -166,7 +170,7 @@ def main():
     except ConformanceError:
         failure_dir = Path(".cache/conformance-failures")
         failure_dir.mkdir(parents=True, exist_ok=True)
-        (failure_dir / "latest.json").write_text(json.dumps({"requests": cases, "go": left, "rust": right}, indent=2)+"\n")
+        (failure_dir / "latest.json").write_text(json.dumps({"requests": cases, "go": left, "rust": right}, indent=2)+"\n", encoding="utf-8")
         raise
     print(json.dumps({"cases": len(cases), "outcomes": counts}))
 
