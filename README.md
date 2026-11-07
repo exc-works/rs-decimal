@@ -26,6 +26,8 @@ python3 tools/check-baseline.py
 
 使用者入口见 `cargo doc --all-features --open`；发布检查见 [发布流程](docs/releasing.md)，版本变化见 [CHANGELOG](CHANGELOG.md)。
 
+Rust 用法与新增所有权接口见 [Rust API 指南](docs/rust-api.md)：支持整数 `From`、借用运算符、系数借用/移动，以及消耗临时值的加减和 rescale；兼容接口保持原契约。
+
 ## 使用数值核心
 
 ```rust

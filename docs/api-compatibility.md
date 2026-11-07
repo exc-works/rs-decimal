@@ -289,3 +289,7 @@ validation 可选功能提供 ValidationRule::parse、matches/validate、validat
 config 功能启用 serde/json 和 serde_json/raw_value。ConfigValue 接收 text/bytes/原文 Number、有/无符号整数、显式 f32/f64、Decimal/NullDecimal 与 null；对象值以 clone 交付。Rust 的 i128/u128 精确扩展 Go 64 位整数输入范围。bool/其他类型、非有限浮点被拒绝。普通 Decimal 目标拒绝 null 和空文本；NullDecimal 目标接受 null、长度为零的 text/bytes 为无效默认状态，Number 空文本仍非法，纯空白不等于空文本。有效内部 nil 状态在类型化克隆时保持，不强制初始化。
 Serde 的 deserialize_json_decimal/deserialize_json_nullable 是 JSON 原文专用字段适配，以 RawValue 获取数字 token，任何小数或超大整数均不经过 f64。它们支持 serde_json 原文反序列化，不声称任意 Serde 后端或已转换为 Value/f64 的数据仍保留原始表示。普通字段 null/空字符串报错，可空字段 null/空字符串为无效；缺失字段由调用者的 #[serde(default)] 明确决定。配置新建目标不使用协议层 Decimal null=no-op 规则。
 152 例 Go DecodeHook 差分覆盖类型与空值/错误，Serde 配置结构体回归覆盖超过 f64 精度的数字、科学记数法、缺失/null/空字符串、恶意伪 Number 对象和完整状态。全部 166 项 Go API 已有明确 Rust 实现或平台映射和验证证据，发布检查不再允许延后入口。
+
+## Rust-specific additive APIs
+
+Borrowing/consuming interfaces, integer From conversions, borrowed Add/Sub/Neg and fallible rounding-mode conversion are listed separately in the [Rust API guide](rust-api.md#additive-api-inventory-and-evidence). They preserve the existing mappings and are not counted in the 166-entry upstream inventory.
