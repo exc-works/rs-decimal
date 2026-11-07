@@ -1,18 +1,18 @@
-# 发布候选验证
+# Release candidate validation
 
-当前完整实现覆盖 166 项基线 API（包括平台映射），全量固定差分语料为 21,579 例。版本 0.1.0-alpha.1 尚未发布。早期堆叠 PR 合并进了中间分支；PR #22 将完整实现集成到 main，是否已合并以 GitHub 当前状态为准。后续变更必须在各自最新提交重新通过 CI。
+The complete implementation currently covers 166 baseline APIs, including platform mappings, with 21,579 fixed differential cases. Version 0.1.0-alpha.1 has not yet been published. Early stacked PRs were merged into intermediate branches; PR #22 integrates the complete implementation into main. Check GitHub for its current merge status. Subsequent changes must pass CI again at their latest commits.
 
-历史验证：2026-11-06，macOS arm64、Rust 1.99.1、Go 1.27.3，512 个固定随机用例、45 个 must-succeed 输出/状态及独立证书通过；20 秒随机验证通过 251,648 例和 188,624 个独立算术证书（seed=14598561）。这些是当时提交的证据，不替代后续提交检查。
+Historical validation on 2026-11-06, macOS arm64, Rust 1.99.1, Go 1.27.3: 512 fixed random cases, outputs/states for all 45 must-succeed cases, and independent certificates passed. A 20-second randomized run passed 251,648 cases and 188,624 independent arithmetic certificates (seed=14598561). This evidence applies to the commit tested then and does not replace checks for later commits.
 
-CI 覆盖 MSRV 1.85/stable、全 feature、独立 feature、debug/release、打包产物、Linux 32/64 位 Go/Rust 配对、macOS/Windows 和真实 PostgreSQL。每周/手动随机任务保存 seed、失败请求和双方响应；cron 仅在工作流进入默认分支后生效。
+CI covers MSRV 1.85/stable, all features, individual features, debug/release, packaged artifacts, paired Linux 32/64-bit Go/Rust, macOS/Windows, and live PostgreSQL. Weekly/manual randomized jobs save seeds, failing requests, and both implementations' responses. The cron schedule takes effect only after the workflow reaches the default branch.
 
-协议失败保留完整接收者状态；二进制/BSON 双向互通、PostgreSQL 最大合法 NUMERIC/NULL/数组、原文配置 token 和精确验证规则均有测试。固定上游 11 份文件及 166 项声明清单由门禁核对。
+Protocol failures preserve complete receiver state. Tests cover binary/BSON interoperability in both directions, PostgreSQL's maximum legal NUMERIC values/NULL/arrays, raw configuration tokens, and exact validation rules. Gates check the 11 frozen upstream files and the inventory of 166 declarations.
 
-## 可复跑性能基线
+## Repeatable performance baseline
 
-以下中位数来自每组 3 次、每次均核对完整结果的 Go/Rust release 批量调用，包含子进程启动和 JSONL 开销，不是纯算法微基准，不作 Rust 普遍更快的承诺。表示/解析组包含高位数文本，Rust 当前明显较慢；这是后续优化基线，不改数值语义来换速度。
+The medians below come from three batch calls per group using Go/Rust release, with complete results checked on every run. They include subprocess startup and JSONL overhead, are not pure algorithm microbenchmarks, and do not imply that Rust is generally faster. The representation/parsing group includes long numeric text, where Rust is currently substantially slower. These measurements establish a baseline for future optimization without changing numerical semantics for speed.
 
-| 输入组 | 个数 | Go 中位 ms | Rust 中位 ms |
+| Input group | Count | Go median, ms | Rust median, ms |
 | --- | ---: | ---: | ---: |
 | representation | 128 | 5.226 | 25.639 |
 | arithmetic | 128 | 3.195 | 2.428 |
@@ -27,6 +27,6 @@ CI 覆盖 MSRV 1.85/stable、全 feature、独立 feature、debug/release、打�
 | bson | 128 | 3.907 | 3.938 |
 | sql | 128 | 3.166 | 2.628 |
 
-复跑：`python3 tools/conformance/benchmark.py --go .cache/go-reference --rust target/release/decimal-conformance`。CI 将 core-gates、fuzz 与 benchmark JSON 保存为工件。计时不设跨机器绝对阈值；正确性失败始终阻止通过。
+Rerun with `python3 tools/conformance/benchmark.py --go .cache/go-reference --rust target/release/decimal-conformance`. CI saves core-gates, fuzz, and benchmark JSON as artifacts. Timings have no absolute threshold across machines; correctness failures always block acceptance.
 
-发布步骤和独立消费者验证见 [发布流程](releasing.md)。兼容差异集中记录在 [API 矩阵](api-compatibility.md)。
+See the [release process](releasing.md) for publication steps and independent consumer validation. Compatibility differences are collected in the [API matrix](api-compatibility.md).

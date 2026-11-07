@@ -1,12 +1,12 @@
-# 进程内性能测量
+# In-process performance measurement
 
-`cargo bench --locked --bench core` 运行无额外依赖的 release 微基准。输入在计时前构造并检查已知结果，测量包含结果分配/销毁，不含进程启动、JSONL 传输或打印。每组先预热至少 100 ms，再校准约 50 ms/样本（100 至 2,000,000 次操作），报告 7 次样本的中位数、最小值、最大值。CI 保存 microbench.csv，仅作回归调查依据，不设跨机器绝对速度门槛。
+`cargo bench --locked --bench core` runs release microbenchmarks without additional dependencies. Inputs are constructed and known results checked before timing. Measurements include result allocation/destruction, but exclude process startup, JSONL transport, and printing. Each group warms up for at least 100 ms, then calibrates to roughly 50 ms per sample (100 to 2,000,000 operations) and reports the median, minimum, and maximum of seven samples. CI saves microbench.csv for regression investigation only; it sets no absolute speed threshold across machines.
 
-## 2026-11-07 本地前后对比
+## Local before/after comparison, 2026-11-07
 
-macOS arm64、Rust 1.99.1，同一机器依次运行相同 benchmark 源码；基线为 `a04cdd6`，优化版本为加入本报告的提交。原始样本范围与实际迭代数见 [测量数据](performance-baseline.json)。预热修正前的短样本受 CPU 启动频率影响较大，因此不用于以下结论。
+macOS arm64, Rust 1.99.1, running the same benchmark source sequentially on the same machine. The baseline is `a04cdd6`; the optimized version is the commit introducing this report. See the [measurement data](performance-baseline.json) for raw sample ranges and actual iteration counts. Short samples taken before the warm-up correction were strongly affected by CPU startup frequency and are excluded from the conclusions below.
 
-| 操作 | 优化前 ns/次 | 优化后 ns/次 | 耗时减少 |
+| Operation | Before, ns/op | After, ns/op | Time reduction |
 | --- | ---: | ---: | ---: |
 | parse_money | 60.86 | 18.32 | 69.9% |
 | parse_integer | 61.03 | 26.27 | 57.0% |
@@ -19,10 +19,10 @@ macOS arm64、Rust 1.99.1，同一机器依次运行相同 benchmark 源码；�
 | format_money | 50.67 | 50.71 | -0.1% |
 | format_large | 10520.21 | 10525.48 | -0.1% |
 
-这组输入下，短数解析减少约 57–70% 耗时，同 scale 加法减少约 65%，不同 scale 加法减少约 25%；大数解析改进很小，格式化和除法没有明确变化。未改动路径的小幅波动属于环境/布局噪声，不能归功于优化。这不是所有输入的总体加速比例，也不是和 Go 的纯算术速度比较。
+For these inputs, short-number parsing took about 57–70% less time, same-scale addition about 65% less, and mixed-scale addition about 25% less. Large-number parsing improved only slightly; formatting and division showed no clear change. Small fluctuations in unchanged paths are environment/layout noise and cannot be attributed to the optimization. These figures are neither an overall speedup across all inputs nor a comparison of pure arithmetic speed against Go.
 
-优化原因：18 位以内系数由有界 u64 直接累积，避免临时拼接和通用大整数解析；较长整数直接借用原始数字字节。加减及商余对齐借用无需缩放的系数，只为需要扩大 scale 的非零系数分配。保持完整语法检查、任意精度回退、scale/零状态和舍入规则。
+The optimization accumulates coefficients of up to 18 digits directly in a bounded u64, avoiding temporary concatenation and generic big-integer parsing; longer integers borrow the original digit bytes directly. Alignment for addition/subtraction and quotient/remainder borrows coefficients that need no scaling, allocating only for nonzero coefficients whose scale must increase. Full syntax validation, arbitrary-precision fallback, scale/zero state, and rounding rules are preserved.
 
-正确性验证：21,579 个固定差分、512 个固定随机用例、debug/release 全 feature 测试通过；60 秒扩展随机验证通过 91,312 例和 70,240 个独立数值证书。解析回归覆盖 17/18/19 位边界、正负号、小数点位置和长零字符串。底层变化仍需每次通过独立 oracle，不能依靠基准结果替代正确性。
+Correctness validation passed: 21,579 fixed differential cases, 512 fixed random cases, and debug/release tests with all features. A 60-second extended randomized run passed 91,312 cases and 70,240 independent numerical certificates. Parsing regressions cover the 17/18/19-digit boundaries, signs, decimal-point positions, and long zero strings. Low-level changes must still pass the independent oracle every time; benchmark results cannot replace correctness checks.
 
-复现基线时，将相同 `benches/core.rs` 和 `[[bench]]` 配置应用到基线提交，使用独立 CARGO_TARGET_DIR，顺序运行前后版本。避免在编译/随机测试同时占用 CPU 时采样。原端到端 Go/Rust JSONL 基准继续保留，两者回答不同问题。
+To reproduce the baseline, apply the same `benches/core.rs` and `[[bench]]` configuration to the baseline commit, use a separate CARGO_TARGET_DIR, and run the before/after versions sequentially. Avoid sampling while compilation or randomized tests compete for CPU time. The existing end-to-end Go/Rust JSONL benchmark remains available; the two measurements answer different questions.

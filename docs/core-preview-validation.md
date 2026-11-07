@@ -1,15 +1,15 @@
-# 核心预览验证
+# Core preview validation
 
-范围为 PR 01—09 和 10a。协议与生态适配继续实施，不在此检查点宣称完成；crate 未发布，发布前仍需核对 crates.io 名称可用性。
+The scope is PRs 01–09 and 10a. Protocol and ecosystem adapters remain in progress and are not claimed complete at this checkpoint. The crate is unpublished; crates.io name availability must still be checked before publication.
 
-2026-11-06 本机 macOS arm64、Rust 1.99.1、Go 1.27.3：18,041 个固定差分、512 个固定种子随机用例及其独立证书通过，45 个 must-succeed 全部精确匹配并独立认证。debug/release 单元回归、fmt、Clippy、基线完整性、cargo package 与包内独立测试通过。包包含源码、Rust 测试、示例和许可，不包含 Go 工具或 fixtures。MSRV 1.85 在 CI 执行。
+On 2026-11-06, local macOS arm64, Rust 1.99.1, and Go 1.27.3 passed 18,041 fixed differential cases, 512 random cases with a fixed seed and their independent certificates, and all 45 must-succeed cases with exact matches and independent certification. Debug/release unit regressions, fmt, Clippy, baseline integrity, cargo package, and standalone tests of the package passed. The package includes source, Rust tests, examples, and licenses, but excludes Go tools and fixtures. MSRV 1.85 is tested in CI.
 
-配对 32 位门禁在 Linux CI 原生执行 i686 Rust 和 GOARCH=386 Go（包含 debug/release 单元测试、全量差分、随机证书和固定 45 个成功证书）；64 位 Linux 使用同组门禁。两者在 PR #10 提交 009f2cf 已实际执行并通过，上传 core-gates JSON 工件。本机不伪造 32 位执行结果。
+The paired 32-bit gate natively executes i686 Rust and GOARCH=386 Go in Linux CI, including debug/release unit tests, the full differential suite, random certificates, and all 45 fixed success certificates. Linux 64-bit runs the same gates. Both were actually executed and passed at commit 009f2cf in PR #10, with core-gates JSON artifacts uploaded. No local 32-bit execution result is claimed.
 
-性能样本先比较每次输出再记录：512 个混合算术/根请求，包含子进程启动与 JSONL 编解码；三次中位数 Go 5.865 ms、Rust release 4.720 ms。本样本只建立可复跑的批量基线，不能解释为单个算法加速或跨机器性能承诺。重跑命令：
+Performance samples compare every output before recording timings: 512 mixed arithmetic/root requests, including subprocess startup and JSONL encoding/decoding. Medians of three runs were 5.865 ms for Go and 4.720 ms for Rust release. This sample establishes only a repeatable batch baseline, not an individual algorithm speedup or a cross-machine performance guarantee. Rerun with:
 
 ```sh
 python3 tools/conformance/core-gates.py --go .cache/go-reference --rust target/release/decimal-conformance --oracle .cache/go-oracle
 ```
 
-随机烟测种子为 0xDEC1A1；若失败，完整请求/结果写入 .cache/core-fuzz-failure.json。已知审核回归包括极端 scale 零除数、错误状态完整性、oracle 编码变异和根/对数的舍入边界，均进入常规测试。后续长期 fuzz 作业在 PR 14 扩展。
+The randomized smoke-test seed is 0xDEC1A1; on failure, complete requests/results are written to .cache/core-fuzz-failure.json. Known review regressions include zero divisors at extreme scale, complete error-state preservation, oracle encoding mutations, and root/logarithm rounding boundaries; all are part of regular tests. Extended fuzz jobs are added in PR 14.
