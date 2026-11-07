@@ -98,6 +98,7 @@ jobs:
       - run: python3 tools/conformance/core-gates.py --go .cache/go-reference --rust target/release/decimal-conformance --oracle .cache/go-oracle
       - run: python3 tools/conformance/fuzz.py --go .cache/go-reference --rust target/release/decimal-conformance --oracle .cache/go-oracle --seconds 5
       - run: python3 tools/conformance/benchmark.py --go .cache/go-reference --rust target/release/decimal-conformance
+      - run: cargo bench --locked --bench core > .cache/microbench.csv
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -106,6 +107,7 @@ jobs:
             .cache/core-gates.json
             .cache/fuzz-*.json
             .cache/benchmark.json
+            .cache/microbench.csv
   paired-32:
     runs-on: ubuntu-latest
     steps:

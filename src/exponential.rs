@@ -38,6 +38,8 @@ impl Decimal {
             .to_usize()
             .filter(|n| *n <= MAX_PARSED_PRECISION)
             .ok_or_else(no_convergence)?;
+        // Reduce |x| to at most 1/2 for the positive Taylor series. Squaring
+        // restores exp(|x|); interval reciprocal handles negative inputs.
         let mut den = r.denom().clone();
         let twice = r.numer() << 1usize;
         let mut reductions = 0;

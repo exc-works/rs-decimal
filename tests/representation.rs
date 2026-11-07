@@ -136,3 +136,34 @@ fn native_limits_and_constant_mappings() {
     assert_eq!(rs_decimal::min(&a, &b).precision(), 1);
     assert_eq!(Ord::cmp(&a, &b), std::cmp::Ordering::Equal);
 }
+
+#[test]
+fn parser_small_coefficient_boundary_preserves_digits_sign_and_scale() {
+    for digits in [
+        "99999999999999999",
+        "999999999999999999",
+        "9999999999999999999",
+    ] {
+        for sign in ["", "+", "-"] {
+            for point in [0, 1, 8] {
+                let split = digits.len() - point;
+                let text = if point == 0 {
+                    format!("{sign}{digits}")
+                } else {
+                    format!("{sign}{}.{}", &digits[..split], &digits[split..])
+                };
+                let parsed: rs_decimal::Decimal = text.parse().unwrap();
+                let coefficient: rs_decimal::BigInt = format!("{sign}{digits}").parse().unwrap();
+                assert_eq!(parsed.big_int(), coefficient);
+                assert_eq!(parsed.precision(), point as isize);
+                assert!(!parsed.is_nil());
+            }
+        }
+    }
+    for text in ["-000000000000000000.00", "+0000000000000000000e-5"] {
+        let parsed: rs_decimal::Decimal = text.parse().unwrap();
+        assert_eq!(parsed.big_int(), rs_decimal::BigInt::from(0));
+        assert_eq!(parsed.precision(), 0);
+        assert!(!parsed.is_nil());
+    }
+}

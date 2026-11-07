@@ -8,6 +8,15 @@ use sqlx::postgres::{
 use sqlx::{Decode, Encode, Postgres, Type, ValueRef, encode::IsNull, error::BoxDynError};
 use std::fmt::Write;
 
+// PostgreSQL stores groups of four decimal digits, not binary integer limbs.
+const DIGITS_PER_GROUP: usize = 4;
+const GROUP_BASE: u16 = 10_000;
+const MAX_SCALE: usize = 16_383;
+const MAX_INTEGER_DIGITS: usize = 131_072;
+const HEADER_BYTES: usize = 8;
+const POSITIVE: u16 = 0;
+const NEGATIVE: u16 = 0x4000;
+
 fn invalid() -> DecimalError {
     DecimalError::new(
         ErrorKind::Unmarshal,
@@ -15,7 +24,7 @@ fn invalid() -> DecimalError {
     )
 }
 fn check(value: &Decimal) -> Result<(), DecimalError> {
-    if value.scale > 16383 {
+    if value.scale > MAX_SCALE {
         return Err(DecimalError::new(
             ErrorKind::InvalidPrecision,
             "PostgreSQL NUMERIC scale exceeds 16383",
@@ -27,7 +36,7 @@ fn check(value: &Decimal) -> Result<(), DecimalError> {
         .to_str_radix(10)
         .len()
         .saturating_sub(value.scale)
-        > 131072
+        > MAX_INTEGER_DIGITS
     {
         return Err(DecimalError::new(
             ErrorKind::Overflow,
@@ -40,16 +49,17 @@ fn encode(value: &Decimal) -> Result<Vec<u8>, DecimalError> {
     check(value)?;
     let scale = value.scale as u16;
     let mut decimal = value.raw().abs().to_str_radix(10);
-    let padding = (4 - value.scale % 4) % 4;
+    let padding = (DIGITS_PER_GROUP - value.scale % DIGITS_PER_GROUP) % DIGITS_PER_GROUP;
     decimal.extend(std::iter::repeat_n('0', padding));
-    let left_padding = (4 - decimal.len() % 4) % 4;
+    let left_padding = (DIGITS_PER_GROUP - decimal.len() % DIGITS_PER_GROUP) % DIGITS_PER_GROUP;
     let decimal = "0".repeat(left_padding) + &decimal;
     let mut digits: Vec<u16> = decimal
         .as_bytes()
-        .chunks_exact(4)
+        .chunks_exact(DIGITS_PER_GROUP)
         .map(|chunk| chunk.iter().fold(0, |n, b| n * 10 + u16::from(b - b'0')))
         .collect();
-    let mut weight = digits.len() as i32 - value.scale.div_ceil(4) as i32 - 1;
+    // Weight is the base-10000 exponent of the first group, relative to the decimal point.
+    let mut weight = digits.len() as i32 - value.scale.div_ceil(DIGITS_PER_GROUP) as i32 - 1;
     while digits.last() == Some(&0) {
         digits.pop();
     }
@@ -61,11 +71,11 @@ fn encode(value: &Decimal) -> Result<Vec<u8>, DecimalError> {
     let count = u16::try_from(digits.len())
         .map_err(|_| DecimalError::new(ErrorKind::Overflow, "NUMERIC digit count overflow"))?;
     let sign = if value.raw().is_negative() {
-        0x4000u16
+        NEGATIVE
     } else {
-        0
+        POSITIVE
     };
-    let mut out = Vec::with_capacity(8 + digits.len() * 2);
+    let mut out = Vec::with_capacity(HEADER_BYTES + digits.len() * 2);
     out.extend_from_slice(&count.to_be_bytes());
     out.extend_from_slice(&weight.to_be_bytes());
     out.extend_from_slice(&sign.to_be_bytes());
@@ -76,20 +86,23 @@ fn encode(value: &Decimal) -> Result<Vec<u8>, DecimalError> {
     Ok(out)
 }
 fn decode(data: &[u8]) -> Result<Decimal, DecimalError> {
-    if data.len() < 8 {
+    if data.len() < HEADER_BYTES {
         return Err(invalid());
     }
     let count = u16::from_be_bytes([data[0], data[1]]) as usize;
     let weight = i16::from_be_bytes([data[2], data[3]]) as i32;
     let sign = u16::from_be_bytes([data[4], data[5]]);
     let scale = u16::from_be_bytes([data[6], data[7]]) as usize;
-    if data.len() != 8 + count * 2 || !matches!(sign, 0 | 0x4000) || scale > 16383 {
+    if data.len() != HEADER_BYTES + count * 2
+        || !matches!(sign, POSITIVE | NEGATIVE)
+        || scale > MAX_SCALE
+    {
         return Err(invalid());
     }
-    let mut digits = String::with_capacity(count * 4);
-    for pair in data[8..].chunks_exact(2) {
+    let mut digits = String::with_capacity(count * DIGITS_PER_GROUP);
+    for pair in data[HEADER_BYTES..].chunks_exact(2) {
         let digit = u16::from_be_bytes([pair[0], pair[1]]);
-        if digit >= 10000 {
+        if digit >= GROUP_BASE {
             return Err(invalid());
         }
         write!(&mut digits, "{digit:04}").unwrap();
@@ -100,10 +113,12 @@ fn decode(data: &[u8]) -> Result<Decimal, DecimalError> {
         BigInt::parse_bytes(digits.as_bytes(), 10).ok_or_else(invalid)?
     };
     if !coefficient.is_zero() {
-        let power = (weight + 1 - count as i32) * 4 + scale as i32;
+        let power = (weight + 1 - count as i32) * DIGITS_PER_GROUP as i32 + scale as i32;
         if power >= 0 {
             coefficient *= pow10(power as usize);
         } else {
+            // dscale is exact display precision. Reject a payload that would
+            // require dropping a nonzero digit instead of silently rounding it.
             let (q, r) = coefficient.div_rem(&pow10((-power) as usize));
             if !r.is_zero() {
                 return Err(invalid());
@@ -111,7 +126,7 @@ fn decode(data: &[u8]) -> Result<Decimal, DecimalError> {
             coefficient = q;
         }
     }
-    if sign == 0x4000 {
+    if sign == NEGATIVE {
         coefficient = -coefficient;
     }
     let value = Decimal::from_parts(coefficient, scale);

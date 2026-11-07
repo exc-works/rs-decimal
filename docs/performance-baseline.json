@@ -1,0 +1,150 @@
+{
+  "date": "2026-11-07",
+  "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "baseline_commit": "a04cdd6fd78980fe30c72b103ebe89218265bfa4",
+  "baseline": [
+    {
+      "operation": "parse_money",
+      "iterations": "467517",
+      "median_ns": "60.86",
+      "min_ns": "60.35",
+      "max_ns": "61.24"
+    },
+    {
+      "operation": "parse_integer",
+      "iterations": "815571",
+      "median_ns": "61.03",
+      "min_ns": "59.51",
+      "max_ns": "61.91"
+    },
+    {
+      "operation": "parse_exponent",
+      "iterations": "692228",
+      "median_ns": "71.78",
+      "min_ns": "71.60",
+      "max_ns": "71.87"
+    },
+    {
+      "operation": "parse_large",
+      "iterations": "22214",
+      "median_ns": "2252.41",
+      "min_ns": "2251.61",
+      "max_ns": "2257.95"
+    },
+    {
+      "operation": "add_same_scale",
+      "iterations": "1520716",
+      "median_ns": "32.56",
+      "min_ns": "32.41",
+      "max_ns": "32.68"
+    },
+    {
+      "operation": "add_mixed_scale",
+      "iterations": "841212",
+      "median_ns": "59.32",
+      "min_ns": "58.99",
+      "max_ns": "59.65"
+    },
+    {
+      "operation": "multiply_exact",
+      "iterations": "2000000",
+      "median_ns": "13.58",
+      "min_ns": "13.50",
+      "max_ns": "14.05"
+    },
+    {
+      "operation": "divide_rounded",
+      "iterations": "652695",
+      "median_ns": "76.93",
+      "min_ns": "76.68",
+      "max_ns": "76.99"
+    },
+    {
+      "operation": "format_money",
+      "iterations": "986504",
+      "median_ns": "50.67",
+      "min_ns": "50.22",
+      "max_ns": "50.96"
+    },
+    {
+      "operation": "format_large",
+      "iterations": "4751",
+      "median_ns": "10520.21",
+      "min_ns": "10507.21",
+      "max_ns": "10526.28"
+    }
+  ],
+  "optimized": [
+    {
+      "operation": "parse_money",
+      "iterations": "1436555",
+      "median_ns": "18.32",
+      "min_ns": "18.14",
+      "max_ns": "18.70"
+    },
+    {
+      "operation": "parse_integer",
+      "iterations": "1901401",
+      "median_ns": "26.27",
+      "min_ns": "26.19",
+      "max_ns": "26.63"
+    },
+    {
+      "operation": "parse_exponent",
+      "iterations": "2000000",
+      "median_ns": "22.99",
+      "min_ns": "22.81",
+      "max_ns": "23.31"
+    },
+    {
+      "operation": "parse_large",
+      "iterations": "22650",
+      "median_ns": "2204.32",
+      "min_ns": "2202.83",
+      "max_ns": "2205.24"
+    },
+    {
+      "operation": "add_same_scale",
+      "iterations": "2000000",
+      "median_ns": "11.54",
+      "min_ns": "11.52",
+      "max_ns": "11.61"
+    },
+    {
+      "operation": "add_mixed_scale",
+      "iterations": "1128791",
+      "median_ns": "44.47",
+      "min_ns": "44.10",
+      "max_ns": "44.56"
+    },
+    {
+      "operation": "multiply_exact",
+      "iterations": "2000000",
+      "median_ns": "12.85",
+      "min_ns": "12.64",
+      "max_ns": "13.09"
+    },
+    {
+      "operation": "divide_rounded",
+      "iterations": "647158",
+      "median_ns": "77.41",
+      "min_ns": "76.87",
+      "max_ns": "77.84"
+    },
+    {
+      "operation": "format_money",
+      "iterations": "972289",
+      "median_ns": "50.71",
+      "min_ns": "50.24",
+      "max_ns": "51.06"
+    },
+    {
+      "operation": "format_large",
+      "iterations": "4748",
+      "median_ns": "10525.48",
+      "min_ns": "10516.44",
+      "max_ns": "10546.22"
+    }
+  ]
+}

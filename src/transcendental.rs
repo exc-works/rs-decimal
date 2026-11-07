@@ -34,6 +34,8 @@ pub(crate) fn certify(
         }
         let scale = BigInt::from(1) << bits;
         let bounds = enclose(&scale, bits)?;
+        // Rounding is monotone: identical rounded endpoints certify every
+        // real value inside the enclosure, not just the current approximation.
         if let Some(c) = bounds.rounded(&scale, &multiplier) {
             return Ok(Decimal::from_parts(c, p));
         }

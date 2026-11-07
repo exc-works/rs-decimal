@@ -174,6 +174,9 @@ fn mantissa_bounds(
             hi: BigInt::zero(),
         });
     }
+    // ln(x) = 2 * (z + z^3/3 + z^5/5 + ...), z = (x-1)/(x+1).
+    // Argument reduction keeps z small; outward rounding and a tail bound
+    // enclose the entire series rather than merely truncating its terms.
     let z = Interval::fraction(&(num - den), &(num + den), scale);
     let z2 = z.mul_positive(&z, scale);
     let mut power = z;

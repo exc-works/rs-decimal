@@ -7,6 +7,8 @@ use crate::{
 use num_bigint::BigInt;
 use num_traits::{Signed, Zero};
 
+// At an explicit positive scale S, lo/S <= exact_value <= hi/S.
+// Every operation must round the lower endpoint down and the upper endpoint up.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub(crate) struct Interval {
     pub lo: BigInt,
