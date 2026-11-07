@@ -12,12 +12,19 @@ use std::cmp::Ordering;
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 #[repr(i32)]
 pub enum RoundingMode {
+    /// Truncates toward zero.
     Down = 0,
+    /// Rounds away from zero.
     Up = 1,
+    /// Rounds toward positive infinity.
     Ceiling = 2,
+    /// Rounds to nearest, resolving ties away from zero.
     HalfUp = 3,
+    /// Rounds to nearest, resolving ties toward zero.
     HalfDown = 4,
+    /// Rounds to nearest, resolving ties toward an even retained digit.
     HalfEven = 5,
+    /// Requires an exact result; discarding nonzero digits panics.
     Unnecessary = 6,
 }
 impl RoundingMode {
@@ -64,6 +71,11 @@ pub(crate) fn rounded_div(n: &BigInt, d: &BigInt, mode: RoundingMode) -> BigInt 
 }
 
 impl Decimal {
+    /// Changes decimal places, rounding only when digits must be discarded.
+    /// The result is initialized, including when the input is uninitialized zero.
+    ///
+    /// # Panics
+    /// Panics for negative precision or required rounding with `Unnecessary`.
     pub fn rescale(&self, prec: isize, mode: RoundingMode) -> Self {
         let p = precision(prec);
         let c = if p == self.scale || self.is_zero() {
@@ -75,24 +87,43 @@ impl Decimal {
         };
         Self::from_parts(c, p)
     }
+    /// Changes decimal places, truncating toward zero.
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` for negative precision.
     pub fn rescale_down(&self, prec: isize) -> Self {
         self.rescale(prec, RoundingMode::Down)
     }
+    /// Truncates toward zero to scale zero.
     pub fn truncate(&self) -> Self {
         self.truncate_with_prec(0)
     }
+    /// Truncates toward zero to `prec` decimal places.
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` for negative precision.
     pub fn truncate_with_prec(&self, prec: isize) -> Self {
         self.rescale(prec, RoundingMode::Down)
     }
+    /// Rounds half-even to scale zero.
     pub fn round(&self) -> Self {
         self.round_with_prec(0)
     }
+    /// Rounds half-even to `prec` decimal places.
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` for negative precision.
     pub fn round_with_prec(&self, prec: isize) -> Self {
         self.rescale(prec, RoundingMode::HalfEven)
     }
+    /// Rounds toward negative infinity to scale zero.
     pub fn floor(&self) -> Self {
         self.floor_with_prec(0)
     }
+    /// Rounds toward negative infinity to `prec` decimal places.
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` for negative precision.
     pub fn floor_with_prec(&self, prec: isize) -> Self {
         let p = precision(prec);
         if p >= self.scale || self.is_zero() {
@@ -100,9 +131,14 @@ impl Decimal {
         }
         Self::from_parts(floor_div(self.raw(), &pow10(self.scale - p)), p)
     }
+    /// Rounds toward positive infinity to scale zero.
     pub fn ceil(&self) -> Self {
         self.ceil_with_prec(0)
     }
+    /// Rounds toward positive infinity to `prec` decimal places.
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` for negative precision.
     pub fn ceil_with_prec(&self, prec: isize) -> Self {
         let p = precision(prec);
         if p >= self.scale || self.is_zero() {
@@ -110,6 +146,10 @@ impl Decimal {
         }
         Self::from_parts(ceil_div(self.raw(), &pow10(self.scale - p)), p)
     }
+    /// Multiplies the value by `10^places`, adjusting scale where possible.
+    ///
+    /// # Panics
+    /// Panics with `Overflow` if a nonzero shift produces a scale above `i32::MAX`.
     pub fn shift(&self, places: isize) -> Self {
         if places == 0 {
             return Self::from_parts(self.raw().clone(), self.scale);
@@ -130,6 +170,7 @@ impl Decimal {
         }
         Self::from_parts(self.raw().clone(), target as usize)
     }
+    /// Removes coefficient factors of ten while scale is positive; zero becomes initialized scale-zero zero.
     pub fn strip_trailing_zeros(&self) -> Self {
         if self.is_zero() {
             return Self::new(0);
@@ -148,6 +189,10 @@ impl Decimal {
         }
         Self::from_parts(self.raw() / pow10(lo), self.scale - lo)
     }
+    /// Rounds to at most `figures` significant decimal digits without adding precision.
+    ///
+    /// # Panics
+    /// Panics for nonpositive `figures` or required rounding with `Unnecessary`.
     pub fn significant_figures(&self, figures: isize, mode: RoundingMode) -> Self {
         assert!(figures > 0, "figures must be greater than 0");
         if self.is_zero() {

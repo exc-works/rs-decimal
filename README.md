@@ -24,7 +24,7 @@ python3 tools/check-baseline.py
 
 计划基线为 Go 仓库提交 `a8791208e2d15483cf652cd2814b74b0c1a84187`，采用该提交的 v0.8.0 数值契约。仓库名称确定为 `rs-decimal`；crates.io 同名包的可发布性尚待核实。
 
-Git 仓库本地作者与提交者身份为 `Skywalker Luke <skywalkerO_0@proton.me>`。
+使用者入口见 `cargo doc --all-features --open`；发布检查见 [发布流程](docs/releasing.md)，版本变化见 [CHANGELOG](CHANGELOG.md)。
 
 ## 使用数值核心
 
@@ -68,7 +68,7 @@ Decimal 保留系数和 scale；Default 为未初始化零，数值相等不代�
 
 启用 `config`，使用 JSON 原文专用 Serde 字段适配。普通 Decimal 配置字段拒绝 null/空字符串；NullDecimal 允许 null/空字符串，缺失字段是否默认由结构体属性决定。类型化的 `ConfigValue` 同时提供 Go DecodeHook 的值转换规则。
 
-```rust,ignore
+```rust
 #[derive(serde::Deserialize)]
 struct Settings {
     #[serde(deserialize_with = "rs_decimal::config::deserialize_json_decimal")]
@@ -79,6 +79,9 @@ struct Settings {
 let settings: Settings = serde_json::from_str(
     r#"{"amount":9007199254740993.00000000000000001}"#
 )?;
+# Ok::<(), serde_json::Error>(())
 ```
 
 可选功能为 serde、json、yaml、xml、bson、postgres、validation、config；无默认功能。泛用 Serde Decimal visitor 拒绝浮点；上述 config JSON 字段适配通过 RawValue 保留数字原文。两者用途及 null 规则不同，详见 API 矩阵。
+
+完整可执行配置示例：`cargo run --example configuration --features config,validation`。

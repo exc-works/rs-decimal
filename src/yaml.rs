@@ -25,9 +25,11 @@ impl Decimal {
     }
 }
 impl NullDecimal {
+    /// Returns a semantic string scalar if valid, otherwise a null scalar (`None`).
     pub fn marshal_yaml(&self) -> Option<String> {
         self.valid.then(|| self.decimal.string())
     }
+    /// Decodes a scalar document atomically; null/empty documents clear the nullable value.
     pub fn unmarshal_yaml(&mut self, source: &str) -> Result<(), DecimalError> {
         *self = decode(source)?.map(Self::new).unwrap_or_default();
         Ok(())

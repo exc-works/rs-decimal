@@ -7,6 +7,10 @@ use num_bigint::BigInt;
 use num_integer::Integer;
 use num_traits::{Signed, ToPrimitive, Zero};
 
+/// Returns the zero-based highest set-bit index; zero returns 0.
+///
+/// # Panics
+/// Panics with a string payload for a negative input.
 pub fn most_significant_bit(value: &BigInt) -> usize {
     assert!(
         !value.is_negative(),
@@ -30,18 +34,32 @@ fn shortest(text: &str) -> String {
 }
 
 impl Decimal {
+    /// Converts the shortest decimal representation that round-trips to this float.
+    /// This does not recover decimal digits lost before conversion.
+    ///
+    /// # Panics
+    /// Panics with `InvalidFormat` for NaN or infinity.
     pub fn new_from_float32(value: f32) -> Self {
         if !value.is_finite() {
             return Self::must_from_string("NaN");
         }
         Self::must_from_string(&shortest(ryu::Buffer::new().format_finite(value)))
     }
+    /// Converts the shortest decimal representation that round-trips to this float.
+    /// Use text input for exact decimal data.
+    ///
+    /// # Panics
+    /// Panics with `InvalidFormat` for NaN or infinity.
     pub fn new_from_float64(value: f64) -> Self {
         if !value.is_finite() {
             return Self::must_from_string("NaN");
         }
         Self::must_from_string(&shortest(ryu::Buffer::new().format_finite(value)))
     }
+    /// Converts a rational exactly.
+    ///
+    /// # Errors
+    /// Returns `InvalidFormat` if the reduced denominator contains factors other than 2 and 5.
     pub fn new_from_big_rat(value: &BigRational) -> Result<Self, DecimalError> {
         if value.is_zero() {
             return Ok(Self::new(0));
@@ -79,6 +97,11 @@ impl Decimal {
         }
         Ok(Self::from_parts(c, p))
     }
+    /// Rounds a rational to `prec` decimal places; successful conversions return `Ok`.
+    ///
+    /// # Panics
+    /// Despite the compatibility `Result` signature, negative precision and required
+    /// rounding with `Unnecessary` panic with a [`DecimalError`].
     pub fn new_from_big_rat_with_prec(
         value: &BigRational,
         prec: isize,
@@ -93,12 +116,15 @@ impl Decimal {
             p,
         ))
     }
+    /// Returns the exact rational value, independent of decimal scale.
     pub fn big_rat(&self) -> BigRational {
         BigRational::new(self.raw().clone(), pow10(self.scale))
     }
+    /// Returns the bit length of the absolute unscaled coefficient; zero returns 0.
     pub fn bit_len(&self) -> usize {
         self.raw().bits() as usize
     }
+    /// Returns `(integer, true)` if integral and in range; otherwise `(0, false)`.
     pub fn int64(&self) -> (i64, bool) {
         if !self.is_integer() {
             return (0, false);
@@ -108,6 +134,7 @@ impl Decimal {
             None => (0, false),
         }
     }
+    /// Returns `(integer, true)` if nonnegative, integral and in range; otherwise `(0, false)`.
     pub fn uint64(&self) -> (u64, bool) {
         if self.is_negative() || !self.is_integer() {
             return (0, false);
@@ -117,10 +144,14 @@ impl Decimal {
             None => (0, false),
         }
     }
+    /// Rounds directly to IEEE binary32 using ties-to-even. The flag reports exactness.
+    /// Overflow returns signed infinity with `false`; underflow may return signed zero.
     pub fn float32(&self) -> (f32, bool) {
         let (bits, exact) = self.float_bits(23, 8);
         (f32::from_bits(bits as u32), exact)
     }
+    /// Rounds to IEEE binary64 using ties-to-even. The flag reports exactness.
+    /// Overflow returns signed infinity with `false`; underflow may return signed zero.
     pub fn float64(&self) -> (f64, bool) {
         let (bits, exact) = self.float_bits(52, 11);
         (f64::from_bits(bits), exact)

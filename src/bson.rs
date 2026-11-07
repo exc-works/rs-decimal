@@ -28,6 +28,8 @@ impl Decimal {
         data.push(0);
         Ok((2, data))
     }
+    /// Decodes BSON string, double, int32, int64, Decimal128 or null payloads.
+    /// Null resets to uninitialized zero. Invalid/unsupported inputs leave the receiver unchanged.
     pub fn unmarshal_bson_value(&mut self, kind: u8, data: &[u8]) -> Result<(), DecimalError> {
         let parsed = match kind {
             10 => Self::default(),
@@ -82,6 +84,8 @@ impl Decimal {
     }
 }
 impl NullDecimal {
+    /// Encodes valid values as BSON strings, otherwise BSON null.
+    /// Returns an error if the encoded string length exceeds the BSON range.
     pub fn marshal_bson_value(&self) -> Result<(u8, Vec<u8>), DecimalError> {
         if !self.valid {
             return Ok((10, Vec::new()));
@@ -92,6 +96,7 @@ impl NullDecimal {
             self.decimal.marshal_bson_value()
         }
     }
+    /// Decodes a BSON scalar atomically; BSON null clears both nullable fields.
     pub fn unmarshal_bson_value(&mut self, kind: u8, data: &[u8]) -> Result<(), DecimalError> {
         if kind == 10 {
             *self = Self::default();

@@ -7,7 +7,16 @@ description = "Decimal arithmetic preserving the exc-works/decimal numerical con
 license = "MIT"
 repository = "https://github.com/exc-works/rs-decimal"
 readme = "README.md"
-include = ["src/**", "tests/**", "examples/**", "Cargo.toml", "Cargo.lock", "README.md", "LICENSE", "NOTICE"]
+keywords = ["decimal", "arithmetic", "precision", "rounding", "numeric"]
+categories = ["mathematics", "encoding"]
+include = ["src/**", "tests/**", "examples/**", "Cargo.toml", "Cargo.lock", "README.md", "LICENSE", "NOTICE", "CHANGELOG.md", "docs/**"]
+
+[package.metadata.docs.rs]
+all-features = true
+
+[[example]]
+name = "configuration"
+required-features = ["config", "validation"]
 
 [dependencies]
 num-bigint = "=0.4.6"

@@ -8,22 +8,56 @@ use num_bigint::BigInt;
 use num_traits::{One, Zero};
 
 impl Decimal {
+    /// Computes the natural logarithm, rounded half-even to `max(self.precision(), 20)` decimal places.
+    ///
+    /// # Errors
+    /// Returns domain errors or `NoConvergence` when rounding cannot be certified within the budget.
     pub fn ln(&self) -> Result<Self, DecimalError> {
         self.ln_with_prec(self.precision().max(20))
     }
+    /// Computes the natural logarithm, rounded half-even to `prec` decimal places.
+    ///
+    /// # Errors
+    /// Returns domain errors or `NoConvergence` when rounding cannot be certified within the budget.
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` for negative precision.
     pub fn ln_with_prec(&self, prec: isize) -> Result<Self, DecimalError> {
         self.certified_log(prec, 0)
     }
+    /// Computes the base-two logarithm at `max(self.precision(), 20)` decimal places.
+    ///
+    /// # Panics
+    /// Panics with the [`DecimalError`] returned by [`Self::log2_with_prec`].
+    /// Use that method when the caller needs to handle domain or convergence errors.
     pub fn log2(&self) -> Self {
         self.log2_with_prec(self.precision().max(20))
             .unwrap_or_else(|e| std::panic::panic_any(e))
     }
+    /// Computes the base-two logarithm, rounded half-even to `prec` decimal places.
+    ///
+    /// # Errors
+    /// Returns domain errors or `NoConvergence` when rounding cannot be certified within the budget.
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` for negative precision.
     pub fn log2_with_prec(&self, prec: isize) -> Result<Self, DecimalError> {
         self.certified_log(prec, 2)
     }
+    /// Computes the base-ten logarithm, rounded half-even to `max(self.precision(), 20)` decimal places.
+    ///
+    /// # Errors
+    /// Returns domain errors or `NoConvergence` when rounding cannot be certified within the budget.
     pub fn log10(&self) -> Result<Self, DecimalError> {
         self.log10_with_prec(self.precision().max(20))
     }
+    /// Computes the base-ten logarithm, rounded half-even to `prec` decimal places.
+    ///
+    /// # Errors
+    /// Returns domain errors or `NoConvergence` when rounding cannot be certified within the budget.
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` for negative precision.
     pub fn log10_with_prec(&self, prec: isize) -> Result<Self, DecimalError> {
         self.certified_log(prec, 10)
     }

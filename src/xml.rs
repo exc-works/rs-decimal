@@ -33,6 +33,7 @@ impl Decimal {
     }
 }
 impl NullDecimal {
+    /// Returns element character content if valid, otherwise empty text; the caller supplies the element.
     pub fn marshal_xml(&self) -> String {
         if self.valid {
             self.decimal.string()
@@ -44,9 +45,11 @@ impl NullDecimal {
     pub fn marshal_xml_attr(&self) -> Option<String> {
         self.valid.then(|| self.decimal.string())
     }
+    /// Decodes the first XML element atomically; empty content clears the nullable value.
     pub fn unmarshal_xml(&mut self, source: &str) -> Result<(), DecimalError> {
         self.unmarshal_xml_attr(&element_text(source)?)
     }
+    /// Decodes an already unescaped attribute atomically; trimmed empty text clears the value.
     pub fn unmarshal_xml_attr(&mut self, value: &str) -> Result<(), DecimalError> {
         let value = value.trim();
         if value.is_empty() {
