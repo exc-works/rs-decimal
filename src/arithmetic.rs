@@ -25,14 +25,24 @@ impl Decimal {
         let scale = self.scale.max(other.scale);
         let left = self.coefficient_at_scale(scale);
         let right = other.coefficient_at_scale(scale);
-        Self::from_parts(left.as_ref() + right.as_ref(), scale)
+        let coefficient = match (left, right) {
+            (Cow::Owned(left), right) => left + right.as_ref(),
+            (Cow::Borrowed(left), Cow::Owned(right)) => left + right,
+            (Cow::Borrowed(left), Cow::Borrowed(right)) => left + right,
+        };
+        Self::from_parts(coefficient, scale)
     }
     /// Subtracts exactly at the larger operand scale.
     pub fn sub(&self, other: &Self) -> Self {
         let scale = self.scale.max(other.scale);
         let left = self.coefficient_at_scale(scale);
         let right = other.coefficient_at_scale(scale);
-        Self::from_parts(left.as_ref() - right.as_ref(), scale)
+        let coefficient = match (left, right) {
+            (Cow::Owned(left), right) => left - right.as_ref(),
+            (Cow::Borrowed(left), Cow::Owned(right)) => left - right,
+            (Cow::Borrowed(left), Cow::Borrowed(right)) => left - right,
+        };
+        Self::from_parts(coefficient, scale)
     }
     /// Adds to the unscaled coefficient, preserving scale. At scale 2, adding 1 adds 0.01.
     pub fn add_raw(&self, value: i64) -> Self {
@@ -55,14 +65,18 @@ impl Decimal {
     /// # Panics
     /// Panics with a string payload when the sum is negative.
     pub fn safe_add(&self, other: &Self) -> Self {
-        self.add(other).must_non_negative()
+        let result = self.add(other);
+        assert!(!result.is_negative(), "Negative value");
+        result
     }
     /// Subtracts exactly, then requires a nonnegative result.
     ///
     /// # Panics
     /// Panics with a string payload when the difference is negative.
     pub fn safe_sub(&self, other: &Self) -> Self {
-        self.sub(other).must_non_negative()
+        let result = self.sub(other);
+        assert!(!result.is_negative(), "Negative value");
+        result
     }
     /// Multiplies and rounds to the larger operand scale.
     /// Use [`Self::mul_exact`] to retain every product digit.
@@ -136,13 +150,16 @@ impl Decimal {
         if shift > isize::MAX as i128 {
             fail(ErrorKind::Overflow);
         }
-        let (mut n, mut d) = (self.raw().clone(), other.raw().clone());
-        match shift.cmp(&0) {
-            std::cmp::Ordering::Greater => n *= pow10(shift as usize),
-            std::cmp::Ordering::Less => d *= pow10((-shift) as usize),
-            std::cmp::Ordering::Equal => {}
-        }
-        Self::from_parts(rounded_div(&n, &d, mode), p)
+        let coefficient = match shift.cmp(&0) {
+            std::cmp::Ordering::Greater => {
+                rounded_div(&(self.raw() * pow10(shift as usize)), other.raw(), mode)
+            }
+            std::cmp::Ordering::Less => {
+                rounded_div(self.raw(), &(other.raw() * pow10((-shift) as usize)), mode)
+            }
+            std::cmp::Ordering::Equal => rounded_div(self.raw(), other.raw(), mode),
+        };
+        Self::from_parts(coefficient, p)
     }
     /// Divides at the larger operand scale. See [`Self::quo_with_prec`] for panic conditions.
     pub fn quo(&self, other: &Self, mode: RoundingMode) -> Self {

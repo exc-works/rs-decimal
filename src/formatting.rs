@@ -1,5 +1,4 @@
 use crate::{Decimal, RoundingMode};
-use num_traits::Signed;
 
 /// Options for one Go-compatible formatting verb (not a printf format parser).
 /// Numeric flags apply to d/f/F/e/E/g/G/b. Unknown verbs return Go's error marker.
@@ -66,7 +65,7 @@ impl Decimal {
             }
             return;
         }
-        let mut digits = self.raw().abs().to_string();
+        let mut digits = self.raw().magnitude().to_string();
         let mut scale = self.scale;
         if strip {
             let remove = (digits.len() - digits.trim_end_matches('0').len()).min(scale);
@@ -129,7 +128,7 @@ impl Decimal {
                     return error();
                 }
                 let integer = self.int_part();
-                let mut digits = integer.abs().to_string();
+                let mut digits = integer.magnitude().to_string();
                 if let Some(p) = f.precision {
                     if p == 0 && self.is_zero() {
                         digits.clear();
@@ -197,7 +196,7 @@ impl Decimal {
         if self.is_zero() {
             return ("0".into(), 0);
         }
-        let digits = self.raw().abs().to_string();
+        let digits = self.raw().magnitude().to_string();
         let exp = digits.len() as i128 - 1 - self.scale as i128;
         (digits.trim_end_matches('0').to_owned(), exp)
     }
