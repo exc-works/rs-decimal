@@ -87,6 +87,7 @@ mod error;
 mod exponential;
 mod formatting;
 mod integer;
+mod ownership;
 pub use formatting::GoFormat;
 mod interval;
 #[cfg(feature = "json")]
