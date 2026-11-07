@@ -1,10 +1,12 @@
-# 协议兼容版发布候选验证
+# 发布候选验证
 
-2026-11-06，本机 macOS arm64、Rust 1.99.1、Go 1.27.3：21,291 个固定跨语言差分全部通过，512 个固定随机用例独立认证，45 个 must-succeed 输出/状态和独立证书全部通过。另执行 20 秒随机验证，251,648 个用例、188,624 个独立算术证书通过，seed=14598561。所有成功预期预先由生成器确定，不接受两边共同失败来代替成功。
+当前完整实现覆盖 166 项基线 API（包括平台映射），全量固定差分语料为 21,579 例。版本 0.1.0-alpha.1 尚未发布。早期堆叠 PR 合并进了中间分支；PR #22 将完整实现集成到 main，是否已合并以 GitHub 当前状态为准。后续变更必须在各自最新提交重新通过 CI。
 
-160 个核心/协议 API 项已实现并有证据；6 个 Go 框架 API 明确分配到 PR 15 的 PostgreSQL SQLx、Serde 配置和精确验证层。check-release-matrix.py 拒绝其余入口存在待实现/待设计状态。协议入口原地失败保留完整 Decimal 和 nullable 状态；二进制及 BSON 双向互通通过。固定上游 11 份文件和 166 项声明清单完整性通过。
+历史验证：2026-11-06，macOS arm64、Rust 1.99.1、Go 1.27.3，512 个固定随机用例、45 个 must-succeed 输出/状态及独立证书通过；20 秒随机验证通过 251,648 例和 188,624 个独立算术证书（seed=14598561）。这些是当时提交的证据，不替代后续提交检查。
 
-Rust 1.85 MSRV Clippy、全 feature 单元测试、cargo package 和打包产物自带测试均通过。Linux CI 实际运行 32/64 位 Go/Rust 配对、debug/release、独立 feature 与全 feature。新增 macOS/Windows 配对作业；它们的远端执行结论以本 PR 最新 CI 为准。长期任务配置每周/手动执行 900 秒随机验证，使用运行 ID 作为 seed，失败保存完整请求与双方响应；工作流在合并到默认分支后才按 cron 触发。
+CI 覆盖 MSRV 1.85/stable、全 feature、独立 feature、debug/release、打包产物、Linux 32/64 位 Go/Rust 配对、macOS/Windows 和真实 PostgreSQL。每周/手动随机任务保存 seed、失败请求和双方响应；cron 仅在工作流进入默认分支后生效。
+
+协议失败保留完整接收者状态；二进制/BSON 双向互通、PostgreSQL 最大合法 NUMERIC/NULL/数组、原文配置 token 和精确验证规则均有测试。固定上游 11 份文件及 166 项声明清单由门禁核对。
 
 ## 可复跑性能基线
 
@@ -27,10 +29,4 @@ Rust 1.85 MSRV Clippy、全 feature 单元测试、cargo package 和打包产物
 
 复跑：`python3 tools/conformance/benchmark.py --go .cache/go-reference --rust target/release/decimal-conformance`。CI 将 core-gates、fuzz 与 benchmark JSON 保存为工件。计时不设跨机器绝对阈值；正确性失败始终阻止通过。
 
-版本保持 0.1.0-alpha.1，MSRV 1.85，尚未发布或合并。后续框架入口在各自独立 PR 中验证真实数据库、精确配置 token 和验证错误消息。已说明的兼容差异集中在 API 矩阵：极端零除数先报错防资源耗尽、Rust 格式/Serde 类型系统、XML 文档与回调边界、Go 框架的 Rust 映射。
-
-## 生态实施完成
-
-PR 15a/15b/15c 已加入用户选定的 PostgreSQL SQLx、精确规则/13 组消息与 Serde JSON 配置。166 项基线 API 均有对应映射，门禁不再允许“延后”。新增验证/配置差分 288 例，全量固定语料为 21,579 例；真实 PostgreSQL 最大合法 NUMERIC、NULL/数组、文本/二进制往返通过。
-
-发布门禁审核修复了固定上游源码调用参数误移以及 Windows 无后缀可执行文件问题，另修复 job env 中不支持的 runner 上下文，改为 matrix.os。最新发布门禁 PR #18 与 PostgreSQL PR #19 已在 Linux 32/64、macOS、Windows 实际通过，PostgreSQL CI 服务通过；增加固定 actionlint 1.7.7 校验防止类似工作流表达式错误。后续新增 PR 持续沿用同一验证组合。
+发布步骤和独立消费者验证见 [发布流程](releasing.md)。兼容差异集中记录在 [API 矩阵](api-compatibility.md)。

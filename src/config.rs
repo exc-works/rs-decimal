@@ -5,16 +5,27 @@ use serde::{Deserialize, Deserializer, de::Error};
 /// Typed configuration inputs. JSON field adapters never pass numbers through floats.
 #[derive(Debug, Clone, Copy)]
 pub enum ConfigValue<'a> {
+    /// An absent value.
     Null,
+    /// Borrowed decimal text.
     Text(&'a str),
+    /// Borrowed bytes containing decimal text.
     Bytes(&'a [u8]),
+    /// An exact numeric token supplied as text.
     Number(&'a str),
+    /// A signed integer with no floating-point conversion.
     Signed(i128),
+    /// An unsigned integer with no floating-point conversion.
     Unsigned(u128),
+    /// A binary32 value; nonfinite values are rejected.
     Float32(f32),
+    /// A binary64 value; nonfinite values are rejected.
     Float64(f64),
+    /// An existing decimal, preserving representation when copied.
     Decimal(&'a Decimal),
+    /// An existing nullable decimal, including its validity state.
     Nullable(&'a NullDecimal),
+    /// An unsupported source type, rejected without coercion.
     Unsupported,
 }
 fn invalid() -> DecimalError {
@@ -40,6 +51,8 @@ pub fn decode_decimal(value: ConfigValue<'_>) -> Result<Decimal, DecimalError> {
         _ => Err(invalid()),
     }
 }
+/// Decodes a nullable field; null and exactly empty text/bytes become invalid.
+/// Other inputs follow [`decode_decimal`]; existing nullable values retain their state.
 pub fn decode_nullable(value: ConfigValue<'_>) -> Result<NullDecimal, DecimalError> {
     match value {
         ConfigValue::Null | ConfigValue::Text("") | ConfigValue::Bytes([]) => {

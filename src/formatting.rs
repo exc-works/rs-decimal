@@ -5,13 +5,21 @@ use num_traits::Signed;
 /// Numeric flags apply to d/f/F/e/E/g/G/b. Unknown verbs return Go's error marker.
 #[derive(Clone, Copy, Debug)]
 pub struct GoFormat {
+    /// Go verb, such as `f`, `e`, `g`, `s`, or `v`; the default is `v`.
     pub verb: char,
+    /// Minimum output width, including sign and decimal point.
     pub width: Option<usize>,
+    /// Verb-specific precision: fractional digits for `f/e`, significant digits for `g`.
     pub precision: Option<usize>,
+    /// Pads on the right instead of the left.
     pub left: bool,
+    /// Shows a plus sign for nonnegative numeric output.
     pub plus: bool,
+    /// Uses a leading space for nonnegative numeric output when `plus` is false.
     pub space: bool,
+    /// Uses zero padding for numeric output when left alignment is disabled.
     pub zero: bool,
+    /// Retains a decimal point and, for general format, trailing zeros.
     pub alternate: bool,
 }
 impl Default for GoFormat {
@@ -35,6 +43,7 @@ impl Decimal {
         self.append_text(&mut out);
         String::from_utf8(out).unwrap()
     }
+    /// Formats fixed-point text retaining every stored decimal place.
     pub fn string_with_trailing_zeros(&self) -> String {
         let mut out = Vec::new();
         self.append_text_with_trailing_zeros(&mut out);
@@ -44,6 +53,7 @@ impl Decimal {
     pub fn append_text(&self, dst: &mut Vec<u8>) {
         self.append_decimal(dst, true)
     }
+    /// Appends fixed-point ASCII, retaining scale, without clearing the destination.
     pub fn append_text_with_trailing_zeros(&self, dst: &mut Vec<u8>) {
         self.append_decimal(dst, false)
     }
@@ -79,6 +89,8 @@ impl Decimal {
             dst.extend_from_slice(&digits.as_bytes()[cut..]);
         }
     }
+    /// Formats with groups of three integer digits and retained fractional zeros.
+    /// A NUL thousands separator disables grouping; a NUL decimal separator selects a dot.
     pub fn format_with_separators(&self, thousands: char, decimal: char) -> String {
         let base = self.string_with_trailing_zeros();
         let negative = base.starts_with('-');
@@ -102,6 +114,11 @@ impl Decimal {
         }
         out
     }
+    /// Applies one Go formatting verb and its flags. Unsupported verbs return a `%!` marker.
+    ///
+    /// # Panics
+    /// Panics if fixed-point precision exceeds the native signed integer range.
+    /// Output allocation grows with the requested width and precision.
     pub fn format_go(&self, f: GoFormat) -> String {
         let error = || format!("%!{}(decimal.Decimal={})", f.verb, self.string());
         let mut core = match f.verb {

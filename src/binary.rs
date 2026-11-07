@@ -24,6 +24,8 @@ impl Decimal {
         bytes.extend(magnitude);
         Ok(bytes)
     }
+    /// Decodes the Go precision/Gob payload, replacing the receiver only on success.
+    /// Empty bytes create initialized zero. Invalid headers or scale above 131072 return `Unmarshal`.
     pub fn unmarshal_binary(&mut self, bytes: &[u8]) -> Result<(), DecimalError> {
         let invalid =
             || DecimalError::new(ErrorKind::Unmarshal, "invalid Go decimal binary encoding");

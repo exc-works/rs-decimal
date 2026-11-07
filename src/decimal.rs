@@ -20,10 +20,13 @@ pub struct Decimal {
 /// Valid alone determines nullness; invalid values may retain an inner value.
 #[derive(Clone, Debug, Default)]
 pub struct NullDecimal {
+    /// Stored value; it may remain populated when `valid` is false.
     pub decimal: Decimal,
+    /// Whether this value is present. This flag alone controls nullness.
     pub valid: bool,
 }
 impl NullDecimal {
+    /// Wraps a decimal as valid, including an uninitialized numerical zero.
     pub fn new(decimal: Decimal) -> Self {
         Self {
             decimal,
@@ -45,41 +48,76 @@ impl Decimal {
     pub(crate) fn raw(&self) -> &BigInt {
         self.coefficient.as_ref().unwrap_or(&ZERO_INTEGER)
     }
+    /// Creates an initialized integer with scale zero.
     pub fn new(value: i64) -> Self {
         Self::new_with_prec(value, 0)
     }
+    /// Creates an initialized native-width integer with scale zero.
     pub fn new_from_int(value: isize) -> Self {
         Self::from_parts(BigInt::from(value), 0)
     }
+    /// Clones the value, including its scale and initialization state.
     pub fn new_from_decimal(value: &Self) -> Self {
         value.clone()
     }
+    /// Creates `value * 10^-prec`; `prec` counts decimal places.
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` when `prec` is negative.
     pub fn new_with_prec(value: i64, prec: isize) -> Self {
         Self::from_parts(BigInt::from(value), precision(prec))
     }
+    /// Creates a signed coefficient at `prec` decimal places. See [`Self::new_with_prec`].
     pub fn new_from_int64(value: i64, prec: isize) -> Self {
         Self::new_with_prec(value, prec)
     }
+    /// Creates an unsigned coefficient at `prec` decimal places.
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` when `prec` is negative.
     pub fn new_from_uint64(value: u64, prec: isize) -> Self {
         Self::from_parts(BigInt::from(value), precision(prec))
     }
+    /// Copies an arbitrary-size integer with scale zero.
     pub fn new_from_big_int(value: &BigInt) -> Self {
         Self::from_parts(value.clone(), 0)
     }
+    /// Copies a coefficient at `prec` decimal places.
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` when `prec` is negative.
     pub fn new_from_big_int_with_prec(value: &BigInt, prec: isize) -> Self {
         Self::from_parts(value.clone(), precision(prec))
     }
+    /// Preserves the integer value while appending `prec` decimal places.
+    /// For example, `(12, 2)` represents `12.00`, unlike [`Self::new_with_prec`].
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` when `prec` is negative.
     pub fn new_with_append_prec(value: i64, prec: isize) -> Self {
         let p = precision(prec);
         Self::from_parts(BigInt::from(value) * pow10(p), p)
     }
+    /// Preserves the unsigned integer value while appending decimal places.
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` when `prec` is negative.
     pub fn new_from_uint_with_append_prec(value: u64, prec: isize) -> Self {
         let p = precision(prec);
         Self::from_parts(BigInt::from(value) * pow10(p), p)
     }
+    /// Parses trimmed decimal text with an optional sign and exponent.
+    /// Both sides of a decimal point must contain digits; zero normalizes to scale zero.
+    ///
+    /// # Errors
+    /// Returns `InvalidFormat` for invalid syntax or a scale magnitude above 131072.
     pub fn new_from_string(text: &str) -> Result<Self, DecimalError> {
         text.parse()
     }
+    /// Parses decimal text, panicking on failure. Prefer [`Self::new_from_string`] for external input.
+    ///
+    /// # Panics
+    /// Panics with the parsing [`DecimalError`] on invalid input.
     pub fn must_from_string(text: &str) -> Self {
         text.parse()
             .unwrap_or_else(|e: DecimalError| std::panic::panic_any(e))
@@ -92,9 +130,11 @@ impl Decimal {
     pub fn precision(&self) -> isize {
         self.scale as isize
     }
+    /// Reports whether this is the uninitialized zero produced by [`Default`].
     pub fn is_nil(&self) -> bool {
         self.coefficient.is_none()
     }
+    /// Returns -1, 0, or 1; uninitialized zero has sign 0.
     pub fn sign(&self) -> i32 {
         if self.raw().is_zero() {
             0
@@ -104,21 +144,27 @@ impl Decimal {
             1
         }
     }
+    /// Tests numerical zero, including uninitialized zero.
     pub fn is_zero(&self) -> bool {
         self.sign() == 0
     }
+    /// Tests whether the numerical value differs from zero.
     pub fn is_not_zero(&self) -> bool {
         !self.is_zero()
     }
+    /// Tests whether the numerical value is strictly greater than zero.
     pub fn is_positive(&self) -> bool {
         self.sign() > 0
     }
+    /// Tests whether the numerical value is strictly less than zero.
     pub fn is_negative(&self) -> bool {
         self.sign() < 0
     }
+    /// Negates the coefficient, preserving scale and initializing the result.
     pub fn neg(&self) -> Self {
         Self::from_parts(-self.raw(), self.scale)
     }
+    /// Returns the absolute value, preserving scale and initializing the result.
     pub fn abs(&self) -> Self {
         Self::from_parts(self.raw().abs(), self.scale)
     }
@@ -127,21 +173,27 @@ impl Decimal {
     pub fn cmp(&self, other: &Self) -> i32 {
         self.cmp_value(other) as i32
     }
+    /// Compares numerical values; scale and initialization state do not affect equality.
     pub fn equal(&self, other: &Self) -> bool {
         self == other
     }
+    /// Tests numerical inequality, ignoring representation differences.
     pub fn not_equal(&self, other: &Self) -> bool {
         self != other
     }
+    /// Tests numerical strict greater-than.
     pub fn gt(&self, other: &Self) -> bool {
         self > other
     }
+    /// Tests numerical greater-than-or-equal.
     pub fn gte(&self, other: &Self) -> bool {
         self >= other
     }
+    /// Tests numerical strict less-than.
     pub fn lt(&self, other: &Self) -> bool {
         self < other
     }
+    /// Tests numerical less-than-or-equal.
     pub fn lte(&self, other: &Self) -> bool {
         self <= other
     }
@@ -153,6 +205,7 @@ impl Decimal {
             other.clone()
         }
     }
+    /// Returns the smaller value, preserving the first operand's representation on equality.
     pub fn min(&self, other: &Self) -> Self {
         if self <= other {
             self.clone()
@@ -262,24 +315,31 @@ impl Ord for Decimal {
         self.cmp_value(other)
     }
 }
+/// Returns an initialized zero at scale zero.
 pub fn zero() -> Decimal {
     Decimal::new(0)
 }
+/// Returns one at scale zero.
 pub fn one() -> Decimal {
     Decimal::new(1)
 }
+/// Returns ten at scale zero.
 pub fn ten() -> Decimal {
     Decimal::new(10)
 }
+/// Returns one hundred at scale zero.
 pub fn hundred() -> Decimal {
     Decimal::new(100)
 }
+/// Returns the larger value, preserving the first operand's representation on equality.
 pub fn max(a: &Decimal, b: &Decimal) -> Decimal {
     Decimal::max(a, b)
 }
+/// Returns the smaller value, preserving the first operand's representation on equality.
 pub fn min(a: &Decimal, b: &Decimal) -> Decimal {
     Decimal::min(a, b)
 }
+/// Tests the inclusive numerical range `lower <= v <= upper`.
 pub fn between(v: &Decimal, lower: &Decimal, upper: &Decimal) -> bool {
     v >= lower && v <= upper
 }

@@ -16,6 +16,7 @@ fn trim_json(bytes: &[u8]) -> &[u8] {
     }
 }
 impl Decimal {
+    /// Encodes initialized values as quoted canonical decimals, and uninitialized zero as JSON null.
     pub fn marshal_json(&self) -> Vec<u8> {
         if self.is_nil() {
             b"null".to_vec()
@@ -23,6 +24,8 @@ impl Decimal {
             format!("\"{}\"", self.string()).into_bytes()
         }
     }
+    /// Decodes a JSON number or string without passing through a float.
+    /// JSON null leaves the receiver unchanged; errors also preserve its full state.
     pub fn unmarshal_json(&mut self, bytes: &[u8]) -> Result<(), DecimalError> {
         // JSON whitespace is only space, tab, CR and LF, unlike text parsing.
         let bytes = trim_json(bytes);
@@ -49,6 +52,7 @@ impl Decimal {
     }
 }
 impl NullDecimal {
+    /// Encodes invalid values as JSON null; valid values become quoted canonical decimals.
     pub fn marshal_json(&self) -> Vec<u8> {
         if !self.valid {
             b"null".to_vec()
@@ -56,6 +60,8 @@ impl NullDecimal {
             format!("\"{}\"", self.decimal.string()).into_bytes()
         }
     }
+    /// Decodes exact JSON number/string input; null clears validity and the inner value.
+    /// Errors preserve both fields.
     pub fn unmarshal_json(&mut self, bytes: &[u8]) -> Result<(), DecimalError> {
         if trim_json(bytes) == b"null" {
             *self = Self::default();

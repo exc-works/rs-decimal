@@ -23,10 +23,14 @@ pub struct ValidationRule {
     tag: &'static str,
     parameter: String,
 }
+/// One failed rule, retaining the field name and rule parameter for translation.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ValidationError {
+    /// Caller-supplied field name.
     pub field: String,
+    /// The validated rule tag.
     pub tag: &'static str,
+    /// Original rule parameter text.
     pub parameter: String,
 }
 fn invalid() -> DecimalError {
@@ -36,6 +40,10 @@ fn invalid() -> DecimalError {
     )
 }
 impl ValidationRule {
+    /// Parses a `decimal_*` rule and validates its parameter.
+    /// Comparison rules take decimal text; `decimal_between` takes `lower~upper`;
+    /// `decimal_max_precision` takes a nonnegative scale. Unknown tags, invalid
+    /// parameters and reversed ranges return `InvalidArgument`.
     pub fn parse(tag: &str, parameter: &str) -> Result<Self, DecimalError> {
         let decimal = || Decimal::new_from_string(parameter).map_err(|_| invalid());
         let (tag, kind) = match tag {
@@ -73,6 +81,9 @@ impl ValidationRule {
             parameter: parameter.to_owned(),
         })
     }
+    /// Evaluates the exact rule without a float conversion.
+    /// `decimal_required` checks initialization, so initialized zero is present.
+    /// Comparison and max-precision rules alone do not require initialization.
     pub fn matches(&self, value: &Decimal) -> bool {
         match &self.kind {
             Kind::Required => !value.is_nil(),
@@ -89,6 +100,7 @@ impl ValidationRule {
             Kind::MaxScale(max) => value.scale <= *max,
         }
     }
+    /// Returns the field, tag and parameter when the value fails this rule.
     pub fn validate(&self, field: &str, value: &Decimal) -> Result<(), ValidationError> {
         if self.matches(value) {
             Ok(())
@@ -112,11 +124,13 @@ pub fn validate_decimal(
         .filter_map(|r| r.validate(field, value).err())
         .collect()
 }
+/// Owned message templates with single-pass placeholder substitution.
 #[derive(Debug, Clone)]
 pub struct ValidationMessages {
     templates: BTreeMap<String, String>,
 }
 impl ValidationMessages {
+    /// Loads message templates for a locale, falling back to English for unknown locales.
     pub fn new(locale: &str) -> Self {
         Self {
             templates: default_validation_messages(locale),
@@ -142,6 +156,8 @@ impl ValidationMessages {
         }
         Ok(out)
     }
+    /// Formats failures in order, substituting field `{0}` and parameter `{1}` once.
+    /// Inserted user text is never reinterpreted as a template.
     pub fn translate(&self, errors: &[ValidationError]) -> Vec<String> {
         errors
             .iter()

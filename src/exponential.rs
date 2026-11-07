@@ -7,9 +7,20 @@ use crate::{
 use num_bigint::BigInt;
 use num_traits::{Signed, ToPrimitive};
 impl Decimal {
+    /// Computes the exponential, rounded half-even to `max(self.precision(), 20)` decimal places.
+    ///
+    /// # Errors
+    /// Returns `NoConvergence` when rounding cannot be certified within the budget.
     pub fn exp(&self) -> Result<Self, DecimalError> {
         self.exp_with_prec(self.precision().max(20))
     }
+    /// Computes the exponential, rounded half-even to `prec` decimal places.
+    ///
+    /// # Errors
+    /// Returns `NoConvergence` when rounding cannot be certified within the budget.
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` for negative precision.
     pub fn exp_with_prec(&self, prec: isize) -> Result<Self, DecimalError> {
         let p = precision(prec);
         if p > MAX_PARSED_PRECISION || self.scale > MAX_PARSED_PRECISION {

@@ -1,5 +1,6 @@
 use crate::{Decimal, DecimalError, ErrorKind, NullDecimal};
 impl Decimal {
+    /// Returns canonical decimal ASCII without trailing fractional zeros.
     pub fn marshal_text(&self) -> Vec<u8> {
         let mut out = Vec::new();
         self.append_text(&mut out);
@@ -15,11 +16,13 @@ impl Decimal {
         *self = parsed;
         Ok(())
     }
+    /// Parses a parameter as decimal text; failure leaves the receiver unchanged.
     pub fn unmarshal_param(&mut self, param: &str) -> Result<(), DecimalError> {
         self.unmarshal_text(param.as_bytes())
     }
 }
 impl NullDecimal {
+    /// Returns canonical decimal text if valid, otherwise `null`.
     pub fn string(&self) -> String {
         if self.valid {
             self.decimal.string()
@@ -27,6 +30,7 @@ impl NullDecimal {
             "null".into()
         }
     }
+    /// Returns canonical decimal ASCII if valid, otherwise empty bytes.
     pub fn marshal_text(&self) -> Vec<u8> {
         if self.valid {
             self.decimal.marshal_text()
@@ -34,6 +38,7 @@ impl NullDecimal {
             Vec::new()
         }
     }
+    /// Decodes text atomically; empty bytes clear validity and the inner value.
     pub fn unmarshal_text(&mut self, text: &[u8]) -> Result<(), DecimalError> {
         if text.is_empty() {
             *self = Self::default();
@@ -43,6 +48,7 @@ impl NullDecimal {
         self.valid = true;
         Ok(())
     }
+    /// Decodes a parameter atomically; the empty string clears the nullable value.
     pub fn unmarshal_param(&mut self, param: &str) -> Result<(), DecimalError> {
         self.unmarshal_text(param.as_bytes())
     }

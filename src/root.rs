@@ -14,15 +14,37 @@ fn no_convergence() -> DecimalError {
 }
 
 impl Decimal {
+    /// Computes the square root, rounded half-even to `max(self.precision(), 20)` decimal places.
+    ///
+    /// # Errors
+    /// Returns domain errors or `NoConvergence` when rounding cannot be certified within the budget.
     pub fn sqrt(&self) -> Result<Self, DecimalError> {
         self.sqrt_with_prec(self.precision().max(20))
     }
+    /// Computes the square root, rounded half-even to `prec` decimal places.
+    ///
+    /// # Errors
+    /// Returns domain errors or `NoConvergence` when rounding cannot be certified within the budget.
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` for negative precision.
     pub fn sqrt_with_prec(&self, prec: isize) -> Result<Self, DecimalError> {
         self.approx_root_with_prec(2, prec)
     }
+    /// Computes the positive-degree root (odd degrees allow negative inputs), rounded half-even to `max(self.precision(), 20)` decimal places.
+    ///
+    /// # Errors
+    /// Returns domain errors or `NoConvergence` when rounding cannot be certified within the budget.
     pub fn approx_root(&self, degree: i64) -> Result<Self, DecimalError> {
         self.approx_root_with_prec(degree, self.precision().max(20))
     }
+    /// Computes the positive-degree root (odd degrees allow negative inputs), rounded half-even to `prec` decimal places.
+    ///
+    /// # Errors
+    /// Returns domain errors or `NoConvergence` when rounding cannot be certified within the budget.
+    ///
+    /// # Panics
+    /// Panics with `InvalidPrecision` for negative precision.
     pub fn approx_root_with_prec(&self, degree: i64, prec: isize) -> Result<Self, DecimalError> {
         let p = precision(prec);
         if degree <= 0 {
