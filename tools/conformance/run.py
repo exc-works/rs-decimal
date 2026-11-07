@@ -87,6 +87,14 @@ def compare(requests, left, right, expected=None):
                 raise ConformanceError("invalid validation result")
             if want == "ok" and req["operation"] == "messages" and (not isinstance(response["result"], dict) or len(response["result"]) != 12 or not all(isinstance(k,str) and isinstance(v,str) for k,v in response["result"].items())):
                 raise ConformanceError("invalid validation templates")
+            if want == "ok" and req["operation"] == "config":
+                result=response["result"]
+                if not isinstance(result,dict) or set(result)!={"decimal","valid"}:
+                    raise ConformanceError("invalid config result")
+                validate_state(result["decimal"])
+                if req["params"]["nullable"] == "true":
+                    if type(result["valid"]) is not bool: raise ConformanceError("missing config validity")
+                elif result["valid"] is not None: raise ConformanceError("unexpected config validity")
             if req["operation"] == "decode":
                 receiver = response.get("receiver_after")
                 nullable = req["params"]["nullable"] == "true"

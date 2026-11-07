@@ -1,6 +1,6 @@
 # rs-decimal
 
-rs-decimal 是保持 exc-works/decimal 数值和状态契约的 Rust 移植。数值核心、格式化及核心预览门禁已通过；Text/Param、JSON 与可选 Serde 已实现，其余协议和生态适配尚未完成，crate 尚未发布。
+rs-decimal 是保持 exc-works/decimal 数值和状态契约的 Rust 移植。已实现数值核心、格式化、Text/Param、JSON/Serde、Go binary、YAML/XML/BSON、Scan/Value，以及 PostgreSQL SQLx、精确验证和配置解码。166 项基线 API 均有实现或显式平台映射；crate 尚未发布。
 
 ## 开发
 
@@ -8,9 +8,9 @@ MSRV 为 Rust 1.85（edition 2024），CI 同时检查 MSRV 与 stable。核心�
 
 ```sh
 cargo check --locked
-cargo test --locked
+cargo test --locked --workspace --all-features
 cargo fmt --all -- --check
-cargo clippy --locked --all-targets -- -D warnings
+cargo clippy --locked --workspace --all-targets --all-features -- -D warnings
 python3 tools/check-baseline.py
 ```
 
@@ -62,3 +62,23 @@ Decimal 保留系数和 scale；Default 为未初始化零，数值相等不代�
 `postgres` 为 SQLx 0.8.6 提供精确 NUMERIC/NUMERIC[] 类型实现，支持 Nullable 与范围拒绝；运行时/TLS 由应用选择。见 [PostgreSQL 使用与真实验证](docs/postgres.md)。
 
 `validation` 提供 `ValidationRule` 的 12 种精确数值规则、scale 检查和 `ValidationMessages` 的 13 组语言模板；非法规则在构造时返回错误，无全局注册或浮点比较。
+
+
+## 精确配置字段
+
+启用 `config`，使用 JSON 原文专用 Serde 字段适配。普通 Decimal 配置字段拒绝 null/空字符串；NullDecimal 允许 null/空字符串，缺失字段是否默认由结构体属性决定。类型化的 `ConfigValue` 同时提供 Go DecodeHook 的值转换规则。
+
+```rust,ignore
+#[derive(serde::Deserialize)]
+struct Settings {
+    #[serde(deserialize_with = "rs_decimal::config::deserialize_json_decimal")]
+    amount: rs_decimal::Decimal,
+    #[serde(default, deserialize_with = "rs_decimal::config::deserialize_json_nullable")]
+    limit: rs_decimal::NullDecimal,
+}
+let settings: Settings = serde_json::from_str(
+    r#"{"amount":9007199254740993.00000000000000001}"#
+)?;
+```
+
+可选功能为 serde、json、yaml、xml、bson、postgres、validation、config；无默认功能。泛用 Serde Decimal visitor 拒绝浮点；上述 config JSON 字段适配通过 RawValue 保留数字原文。两者用途及 null 规则不同，详见 API 矩阵。

@@ -125,6 +125,42 @@ fn execute(req: &Request) -> Value {
                 response["receiver_after"] = json!({"decimal":capture(&n.decimal),"valid":if nullable {json!(n.valid)}else{Value::Null}});
                 err.map(|_| response["receiver_after"].clone())
             }
+            "config" => {
+                use rs_decimal::config::{ConfigValue, decode_decimal, decode_nullable};
+                let bytes = if p("type") == "bytes" {
+                    decode_hex(p("text"))
+                } else {
+                    Vec::new()
+                };
+                let n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                let value = match p("type") {
+                    "null" => ConfigValue::Null,
+                    "text" => ConfigValue::Text(p("text")),
+                    "bytes" => ConfigValue::Bytes(&bytes),
+                    "number" => ConfigValue::Number(p("text")),
+                    "i64" => ConfigValue::Signed(p("text").parse().unwrap()),
+                    "u64" => ConfigValue::Unsigned(p("text").parse().unwrap()),
+                    "f32" => ConfigValue::Float32(f32::from_bits(
+                        u32::from_str_radix(p("text"), 16).unwrap(),
+                    )),
+                    "f64" => ConfigValue::Float64(f64::from_bits(
+                        u64::from_str_radix(p("text"), 16).unwrap(),
+                    )),
+                    "decimal" => ConfigValue::Decimal(&values[0]),
+                    "nullable" => ConfigValue::Nullable(&n),
+                    _ => ConfigValue::Unsupported,
+                };
+                if p("nullable") == "true" {
+                    decode_nullable(value)
+                        .map(|n| json!({"decimal":capture(&n.decimal),"valid":n.valid}))
+                } else {
+                    decode_decimal(value)
+                        .map(|d| json!({"decimal":capture(&d),"valid":Value::Null}))
+                }
+            }
             "validate" => rs_decimal::validation::ValidationRule::parse(p("tag"), p("parameter"))
                 .map(|rule| json!(rule.matches(&values[0]))),
             "messages" => Ok(json!(rs_decimal::validation::default_validation_messages(
