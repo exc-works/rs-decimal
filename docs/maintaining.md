@@ -1,29 +1,29 @@
-# 阅读与维护代码
+# Reading and maintaining the code
 
-## 从使用契约进入
+## Start with the usage contract
 
-先阅读 `src/lib.rs` 的可执行示例和类型说明，再查看具体方法的 rustdoc。`Decimal` 表示 `coefficient × 10^-scale`；Default 的未初始化零和 NullDecimal 的 valid 是独立状态。数值相等不表示表示状态相同，因此测试应在需要时同时核对系数、scale、初始化状态和 valid。
+Read the executable examples and type documentation in `src/lib.rs`, then the rustdoc for individual methods. `Decimal` represents `coefficient × 10^-scale`; Default's uninitialized zero and NullDecimal's valid flag are independent states. Numerical equality does not imply identical representation, so tests should also check coefficient, scale, initialization, and valid where needed.
 
-公开 API 保留 Go 兼容命名，内部代码优先使用能说明单位的名字，如 coefficient、scale、weight。对可直接读懂的语句不加重复注释；注释解释舍入证明、边界顺序、协议单位、错误原子性和资源限制。公共入口不能缺少文档，示例应可运行；返回值、精度单位、错误与 panic 必须和实现一致。
+Public APIs retain Go-compatible naming; internal names should make units clear, such as coefficient, scale, and weight. Avoid comments that repeat self-explanatory statements. Explain rounding proofs, boundary-check order, protocol units, failure atomicity, and resource limits. Every public entry point needs documentation and runnable examples; return values, precision units, errors, and panics must match the implementation.
 
-## 模块职责
+## Module responsibilities
 
-| 模块 | 负责的内容 |
+| Module | Responsibilities |
 | --- | --- |
-| decimal / integer | 表示、解析、比较与整数基础运算 |
-| arithmetic / rounding | 精确系数运算、scale 对齐、唯一的有符号舍入规则 |
-| conversion / formatting | 精确有理数和 IEEE 转换、文本输出 |
-| interval / transcendental | 向外取整的区间，以及逐次提高精度的认证循环 |
-| root / logarithm / exponential | 领域算法、参数约减、根中点判断与级数余项界 |
-| text / binary / json / yaml / xml / bson | 协议边界及完整状态的原子更新 |
-| sql / postgres | 无驱动 SQL 语义与 SQLx NUMERIC 的 base-10000 编码 |
-| validation / validation::messages | 数值规则和消息渲染 / 独立存放的语言模板 |
-| config | 显式输入类型、保留 JSON 原文的 Serde 字段适配 |
+| decimal / integer | Representation, parsing, comparison, and basic integer operations |
+| arithmetic / rounding | Exact coefficient arithmetic, scale alignment, and the single set of signed rounding rules |
+| conversion / formatting | Exact rational and IEEE conversions, text output |
+| interval / transcendental | Outward-rounded intervals and certification loops with increasing precision |
+| root / logarithm / exponential | Domain algorithms, argument reduction, root midpoint tests, and series remainder bounds |
+| text / binary / json / yaml / xml / bson | Protocol boundaries and atomic updates of complete state |
+| sql / postgres | Driver-neutral SQL semantics and SQLx NUMERIC base-10000 encoding |
+| validation / validation::messages | Numerical rules and message rendering / separately stored language templates |
+| config | Explicit input types and Serde field adapters that preserve raw JSON |
 
-`raw()` 只借用系数；算术对齐借用相同 scale 的系数，只为确实需要移位的非零数分配。这样既避免重复克隆，也把“对齐不丢精度”的不变量放在一个位置。解析先完整验证语法，再走最多 18 位的 u64 路径；更长输入仍使用任意精度整数，不能把快速路径变成输入范围限制。
+`raw()` only borrows the coefficient. Arithmetic alignment borrows coefficients with the same scale and allocates only for nonzero values that need shifting. This avoids repeated cloning and keeps the invariant that alignment preserves precision in one place. Parsing validates the full syntax before using a u64 path for up to 18 digits. Longer inputs still use arbitrary-precision integers; the fast path must not become an input-range limit.
 
-## 数值修改的验收
+## Acceptance criteria for numerical changes
 
-区间端点分别向下/向上舍入；只有两个端点在目标十进制网格得到同一舍入结果才返回成功。不得通过增加一个经验 epsilon、调用 float 近似或把 NoConvergence 当成功来优化。根运算直接比较精确中点的幂，避免浮点误差影响 ties-to-even。
+Round interval endpoints downward/upward respectively; return success only when both endpoints round to the same value on the target decimal grid. Do not optimize by adding an empirical epsilon, using floating-point approximations, or treating NoConvergence as success. Root operations compare exact midpoint powers directly so floating-point error cannot affect ties-to-even.
 
-行为改动先加入能区分旧行为与正确行为的回归例，再运行对应单元测试、全量 Go 差分和独立 oracle。性能变更应提供相同环境、相同输入的前后数据，同时保留进程内测量和端到端差分计时的区别。CI 运行 MSRV/stable、32/64 位配对、跨平台和 PostgreSQL；修改底层 PR 后，把修复同步到上层，重新审核最终 head。
+For behavior changes, first add a regression that distinguishes the old behavior from the correct behavior, then run the relevant unit tests, full Go differential suite, and independent oracle. Performance changes should include before/after measurements with the same environment and inputs, distinguishing in-process measurements from end-to-end differential timings. CI runs MSRV/stable, paired 32/64-bit, cross-platform, and PostgreSQL checks. After changing a lower PR, propagate fixes to dependent PRs and review the final head again.

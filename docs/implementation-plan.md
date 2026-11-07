@@ -1,88 +1,88 @@
-# rs-decimal 实现计划
+# rs-decimal implementation plan
 
-目标是在 Rust 中保留 Go 库的数值结果、scale、初始化状态、错误类别以及协议行为。实现基于大整数直接移植现有算法，以共享用例、差分测试和独立数学验证作为交付依据。
+The goal is to preserve the Go library's numerical results, scale, initialization state, error categories, and protocol behavior in Rust. The implementation directly ports the existing algorithms using big integers, with shared cases, differential tests, and independent mathematical validation as delivery evidence.
 
-## 兼容基线
+## Compatibility baseline
 
-- 源仓库：`https://github.com/exc-works/decimal`。
-- 固定提交：`a8791208e2d15483cf652cd2814b74b0c1a84187`。
-- 主规格：[numeric-contract.md](https://github.com/exc-works/decimal/blob/a8791208e2d15483cf652cd2814b74b0c1a84187/docs/numeric-contract.md)。
-- 验证规格：[correctness-gates.md](https://github.com/exc-works/decimal/blob/a8791208e2d15483cf652cd2814b74b0c1a84187/docs/correctness-gates.md)。
-- 固定基线包含 45 个 must-succeed 用例，以及根、超越函数、YAML 标量等 fixtures。
+- Source repository: `https://github.com/exc-works/decimal`.
+- Pinned commit: `a8791208e2d15483cf652cd2814b74b0c1a84187`.
+- Primary specification: [numeric-contract.md](https://github.com/exc-works/decimal/blob/a8791208e2d15483cf652cd2814b74b0c1a84187/docs/numeric-contract.md).
+- Validation specification: [correctness-gates.md](https://github.com/exc-works/decimal/blob/a8791208e2d15483cf652cd2814b74b0c1a84187/docs/correctness-gates.md).
+- The pinned baseline includes 45 must-succeed cases and fixtures for roots, transcendental functions, YAML scalars, and more.
 
-实现时将契约、必要 fixtures 和原 MIT 许可复制到本仓库，记录来源提交及文件校验和。CI 获取 Go 参考程序时使用固定提交，不能跟随 main 自动改变行为。
+Copy the contracts, required fixtures, and original MIT license into this repository, recording the source commit and file checksums. CI must use the pinned commit for the Go reference program; it must not follow main and silently change behavior.
 
-发现契约、Go 实现和独立 oracle 不一致时，记录最小复现并作出逐例兼容决定；不能自动把 Go 输出当作正确答案，也不能无说明地修正兼容行为。
+When the contract, Go implementation, and independent oracle disagree, record a minimal reproducer and make a compatibility decision for each case. Neither assume Go output is automatically correct nor change compatible behavior without explanation.
 
-## 范围与发布层次
+## Scope and release tiers
 
-| 层次 | 交付范围 | 对外声明 |
+| Tier | Deliverables | Public claims |
 | --- | --- | --- |
-| 核心预览 | 构造、状态、比较、舍入、算术、转换、根、对数、指数、格式化 | 只声明已验证的数值 API 兼容 |
-| 协议兼容版 | 增加 NullDecimal、Text、Param、JSON、Serde 适配、Binary、YAML、XML、BSON 及 Scan 抽象 | 声明兼容矩阵中已覆盖的协议入口及 Serde 差异 |
-| 生态适配 | 一个优先数据库驱动、验证与配置适配 | 分别列出与 Go 框架的对应关系和差异 |
+| Core preview | Construction, state, comparison, rounding, arithmetic, conversion, roots, logarithms, exponential, formatting | Compatibility only for verified numerical APIs |
+| Protocol-compatible release | Adds NullDecimal, Text, Param, JSON, Serde adapters, Binary, YAML, XML, BSON, and the Scan abstraction | Covered protocol entry points and Serde differences listed in the compatibility matrix |
+| Ecosystem adapters | One priority database driver, validation, and configuration adapters | Individual mappings to Go frameworks and their differences |
 
-Go 的 Gin、validator、mapstructure、database/sql 接口不能原样复制；保留可移植的输入规则和状态变化，提供 Rust 入口或适配器。错误诊断文字、Go 具体运行时类型、内存地址、分配次数和线程调度不作为逐字兼容要求。
+Go's Gin, validator, mapstructure, and database/sql interfaces cannot be copied directly. Preserve portable input rules and state transitions through Rust entry points or adapters. Diagnostic wording, concrete Go runtime types, memory addresses, allocation counts, and thread scheduling are not requirements for literal compatibility.
 
-首版保留非负 scale、默认 Mul/Quo 的 max 输入 scale、Power 的输入 scale 和 HalfEven。负 scale、默认精确乘法、新舍入模式、自动精度提升均不混入兼容实现。
+The first release preserves nonnegative scale, max input scale for default Mul/Quo, and input scale with HalfEven for Power. Do not introduce negative scale, exact multiplication by default, new rounding modes, or automatic precision increases into the compatibility implementation.
 
-## 实施原则
+## Implementation principles
 
-1. 数值核心直接依赖大整数，不以 bigdecimal 或 rust_decimal 的运算作为中间层。
-2. 首轮保留原有数学算法、快路径和计算预算；性能优化必须通过同一兼容门禁。
-3. 先以同位宽的 64 位 Go 与 Rust 配对验证；发布前增加 32 位配对执行。
-4. 每个 PR 同时提交实现、接口映射和有独立依据的测试；不将验证推迟到最后一个 PR。
-5. Rust 命名采用 snake_case，参数与行为对应 Go；移植完成前不增加隐式舍入的乘除运算符。
-6. 框架集成与格式依赖使用可选功能，核心使用者不必引入 Web 或数据库依赖。
+1. The numerical core depends directly on big integers, without using bigdecimal or rust_decimal arithmetic as an intermediate layer.
+2. The initial port preserves the original mathematical algorithms, fast paths, and computational budgets. Performance optimizations must pass the same compatibility gates.
+3. Start with paired 64-bit Go and Rust validation; add paired 32-bit execution before release.
+4. Each PR includes implementation, API mappings, and independently justified tests. Do not defer validation to the final PR.
+5. Rust names use snake_case, with parameters and behavior corresponding to Go. Do not add multiplication/division operators with implicit rounding before the port is complete.
+6. Framework integrations and format dependencies use optional features, so core users do not need Web or database dependencies.
 
-## 里程碑
+## Milestones
 
-| 里程碑 | 对应 PR | 出口条件 |
+| Milestone | PRs | Exit criteria |
 | --- | --- | --- |
-| M0 基线与测试基础 | 01—02 | 可构建骨架、固定源版本、双程序测试协议和 API 清单 |
-| M1 十进制核心 | 03—06 | 精确与舍入算术、状态、转换和浮点边界通过差分与 oracle |
-| M2 认证数学 | 07—09 | 根与所有对数、指数方法完成，must-succeed 全部成功 |
-| 核心预览检查点 | 01—09、10a | 核心数值与格式化完成，并通过下述独立发布门槛 |
-| M3 协议兼容 | 10b、11—13 | null、失败原子性、Binary 互通及各格式入口通过 |
-| M4 发布候选 | 14 | debug/release、架构、特性矩阵及回归门禁通过 |
-| M5 生态扩展 | 15 起 | 选定驱动与框架拥有真实集成测试和独立兼容说明 |
+| M0 Baseline and test infrastructure | 01–02 | Buildable skeleton, pinned source version, two-program test protocol, and API inventory |
+| M1 Decimal core | 03–06 | Exact and rounded arithmetic, state, conversions, and floating-point boundaries pass differential tests and the oracle |
+| M2 Certified mathematics | 07–09 | Roots and all logarithm/exponential methods complete; all must-succeed cases succeed |
+| Core preview checkpoint | 01–09, 10a | Core numerics and formatting complete, with the independent release gates below passing |
+| M3 Protocol compatibility | 10b, 11–13 | Null behavior, failure atomicity, Binary interoperability, and all format entry points pass |
+| M4 Release candidate | 14 | Debug/release, architecture, feature-matrix, and regression gates pass |
+| M5 Ecosystem extensions | 15 onward | Selected drivers and frameworks have live integration tests and separate compatibility notes |
 
-PR 编号表示逻辑拆分，允许按实际 diff 大小进一步拆小。依赖与验收见 [PR 拆分](pr-plan.md)。不以预计日期替代正确性门禁；完成 M1 后根据实际审查与失败修复成本更新排期。
+PR numbers describe logical units and may be split further based on actual diff size. See the [PR plan](pr-plan.md) for dependencies and acceptance criteria. Estimated dates do not replace correctness gates; update the schedule after M1 based on actual review and failure-resolution costs.
 
-### 核心预览的独立退出门槛
+### Independent exit gates for the core preview
 
-核心预览依赖 PR 01—09 和 10a，不依赖 Text/Param、JSON/Serde、Binary、YAML、XML、BSON、Scan 或具体框架适配。PR 10 固定拆为 10a 格式化与 10b 文本协议，防止协议工作阻塞核心交付。提前建立 NullDecimal 状态结构不代表预览版承诺其完整协议能力。
+The core preview depends on PRs 01–09 and 10a, not on Text/Param, JSON/Serde, Binary, YAML, XML, BSON, Scan, or specific framework adapters. PR 10 is explicitly split into 10a for formatting and 10b for text protocols so protocol work does not block the core. Establishing the NullDecimal state structure early does not commit the preview to its full protocol capabilities.
 
-- API 矩阵中全部核心入口已验证，逐项具备 Rust 映射、状态/错误规则和测试证据；协议及生态入口明确标记未交付。
-- 六个默认数学方法均验证 `max(input scale, 20)`，覆盖输入 scale 为 0、20、30；WithPrec 的目标 scale 独立验证。
-- 固定 45 个 must-succeed 用例全部成功并通过独立证书，核心契约、差分和补充回归无未解释失败；unsupported、认证失败和超时不算通过。
-- fmt、Clippy、核心单元/契约/差分检查通过；关键数值测试在 debug/release 及配对的 32/64 位环境实际执行。默认、无默认及预览版实际包含的 feature 组合通过，不以尚未交付的格式 feature 作为阻塞条件。
-- 核心数值 fuzz 烟测与已有失败 seeds 回归通过；有核对结果后的核心性能基线，且不承诺未经测量的加速。
-- 使用文档、MSRV、版本策略、许可与来源完整；`cargo package` 及隔离目录构建/测试通过。对外发布前确认包名可用性，明确标注预览范围，不能宣称完整协议兼容。
+- All core entry points in the API matrix are verified, each with a Rust mapping, state/error rules, and test evidence. Protocol and ecosystem entry points are explicitly marked undelivered.
+- All six default mathematical methods verify `max(input scale, 20)` with input scales of 0, 20, and 30. Target scale for WithPrec is verified independently.
+- All 45 fixed must-succeed cases succeed and pass independent certificates. Core contract, differential, and supplemental regression tests have no unexplained failures; unsupported operations, failed certification, and timeouts do not pass.
+- fmt, Clippy, and core unit/contract/differential checks pass. Critical numerical tests actually execute in debug/release and paired 32/64-bit environments. Default, no-default, and feature combinations included in the preview pass; undelivered format features do not block the preview.
+- Core numerical fuzz smoke tests and regressions for known failing seeds pass. A core performance baseline checks results before measuring, without claiming unmeasured speedups.
+- Usage documentation, MSRV, version policy, licensing, and provenance are complete. `cargo package` and builds/tests in an isolated directory pass. Confirm package-name availability before public release and clearly label preview scope without claiming full protocol compatibility.
 
-上述门槛在核心预览检查点执行，不留待 PR 14 补做。PR 14 继续作为协议兼容版的完整发布候选门禁，复跑核心检查并加入全部协议与 feature 检查。检查通过不自动执行发布。
+Run these gates at the core preview checkpoint, rather than deferring them to PR 14. PR 14 remains the complete release-candidate gate for protocol compatibility, rerunning core checks and adding every protocol and feature check. Passing checks does not trigger publication automatically.
 
-## 主要风险
+## Main risks
 
-| 风险 | 处理方式 |
+| Risk | Mitigation |
 | --- | --- |
-| 浮点转换产生二次舍入或错误 exact 标志 | 直接舍入到目标二进制格式，比较原始位模式与精确有理数 |
-| 负数除法方向变化使区间失效 | 封装截断、下取整、上取整原语，单独验证所有符号组合 |
-| 两个实现复制同一错误 | 差分之外保留有理数和严格区间 oracle |
-| 错误或超时掩盖难算输入 | must-succeed 必须成功；差分统计成功、错误、panic、超时分别计数 |
-| Serde 丢失数字原文或 null 更新语义 | 提供格式专用原文解码与 in-place 兼容方法，明示通用 Serde 限制 |
-| 超大 scale 引发资源耗尽 | 先保持原有入口预算；测试限制输入成本，不偷偷缩小公共支持范围 |
-| 文档宣称全兼容但漏掉边缘 API | 从固定 Go 提交导出清单，每项关联 Rust 入口、PR 与验收用例 |
+| Floating-point conversions introduce double rounding or an incorrect exact flag | Round directly to the target binary format; compare raw bit patterns and exact rationals |
+| Changes in signed division direction invalidate intervals | Encapsulate truncating, floor, and ceiling primitives; independently verify all sign combinations |
+| Both implementations copy the same bug | Retain rational and rigorous interval oracles alongside differential tests |
+| Errors or timeouts hide difficult inputs | Must-succeed cases must succeed; count successes, errors, panics, and timeouts separately |
+| Serde loses raw number tokens or null-update semantics | Provide format-specific raw decoding and in-place compatibility methods; document generic Serde limitations |
+| Extreme scale exhausts resources | Initially preserve each entry point's existing budget; bound test input costs without silently narrowing the public supported range |
+| Documentation claims full compatibility while missing edge APIs | Export the inventory from the pinned Go commit and link every item to a Rust entry point, PR, and acceptance cases |
 
-## 完成标准
+## Completion criteria
 
-- 每个 Go 公共入口都在兼容矩阵中有明确处理方式和验证状态；发布范围内的承诺入口均已验证，平台映射须说明差异，延后项须说明原因；不得无解释漏项。
-- 固定用例和可执行的独立证书通过；同一输入的系数、scale、状态、错误类别一致。
-- 原 must-succeed 用例不删减、不降低精度，不用容差代替最终位验证。
-- 编解码失败保持原状态；序列化、比较、算术不修改输入。
-- CI 在 debug/release 和支持架构上执行，默认、无默认功能、单功能及全功能组合均有检查。
-- 无未解释差分；超时、进程退出和 oracle 无法认证均视为测试失败，不算通过。
-- 性能以相同语义和输入衡量；不预先承诺 Rust 版本一定更快。
-- README 明确实现范围、Rust 最低版本、特性、源提交和版本策略。Rust crate 独立版本号不冒充 Go 发布版本。
+- Every public Go entry point has an explicit treatment and validation status in the compatibility matrix. All promised entry points within the release scope are verified, platform mappings explain differences, and deferred items explain why. No unexplained omissions are allowed.
+- Fixed cases and executable independent certificates pass; identical inputs produce matching coefficients, scales, states, and error categories.
+- Do not remove original must-succeed cases, lower their precision, or replace final-digit verification with tolerances.
+- Encoding/decoding failures preserve the previous state; serialization, comparison, and arithmetic leave inputs unchanged.
+- CI executes debug/release and supported architectures, checking default, no-default, individual-feature, and all-feature combinations.
+- There are no unexplained differential mismatches. Timeouts, process exits, and oracle certification failures count as test failures, never passes.
+- Measure performance with identical semantics and inputs; do not promise in advance that Rust will be faster.
+- The README states implementation scope, minimum Rust version, features, source commit, and version policy. The Rust crate has its own version number and does not present itself as a Go release.
 
-本计划已按用户授权进入完整实现：代码与堆叠 PR 按 docs/pr-plan.md 交付，发布门禁和每项平台映射见 API 矩阵；本次不自动合并或发布 crate。
+This plan has entered full implementation with user authorization. Code and stacked PRs are delivered according to docs/pr-plan.md; release gates and individual platform mappings are recorded in the API matrix. This work does not automatically merge PRs or publish the crate.
