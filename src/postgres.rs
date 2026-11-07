@@ -228,7 +228,7 @@ mod wire_properties {
     #[test]
     fn generated_numeric_roundtrips_and_malformed_frames() {
         // Fixed LCG seed keeps failures reproducible without a test-only dependency.
-        let mut seed = 0xdec1_a1u64;
+        let mut seed = 0x00de_c1a1_u64;
         for index in 0..512 {
             seed = seed.wrapping_mul(6364136223846793005).wrapping_add(1);
             let value = Decimal::new_with_prec(seed as i64, index % 25);
