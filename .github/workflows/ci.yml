@@ -30,6 +30,7 @@ jobs:
       - run: cargo test --locked --all-features --manifest-path target/package/rs-decimal-0.1.0-alpha.1/Cargo.toml
       - run: cargo run --locked --manifest-path target/package/rs-decimal-0.1.0-alpha.1/Cargo.toml --example core
       - run: python3 tools/check-baseline.py
+      - run: python3 tools/check-release-matrix.py
   baseline:
     runs-on: ubuntu-latest
     steps:
@@ -46,6 +47,7 @@ jobs:
       - run: go run tools/api-inventory/main.go .cache/go-source > .cache/api-inventory.json
       - run: diff -u docs/api-inventory.json .cache/api-inventory.json
       - run: python3 tools/check-baseline.py --source .cache/go-source
+      - run: python3 tools/check-release-matrix.py
       - run: python3 tools/test-baseline.py --source .cache/go-source
   conformance:
     runs-on: ubuntu-latest
@@ -84,10 +86,16 @@ jobs:
       - run: python3 tools/conformance/check-binary.py --go .cache/go-reference --rust target/debug/decimal-conformance
       - run: cargo build --locked --release -p decimal-conformance
       - run: python3 tools/conformance/core-gates.py --go .cache/go-reference --rust target/release/decimal-conformance --oracle .cache/go-oracle
+      - run: python3 tools/conformance/fuzz.py --go .cache/go-reference --rust target/release/decimal-conformance --oracle .cache/go-oracle --seconds 5
+      - run: python3 tools/conformance/benchmark.py --go .cache/go-reference --rust target/release/decimal-conformance
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: core-gates-64
-          path: .cache/core-gates.json
+          path: |
+            .cache/core-gates.json
+            .cache/fuzz-*.json
+            .cache/benchmark.json
   paired-32:
     runs-on: ubuntu-latest
     steps:
@@ -115,4 +123,38 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: core-gates-32
+          path: .cache/core-gates.json
+
+  portability:
+    runs-on: ${{ matrix.os }}
+    env:
+      BIN_SUFFIX: ${{ matrix.os == 'windows-latest' && '.exe' || '' }}
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26.0"
+          cache: false
+      - run: cargo test --locked --workspace --all-features
+      - run: cargo test --locked --workspace --all-features --release
+      - run: cargo build --locked --release -p decimal-conformance
+      - run: mkdir -p .cache
+      - run: go build -tags bson -mod=readonly -o ../../.cache/go-reference${BIN_SUFFIX} .
+        working-directory: tools/go-reference
+      - run: go build -o ../../.cache/go-oracle${BIN_SUFFIX} .
+        working-directory: tools/go-oracle
+      - run: python tools/conformance/core-gates.py --go .cache/go-reference${BIN_SUFFIX} --rust target/release/decimal-conformance${BIN_SUFFIX} --oracle .cache/go-oracle${BIN_SUFFIX}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: portability-${{ matrix.os }}
           path: .cache/core-gates.json
