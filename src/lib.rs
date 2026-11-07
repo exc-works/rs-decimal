@@ -41,3 +41,6 @@ mod xml;
 
 #[cfg(feature = "bson")]
 mod bson;
+
+mod sql;
+pub use sql::ScanValue;

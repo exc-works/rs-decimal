@@ -138,6 +138,36 @@ func execute(req request) (r response) {
 		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
 		var err error
 		switch {
+		case params["format"] == "sql":
+			var value any
+			switch params["type"] {
+			case "null":
+				value = nil
+			case "i64":
+				value, err = strconv.ParseInt(params["text"], 10, 64)
+			case "f32":
+				var bits uint64
+				bits, err = strconv.ParseUint(params["text"], 16, 32)
+				value = math.Float32frombits(uint32(bits))
+			case "f64":
+				var bits uint64
+				bits, err = strconv.ParseUint(params["text"], 16, 64)
+				value = math.Float64frombits(bits)
+			case "text":
+				value = params["text"]
+			case "bytes":
+				value, err = hex.DecodeString(params["text"])
+			default:
+				value = true
+			}
+			if err != nil {
+				panic(err)
+			}
+			if nullable {
+				err = n.Scan(value)
+			} else {
+				err = n.Decimal.Scan(value)
+			}
 		case params["format"] == "bson":
 			data, e := hex.DecodeString(params["text"])
 			if e != nil {
@@ -192,6 +222,17 @@ func execute(req request) (r response) {
 		} else {
 			r.Outcome = "ok"
 			r.Result = r.Receiver
+		}
+	case "sql_value":
+		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		r.Outcome = "ok"
+		if params["nullable"] == "true" {
+			r.Result, _ = n.Value()
+		} else {
+			r.Result, _ = n.Decimal.Value()
+		}
+		if r.Result == nil {
+			r.Result = json.RawMessage("null")
 		}
 	case "encode_bson":
 		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}

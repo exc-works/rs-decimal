@@ -76,6 +76,31 @@ fn execute(req: &Request) -> Value {
                     valid: p("valid") == "true",
                 };
                 let err = match (nullable, p("format")) {
+                    (_, "sql") => {
+                        let bytes = if p("type") == "bytes" {
+                            decode_hex(p("text"))
+                        } else {
+                            Vec::new()
+                        };
+                        let value = match p("type") {
+                            "null" => rs_decimal::ScanValue::Null,
+                            "i64" => rs_decimal::ScanValue::Int64(p("text").parse().unwrap()),
+                            "f32" => rs_decimal::ScanValue::Float32(f32::from_bits(
+                                u32::from_str_radix(p("text"), 16).unwrap(),
+                            )),
+                            "f64" => rs_decimal::ScanValue::Float64(f64::from_bits(
+                                u64::from_str_radix(p("text"), 16).unwrap(),
+                            )),
+                            "text" => rs_decimal::ScanValue::Text(p("text")),
+                            "bytes" => rs_decimal::ScanValue::Bytes(&bytes),
+                            _ => rs_decimal::ScanValue::Unsupported,
+                        };
+                        if nullable {
+                            n.scan(value)
+                        } else {
+                            n.decimal.scan(value)
+                        }
+                    }
                     (true, "bson") => {
                         n.unmarshal_bson_value(p("type").parse().unwrap(), &decode_hex(p("text")))
                     }
@@ -99,6 +124,17 @@ fn execute(req: &Request) -> Value {
                 };
                 response["receiver_after"] = json!({"decimal":capture(&n.decimal),"valid":if nullable {json!(n.valid)}else{Value::Null}});
                 err.map(|_| response["receiver_after"].clone())
+            }
+            "sql_value" if values.len() == 1 => {
+                let n = rs_decimal::NullDecimal {
+                    decimal: values[0].clone(),
+                    valid: p("valid") == "true",
+                };
+                Ok(if p("nullable") == "true" {
+                    json!(n.value())
+                } else {
+                    json!(n.decimal.value())
+                })
             }
             "encode_bson" if values.len() == 1 => {
                 let n = rs_decimal::NullDecimal {

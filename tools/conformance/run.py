@@ -77,7 +77,7 @@ def compare(requests, left, right, expected=None):
                 validate_state(response["result"])
             if want == "ok" and req["operation"] in {"format", "string", "trailing", "separators", "append", "encode_text", "encode_json", "encode_binary"} and not isinstance(response["result"], str):
                 raise ConformanceError("invalid text result")
-            if want == "ok" and req["operation"] in {"encode_yaml", "encode_xml"} and response["result"] is not None and not isinstance(response["result"], str):
+            if want == "ok" and req["operation"] in {"encode_yaml", "encode_xml", "sql_value"} and response["result"] is not None and not isinstance(response["result"], str):
                 raise ConformanceError("invalid YAML scalar")
             if want == "ok" and req["operation"] == "encode_bson":
                 result = response["result"]
