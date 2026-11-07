@@ -220,3 +220,40 @@ mod tests {
         assert_eq!(decode(&encode(&zero).unwrap()).unwrap().precision(), 4);
     }
 }
+
+#[cfg(test)]
+mod wire_properties {
+    use super::*;
+
+    #[test]
+    fn generated_numeric_roundtrips_and_malformed_frames() {
+        // Fixed LCG seed keeps failures reproducible without a test-only dependency.
+        let mut seed = 0x00de_c1a1_u64;
+        for index in 0..512 {
+            seed = seed.wrapping_mul(6364136223846793005).wrapping_add(1);
+            let value = Decimal::new_with_prec(seed as i64, index % 25);
+            let frame = encode(&value).unwrap();
+            let decoded = decode(&frame).unwrap();
+            assert_eq!(decoded, value);
+            assert_eq!(decoded.precision(), value.precision());
+            assert!(!decoded.is_nil());
+
+            // Every truncation of a nonempty frame violates its declared count.
+            for length in 0..frame.len() {
+                assert!(decode(&frame[..length]).is_err());
+            }
+            for (offset, invalid_word) in [(4, 0xc000u16), (6, 16384)] {
+                let mut invalid = frame.clone();
+                invalid[offset..offset + 2].copy_from_slice(&invalid_word.to_be_bytes());
+                assert!(decode(&invalid).is_err());
+            }
+            let mut trailing = frame.clone();
+            trailing.push(0);
+            assert!(decode(&trailing).is_err());
+        }
+        // A base-10000 digit must not contain 10000, and dscale cannot silently
+        // discard significant fractional digits from the wire representation.
+        assert!(decode(&[0, 1, 0, 0, 0, 0, 0, 0, 0x27, 0x10]).is_err());
+        assert!(decode(&[0, 1, 0xff, 0xff, 0, 0, 0, 0, 0, 1]).is_err());
+    }
+}
