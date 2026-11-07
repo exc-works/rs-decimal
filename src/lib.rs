@@ -44,3 +44,6 @@ mod bson;
 
 mod sql;
 pub use sql::ScanValue;
+
+#[cfg(feature = "postgres")]
+mod postgres;

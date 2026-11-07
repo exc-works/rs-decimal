@@ -22,6 +22,7 @@ jobs:
       - run: cargo test --locked -p rs-decimal --no-default-features
       - run: cargo test --locked -p rs-decimal --no-default-features --features serde
       - run: cargo test --locked -p rs-decimal --no-default-features --features json
+      - run: cargo test --locked -p rs-decimal --no-default-features --features postgres
       - run: cargo test --locked -p rs-decimal --no-default-features --features bson
       - run: cargo test --locked -p rs-decimal --no-default-features --features xml
       - run: cargo test --locked -p rs-decimal --no-default-features --features yaml
@@ -158,3 +159,23 @@ jobs:
         with:
           name: portability-${{ matrix.os }}
           path: .cache/core-gates.json
+
+  postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgres://postgres@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo test --locked -p decimal-postgres-tests -- --ignored
