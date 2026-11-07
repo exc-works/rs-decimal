@@ -1,0 +1,11 @@
+operation,iterations,median_ns,min_ns,max_ns
+pipeline_borrowed_6,1290821,38.49,38.23,38.68
+pipeline_owned_6,2000000,21.56,21.50,21.71
+coefficient_copy_6,2000000,7.13,7.12,7.14
+coefficient_borrow_6,2000000,0.84,0.82,0.84
+coefficient_clone_then_move_6,2000000,6.94,6.92,7.01
+pipeline_borrowed_1000,648254,76.86,76.07,77.31
+pipeline_owned_1000,1472799,33.64,33.56,33.89
+coefficient_copy_1000,2000000,14.82,14.75,14.90
+coefficient_borrow_1000,2000000,0.84,0.71,0.85
+coefficient_clone_then_move_1000,2000000,16.82,16.65,17.04
