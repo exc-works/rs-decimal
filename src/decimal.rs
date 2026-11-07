@@ -229,6 +229,9 @@ impl Decimal {
         if self.scale > other.scale {
             return other.cmp_value(self).reverse();
         }
+        // Compare conservative bit-length bounds before constructing 10^shift.
+        // Since 2^3 < 10 < 2^4, disjoint bounds decide the order even for
+        // native-maximum scales; only overlapping bounds need exact alignment.
         let shift = (other.scale - self.scale) as u128;
         let a = self.raw().bits() as i128;
         let b = other.raw().bits() as i128;
@@ -278,22 +281,42 @@ impl FromStr for Decimal {
         if scale.abs() > MAX_PARSED_PRECISION as i128 {
             return Err(invalid());
         }
-        let mut c =
-            BigInt::parse_bytes(format!("{whole}{fraction}").as_bytes(), 10).ok_or_else(invalid)?;
+        let mut coefficient = parse_coefficient(whole, fraction);
         if scale < 0 {
-            c *= pow10((-scale) as usize);
+            coefficient *= pow10((-scale) as usize);
         }
         if negative {
-            c = -c;
+            coefficient = -coefficient;
         }
-        let p = if c.is_zero() {
+        let result_scale = if coefficient.is_zero() {
             0
         } else {
             scale.max(0) as usize
         };
-        Ok(Self::from_parts(c, p))
+        Ok(Self::from_parts(coefficient, result_scale))
     }
 }
+
+// Syntax is validated by FromStr before entering this function. The common
+// money/integer path fits in u64: 18 decimal digits are strictly below u64::MAX.
+// Avoid BigInt's generic digit parser and an intermediate concatenated string.
+fn parse_coefficient(whole: &str, fraction: &str) -> BigInt {
+    if whole.len() + fraction.len() <= 18 {
+        let magnitude = whole
+            .bytes()
+            .chain(fraction.bytes())
+            .fold(0u64, |value, digit| value * 10 + u64::from(digit - b'0'));
+        return BigInt::from(magnitude);
+    }
+    if fraction.is_empty() {
+        return BigInt::parse_bytes(whole.as_bytes(), 10).expect("validated decimal digits");
+    }
+    let mut digits = Vec::with_capacity(whole.len() + fraction.len());
+    digits.extend_from_slice(whole.as_bytes());
+    digits.extend_from_slice(fraction.as_bytes());
+    BigInt::parse_bytes(&digits, 10).expect("validated decimal digits")
+}
+
 impl fmt::Display for Decimal {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.write_str(&self.string())

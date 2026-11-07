@@ -1,30 +1,38 @@
 use crate::{
-    Decimal, ErrorKind, RoundingMode as M,
+    Decimal, ErrorKind, RoundingMode,
     error::fail,
     integer::{pow10, precision, trunc_div_rem},
     rounding::rounded_div,
 };
 use num_bigint::BigInt;
 use num_traits::{Signed, Zero};
+use std::borrow::Cow;
 
 impl Decimal {
-    fn aligned(&self, other: &Self) -> (BigInt, BigInt, usize) {
-        let p = self.scale.max(other.scale);
-        (
-            self.rescale_down(p as isize).big_int(),
-            other.rescale_down(p as isize).big_int(),
-            p,
-        )
+    // Alignment only increases scale, so it cannot discard digits. Borrow the
+    // original coefficient when possible; allocate only for a nonzero shift.
+    fn coefficient_at_scale(&self, scale: usize) -> Cow<'_, BigInt> {
+        debug_assert!(scale >= self.scale);
+        if scale == self.scale || self.is_zero() {
+            Cow::Borrowed(self.raw())
+        } else {
+            Cow::Owned(self.raw() * pow10(scale - self.scale))
+        }
     }
+
     /// Adds exactly at the larger operand scale.
     pub fn add(&self, other: &Self) -> Self {
-        let (a, b, p) = self.aligned(other);
-        Self::from_parts(a + b, p)
+        let scale = self.scale.max(other.scale);
+        let left = self.coefficient_at_scale(scale);
+        let right = other.coefficient_at_scale(scale);
+        Self::from_parts(left.as_ref() + right.as_ref(), scale)
     }
     /// Subtracts exactly at the larger operand scale.
     pub fn sub(&self, other: &Self) -> Self {
-        let (a, b, p) = self.aligned(other);
-        Self::from_parts(a - b, p)
+        let scale = self.scale.max(other.scale);
+        let left = self.coefficient_at_scale(scale);
+        let right = other.coefficient_at_scale(scale);
+        Self::from_parts(left.as_ref() - right.as_ref(), scale)
     }
     /// Adds to the unscaled coefficient, preserving scale. At scale 2, adding 1 adds 0.01.
     pub fn add_raw(&self, value: i64) -> Self {
@@ -61,7 +69,7 @@ impl Decimal {
     ///
     /// # Panics
     /// Panics with `RoundUnnecessary` if the chosen mode forbids required rounding.
-    pub fn mul(&self, other: &Self, mode: M) -> Self {
+    pub fn mul(&self, other: &Self, mode: RoundingMode) -> Self {
         let product = self.raw() * other.raw();
         let discard = self.scale.min(other.scale);
         let c = if discard > 0 && !product.is_zero() {
@@ -73,7 +81,7 @@ impl Decimal {
     }
     /// Multiplies at the larger operand scale, truncating toward zero.
     pub fn mul_down(&self, other: &Self) -> Self {
-        self.mul(other, M::Down)
+        self.mul(other, RoundingMode::Down)
     }
     /// Multiplies exactly; the result scale is the sum of the operand scales.
     ///
@@ -90,7 +98,7 @@ impl Decimal {
     ///
     /// # Panics
     /// Panics for negative precision or required rounding with `Unnecessary`.
-    pub fn mul_with_prec(&self, other: &Self, prec: isize, mode: M) -> Self {
+    pub fn mul_with_prec(&self, other: &Self, prec: isize, mode: RoundingMode) -> Self {
         let p = precision(prec);
         let product = self.raw() * other.raw();
         if product.is_zero() {
@@ -116,7 +124,7 @@ impl Decimal {
     /// # Panics
     /// Panics for a zero divisor, negative precision, a scaling shift above
     /// `isize::MAX`, or required rounding with `Unnecessary`.
-    pub fn quo_with_prec(&self, other: &Self, prec: isize, mode: M) -> Self {
+    pub fn quo_with_prec(&self, other: &Self, prec: isize, mode: RoundingMode) -> Self {
         let p = precision(prec);
         if other.is_zero() {
             fail(ErrorKind::DivideByZero);
@@ -137,7 +145,7 @@ impl Decimal {
         Self::from_parts(rounded_div(&n, &d, mode), p)
     }
     /// Divides at the larger operand scale. See [`Self::quo_with_prec`] for panic conditions.
-    pub fn quo(&self, other: &Self, mode: M) -> Self {
+    pub fn quo(&self, other: &Self, mode: RoundingMode) -> Self {
         self.quo_with_prec(other, self.scale.max(other.scale) as isize, mode)
     }
     /// Divides at the larger operand scale, truncating toward zero.
@@ -145,7 +153,7 @@ impl Decimal {
     /// # Panics
     /// Panics for a zero divisor or an overflowing scaling shift.
     pub fn quo_down(&self, other: &Self) -> Self {
-        self.quo(other, M::Down)
+        self.quo(other, RoundingMode::Down)
     }
     /// Returns a quotient truncated toward zero and a remainder at the larger operand scale.
     /// The remainder has the dividend sign and satisfies `self = quotient * other + remainder`.
@@ -158,9 +166,14 @@ impl Decimal {
         if other.is_zero() {
             fail(ErrorKind::DivideByZero);
         }
-        let (a, b, p) = self.aligned(other);
-        let (q, r) = trunc_div_rem(&a, &b);
-        (Self::from_parts(q, 0), Self::from_parts(r, p))
+        let scale = self.scale.max(other.scale);
+        let dividend = self.coefficient_at_scale(scale);
+        let divisor = other.coefficient_at_scale(scale);
+        let (quotient, remainder) = trunc_div_rem(&dividend, &divisor);
+        (
+            Self::from_parts(quotient, 0),
+            Self::from_parts(remainder, scale),
+        )
     }
     /// Returns the signed remainder from [`Self::quo_rem`].
     ///
@@ -212,7 +225,7 @@ impl Decimal {
     /// when the intermediate coefficient/scale budget is exceeded.
     pub fn power(&self, power: i64) -> Self {
         if power == 0 {
-            return Self::new(1).rescale(self.precision(), M::Unnecessary);
+            return Self::new(1).rescale(self.precision(), RoundingMode::Unnecessary);
         }
         if self.is_zero() {
             if power < 0 {
@@ -228,7 +241,7 @@ impl Decimal {
             } else {
                 1
             };
-            return Self::new(sign).rescale(self.precision(), M::Unnecessary);
+            return Self::new(sign).rescale(self.precision(), RoundingMode::Unnecessary);
         }
         let size = (base.scale as u128).max(base.raw().bits() as u128).max(1);
         if magnitude as u128 > i32::MAX as u128 / size {
@@ -239,9 +252,9 @@ impl Decimal {
             base.scale * magnitude as usize,
         );
         if power < 0 {
-            Self::new(1).quo_with_prec(&exact, self.precision(), M::HalfEven)
+            Self::new(1).quo_with_prec(&exact, self.precision(), RoundingMode::HalfEven)
         } else {
-            exact.rescale(self.precision(), M::HalfEven)
+            exact.rescale(self.precision(), RoundingMode::HalfEven)
         }
     }
 }

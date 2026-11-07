@@ -90,6 +90,8 @@ impl Decimal {
             den = pow10((-shift) as usize);
         }
         let mut floor = integer_root(&(&num / &den), degree).ok_or_else(no_convergence)?;
+        // Compare against the exact midpoint (floor + 1/2)^degree.
+        // Raising both sides to the degree avoids floating-point root error.
         let right = ((&floor << 1usize) + BigInt::from(1)).pow(degree as u32) * den;
         let cmp = (num << degree).cmp(&right);
         if cmp.is_gt() || (cmp.is_eq() && floor.is_odd()) {

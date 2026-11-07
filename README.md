@@ -85,3 +85,5 @@ let settings: Settings = serde_json::from_str(
 可选功能为 serde、json、yaml、xml、bson、postgres、validation、config；无默认功能。泛用 Serde Decimal visitor 拒绝浮点；上述 config JSON 字段适配通过 RawValue 保留数字原文。两者用途及 null 规则不同，详见 API 矩阵。
 
 完整可执行配置示例：`cargo run --example configuration --features config,validation`。
+
+维护代码时参考 [模块职责与数值不变量](docs/maintaining.md)。进程内性能基准使用 `cargo bench --bench core`；随机验证及重放见 [随机验证](docs/random-validation.md)。

@@ -9,7 +9,7 @@ repository = "https://github.com/exc-works/rs-decimal"
 readme = "README.md"
 keywords = ["decimal", "arithmetic", "precision", "rounding", "numeric"]
 categories = ["mathematics", "encoding"]
-include = ["src/**", "tests/**", "examples/**", "Cargo.toml", "Cargo.lock", "README.md", "LICENSE", "NOTICE", "CHANGELOG.md", "docs/**"]
+include = ["src/**", "tests/**", "examples/**", "benches/**", "Cargo.toml", "Cargo.lock", "README.md", "LICENSE", "NOTICE", "CHANGELOG.md", "docs/**"]
 
 [package.metadata.docs.rs]
 all-features = true
@@ -50,3 +50,7 @@ serde = { version = "=1.0.228", features = ["derive"] }
 [workspace]
 members = ["tools/conformance", "tools/postgres-tests"]
 resolver = "2"
+
+[[bench]]
+name = "core"
+harness = false
