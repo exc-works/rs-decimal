@@ -15,10 +15,29 @@ num-integer = "=0.1.46"
 num-traits = "=0.2.19"
 num-rational = "=0.4.2"
 ryu = "=1.0.23"
+serde = { version = "=1.0.228", optional = true }
+serde_json = { version = "=1.0.145", features = ["arbitrary_precision"], optional = true }
+
+yaml-rust2 = { version = "=0.13.0", default-features = false, optional = true }
+
+quick-xml = { version = "=0.38.4", optional = true }
+
+sqlx = { version = "=0.8.6", default-features = false, features = ["postgres"], optional = true }
 
 [features]
 default = []
+bson = []
+validation = []
+config = ["serde", "json", "serde_json/raw_value"]
+postgres = ["dep:sqlx"]
+serde = ["dep:serde"]
+json = ["dep:serde_json"]
+yaml = ["dep:yaml-rust2"]
+xml = ["dep:quick-xml"]
+
+[dev-dependencies]
+serde = { version = "=1.0.228", features = ["derive"] }
 
 [workspace]
-members = ["tools/conformance"]
+members = ["tools/conformance", "tools/postgres-tests"]
 resolver = "2"

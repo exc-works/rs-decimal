@@ -27,7 +27,7 @@ def main():
     args = parser.parse_args()
     total = 0
     for path in sorted(Path("testdata/conformance").glob("*.jsonl")):
-        cases = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+        cases = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
         expected = [c.pop("expected_outcome", "ok") for c in cases]
         for c in cases:
             for state in c["inputs"]:
@@ -54,7 +54,7 @@ def main():
         driver.verify_oracle([args.oracle], [dict(c, candidate=r["result"]) for c, r in zip(fuzz, right)], 60)
     except Exception:
         Path(".cache").mkdir(exist_ok=True)
-        Path(".cache/core-fuzz-failure.json").write_text(json.dumps({"cases": fuzz, "go": left, "rust": right}, indent=2))
+        Path(".cache/core-fuzz-failure.json").write_text(json.dumps({"cases": fuzz, "go": left, "rust": right}, indent=2), encoding="utf-8")
         raise
     times = {}
     for name, command in [("go", args.go), ("rust", args.rust)]:
@@ -70,7 +70,7 @@ def main():
               "timing_scope": "512 mixed operations, subprocess startup and JSONL transport included", "timing": times}
     path = Path(args.report)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(report, indent=2)+"\n")
+    path.write_text(json.dumps(report, indent=2)+"\n", encoding="utf-8")
     print(json.dumps(report))
 
 

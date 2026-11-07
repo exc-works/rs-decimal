@@ -53,7 +53,7 @@ def main():
     parser.add_argument("--rust", required=True)
     parser.add_argument("--cases", required=True)
     args = parser.parse_args()
-    cases = [json.loads(line) for line in Path(args.cases).read_text().splitlines() if line.strip()]
+    cases = [json.loads(line) for line in Path(args.cases).read_text(encoding="utf-8").splitlines() if line.strip()]
     cases = [c for c in cases if c["operation"] == "to_float"]
     assert cases, "empty floating oracle selection"
     for c in cases:

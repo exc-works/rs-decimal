@@ -3,14 +3,19 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"encoding/hex"
 	"encoding/json"
+	"encoding/xml"
 	"errors"
 	"fmt"
 	d "github.com/exc-works/decimal"
+	"github.com/go-playground/validator/v10"
+	yaml "github.com/goccy/go-yaml"
 	"io"
 	"math"
 	"math/big"
 	"os"
+	"reflect"
 	"strconv"
 )
 
@@ -27,12 +32,13 @@ type request struct {
 	Params    json.RawMessage `json:"params"`
 }
 type response struct {
-	Version int      `json:"schema_version"`
-	ID      string   `json:"case_id"`
-	Outcome string   `json:"outcome"`
-	Result  any      `json:"result,omitempty"`
-	Inputs  []state  `json:"inputs_after"`
-	Errors  []string `json:"error_kinds"`
+	Receiver any      `json:"receiver_after,omitempty"`
+	Version  int      `json:"schema_version"`
+	ID       string   `json:"case_id"`
+	Outcome  string   `json:"outcome"`
+	Result   any      `json:"result,omitempty"`
+	Inputs   []state  `json:"inputs_after"`
+	Errors   []string `json:"error_kinds"`
 }
 
 func capture(v d.Decimal) state {
@@ -129,6 +135,267 @@ func execute(req request) (r response) {
 		return n
 	}
 	switch req.Operation {
+	case "decode":
+		nullable := params["nullable"] == "true"
+		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		var err error
+		switch {
+		case params["format"] == "sql":
+			var value any
+			switch params["type"] {
+			case "null":
+				value = nil
+			case "i64":
+				value, err = strconv.ParseInt(params["text"], 10, 64)
+			case "f32":
+				var bits uint64
+				bits, err = strconv.ParseUint(params["text"], 16, 32)
+				value = math.Float32frombits(uint32(bits))
+			case "f64":
+				var bits uint64
+				bits, err = strconv.ParseUint(params["text"], 16, 64)
+				value = math.Float64frombits(bits)
+			case "text":
+				value = params["text"]
+			case "bytes":
+				value, err = hex.DecodeString(params["text"])
+			default:
+				value = true
+			}
+			if err != nil {
+				panic(err)
+			}
+			if nullable {
+				err = n.Scan(value)
+			} else {
+				err = n.Decimal.Scan(value)
+			}
+		case params["format"] == "bson":
+			data, e := hex.DecodeString(params["text"])
+			if e != nil {
+				panic(e)
+			}
+			if nullable {
+				err = n.UnmarshalBSONValue(byte(integer("type")), data)
+			} else {
+				err = n.Decimal.UnmarshalBSONValue(byte(integer("type")), data)
+			}
+		case !nullable && params["format"] == "binary":
+			bytes, e := hex.DecodeString(params["text"])
+			if e != nil {
+				panic(e)
+			}
+			err = n.Decimal.UnmarshalBinary(bytes)
+		case nullable && params["format"] == "xml":
+			err = decodeXML(params["text"], &n)
+		case !nullable && params["format"] == "xml":
+			err = decodeXML(params["text"], &n.Decimal)
+		case nullable && params["format"] == "xml_attr":
+			err = n.UnmarshalXMLAttr(xml.Attr{Value: params["text"]})
+		case !nullable && params["format"] == "xml_attr":
+			err = n.Decimal.UnmarshalXMLAttr(xml.Attr{Value: params["text"]})
+		case nullable && params["format"] == "yaml":
+			err = n.UnmarshalYAML(func(target any) error { return yaml.Unmarshal([]byte(params["text"]), target) })
+		case !nullable && params["format"] == "yaml":
+			err = n.Decimal.UnmarshalYAML(func(target any) error { return yaml.Unmarshal([]byte(params["text"]), target) })
+		case nullable && params["format"] == "json":
+			err = n.UnmarshalJSON([]byte(params["text"]))
+		case !nullable && params["format"] == "json":
+			err = n.Decimal.UnmarshalJSON([]byte(params["text"]))
+		case nullable && params["format"] == "text":
+			err = n.UnmarshalText([]byte(params["text"]))
+		case nullable && params["format"] == "param":
+			err = n.UnmarshalParam(params["text"])
+		case !nullable && params["format"] == "text":
+			err = n.Decimal.UnmarshalText([]byte(params["text"]))
+		case !nullable && params["format"] == "param":
+			err = n.Decimal.UnmarshalParam(params["text"])
+		default:
+			panic("unknown decoder")
+		}
+		var valid any
+		if nullable {
+			valid = n.Valid
+		}
+		r.Receiver = map[string]any{"decimal": capture(n.Decimal), "valid": valid}
+		if err != nil {
+			r.Outcome = "error"
+			r.Errors = kinds(err)
+		} else {
+			r.Outcome = "ok"
+			r.Result = r.Receiver
+		}
+	case "config":
+		var value any
+		var err error
+		switch params["type"] {
+		case "null":
+			value = nil
+		case "text":
+			value = params["text"]
+		case "bytes":
+			value, err = hex.DecodeString(params["text"])
+		case "number":
+			value = json.Number(params["text"])
+		case "i64":
+			value, err = strconv.ParseInt(params["text"], 10, 64)
+		case "u64":
+			value, err = strconv.ParseUint(params["text"], 10, 64)
+		case "f32":
+			var bits uint64
+			bits, err = strconv.ParseUint(params["text"], 16, 32)
+			value = math.Float32frombits(uint32(bits))
+		case "f64":
+			var bits uint64
+			bits, err = strconv.ParseUint(params["text"], 16, 64)
+			value = math.Float64frombits(bits)
+		case "decimal":
+			value = values[0]
+		case "nullable":
+			value = d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		default:
+			value = true
+		}
+		if err != nil {
+			panic(err)
+		}
+		var result any
+		if params["nullable"] == "true" {
+			result, err = d.DecodeHook()(reflect.TypeOf(value), reflect.TypeOf(d.NullDecimal{}), value)
+		} else {
+			result, err = d.DecodeHook()(reflect.TypeOf(value), reflect.TypeOf(d.Decimal{}), value)
+		}
+		if err != nil {
+			r.Outcome = "error"
+			r.Errors = kinds(err)
+		} else {
+			r.Outcome = "ok"
+			if params["nullable"] == "true" {
+				n := result.(d.NullDecimal)
+				r.Result = map[string]any{"decimal": capture(n.Decimal), "valid": n.Valid}
+			} else {
+				r.Result = map[string]any{"decimal": capture(result.(d.Decimal)), "valid": nil}
+			}
+		}
+	case "validate":
+		v := validator.New()
+		if err := d.RegisterGoPlaygroundValidator(v); err != nil {
+			panic(err)
+		}
+		tag := params["tag"]
+		if params["parameter"] != "" {
+			tag += "=" + params["parameter"]
+		}
+		r.Outcome = "ok"
+		typ := reflect.StructOf([]reflect.StructField{{Name: "Amount", Type: reflect.TypeOf(d.Decimal{}), Tag: reflect.StructTag(`validate:"` + tag + `"`)}})
+		sample := reflect.New(typ).Elem()
+		sample.Field(0).Set(reflect.ValueOf(values[0]))
+		r.Result = v.Struct(sample.Interface()) == nil
+	case "messages":
+		r.Outcome = "ok"
+		r.Result = d.DefaultGoPlaygroundValidatorTranslationMessages(params["locale"])
+	case "sql_value":
+		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		r.Outcome = "ok"
+		if params["nullable"] == "true" {
+			r.Result, _ = n.Value()
+		} else {
+			r.Result, _ = n.Decimal.Value()
+		}
+		if r.Result == nil {
+			r.Result = json.RawMessage("null")
+		}
+	case "encode_bson":
+		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		var kind byte
+		var data []byte
+		var err error
+		if params["nullable"] == "true" {
+			kind, data, err = n.MarshalBSONValue()
+		} else {
+			kind, data, err = n.Decimal.MarshalBSONValue()
+		}
+		if err != nil {
+			r.Outcome = "error"
+			r.Errors = kinds(err)
+		} else {
+			r.Outcome = "ok"
+			r.Result = map[string]string{"type": strconv.Itoa(int(kind)), "data": hex.EncodeToString(data)}
+		}
+	case "encode_binary":
+		bytes, err := values[0].MarshalBinary()
+		if err != nil {
+			r.Outcome = "error"
+			r.Errors = kinds(err)
+		} else {
+			r.Outcome = "ok"
+			r.Result = hex.EncodeToString(bytes)
+		}
+	case "encode_xml":
+		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		r.Outcome = "ok"
+		if params["format"] == "attribute" {
+			var attr xml.Attr
+			if params["nullable"] == "true" {
+				attr, _ = n.MarshalXMLAttr(xml.Name{Local: "v"})
+			} else {
+				attr, _ = n.Decimal.MarshalXMLAttr(xml.Name{Local: "v"})
+			}
+			if attr.Name.Local == "" {
+				r.Result = json.RawMessage("null")
+			} else {
+				r.Result = attr.Value
+			}
+		} else {
+			var out bytes.Buffer
+			encoder := xml.NewEncoder(&out)
+			start := xml.StartElement{Name: xml.Name{Local: "v"}}
+			if params["nullable"] == "true" {
+				_ = n.MarshalXML(encoder, start)
+			} else {
+				_ = n.Decimal.MarshalXML(encoder, start)
+			}
+			_ = encoder.Flush()
+			r.Result = out.String()
+		}
+	case "encode_yaml":
+		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		var value any
+		if params["nullable"] == "true" {
+			value, _ = n.MarshalYAML()
+		} else {
+			value, _ = n.Decimal.MarshalYAML()
+		}
+		r.Outcome = "ok"
+		if value == nil {
+			r.Result = json.RawMessage("null")
+		} else {
+			r.Result = value
+		}
+	case "encode_json":
+		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		var out []byte
+		if params["nullable"] == "true" {
+			out, _ = n.MarshalJSON()
+		} else {
+			out, _ = n.Decimal.MarshalJSON()
+		}
+		r.Outcome = "ok"
+		r.Result = string(out)
+	case "encode_text":
+		n := d.NullDecimal{Decimal: values[0], Valid: params["valid"] == "true"}
+		var out []byte
+		if params["nullable"] == "true" {
+			if params["format"] == "string" {
+				out = []byte(n.String())
+			} else {
+				out, _ = n.MarshalText()
+			}
+		} else {
+			out, _ = n.Decimal.MarshalText()
+		}
+		r.Outcome = "ok"
+		r.Result = string(out)
 	case "format":
 		format := "%" + params["flags"] + params["width"]
 		if p, ok := params["precision"]; ok {
@@ -398,4 +665,14 @@ func main() {
 			panic(e)
 		}
 	}
+}
+
+// Rust exposes a whole-document convenience method rather than Decoder/StartElement.
+// Normalize errors before the Go hook is entered to the public decoder error kind.
+func decodeXML(source string, value any) error {
+	err := xml.Unmarshal([]byte(source), value)
+	if err != nil && !errors.Is(err, d.ErrUnmarshal) {
+		return fmt.Errorf("%w: %w", d.ErrUnmarshal, err)
+	}
+	return err
 }
