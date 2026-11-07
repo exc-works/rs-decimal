@@ -11,7 +11,7 @@ use std::borrow::Cow;
 impl Decimal {
     // Alignment only increases scale, so it cannot discard digits. Borrow the
     // original coefficient when possible; allocate only for a nonzero shift.
-    fn coefficient_at_scale(&self, scale: usize) -> Cow<'_, BigInt> {
+    pub(crate) fn coefficient_at_scale(&self, scale: usize) -> Cow<'_, BigInt> {
         debug_assert!(scale >= self.scale);
         if scale == self.scale || self.is_zero() {
             Cow::Borrowed(self.raw())

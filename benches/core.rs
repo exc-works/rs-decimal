@@ -38,6 +38,7 @@ fn measure<T>(name: &str, iterations: usize, mut operation: impl FnMut() -> T) {
 fn main() {
     println!("operation,iterations,median_ns,min_ns,max_ns");
     copy_paths();
+    ownership_paths();
     for (name, input, expected) in [
         (
             "parse_money",
@@ -158,5 +159,61 @@ fn copy_paths() {
                 ..Default::default()
             })
         });
+    }
+}
+
+// Both pipelines include the same initial clone to supply an owned input.
+fn ownership_paths() {
+    for digits in [6, 1000] {
+        let coefficient: rs_decimal::BigInt = "7".repeat(digits).parse().unwrap();
+        let start = Decimal::try_from_coefficient(coefficient.clone(), 2).unwrap();
+        let rhs = Decimal::new_with_prec(123, 2);
+        let borrowed = || {
+            start
+                .clone()
+                .add(&rhs)
+                .sub(&rhs)
+                .rescale(2, RoundingMode::Unnecessary)
+        };
+        let owned = || {
+            start
+                .clone()
+                .add_owned(&rhs)
+                .sub_owned(&rhs)
+                .into_rescaled(2, RoundingMode::Unnecessary)
+        };
+        for result in [borrowed(), owned()] {
+            assert_eq!(result.coefficient(), &coefficient);
+            assert_eq!(result.scale(), 2);
+            assert!(!result.is_nil());
+        }
+        measure(&format!("pipeline_borrowed_{digits}"), 1000, || {
+            black_box(&start)
+                .clone()
+                .add(black_box(&rhs))
+                .sub(black_box(&rhs))
+                .rescale(2, RoundingMode::Unnecessary)
+        });
+        measure(&format!("pipeline_owned_{digits}"), 1000, || {
+            black_box(&start)
+                .clone()
+                .add_owned(black_box(&rhs))
+                .sub_owned(black_box(&rhs))
+                .into_rescaled(2, RoundingMode::Unnecessary)
+        });
+        assert_eq!(start.big_int(), *start.coefficient());
+        assert_eq!(start.clone().into_coefficient(), coefficient);
+        measure(&format!("coefficient_copy_{digits}"), 1000, || {
+            black_box(&start).big_int()
+        });
+        measure(&format!("coefficient_borrow_{digits}"), 1000, || {
+            black_box(&start).coefficient()
+        });
+        // Includes cloning the input; the move itself does not copy digits.
+        measure(
+            &format!("coefficient_clone_then_move_{digits}"),
+            1000,
+            || black_box(&start).clone().into_coefficient(),
+        );
     }
 }
