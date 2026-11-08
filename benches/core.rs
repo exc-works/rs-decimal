@@ -37,6 +37,7 @@ fn measure<T>(name: &str, iterations: usize, mut operation: impl FnMut() -> T) {
 
 fn main() {
     println!("operation,iterations,median_ns,min_ns,max_ns");
+    copy_paths();
     for (name, input, expected) in [
         (
             "parse_money",
@@ -88,4 +89,74 @@ fn main() {
     let large: Decimal = ("9".repeat(1000) + ".12300").parse().unwrap();
     assert_eq!(large.string(), "9".repeat(1000) + ".123");
     measure("format_large", 20_000, || black_box(&large).string());
+}
+
+// Identical inputs can also run on the pre-optimization library.
+fn copy_paths() {
+    for digits in [6, 1000] {
+        let coefficient: rs_decimal::BigInt = "7".repeat(digits).parse().unwrap();
+        let a = Decimal::new_from_big_int_with_prec(&coefficient, 2);
+        let b = Decimal::new_with_prec(123, 2);
+        assert_eq!(a.safe_add(&b).big_int(), &coefficient + 123);
+        assert_eq!(a.safe_sub(&b).big_int(), &coefficient - 123);
+        measure(&format!("safe_add_{digits}"), 1000, || {
+            black_box(&a).safe_add(black_box(&b))
+        });
+        measure(&format!("safe_sub_{digits}"), 1000, || {
+            black_box(&a).safe_sub(black_box(&b))
+        });
+        let lower = Decimal::new_from_big_int_with_prec(&coefficient, 0);
+        for (order, left, right) in [("left", &lower, &a), ("right", &a, &lower)] {
+            let aligned_left =
+                left.big_int() * rs_decimal::BigInt::from(10).pow((2 - left.precision()) as u32);
+            let aligned_right =
+                right.big_int() * rs_decimal::BigInt::from(10).pow((2 - right.precision()) as u32);
+            assert_eq!(left.add(right).big_int(), &aligned_left + &aligned_right);
+            assert_eq!(left.sub(right).big_int(), &aligned_left - &aligned_right);
+            measure(&format!("mixed_add_{order}_{digits}"), 1000, || {
+                black_box(left).add(black_box(right))
+            });
+            measure(&format!("mixed_sub_{order}_{digits}"), 1000, || {
+                black_box(left).sub(black_box(right))
+            });
+        }
+        for (shift, scale) in [("positive", 0), ("zero", 2), ("negative", 4)] {
+            let numerator = Decimal::new_from_big_int_with_prec(&coefficient, scale);
+            let divisor = Decimal::new(3);
+            let factor = rs_decimal::BigInt::from(10).pow(scale.abs_diff(2) as u32);
+            let expected = if scale <= 2 {
+                (&coefficient * factor) / 3
+            } else {
+                &coefficient / (factor * 3)
+            };
+            assert_eq!(
+                numerator
+                    .quo_with_prec(&divisor, 2, RoundingMode::Down)
+                    .big_int(),
+                expected
+            );
+            measure(&format!("divide_{shift}_{digits}"), 1000, || {
+                black_box(&numerator).quo_with_prec(black_box(&divisor), 2, RoundingMode::Down)
+            });
+        }
+        let negative = a.neg();
+        let expected_text = format!("-{}.{}", "7".repeat(digits - 2), "77");
+        assert_eq!(negative.string(), expected_text);
+        measure(&format!("format_negative_{digits}"), 1000, || {
+            black_box(&negative).string()
+        });
+        let scientific = negative.format_go(rs_decimal::GoFormat {
+            verb: 'e',
+            precision: Some(2),
+            ..Default::default()
+        });
+        assert_eq!(scientific, format!("-7.78e+{:02}", digits - 3));
+        measure(&format!("format_scientific_{digits}"), 1000, || {
+            black_box(&negative).format_go(rs_decimal::GoFormat {
+                verb: 'e',
+                precision: Some(2),
+                ..Default::default()
+            })
+        });
+    }
 }

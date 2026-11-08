@@ -198,7 +198,7 @@ impl Decimal {
         if self.is_zero() {
             return Self::from_parts(self.raw().clone(), self.scale);
         }
-        let digits = self.raw().abs().to_string().len();
+        let digits = self.raw().magnitude().to_string().len();
         let target = figures as i128 - digits as i128 + self.scale as i128;
         if target >= self.scale as i128 {
             return self.clone();

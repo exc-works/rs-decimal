@@ -120,3 +120,95 @@ fn zero_divisor_is_checked_before_extreme_scale_alignment() {
     assert_eq!(divisor.precision(), isize::MAX);
     assert_eq!(a.big_int(), BigInt::from(1));
 }
+
+#[test]
+fn aligned_add_sub_preserve_full_state_and_inputs() {
+    let mut values = vec![Decimal::default()];
+    for scale in [0, 2, 5] {
+        for c in [-100001, -123, 0, 123, 100001] {
+            values.push(Decimal::new_with_prec(c, scale));
+        }
+        let c: BigInt = "99999999999999999999999999999999999999999999999999"
+            .parse()
+            .unwrap();
+        values.push(Decimal::new_from_big_int_with_prec(&c, scale));
+        values.push(Decimal::new_from_big_int_with_prec(&-c, scale));
+    }
+    let state = |d: &Decimal| (d.big_int(), d.precision(), d.is_nil());
+    for a in &values {
+        for b in &values {
+            let before = (state(a), state(b));
+            for (result, expected) in [(a.add(b), rat(a) + rat(b)), (a.sub(b), rat(a) - rat(b))] {
+                assert_eq!(rat(&result), expected);
+                assert_eq!(result.precision(), a.precision().max(b.precision()));
+                assert!(!result.is_nil());
+            }
+            assert_eq!((state(a), state(b)), before);
+        }
+    }
+}
+
+#[test]
+fn safe_arithmetic_keeps_state_and_assertion_payload() {
+    let nil = Decimal::default();
+    let zero = Decimal::new_with_prec(0, 5);
+    for result in [nil.safe_add(&zero), nil.safe_sub(&zero)] {
+        assert!(result.is_zero());
+        assert!(!result.is_nil());
+        assert_eq!(result.precision(), 5);
+    }
+    assert!(nil.is_nil());
+    for result in [
+        Decimal::new(2).safe_add(&Decimal::new(1)),
+        Decimal::new(4).safe_sub(&Decimal::new(1)),
+    ] {
+        assert_eq!(result.big_int(), BigInt::from(3));
+    }
+    for failure in [
+        std::panic::catch_unwind(|| Decimal::new(-2).safe_add(&Decimal::new(1))),
+        std::panic::catch_unwind(|| Decimal::new(1).safe_sub(&Decimal::new(2))),
+    ] {
+        let payload = failure.unwrap_err();
+        let message = payload
+            .downcast_ref::<&str>()
+            .copied()
+            .or_else(|| payload.downcast_ref::<String>().map(String::as_str));
+        assert_eq!(message, Some("Negative value"));
+    }
+}
+
+#[test]
+fn division_shift_branches_preserve_inputs_and_exactness() {
+    for (a_scale, b_scale, p) in [(0, 2, 2), (2, 0, 2), (5, 0, 2)] {
+        for sign in [-1, 1] {
+            let a = Decimal::new_with_prec(12345, a_scale);
+            let b = Decimal::new_with_prec(sign * 8, b_scale);
+            for mode in [
+                M::Down,
+                M::Up,
+                M::Ceiling,
+                M::HalfUp,
+                M::HalfDown,
+                M::HalfEven,
+            ] {
+                let result = a.quo_with_prec(&b, p, mode);
+                let expected =
+                    Decimal::new_from_big_rat_with_prec(&(rat(&a) / rat(&b)), p, mode).unwrap();
+                assert_eq!(result.big_int(), expected.big_int());
+                assert_eq!(result.precision(), p);
+                assert!(!result.is_nil());
+            }
+            assert_eq!(a.big_int(), BigInt::from(12345));
+            assert_eq!(b.big_int(), BigInt::from(sign * 8));
+        }
+    }
+    for (a_scale, b_scale, p) in [(0, 2, 2), (2, 0, 2), (3, 0, 2)] {
+        let a = Decimal::new_with_prec(8000, a_scale);
+        let result = a.quo_with_prec(&Decimal::new_with_prec(-8, b_scale), p, M::Unnecessary);
+        assert_eq!(
+            rat(&result),
+            rat(&a) / rat(&Decimal::new_with_prec(-8, b_scale))
+        );
+        assert_eq!(result.precision(), p);
+    }
+}
