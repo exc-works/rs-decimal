@@ -1,19 +1,19 @@
-# Alpha 发布流程
+# Alpha release process
 
-当前版本为 `0.1.0-alpha.1`，尚未发布。先将堆叠 PR 自底向上合并；每次合并前把下一层 base 改为 main，确认最终 main 包含所有层，再以该提交进行发布验证。
+The current version is `0.1.0-alpha.1` and has not yet been published. Merge stacked PRs from the bottom up, retargeting the next layer's base to main before each merge. Confirm that the final main includes every layer, then run release validation against that commit.
 
-## 验证候选提交
+## Validate the candidate commit
 
-1. 确认工作区干净、版本与 CHANGELOG 一致，CI 的 MSRV/stable、32/64 位差分、macOS/Windows、PostgreSQL 和文档检查全部通过。
-2. 运行 `python3 tools/check-release-matrix.py`、全量差分和独立 oracle；手动运行扩展随机工作流，保存 seed 与结果工件。
-3. 执行 `cargo doc --locked -p rs-decimal --all-features --no-deps` 和 `cargo test --locked -p rs-decimal --all-features --doc`。docs.rs 设置 all-features，所有可选入口都出现在文档中。
-4. 执行 `cargo package --locked --list` 检查发布内容，然后 `cargo publish --locked -p rs-decimal --dry-run --all-features --registry crates-io`。测试解包产物及 examples/configuration.rs，避免仓库相对路径依赖。
-5. 执行 `python3 tools/check-consumer.py`，以无锁文件的独立 edition 2024 消费者验证依赖解析和全 feature；MSRV CI 用 Rust 1.85 执行同一命令。消费者使用 Cargo resolver 3 的 Rust 版本兼容解析。
+1. Confirm that the working tree is clean, the version matches the CHANGELOG, and CI passes MSRV/stable, 32/64-bit differential, macOS/Windows, PostgreSQL, and documentation checks.
+2. Run `python3 tools/check-release-matrix.py`, the full differential suite, and the independent oracle. Trigger the extended randomized workflow manually and save the seed and result artifacts.
+3. Run `cargo doc --locked -p rs-decimal --all-features --no-deps` and `cargo test --locked -p rs-decimal --all-features --doc`. docs.rs uses all-features so that every optional entry point appears in the documentation.
+4. Run `cargo package --locked --list` to inspect package contents, followed by `cargo publish --locked -p rs-decimal --dry-run --all-features --registry crates-io`. Test the unpacked artifact and examples/configuration.rs to catch dependencies on repository-relative paths.
+5. Run `python3 tools/check-consumer.py` to validate dependency resolution and all features using a standalone edition 2024 consumer without a lockfile. MSRV CI runs the same command with Rust 1.85. The consumer uses Cargo resolver 3 with Rust-version-aware dependency resolution.
 
-## 经维护者决定后发布
+## Publish after a maintainer's decision
 
-重新查询 crates.io 的 rs-decimal 名称和发布账号权限；dry-run 不能预留名称或证明上传权限。确定源码提交和发布说明后，再发布并给相同提交创建 `v0.1.0-alpha.1` 标签/GitHub Release。不要把凭据写入仓库，不从未经验证的堆叠分支发布。当前 CI 只验证，不执行上传。
+Recheck the rs-decimal name on crates.io and the publishing account's permissions. A dry run neither reserves the name nor proves upload permissions. After selecting the source commit and release notes, publish and create the `v0.1.0-alpha.1` tag/GitHub Release at the same commit. Do not commit credentials or publish from unvalidated stacked branches. Current CI validates only; it does not upload.
 
-依据：[Cargo 发布文档](https://doc.rust-lang.org/cargo/reference/publishing.html)、[docs.rs 元数据](https://docs.rs/about/metadata)。
+References: [Cargo publishing documentation](https://doc.rust-lang.org/cargo/reference/publishing.html), [docs.rs metadata](https://docs.rs/about/metadata).
 
-2026-11-07 公开名称检查：crates.io API 对 rs-decimal 返回 404（当时未注册）；这不是名称预留，也不能证明任何账号的上传权限。
+Public name check on 2026-11-07: the crates.io API returned 404 for rs-decimal (unregistered at that time). This does not reserve the name or establish any account's upload permissions.

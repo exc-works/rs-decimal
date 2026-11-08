@@ -9,7 +9,11 @@ rows = [line.strip("| ").split(" | ") for line in (root / "docs/api-compatibilit
 assert {r[0].strip("`") for r in rows} == inventory
 for row in rows:
     assert len(row) == 9, row
-    assert row[8] == "已验证", row
-    assert all("待设计" not in value and "待实现" not in value and "未开始" not in value for value in row), row
+    assert row[8] == "Verified", row
+    assert all(
+        pending not in value.lower()
+        for value in row
+        for pending in ("design pending", "implementation pending", "not started")
+    ), row
     assert row[1].strip() and row[5].strip() and row[6].strip() and row[7].strip(), row
 print(f"{len(rows)} verified entries; no deferred APIs")

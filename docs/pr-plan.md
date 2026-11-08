@@ -1,145 +1,145 @@
-# rs-decimal PR 拆分
+# rs-decimal PR plan
 
-以下编号为堆叠 PR 计划。编号为执行顺序和依赖标识，各 PR 合并时更新公共 API 兼容矩阵与测试覆盖状态。完整目标见 [实现计划](implementation-plan.md)，接口细节见 [技术方案](technical-design.md)。
+The numbers below define the stacked PR plan, execution order, and dependencies. Update the public API compatibility matrix and test-coverage status as each PR merges. See the [implementation plan](implementation-plan.md) for overall goals and the [technical design](technical-design.md) for interface details.
 
-## PR 01 工程与兼容基线
+## PR 01 Project setup and compatibility baseline
 
-依赖：无。建议标题：`chore: establish Rust crate and Go compatibility baseline`。
+Dependencies: none. Suggested title: `chore: establish Rust crate and Go compatibility baseline`.
 
-交付 Cargo 骨架、模块目录、基础 CI、MIT 许可及来源说明、固定 Go SHA、源契约与 fixtures 清单。导出 Go 公共 API 清单，记录 Rust 入口、返回类型、错误、scale、PR 归属；覆盖 SafeAdd/SafeSub、AppendText、MostSignificantBit 和框架辅助函数等容易遗漏项。无对应 Rust 接口的项目明确映射或延后。
+Deliver the Cargo skeleton, module directories, basic CI, MIT license and provenance notes, pinned Go SHA, source contracts, and fixture inventory. Export the public Go API inventory and record Rust entry points, return types, errors, scale, and owning PRs. Include easily missed items such as SafeAdd/SafeSub, AppendText, MostSignificantBit, and framework helpers. Explicitly map or defer items without a corresponding Rust interface.
 
-兼容矩阵落在 `docs/api-compatibility.md`，字段与状态规则遵循技术方案的“API 兼容矩阵”。用 Go 语法树导出包含 BSON 条件入口的全部公共声明，对照稳定 API ID 检查缺失、重复和未知项；每项明确交付层次、PR 与处理方式。具体签名和测试尚待设计时保留显式状态，不能提前标成已兼容。
+Store the matrix in `docs/api-compatibility.md`, following the fields and status rules in the technical design's “API compatibility matrix” section. Export all public declarations, including conditional BSON entry points, through the Go AST. Check stable API IDs for missing, duplicate, and unknown entries; give each item a delivery tier, PR, and treatment. If concrete signatures and tests still need design, retain an explicit status rather than marking them compatible prematurely.
 
-验收：cargo check/test、fmt、Clippy 通过；SHA 与文件校验和匹配；API 清单无漏项；确认依赖兼容性和暂定 MSRV；Git 作者与提交者均为 Skywalker Luke 指定身份。
+Acceptance: cargo check/test, fmt, and Clippy pass; SHA and file checksums match; the API inventory is complete; dependency compatibility and provisional MSRV are confirmed; both Git author and committer use the designated Skywalker Luke identity.
 
-## PR 02 差分执行基础
+## PR 02 Differential execution infrastructure
 
-依赖：01。建议标题：`test: add versioned Go and Rust conformance protocol`。
+Dependencies: 01. Suggested title: `test: add versioned Go and Rust conformance protocol`.
 
-交付 JSONL 协议、Go 参考程序、Rust 执行器框架、调度脚本、完整状态比较器、panic/error 分类和回归存储。Go 参考依赖固定 SHA，开发 checkout 路径可配置，CI 不依赖本机 ../decimal。
+Deliver the JSONL protocol, Go reference program, Rust executor framework, driver scripts, complete-state comparator, panic/error classification, and regression storage. Pin the Go reference dependency to the SHA; make the development checkout path configurable so CI does not depend on a local ../decimal.
 
-同时建立 `tools/go-oracle/` 独立模块与候选结果验证协议，以最小精确有理数案例跑通进程。按技术方案记录抽取来源，移除 testing.T 和生产 Decimal 依赖；正确候选必须通过，错误系数/scale/初始化状态必须失败，unsupported/uncertified 不得计为通过。后续数学 PR 逐步增加对应证书，不能把独立验证全部留到 PR 14。
+Also establish the separate `tools/go-oracle/` module and candidate-verification protocol, exercising the process with a minimal exact-rational case. Record extraction provenance as specified in the technical design and remove testing.T and production Decimal dependencies. Correct candidates must pass; incorrect coefficients, scales, or initialization states must fail; unsupported/uncertified cannot count as passes. Subsequent mathematical PRs add their certificates incrementally rather than deferring all independent verification to PR 14.
 
-验收：协议 schema 与 round-trip 测试；故意制造数值、scale、状态、错误类型差异时均检测失败；超时和进程异常不被当作成功。尚未实现的操作显式报告 unsupported，不能以空成功结果占位，也不能将其计为兼容通过。
+Acceptance: protocol schema and round-trip tests pass; deliberately introduced differences in value, scale, state, and error type are detected; timeouts and process failures never count as success. Unimplemented operations explicitly report unsupported instead of returning empty success placeholders or counting as compatible.
 
-## PR 03 类型与构造
+## PR 03 Types and construction
 
-依赖：02。建议标题：`feat: port decimal representation parsing and comparison`。
+Dependencies: 02. Suggested title: `feat: port decimal representation parsing and comparison`.
 
-交付 Decimal、NullDecimal 状态结构、ErrorKind、基础构造、精确字符串解析、Clone、符号与状态检查、比较、Min/Max。初步紧凑输出只供验证，完整格式在 PR 10a。
+Deliver Decimal and NullDecimal state structures, ErrorKind, basic constructors, exact string parsing, Clone, sign/state inspection, comparison, and Min/Max. Initial compact output is for validation only; complete formatting follows in PR 10a.
 
-验收：未初始化与初始化零、零解析归一化、尾零、科学记数、非法输入、解析边界；相等值不同表示；Min/Max 相等时保留第一项；比较大 scale 不无谓展开；访问器副本不泄漏内部可变状态。
+Acceptance: cover uninitialized/initialized zero, parsed-zero normalization, trailing zeros, scientific notation, invalid inputs, and parsing boundaries; equal values with different representations; Min/Max retaining the first item on equality; comparisons at large scale without unnecessary expansion; and accessor copies that do not expose internal mutable state.
 
-## PR 04 舍入与 scale
+## PR 04 Rounding and scale
 
-依赖：03。建议标题：`feat: port exact rounding and scale operations`。
+Dependencies: 03. Suggested title: `feat: port exact rounding and scale operations`.
 
-交付整数辅助层、七种舍入、Rescale 系列、Shift、Floor/Ceil/Truncate/Round、StripTrailingZeros、SignificantFigures。
+Deliver integer helpers, seven rounding modes, the Rescale family, Shift, Floor/Ceil/Truncate/Round, StripTrailingZeros, and SignificantFigures.
 
-验收：精确有理数 oracle 覆盖正负中点、奇偶、方向、Unnecessary；保留目标 scale 和零状态；原始模式转换的非法值失败；scale 溢出在 debug/release 一致。检查不能补尾零的 SignificantFigures 规则。
+Acceptance: exact-rational oracle coverage for positive/negative midpoints, parity, direction, and Unnecessary; target scale and zero state preserved; invalid raw-mode conversions fail; scale overflow behaves identically in debug/release. Check that SignificantFigures does not pad trailing zeros.
 
-## PR 05 基础算术与幂
+## PR 05 Basic arithmetic and powers
 
-依赖：04。建议标题：`feat: port arithmetic with single final rounding`。
+Dependencies: 04. Suggested title: `feat: port arithmetic with single final rounding`.
 
-交付 Add/Sub/Raw/Safe、Mul/MulExact/MulWithPrec、Quo/QuoWithPrec、QuoRem/Mod、Power、整数部分和余数检查。
+Deliver Add/Sub/Raw/Safe, Mul/MulExact/MulWithPrec, Quo/QuoWithPrec, QuoRem/Mod, Power, integer parts, and remainder checks.
 
-验收：全部模式的有理数验证与随机差分；二次舍入反例；除数符号；0^0、负幂、最小指数、精确中间边界；默认 scale；Safe 方法非负断言；所有输入不变。至少一组极端 scale 快路径回归。
+Acceptance: rational validation and randomized differential tests for all modes; double-rounding counterexamples; divisor signs; 0^0, negative powers, minimum exponent, and exact-intermediate boundaries; default scale; nonnegative assertions in Safe methods; and unchanged inputs. Include at least one regression for an extreme-scale fast path.
 
-## PR 06 整数有理数与浮点转换
+## PR 06 Integer, rational, and floating-point conversions
 
-依赖：05。建议标题：`feat: preserve exact conversion and floating point boundaries`。
+Dependencies: 05. Suggested title: `feat: preserve exact conversion and floating point boundaries`.
 
-交付 BigInt/BigRat、整数范围与 exact 标志、浮点最短文本输入、f32/f64 正确舍入输出。
+Deliver BigInt/BigRat, integer ranges and exact flags, shortest-decimal floating-point input, and correctly rounded f32/f64 output.
 
-验收：2^24/2^53 邻域、二进制中点、次正规数、最大有限数、溢出、带符号零、NaN/Infinity；f32 单次舍入；随机浮点位模式与大整数比的 oracle；终止/非终止有理数、输入不变。exact=false 的有效转换不能误判为失败。
+Acceptance: cover neighborhoods of 2^24/2^53, binary midpoints, subnormals, largest finite values, overflow, signed zero, and NaN/Infinity; single rounding to f32; random float bit patterns and an oracle for large-integer ratios; terminating/nonterminating rationals; and unchanged inputs. Valid conversions with exact=false must not be mistaken for failures.
 
-## PR 07 根的精确舍入
+## PR 07 Exact rounding of roots
 
-依赖：06。建议标题：`feat: port certified square and integer roots`。
+Dependencies: 06. Suggested title: `feat: port certified square and integer roots`.
 
-交付整数根上界、Newton、精确中点比较、Sqrt/ApproxRoot 与 WithPrec，保留预算和错误顺序。
+Deliver integer-root upper bounds, Newton iteration, exact midpoint comparisons, Sqrt/ApproxRoot and WithPrec variants, preserving budgets and error order.
 
-验收：独立舍入单元证书；负奇数根、负偶数根；Sqrt/ApproxRoot 默认 scale 为 `max(input scale, 20)`，各覆盖输入 scale 为 0、20、30，与相同目标的 WithPrec 比较完整结果；WithPrec 另测 p=0、低于及高于输入 scale；高次根与预算边界；401 次、500 次根回归；根相关 must-succeed 全部成功。抽取 Go 根 oracle 后验证 Rust 候选，并拒绝篡改结果。
+Acceptance: independent rounding-cell certificates; negative odd/even roots; default Sqrt/ApproxRoot scale of `max(input scale, 20)`, each tested at input scales 0, 20, and 30 against WithPrec at the same target, comparing complete results. Separately test WithPrec at p=0, below input scale, and above input scale; high-degree roots and budget boundaries; 401st- and 500th-root regressions; and success for every root must-succeed case. Extract the Go root oracle to verify Rust candidates and reject altered results.
 
-## PR 08 区间原语与 Ziv 驱动
+## PR 08 Interval primitives and Ziv driver
 
-依赖：04。建议标题：`feat: add outward intervals and rounding certification`。
+Dependencies: 04. Suggested title: `feat: add outward intervals and rounding certification`.
 
-交付 fraction、乘除、整数乘数、倒数所需原语、二进制定向缩放、端点舍入和 guard 增长。保持内部 API，不提前暴露不完整数学函数。
+Deliver primitives for fractions, multiplication/division, integer multipliers, reciprocals, directed binary scaling, endpoint rounding, and guard growth. Keep the API internal without exposing incomplete mathematical functions.
 
-验收：精确有理数证明样本包含关系；负数和跨零区间；缓冲区不污染输入；强制精度重试案例；区间跨舍入边界时必须拒绝；预算耗尽不能返回近似成功。
+Acceptance: exact-rational proof samples establish enclosure; negative and zero-crossing intervals; buffers do not corrupt inputs; forced precision retries; intervals crossing rounding boundaries must be rejected; and budget exhaustion cannot return approximate success.
 
-## PR 09 对数和指数
+## PR 09 Logarithms and exponential
 
-依赖：06、08。建议标题：`feat: port certified logarithms and exponential`。
+Dependencies: 06, 08. Suggested title: `feat: port certified logarithms and exponential`.
 
-交付 Ln/Log2/Log10/Exp 及全部 WithPrec，保留精确快路径、参数归约、余项界与错误/panic 形态。若 diff 过大，拆成 09a 对数、09b 指数，两者各有独立验证。
+Deliver Ln/Log2/Log10/Exp and all WithPrec variants, retaining exact fast paths, argument reduction, remainder bounds, and error/panic forms. If the diff is too large, split into 09a logarithms and 09b exponential, each independently validated.
 
-验收：抽取的严格有理区间 oracle 验证 Rust 候选并拒绝篡改结果；Ln/Log2/Log10/Exp 默认 scale 为 `max(input scale, 20)`，各覆盖输入 scale 为 0、20、30，与相同目标的 WithPrec 比较完整结果；WithPrec 另测 p=0、低于及高于输入 scale；接近 1、2 的幂两侧、舍入跃迁两侧、大负指数；多精度差分；PR 07 和本 PR 均完成后全量运行固定 45 个 must-succeed 用例及独立证书；返回 NoConvergence 不能代替承诺成功。
+Acceptance: the extracted rigorous rational-interval oracle verifies Rust candidates and rejects mutations. Default Ln/Log2/Log10/Exp scale is `max(input scale, 20)`; test each at input scales 0, 20, and 30 against WithPrec at the same target, comparing complete results. Separately test WithPrec at p=0, below/above input scale; values near 1, on either side of powers of 2 and rounding transitions, and large negative exponents; and multiple precisions. Once both PR 07 and this PR are complete, run all 45 fixed must-succeed cases and independent certificates. NoConvergence cannot substitute for promised success.
 
-## PR 10a 格式化
+## PR 10a Formatting
 
-依赖：05。建议标题：`feat: preserve decimal formatting behavior`。
+Dependencies: 05. Suggested title: `feat: preserve decimal formatting behavior`.
 
-交付 Decimal 紧凑与尾零输出、AppendText、分隔符格式、Go 格式兼容入口、Display 文档。
+Deliver compact and trailing-zero Decimal output, AppendText, separator formatting, the Go-compatible formatting entry point, and Display documentation.
 
-验收：宽度、符号、精度、#、f/e/E/g/G 及现有其他 verb 清单；%g 舍入进位后选记数法；科学格式的大 scale 不展开零；AppendText 行为；全部格式不变更输入。
+Acceptance: width, sign, precision, #, f/e/E/g/G, and all other existing verbs; %g choosing notation after rounding carry; scientific notation without expanding zeros at large scale; AppendText behavior; and unchanged inputs for all formatting operations.
 
-PR 01—09 和 10a 均完成后执行实现计划中的核心预览退出门槛，提前完成范围内的架构、构建模式、oracle、打包和文档检查。此检查点不依赖 10b—13，不自动发布 crate。
+After PRs 01–09 and 10a are complete, run the core preview exit gates in the implementation plan, completing architecture, build-mode, oracle, packaging, and documentation checks within that scope. This checkpoint does not depend on 10b–13 and does not automatically publish the crate.
 
-## PR 10b 文本协议与空值
+## PR 10b Text protocols and null values
 
-依赖：10a。建议标题：`feat: preserve Text and Param decoding states`。
+Dependencies: 10a. Suggested title: `feat: preserve Text and Param decoding states`.
 
-交付 Decimal/NullDecimal 的 Text/Param 入口及 NullDecimal.String，明确空值规则与原地更新语义。
+Deliver Decimal/NullDecimal Text/Param entry points and NullDecimal.String, explicitly documenting null rules and in-place update semantics.
 
-验收：空文本与空白的差异；有效/无效 NullDecimal 和内部未初始化状态；成功状态转移、失败原子性；编码不修改输入。完整格式化验收沿用 10a。
+Acceptance: distinguish empty text from whitespace; valid/invalid NullDecimal and internal uninitialized state; successful state transitions; failure atomicity; and encoding without input mutation. Complete formatting acceptance remains covered by 10a.
 
-## PR 11 JSON Serde 与空值
+## PR 11 JSON, Serde, and null values
 
-依赖：06、10b。建议标题：`feat: add JSON compatibility and Serde adapters`。
+Dependencies: 06, 10b. Suggested title: `feat: add JSON compatibility and Serde adapters`.
 
-交付 JSON 原文数字解析、字符串编码、Decimal/NullDecimal 原地更新、Serde 对应适配和差异说明。serde/json 功能边界清晰。
+Deliver raw JSON number parsing, string encoding, Decimal/NullDecimal in-place updates, corresponding Serde adapters, and documented differences. Clearly separate serde/json feature boundaries.
 
-验收：大于二进制浮点精度的数值 token 不丢位；null、空字符串、缺失字段与不同接收者初态；valid=true 且内部未初始化编码为有效零；所有失败保持状态；通用 Deserialize 与原地入口分别测试。
+Acceptance: number tokens beyond binary floating-point precision retain every digit; null, empty strings, missing fields, and different initial receiver states; valid=true with an uninitialized inner value encodes as valid zero; all failures preserve state; and generic Deserialize and in-place entry points are tested separately.
 
-## PR 12 Go 二进制互通
+## PR 12 Go binary interoperability
 
-依赖：04、10a。建议标题：`feat: support Go decimal binary encoding`。
+Dependencies: 04, 10a. Suggested title: `feat: support Go decimal binary encoding`.
 
-交付 precision 前缀、big.Int Gob 载荷编码解码、Go 生成金样本和 Rust 反向编码样本。
+Deliver precision-prefix and big.Int Gob payload encoding/decoding, Go-generated golden samples, and samples encoded by Rust for the reverse direction.
 
-验收：Go encode→Rust decode 和 Rust encode→Go decode；规范编码字节一致；去尾零、未初始化、空 bytes、错误版本、截断、precision 上限与失败原子性；32 位执行验证转换顺序。
+Acceptance: Go encode→Rust decode and Rust encode→Go decode; identical canonical encoding bytes; trailing-zero removal, uninitialized values, empty bytes, invalid versions, truncation, precision limits, and failure atomicity; plus 32-bit execution verifying conversion order.
 
-## PR 13 YAML XML BSON 与通用扫描
+## PR 13 YAML, XML, BSON, and generic scanning
 
-依赖：11。建议拆为四个可分别审查的 PR：13a YAML、13b XML、13c BSON、13d Scan/Value。
+Dependencies: 11. Suggested split: four separately reviewable PRs, 13a YAML, 13b XML, 13c BSON, and 13d Scan/Value.
 
-交付原文/引号/tag 语义、XML 元素与属性、BSON String/Double/Int32/Int64/Decimal128/Null、Scan 输入枚举和输出规则。通用扫描不是某个数据库驱动的完成声明。
+Deliver raw-text/quote/tag semantics, XML elements and attributes, BSON String/Double/Int32/Int64/Decimal128/Null, a Scan input enum, and output rules. Generic scanning does not claim completion of any specific database driver.
 
-验收：复用 yaml_scalars；八进制、十六进制、带引号数字；XML 空白；BSON Decimal128 有限与特殊值；各入口 null 差异；所有失败原子性；单独启用各功能可编译和通过测试。
+Acceptance: reuse yaml_scalars; test octal, hexadecimal, and quoted numbers; XML whitespace; finite/special BSON Decimal128 values; null differences between entry points; failure atomicity everywhere; and compilation/tests with each feature enabled individually.
 
-## PR 14 发布候选验证
+## PR 14 Release candidate validation
 
-依赖：01—13 全部完成（含 10a、10b）。这是协议兼容版的发布候选，不是核心预览的前置条件。建议标题：`test: enforce cross-language release compatibility gates`。
+Dependencies: all of 01–13, including 10a and 10b. This is the protocol-compatible release candidate, not a prerequisite for the core preview. Suggested title: `test: enforce cross-language release compatibility gates`.
 
-交付完整 API 状态矩阵、跨平台 CI、长期 fuzz 任务配置、独立 oracle 和回归报告、同语义性能基线、使用文档、包内容检查、版本与 MSRV 声明。
+Deliver the complete API status matrix, cross-platform CI, extended fuzz-job configuration, independent oracle and regression reports, performance baselines with matching semantics, usage documentation, package-content checks, version declaration, and MSRV declaration.
 
-验收：所有承诺方法和 must-succeed 全通过；无未解释差分；debug/release 和实际运行的 32/64 位配对；默认/单独/全特性；cargo package 可在隔离目录验证。性能结论有结果核对和测量证据。本 PR 不自动执行 cargo publish。
+Acceptance: all promised methods and must-succeed cases pass; no unexplained differential mismatches; debug/release and actually executed 32/64-bit pairings; default/individual/all-feature combinations; and cargo package validation in an isolated directory. Performance conclusions require checked results and measurement evidence. This PR does not automatically run cargo publish.
 
-## PR 15 后续生态集成
+## PR 15 Subsequent ecosystem integrations
 
-依赖：14；可在核心稳定后提前准备，但不阻塞数值核心预览。
+Dependencies: 14. Preparation may begin once the core stabilizes, but does not block the numerical core preview.
 
-按用户实际采用的数据库和 Web/配置框架选择适配对象，每个驱动或框架单独 PR。优先提供一个数据库实现和精确数值验证辅助层，再扩展配置解码与翻译消息。不要一次承诺所有 Rust 框架。
+Choose adapters based on the databases and Web/configuration frameworks the user actually adopts, with a separate PR for each driver or framework. Prioritize one database implementation and exact numerical validation helpers, then extend configuration decoding and translated messages. Do not commit to every Rust framework at once.
 
-验收：真实数据库往返及 NULL、精度、拒绝范围测试；验证器不经浮点比较；配置解码保留数字原文。旧 Go 框架辅助 API 的每一项在矩阵中有明确去向。未来新增适配器不修改数值核心语义。
+Acceptance: live database round trips, NULL, precision, and out-of-range rejection tests; validation without floating-point comparisons; configuration decoding that preserves raw number text; and an explicit destination in the matrix for every legacy Go framework helper API. Future adapters must not change numerical-core semantics.
 
-## 依赖与审查约定
+## Dependencies and review conventions
 
-主线为 01→02→03→04→05→06→07；08 在 04 后可准备，09 依赖 06 和 08；10a 在 05 后可准备，10b 依赖 10a；11 依赖 06 和 10b，12 依赖 04 和 10a，13 依赖 11。核心预览等待 01—09 与 10a 并执行独立门禁；14 等待全部范围内实现（含 10b），作为协议兼容版门禁。该依赖关系不意味着必须使用并行代理。
+The main sequence is 01→02→03→04→05→06→07. Work on 08 may begin after 04; 09 depends on 06 and 08. Work on 10a may begin after 05; 10b depends on 10a. PR 11 depends on 06 and 10b, 12 on 04 and 10a, and 13 on 11. The core preview waits for 01–09 and 10a and runs independent gates. PR 14 waits for all in-scope implementation, including 10b, and gates protocol compatibility. These dependencies do not require parallel agents.
 
-每个 PR 描述写清具体行为变化、对应 Go API、输入输出例子、验证证据和剩余差异。算法重构、数值语义变化与性能优化不合并为一个难以审查的 PR。已发现差分必须留下回归；不能修改期望值来迎合移植结果。
+Each PR description states concrete behavior changes, corresponding Go APIs, input/output examples, validation evidence, and remaining differences. Do not combine algorithm refactoring, numerical-semantic changes, and performance optimization into a single hard-to-review PR. Every discovered mismatch must leave a regression; do not alter expected values to fit ported results.
 
-当前 PR 01—15 全部实现完成：PostgreSQL SQLx、精确验证/翻译、Serde JSON 配置分别由 15a/15b/15c 交付。所有 166 项 API 状态均须通过发布检查。每层以前一层为 base；最终审核和实际 CI 结果记录在对应 PR，修复按依赖顺序同步。不自动合并或发布 crate。
+PRs 01–15 are now fully implemented: 15a/15b/15c deliver PostgreSQL SQLx, exact validation/translation, and Serde JSON configuration respectively. All 166 API statuses must pass release checks. Each layer uses the preceding layer as its base. Final review and actual CI results are recorded in the corresponding PRs, and fixes propagate in dependency order. PRs are not merged and the crate is not published automatically.
