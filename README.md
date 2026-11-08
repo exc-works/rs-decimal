@@ -26,6 +26,8 @@ The plan is based on Go repository commit `a8791208e2d15483cf652cd2814b74b0c1a84
 
 For user-facing API documentation, run `cargo doc --all-features --open`. See the [release process](docs/releasing.md) for release checks and the [CHANGELOG](CHANGELOG.md) for version changes.
 
+See the [Rust API guide](docs/rust-api.md) for integer `From` conversions, borrowed operators, coefficient borrowing/moving, and consuming arithmetic/rescaling methods. Existing compatibility entry points retain their contracts.
+
 ## Using the numerical core
 
 ```rust

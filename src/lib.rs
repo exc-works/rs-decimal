@@ -2,7 +2,8 @@
 //!
 //! A [`Decimal`] stores an arbitrary-size integer coefficient and a nonnegative
 //! scale: `coefficient * 10^-scale`. Precision parameters mean **decimal places**,
-//! not significant digits. Operations return new values and leave inputs intact.
+//! not significant digits. Borrowed arithmetic leaves inputs intact; explicit
+//! consuming methods can reuse owned storage. Decoders may replace mutable receivers.
 //!
 //! # Start with exact input
 //!
@@ -16,6 +17,28 @@
 //! assert_eq!(third.string_with_trailing_zeros(), "0.33");
 //! # Ok::<(), rs_decimal::DecimalError>(())
 //! ```
+//!
+//! # Borrow values or consume temporaries
+//!
+//! ```
+//! use rs_decimal::{Decimal, RoundingMode};
+//! let a: Decimal = "1.25".parse()?;
+//! let b = Decimal::from(2u32);
+//! let sum = &a + &b;
+//! assert_eq!(sum.to_string(), "3.25");
+//! assert_eq!(a.scale(), 2);
+//! let result = sum.sub_owned(&b).into_rescaled(1, RoundingMode::HalfEven);
+//! assert_eq!(result.to_string(), "1.2");
+//! let mode = RoundingMode::try_from(5)?;
+//! assert_eq!(mode, RoundingMode::HalfEven);
+//! # Ok::<(), rs_decimal::DecimalError>(())
+//! ```
+//!
+//! [`Decimal::coefficient`] borrows digits; [`Decimal::big_int`] copies them;
+//! [`Decimal::into_coefficient`] consumes the Decimal and discards scale/state.
+//! Integer `From` conversions initialize scale zero. `+`, `-` and unary `-`
+//! support borrowed operands; use [`Decimal::add_owned`] / [`Decimal::sub_owned`]
+//! to consume temporaries. Multiplication and division keep explicit rounding.
 //!
 //! # Representation and null
 //!
@@ -95,6 +118,7 @@ mod json;
 mod logarithm;
 mod root;
 mod rounding;
+mod rust_api;
 #[cfg(feature = "serde")]
 mod serde_impl;
 mod text;
