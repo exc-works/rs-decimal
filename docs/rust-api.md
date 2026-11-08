@@ -1,6 +1,6 @@
 # Rust API and ownership guide
 
-The Go-compatible methods remain available with their existing value, scale, initialization and error contracts. Rust applications can use the additional entry points below without changing representation. The approved scope and deferred alternatives are in the [ownership/API design](ownership-api-plan.md).
+The existing method names preserve value, scale and initialization contracts. Ordinary fallible APIs now return `Result` for expected failures, intentionally replacing Go panic behavior. This breaking alpha change supersedes the error-policy restrictions in the historical [ownership/API design](ownership-api-plan.md).
 
 ## Parse and construct exact values
 
@@ -17,7 +17,7 @@ assert_eq!(amount.scale(), 3);
 
 `From` accepts all signed and unsigned Rust integer primitives and owned BigInt without narrowing, producing initialized scale-zero values. `try_from_coefficient` takes ownership and accepts a usize scale up to isize::MAX; larger scale returns Overflow. It retains scale even for zero and preserves trailing zeros and is not restricted by the text parser's scale-magnitude cap of 131072.
 
-Prefer `parse` for fallible text input. `must_from_string` retains its panic behavior. Floating-point and rational constructors keep their explicit existing semantics; this series adds no infallible float conversion and no implicitly rounded rational conversion.
+Prefer `parse` for fallible text input. `must_from_string` retains its panic behavior. Floating-point constructors now return `InvalidFormat` for nonfinite inputs. Rational conversion remains explicit about exactness and rounding.
 
 ## Choose borrowing, copying or consuming
 
@@ -35,7 +35,7 @@ A coefficient reference does not separately encode the distinction between unset
 
 ```rust
 use rs_decimal::Decimal;
-let a = Decimal::new_with_prec(100, 2);
+let a = Decimal::new_with_prec(100, 2).unwrap();
 let b = Decimal::from(1);
 assert_eq!(a, b);
 assert!(std::ptr::eq(a.max_ref(&b), &a));
@@ -52,15 +52,15 @@ let total = &a + &b;
 assert_eq!(total.string_with_trailing_zeros(), "13.000");
 assert_eq!((&a - &b).to_string(), "11.7");
 assert_eq!((-&a).to_string(), "-12.35");
-let result = total.sub_owned(&b).into_rescaled(2, RoundingMode::HalfEven);
+let result = total.sub_owned(&b).into_rescaled(2, RoundingMode::HalfEven)?;
 assert_eq!(result.string_with_trailing_zeros(), "12.35");
 assert_eq!(a.to_string(), "12.35");
 # Ok::<(), rs_decimal::DecimalError>(())
 ```
 
-`add_owned(self, &rhs)` and `sub_owned(self, &rhs)` consume only the left operand and return an initialized result at max scale. `into_rescaled(self, prec, mode)` consumes the value with the same rules and panic conditions as rescale. Its unchanged-scale path still initializes default zero. These methods can reuse buffers, but growth, alignment and rounding may allocate.
+`add_owned(self, &rhs)` and `sub_owned(self, &rhs)` consume only the left operand and return an initialized result at max scale. `into_rescaled(self, prec, mode)` consumes the value with the same numerical rules and returned errors as rescale. Its unchanged-scale path still initializes default zero. These methods can reuse buffers, but growth, alignment and rounding may allocate.
 
-Operator implementations are deliberately limited to `&Decimal + &Decimal`, `&Decimal - &Decimal`, and `-&Decimal`. Implementing the corresponding traits on owned Decimal could change legacy dot-method resolution when std::ops traits are imported. Explicit consuming methods avoid that source-compatibility hazard. There is no Mul/Div operator or default rounding policy: use mul_exact, mul(..., mode), or quo_with_prec(..., mode) as appropriate. AddAssign/SubAssign and a broad fallible arithmetic layer are outside this series.
+Operator implementations are deliberately limited to `&Decimal + &Decimal`, `&Decimal - &Decimal`, and `-&Decimal`. Implementing the corresponding traits on owned Decimal could change legacy dot-method resolution when std::ops traits are imported. Explicit consuming methods avoid that source-compatibility hazard. There is no Mul/Div operator or default rounding policy: use mul_exact, mul(..., mode), or quo_with_prec(..., mode) as appropriate. AddAssign/SubAssign remain outside the current API.
 
 ## Prefer standard Rust spelling where semantics already match
 
@@ -72,13 +72,63 @@ Operator implementations are deliberately limited to `&Decimal + &Decimal`, `&De
 | string | `d.to_string()` or `format!("{d}")` for canonical text; string_with_trailing_zeros retains stored scale |
 | equal/not_equal/gt/gte/lt/lte | `==`, `!=`, `>`, `>=`, `<`, `<=` |
 | cmp returning -1/0/1 | `Ord::cmp(&a, &b)` returns Ordering; the inherent cmp remains compatible |
-| RoundingMode::from_raw | `RoundingMode::try_from(raw)` returns InvalidArgument for values outside 0..=6; from_raw still panics with its original string payload |
-| safe_add/safe_sub/must_non_negative | These assert nonnegativity and may panic; they are not Result-returning checked operations |
+| RoundingMode::from_raw | Both `RoundingMode::try_from(raw)` and `from_raw(raw)` return InvalidArgument for values outside 0..=6 |
+| safe_add/safe_sub/must_non_negative | safe_add/safe_sub return InvalidArgument for a negative result; only must_non_negative asserts and panics |
 | int64/uint64 | Success requires an exact, in-range integer; fractions return (0, false), and uint64 additionally rejects negatives |
 | float32/float64 | The bool reports exactness of the floating-point value, not the integer-conversion success contract |
 | r#mod / remainder | Prefer modulo for the signed arithmetic remainder; remainder() instead returns the integer part and unscaled fractional coefficient |
 
 The scale of numerically equal values may differ. Default is uninitialized numerical zero, while normal arithmetic initializes results. NullDecimal.valid alone governs nullness, so its inner value may remain populated when invalid. Decoder methods may replace mutable receivers on success and retain the documented failure/null state rules. Neither an Option-based representation change nor a breaking rename/deprecation is part of this series.
+
+## Recoverable errors and migration
+
+Ordinary fallible APIs return `Result<T, DecimalError>` directly. This is a breaking
+change to the unpublished alpha API, not an additional `try_*` layer. Add `?` to
+propagate errors, or explicitly match `Err`. Use `unwrap`/`expect` only when the
+caller deliberately wants a panic. No implementation uses `catch_unwind` to turn
+ordinary library failures into errors.
+
+| Family | Current failure contract |
+| --- | --- |
+| Constructors with an explicit signed precision | `InvalidPrecision` for negative precision |
+| `new_from_float32/64` | `InvalidFormat` for NaN or infinity |
+| `rescale`, `into_rescaled`, `rescale_down`, and `*_with_prec` rounding | `InvalidPrecision`; selectable exact rounding may return `RoundUnnecessary` |
+| `mul`, `mul_exact`, `mul_with_prec` | Forbidden rounding or existing scale overflow checks return errors |
+| `quo`, `quo_down`, `quo_with_prec`, `quo_rem`, `modulo`, `r#mod` | Zero divisor and applicable precision/overflow/rounding failures return errors |
+| `power`, `shift` | Existing divide-by-zero and overflow failures return errors |
+| `safe_add`, `safe_sub` | `InvalidArgument` when the result is negative |
+| `significant_figures` | `InvalidArgument` for nonpositive figures; `RoundUnnecessary` for forbidden rounding |
+| Roots, logarithms, exponentials, and `new_from_big_rat_with_prec` | Previously returned errors stay errors; negative precision and forbidden rounding no longer panic; `log2` now returns Result too |
+| `RoundingMode::from_raw` / `TryFrom<i32>`, `most_significant_bit` | Invalid mode / negative integer returns `InvalidArgument` |
+| `format_go` | Fixed-point precision outside the native signed range returns `InvalidPrecision`; successful text and Go error-marker strings are unchanged |
+
+```rust
+use rs_decimal::{Decimal, ErrorKind, RoundingMode};
+let price = Decimal::new_with_prec(123, 2)?;
+let total = price.mul_exact(&Decimal::from(3))?;
+let rounded = total.rescale(1, RoundingMode::HalfEven)?;
+assert_eq!(rounded.to_string(), "3.7");
+assert!(price.quo_with_prec(&Decimal::new(0), 2, RoundingMode::HalfEven)
+    .unwrap_err().matches(ErrorKind::DivideByZero));
+assert!(price.sqrt_with_prec(-1).unwrap_err().matches(ErrorKind::InvalidPrecision));
+# Ok::<(), rs_decimal::DecimalError>(())
+```
+
+`new`, integer `From`, add/subtract, borrowed operators, `mul_down`, and argument-free
+round/floor/ceil/truncate still return values directly because their fixed
+parameters cannot produce these semantic failures. `must_from_string` and
+`must_non_negative` retain their explicit panic behavior and payloads.
+
+Check order, successful coefficient/scale/initialization, and borrowed inputs are
+preserved. `into_rescaled` consumes the input even when it returns an error.
+Existing resource limits and protocol/null/serialization rules are unchanged.
+Internal invariant defects and allocation failure are outside the recoverable
+error contract; returning Result does not promise a bounded memory or time cost.
+
+The Go differential driver normalizes only documented Go panic cases to their
+Rust error counterparts; an unexpected Rust panic still fails. Direct regressions
+in `tests/errors.rs` also exercise invalid parameters, check order, input state,
+and explicit must-method panics.
 
 ## Additive API inventory and evidence
 
@@ -92,6 +142,6 @@ These are Rust extensions, separate from the [166 upstream API entries](api-comp
 | max_ref, min_ref | tests/ownership.rs identity, first-on-tie scale/state and ordering tests |
 | From<BigInt>, From<i8/i16/i32/i64/i128/isize/u8/u16/u32/u64/u128/usize> | tests/rust_api.rs each integer type's MIN/MAX and zero/one; arbitrary-size signed coefficient and initialized zero; rustdoc examples |
 | Add<&Decimal> for &Decimal, Sub<&Decimal> for &Decimal, Neg for &Decimal | tests/rust_api.rs full-state comparison, operator/UFCS calls and legacy dot-call reuse with imported traits |
-| TryFrom<i32> for RoundingMode | tests/rust_api.rs complete 0..=6 mapping, invalid extremes and unchanged legacy panic payload |
+| TryFrom<i32> for RoundingMode | tests/rust_api.rs complete 0..=6 mapping, invalid extremes and returned InvalidArgument errors |
 
 Measured workloads and their limits are in [local copy measurements](performance-local-copies.md) and [owned pipeline measurements](performance-owned-api.md). Borrowing a reference and creating an independent value are different contracts; choose the interface according to the caller's ownership needs.

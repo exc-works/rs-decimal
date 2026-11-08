@@ -1,6 +1,5 @@
 use crate::{
     DecimalError, ErrorKind,
-    error::fail,
     integer::{MAX_PARSED_PRECISION, pow10, precision},
 };
 use num_bigint::BigInt;
@@ -37,9 +36,11 @@ impl NullDecimal {
 
 impl Decimal {
     pub(crate) fn from_parts(coefficient: BigInt, scale: usize) -> Self {
-        if scale > isize::MAX as usize {
-            fail(ErrorKind::Overflow);
-        }
+        // Public boundaries validate scale; arithmetic preserves this invariant.
+        assert!(
+            scale <= isize::MAX as usize,
+            "invalid internal decimal scale"
+        );
         Self {
             coefficient: Some(coefficient),
             scale,
@@ -50,7 +51,7 @@ impl Decimal {
     }
     /// Creates an initialized integer with scale zero.
     pub fn new(value: i64) -> Self {
-        Self::new_with_prec(value, 0)
+        Self::from_parts(BigInt::from(value), 0)
     }
     /// Creates an initialized native-width integer with scale zero.
     pub fn new_from_int(value: isize) -> Self {
@@ -62,21 +63,21 @@ impl Decimal {
     }
     /// Creates `value * 10^-prec`; `prec` counts decimal places.
     ///
-    /// # Panics
-    /// Panics with `InvalidPrecision` when `prec` is negative.
-    pub fn new_with_prec(value: i64, prec: isize) -> Self {
-        Self::from_parts(BigInt::from(value), precision(prec))
+    /// # Errors
+    /// Returns `InvalidPrecision` when `prec` is negative.
+    pub fn new_with_prec(value: i64, prec: isize) -> Result<Self, DecimalError> {
+        Ok(Self::from_parts(BigInt::from(value), precision(prec)?))
     }
     /// Creates a signed coefficient at `prec` decimal places. See [`Self::new_with_prec`].
-    pub fn new_from_int64(value: i64, prec: isize) -> Self {
+    pub fn new_from_int64(value: i64, prec: isize) -> Result<Self, DecimalError> {
         Self::new_with_prec(value, prec)
     }
     /// Creates an unsigned coefficient at `prec` decimal places.
     ///
-    /// # Panics
-    /// Panics with `InvalidPrecision` when `prec` is negative.
-    pub fn new_from_uint64(value: u64, prec: isize) -> Self {
-        Self::from_parts(BigInt::from(value), precision(prec))
+    /// # Errors
+    /// Returns `InvalidPrecision` when `prec` is negative.
+    pub fn new_from_uint64(value: u64, prec: isize) -> Result<Self, DecimalError> {
+        Ok(Self::from_parts(BigInt::from(value), precision(prec)?))
     }
     /// Copies an arbitrary-size integer with scale zero.
     /// Use [`Self::try_from_coefficient`] to transfer ownership instead.
@@ -86,27 +87,27 @@ impl Decimal {
     /// Copies a coefficient at `prec` decimal places.
     /// Use [`Self::try_from_coefficient`] to transfer ownership instead.
     ///
-    /// # Panics
-    /// Panics with `InvalidPrecision` when `prec` is negative.
-    pub fn new_from_big_int_with_prec(value: &BigInt, prec: isize) -> Self {
-        Self::from_parts(value.clone(), precision(prec))
+    /// # Errors
+    /// Returns `InvalidPrecision` when `prec` is negative.
+    pub fn new_from_big_int_with_prec(value: &BigInt, prec: isize) -> Result<Self, DecimalError> {
+        Ok(Self::from_parts(value.clone(), precision(prec)?))
     }
     /// Preserves the integer value while appending `prec` decimal places.
     /// For example, `(12, 2)` represents `12.00`, unlike [`Self::new_with_prec`].
     ///
-    /// # Panics
-    /// Panics with `InvalidPrecision` when `prec` is negative.
-    pub fn new_with_append_prec(value: i64, prec: isize) -> Self {
-        let p = precision(prec);
-        Self::from_parts(BigInt::from(value) * pow10(p), p)
+    /// # Errors
+    /// Returns `InvalidPrecision` when `prec` is negative.
+    pub fn new_with_append_prec(value: i64, prec: isize) -> Result<Self, DecimalError> {
+        let p = precision(prec)?;
+        Ok(Self::from_parts(BigInt::from(value) * pow10(p), p))
     }
     /// Preserves the unsigned integer value while appending decimal places.
     ///
-    /// # Panics
-    /// Panics with `InvalidPrecision` when `prec` is negative.
-    pub fn new_from_uint_with_append_prec(value: u64, prec: isize) -> Self {
-        let p = precision(prec);
-        Self::from_parts(BigInt::from(value) * pow10(p), p)
+    /// # Errors
+    /// Returns `InvalidPrecision` when `prec` is negative.
+    pub fn new_from_uint_with_append_prec(value: u64, prec: isize) -> Result<Self, DecimalError> {
+        let p = precision(prec)?;
+        Ok(Self::from_parts(BigInt::from(value) * pow10(p), p))
     }
     /// Parses trimmed decimal text with an optional sign and exponent.
     /// Both sides of a decimal point must contain digits; zero normalizes to scale zero.

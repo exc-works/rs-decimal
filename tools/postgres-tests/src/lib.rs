@@ -20,10 +20,10 @@ mod tests {
                     .unwrap();
                 let mut values = vec![
                     Decimal::default(),
-                    Decimal::new_with_prec(0, 4),
+                    Decimal::new_with_prec(0, 4).unwrap(),
                     Decimal::must_from_string("9007199254740993.00000000000000001"),
                     Decimal::must_from_string("-12345.6700"),
-                    Decimal::new_with_prec(1, 16383),
+                    Decimal::new_with_prec(1, 16383).unwrap(),
                 ];
                 let dense = "9".repeat(131072) + "." + &"9".repeat(16383);
                 values.push(Decimal::must_from_string(&dense));
@@ -94,7 +94,7 @@ mod tests {
                     );
                 }
                 for value in [
-                    Decimal::new_with_prec(1, 16384),
+                    Decimal::new_with_prec(1, 16384).unwrap(),
                     Decimal::new_from_big_int(&BigInt::from(10).pow(131072)),
                 ] {
                     assert!(

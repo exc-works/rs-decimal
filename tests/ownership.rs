@@ -1,4 +1,4 @@
-use rs_decimal::{BigInt, Decimal, DecimalError, ErrorKind, RoundingMode as M};
+use rs_decimal::{BigInt, Decimal, ErrorKind, RoundingMode as M};
 
 fn state(d: &Decimal) -> (BigInt, usize, bool) {
     (d.big_int(), d.scale(), d.is_nil())
@@ -34,8 +34,8 @@ fn coefficient_access_and_construction_keep_explicit_state() {
 #[test]
 fn borrowed_extrema_select_identity_and_first_representation_on_ties() {
     let nil = Decimal::default();
-    let zero = Decimal::new_with_prec(0, 3);
-    let a = Decimal::new_with_prec(100, 2);
+    let zero = Decimal::new_with_prec(0, 3).unwrap();
+    let a = Decimal::new_with_prec(100, 2).unwrap();
     let b = Decimal::new(1);
     for (left, right) in [(&nil, &zero), (&zero, &nil), (&a, &b), (&b, &a)] {
         assert!(std::ptr::eq(left.max_ref(right), left));
@@ -51,7 +51,7 @@ fn consuming_arithmetic_matches_borrowed_full_state() {
     let mut values = vec![Decimal::default()];
     for scale in [0, 2, 5] {
         for c in [-999999, -123, 0, 123, 999999] {
-            values.push(Decimal::new_with_prec(c, scale));
+            values.push(Decimal::new_with_prec(c, scale).unwrap());
         }
         let c: BigInt = "99999999999999999999999999999999999999999999999999"
             .parse()
@@ -67,7 +67,7 @@ fn consuming_arithmetic_matches_borrowed_full_state() {
             assert_eq!(state(b), before);
         }
     }
-    let zero = Decimal::new_with_prec(0, isize::MAX);
+    let zero = Decimal::new_with_prec(0, isize::MAX).unwrap();
     for result in [
         Decimal::default().add_owned(&zero),
         Decimal::default().sub_owned(&zero),
@@ -77,7 +77,7 @@ fn consuming_arithmetic_matches_borrowed_full_state() {
             (BigInt::from(0), isize::MAX as usize, false)
         );
     }
-    let tiny = Decimal::new_with_prec(-3, isize::MAX);
+    let tiny = Decimal::new_with_prec(-3, isize::MAX).unwrap();
     assert_eq!(state(&Decimal::default().add_owned(&tiny)), state(&tiny));
     assert_eq!(
         state(&tiny.clone().sub_owned(&Decimal::default())),
@@ -89,7 +89,7 @@ fn consuming_arithmetic_matches_borrowed_full_state() {
 fn consuming_rescale_matches_all_rounding_modes_and_failures() {
     for coefficient in -31..=31 {
         for scale in 0..=3 {
-            let d = Decimal::new_with_prec(coefficient, scale);
+            let d = Decimal::new_with_prec(coefficient, scale).unwrap();
             for target in 0..=4 {
                 for mode in [
                     M::Down,
@@ -100,13 +100,11 @@ fn consuming_rescale_matches_all_rounding_modes_and_failures() {
                     M::HalfEven,
                     M::Unnecessary,
                 ] {
-                    let borrowed = std::panic::catch_unwind(|| d.rescale(target, mode));
-                    let owned = std::panic::catch_unwind(|| d.clone().into_rescaled(target, mode));
+                    let borrowed = d.rescale(target, mode);
+                    let owned = d.clone().into_rescaled(target, mode);
                     match (borrowed, owned) {
                         (Ok(a), Ok(b)) => assert_eq!(state(&a), state(&b)),
                         (Err(a), Err(b)) => {
-                            let a = a.downcast_ref::<DecimalError>().unwrap();
-                            let b = b.downcast_ref::<DecimalError>().unwrap();
                             assert_eq!(a, b);
                             assert!(b.matches(ErrorKind::RoundUnnecessary));
                         }
@@ -117,19 +115,21 @@ fn consuming_rescale_matches_all_rounding_modes_and_failures() {
         }
     }
     for target in [0, 2, isize::MAX] {
-        let result = Decimal::default().into_rescaled(target, M::Unnecessary);
+        let result = Decimal::default()
+            .into_rescaled(target, M::Unnecessary)
+            .unwrap();
         assert_eq!(state(&result), (BigInt::from(0), target as usize, false));
     }
-    let err =
-        std::panic::catch_unwind(|| Decimal::default().into_rescaled(-1, M::Down)).unwrap_err();
-    assert!(
-        err.downcast_ref::<DecimalError>()
-            .unwrap()
-            .matches(ErrorKind::InvalidPrecision)
-    );
-    let tiny = Decimal::new_with_prec(1, isize::MAX);
+    let err = Decimal::default().into_rescaled(-1, M::Down).unwrap_err();
+    assert!(err.matches(ErrorKind::InvalidPrecision));
+    let tiny = Decimal::new_with_prec(1, isize::MAX).unwrap();
     assert_eq!(
-        state(&tiny.clone().into_rescaled(isize::MAX, M::Unnecessary)),
+        state(
+            &tiny
+                .clone()
+                .into_rescaled(isize::MAX, M::Unnecessary)
+                .unwrap()
+        ),
         state(&tiny)
     );
 }

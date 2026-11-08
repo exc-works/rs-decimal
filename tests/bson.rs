@@ -23,7 +23,7 @@ fn exact_wire_and_decimal128() {
 }
 #[test]
 fn failure_and_nullable_states() {
-    let mut n = NullDecimal::new(Decimal::new_with_prec(1230, 2));
+    let mut n = NullDecimal::new(Decimal::new_with_prec(1230, 2).unwrap());
     for (kind, data) in [
         (19, vec![0; 15]),
         (2, vec![255; 4]),

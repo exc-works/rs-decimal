@@ -51,7 +51,7 @@ impl Decimal {
                 if !f.is_finite() {
                     return Err(invalid());
                 }
-                Self::new_from_float64(f)
+                Self::new_from_float64(f)?
             }
             16 => Self::new(i64::from(i32::from_le_bytes(bytes(data)?))),
             18 => Self::new(i64::from_le_bytes(bytes(data)?)),

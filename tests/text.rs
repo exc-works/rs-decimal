@@ -4,8 +4,8 @@ fn text_and_param_transitions_are_atomic() {
     for valid in [false, true] {
         for initial in [
             Decimal::default(),
-            Decimal::new_with_prec(0, 3),
-            Decimal::new_with_prec(1230, 2),
+            Decimal::new_with_prec(0, 3).unwrap(),
+            Decimal::new_with_prec(1230, 2).unwrap(),
         ] {
             let n = NullDecimal {
                 decimal: initial.clone(),

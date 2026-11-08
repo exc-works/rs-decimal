@@ -1,14 +1,14 @@
-use crate::{ErrorKind, error::fail};
+use crate::{DecimalError, ErrorKind, error::error};
 use num_bigint::BigInt;
 use num_integer::Integer;
 
 pub(crate) const MAX_PARSED_PRECISION: usize = 1 << 17;
 
-pub(crate) fn precision(p: isize) -> usize {
+pub(crate) fn precision(p: isize) -> Result<usize, DecimalError> {
     if p < 0 {
-        fail(ErrorKind::InvalidPrecision);
+        return Err(error(ErrorKind::InvalidPrecision));
     }
-    p as usize
+    Ok(p as usize)
 }
 
 pub(crate) fn pow10(exponent: usize) -> BigInt {

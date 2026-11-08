@@ -60,13 +60,13 @@ Implement PartialEq/Ord manually based on mathematical value, rather than derivi
 
 ## API and errors
 
-Public compatibility methods use corresponding snake_case names, such as mul_with_prec, quo_with_prec, power, and ln_with_prec. Preserve precision() as the counterpart of Precision, documenting that it means scale. SafeAdd/SafeSub require a nonnegative result; they must not be implemented as panic-free checked arithmetic.
+Public compatibility methods use corresponding snake_case names, such as mul_with_prec, quo_with_prec, power, and ln_with_prec. Preserve precision() as the counterpart of Precision, documenting that it means scale. SafeAdd/SafeSub require a nonnegative result and return InvalidArgument when it is negative.
 
-Use an enum for the seven rounding modes. Safe Rust cannot construct an invalid enum; test the original Go panic for invalid integer modes through an explicit raw-value conversion entry point. Record these type-level differences in the API matrix.
+Use an enum for the seven rounding modes. Safe Rust cannot construct an invalid enum; return InvalidArgument for invalid integer modes through the raw-value conversion entry point. Record these type-level differences in the API matrix.
 
-Internals return Result; compatibility wrappers preserve each original method's Result or panic failure form. Do not use catch_unwind for normal control flow. Typed panic payloads can use panic_any. The differential executor builds with unwinding and catches/classifies panics at operation boundaries; production panic=abort mode does not promise recovery.
+Fallible internals and public APIs return Result for expected input, domain, precision, overflow and rounding failures. Only explicit must_* APIs retain their documented panic forms. Do not use catch_unwind for normal control flow. The differential executor reports Rust errors truthfully; its comparator normalizes only documented Go panic/category pairs and rejects unexpected Rust panics. See docs/rust-api.md for migration details.
 
-ErrorKind maps the original sentinel categories. DecimalError must support matches(kind) or an equivalent query so decoding errors can match both Unmarshal and causes such as InvalidFormat, rather than retaining only the outermost category. Parser source errors may be preserved, but need not match Go's concrete types. Original non-sentinel panics, such as nonnegative assertions, are classified separately and must not be mislabeled as numerical overflow.
+ErrorKind maps the original sentinel categories. DecimalError must support matches(kind) or an equivalent query so decoding errors can match both Unmarshal and causes such as InvalidFormat, rather than retaining only the outermost category. Parser source errors may be preserved, but need not match Go's concrete types. Original non-sentinel input assertions map to InvalidArgument in ordinary Rust APIs; explicit must_* assertions still panic. Neither is mislabeled as numerical overflow.
 
 Addition/subtraction operators may be added after the corresponding named methods stabilize. The first release does not implement Mul/Div traits without rounding parameters or introduce a default mode on its own. Optional try_* APIs may follow completion of the compatible core.
 

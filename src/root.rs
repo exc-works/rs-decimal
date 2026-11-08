@@ -25,9 +25,7 @@ impl Decimal {
     ///
     /// # Errors
     /// Returns domain errors or `NoConvergence` when rounding cannot be certified within the budget.
-    ///
-    /// # Panics
-    /// Panics with `InvalidPrecision` for negative precision.
+    /// Returns `InvalidPrecision` for negative precision.
     pub fn sqrt_with_prec(&self, prec: isize) -> Result<Self, DecimalError> {
         self.approx_root_with_prec(2, prec)
     }
@@ -42,11 +40,9 @@ impl Decimal {
     ///
     /// # Errors
     /// Returns domain errors or `NoConvergence` when rounding cannot be certified within the budget.
-    ///
-    /// # Panics
-    /// Panics with `InvalidPrecision` for negative precision.
+    /// Returns `InvalidPrecision` for negative precision.
     pub fn approx_root_with_prec(&self, degree: i64, prec: isize) -> Result<Self, DecimalError> {
-        let p = precision(prec);
+        let p = precision(prec)?;
         if degree <= 0 {
             return Err(DecimalError::new(
                 ErrorKind::InvalidRoot,
@@ -66,13 +62,13 @@ impl Decimal {
                 .map(|d| d.neg());
         }
         if degree == 1 {
-            return Ok(self.rescale(prec, RoundingMode::HalfEven));
+            return self.rescale(prec, RoundingMode::HalfEven);
         }
         if self.is_zero() {
             return Ok(Self::from_parts(BigInt::zero(), p));
         }
         if self == &Self::new(1) {
-            return Ok(Self::new_with_append_prec(1, prec));
+            return Self::new_with_append_prec(1, prec);
         }
         if self.scale > MAX_PARSED_PRECISION
             || p > MAX_PARSED_PRECISION

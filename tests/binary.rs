@@ -31,7 +31,7 @@ fn go_golden_bytes_and_noncanonical_inputs() {
 }
 #[test]
 fn failure_atomicity_and_fixed_width_precision_limits() {
-    let mut d = Decimal::new_with_prec(1230, 2);
+    let mut d = Decimal::new_with_prec(1230, 2).unwrap();
     for bytes in [
         vec![0],
         vec![0, 0, 0],
@@ -51,13 +51,20 @@ fn failure_atomicity_and_fixed_width_precision_limits() {
     assert_eq!(d.precision(), 131072);
     assert!(
         Decimal::new_with_prec(1, 131073)
+            .unwrap()
             .marshal_binary()
             .unwrap_err()
             .matches(ErrorKind::InvalidPrecision)
     );
-    assert!(Decimal::new_with_prec(10, 131073).marshal_binary().is_ok());
+    assert!(
+        Decimal::new_with_prec(10, 131073)
+            .unwrap()
+            .marshal_binary()
+            .is_ok()
+    );
     assert_eq!(
         Decimal::new_with_prec(0, isize::MAX)
+            .unwrap()
             .marshal_binary()
             .unwrap(),
         vec![0, 0, 0, 0, 2]

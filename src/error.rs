@@ -66,6 +66,6 @@ impl fmt::Display for DecimalError {
 }
 impl Error for DecimalError {}
 
-pub(crate) fn fail(kind: ErrorKind) -> ! {
-    std::panic::panic_any(DecimalError::new(kind, format!("decimal: {kind:?}")))
+pub(crate) fn error(kind: ErrorKind) -> DecimalError {
+    DecimalError::new(kind, format!("decimal: {kind:?}"))
 }

@@ -50,6 +50,34 @@ class DriverTests(unittest.TestCase):
         b = dict(a, error_kinds=["Unmarshal", "InvalidFormat"])
         self.assertEqual(driver.compare([self.request], [a], [b], ["error"]), {"error": 1})
 
+    def test_returned_errors_map_only_documented_go_panics(self):
+        for operation, go_kind, rust_kind in [
+            ("quo_prec", "DivideByZero", "DivideByZero"),
+            ("sqrt_prec", "InvalidPrecision", "InvalidPrecision"),
+            ("safe_sub", "Assertion", "InvalidArgument"),
+            ("mode", "Assertion", "InvalidArgument"),
+        ]:
+            request = dict(self.request, operation=operation, params={"nullable": "false"})
+            go = dict(self.response, outcome="panic", error_kinds=[go_kind])
+            rust = dict(self.response, outcome="error", error_kinds=[rust_kind])
+            with self.subTest(operation=operation):
+                self.assertEqual(driver.compare([request], [go], [rust], ["panic"]), {"error": 1})
+                for bad in [go, dict(rust, error_kinds=["Overflow"]),
+                            dict(rust, outcome="ok"), dict(rust, inputs_after=[{}])]:
+                    with self.assertRaises(driver.ConformanceError):
+                        driver.compare([request], [go], [bad], ["panic"])
+                for expected in ["ok", "error"]:
+                    with self.assertRaises(driver.ConformanceError):
+                        driver.compare([request], [go], [rust], [expected])
+
+    def test_must_panics_and_unexpected_panics_are_not_normalized(self):
+        for operation in ["must_parse", "must_non_negative", "decode", "state"]:
+            request = dict(self.request, operation=operation, params={"nullable": "false"})
+            go = dict(self.response, outcome="panic", error_kinds=["Assertion"])
+            self.assertEqual(driver.normalize_go_failure(request, go), go)
+            with self.assertRaises(driver.ConformanceError):
+                driver.compare([request], [go], [dict(go, outcome="error")], ["panic"])
+
     def test_oracle_refuses_uncertified(self):
         code = "print('{\"schema_version\":1,\"case_id\":\"a\",\"status\":\"uncertified\"}')"
         with self.assertRaises(driver.ConformanceError):

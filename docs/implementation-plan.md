@@ -1,5 +1,7 @@
 # rs-decimal implementation plan
 
+Historical implementation plan: requirements to preserve Go panic forms or defer fallible APIs are superseded by the [current Rust error policy](rust-api.md#recoverable-errors-and-migration). Numerical, state and resource contracts remain unchanged.
+
 The goal is to preserve the Go library's numerical results, scale, initialization state, error categories, and protocol behavior in Rust. The implementation directly ports the existing algorithms using big integers, with shared cases, differential tests, and independent mathematical validation as delivery evidence.
 
 ## Compatibility baseline

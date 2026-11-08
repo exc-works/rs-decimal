@@ -28,7 +28,7 @@ fn content_attributes_and_exact_digits() {
 
 #[test]
 fn nullable_state_and_atomic_failure() {
-    let mut n = NullDecimal::new(Decimal::new_with_prec(1230, 2));
+    let mut n = NullDecimal::new(Decimal::new_with_prec(1230, 2).unwrap());
     for text in [
         "<v a='<'>1</v>",
         "<v a='<'/>",

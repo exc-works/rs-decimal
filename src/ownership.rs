@@ -14,7 +14,7 @@ impl Decimal {
     ///
     /// ```
     /// use rs_decimal::{BigInt, Decimal};
-    /// let d = Decimal::new_with_prec(123, 2);
+    /// let d = Decimal::new_with_prec(123, 2).unwrap();
     /// assert_eq!(d.coefficient(), &BigInt::from(123));
     /// ```
     ///
@@ -33,7 +33,7 @@ impl Decimal {
     ///
     /// ```
     /// use rs_decimal::{BigInt, Decimal};
-    /// assert_eq!(Decimal::new_with_prec(123, 2).into_coefficient(), BigInt::from(123));
+    /// assert_eq!(Decimal::new_with_prec(123, 2).unwrap().into_coefficient(), BigInt::from(123));
     /// ```
     ///
     /// The consumed Decimal is no longer available:
@@ -74,7 +74,7 @@ impl Decimal {
     ///
     /// ```
     /// use rs_decimal::Decimal;
-    /// assert_eq!(Decimal::new_with_prec(12300, 4).scale(), 4);
+    /// assert_eq!(Decimal::new_with_prec(12300, 4).unwrap().scale(), 4);
     /// ```
     pub fn scale(&self) -> usize {
         self.scale
@@ -84,17 +84,17 @@ impl Decimal {
     /// rounding and initialization rules. Unchanged-scale results reuse the
     /// owned coefficient; even uninitialized zero becomes initialized.
     ///
-    /// # Panics
-    /// Panics with `InvalidPrecision` for negative precision or
+    /// # Errors
+    /// Returns `InvalidPrecision` for negative precision or
     /// `RoundUnnecessary` when exact rounding would discard nonzero digits.
     ///
     /// ```
     /// use rs_decimal::{Decimal, RoundingMode};
-    /// let d = Decimal::new_with_prec(12345, 3).into_rescaled(2, RoundingMode::HalfEven);
+    /// let d = Decimal::new_with_prec(12345, 3).unwrap().into_rescaled(2, RoundingMode::HalfEven).unwrap();
     /// assert_eq!(d.string_with_trailing_zeros(), "12.34");
     /// ```
-    pub fn into_rescaled(self, prec: isize, mode: RoundingMode) -> Self {
-        let target = precision(prec);
+    pub fn into_rescaled(self, prec: isize, mode: RoundingMode) -> Result<Self, DecimalError> {
+        let target = precision(prec)?;
         let scale = self.scale;
         let coefficient = self.into_coefficient();
         let coefficient = if target == scale || coefficient.is_zero() {
@@ -102,9 +102,9 @@ impl Decimal {
         } else if target > scale {
             coefficient * pow10(target - scale)
         } else {
-            rounded_div(&coefficient, &pow10(scale - target), mode)
+            rounded_div(&coefficient, &pow10(scale - target), mode)?
         };
-        Self::from_parts(coefficient, target)
+        Ok(Self::from_parts(coefficient, target))
     }
 
     // Alignment only increases scale. Zero must bypass the power even at the
@@ -126,7 +126,7 @@ impl Decimal {
     ///
     /// ```
     /// use rs_decimal::Decimal;
-    /// let rhs = Decimal::new_with_prec(25, 2);
+    /// let rhs = Decimal::new_with_prec(25, 2).unwrap();
     /// let sum = Decimal::new(2).add_owned(&rhs);
     /// assert_eq!(sum.string_with_trailing_zeros(), "2.25");
     /// assert_eq!(rhs.string(), "0.25");
@@ -148,7 +148,7 @@ impl Decimal {
     ///
     /// ```
     /// use rs_decimal::Decimal;
-    /// let rhs = Decimal::new_with_prec(25, 2);
+    /// let rhs = Decimal::new_with_prec(25, 2).unwrap();
     /// let difference = Decimal::new(2).sub_owned(&rhs);
     /// assert_eq!(difference.string_with_trailing_zeros(), "1.75");
     /// assert_eq!(rhs.string(), "0.25");
@@ -169,7 +169,7 @@ impl Decimal {
     ///
     /// ```
     /// use rs_decimal::Decimal;
-    /// let a = Decimal::new_with_prec(100, 2);
+    /// let a = Decimal::new_with_prec(100, 2).unwrap();
     /// let b = Decimal::new(1);
     /// assert!(std::ptr::eq(a.max_ref(&b), &a));
     /// ```

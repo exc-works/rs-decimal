@@ -45,7 +45,7 @@ impl Visitor<'_> for DecimalVisitor {
         Ok(Some(Decimal::new(n)))
     }
     fn visit_u64<E: de::Error>(self, n: u64) -> Result<Self::Value, E> {
-        Ok(Some(Decimal::new_from_uint64(n, 0)))
+        Ok(Some(Decimal::from(n)))
     }
     fn visit_i128<E: de::Error>(self, n: i128) -> Result<Self::Value, E> {
         self.visit_str(&n.to_string())

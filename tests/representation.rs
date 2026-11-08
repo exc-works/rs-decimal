@@ -43,7 +43,7 @@ fn parsing_preserves_representation_and_normalizes_zero() {
 #[test]
 fn zero_state_equality_and_equal_extrema() {
     let nil = Decimal::default();
-    let scaled = Decimal::new_with_prec(0, 30);
+    let scaled = Decimal::new_with_prec(0, 30).unwrap();
     assert_eq!(nil, scaled);
     assert!(nil.is_nil());
     assert!(!scaled.is_nil());
@@ -60,7 +60,7 @@ fn zero_state_equality_and_equal_extrema() {
 #[test]
 fn comparison_handles_extreme_scale_and_signs_without_expansion() {
     for sign in [-1, 1] {
-        let tiny = Decimal::new_with_prec(sign, isize::MAX);
+        let tiny = Decimal::new_with_prec(sign, isize::MAX).unwrap();
         let ordinary = Decimal::new(sign);
         assert_eq!(tiny.cmp(&ordinary), -sign as i32);
         assert_eq!(ordinary.cmp(&tiny), sign as i32);
@@ -69,29 +69,25 @@ fn comparison_handles_extreme_scale_and_signs_without_expansion() {
         Decimal::must_from_string("1.0"),
         Decimal::must_from_string("1.00")
     );
-    assert_ne!(Decimal::new(12), Decimal::new_with_prec(12, 1));
+    assert_ne!(Decimal::new(12), Decimal::new_with_prec(12, 1).unwrap());
 }
 
 #[test]
 fn constructors_own_coefficients_and_keep_scale() {
     let mut c = BigInt::from(123);
-    let d = Decimal::new_from_big_int_with_prec(&c, 2);
+    let d = Decimal::new_from_big_int_with_prec(&c, 2).unwrap();
     c += 1;
     let mut copy = d.big_int();
     copy += 1;
     assert_eq!(d.string(), "1.23");
     assert_eq!(c, copy);
     assert_eq!(
-        Decimal::new_with_append_prec(12, 3).big_int(),
+        Decimal::new_with_append_prec(12, 3).unwrap().big_int(),
         BigInt::from(12000)
     );
-    assert_eq!(Decimal::new_with_append_prec(12, 3).precision(), 3);
-    let p = std::panic::catch_unwind(|| Decimal::new_with_prec(1, -1)).unwrap_err();
-    assert!(
-        p.downcast_ref::<DecimalError>()
-            .unwrap()
-            .matches(ErrorKind::InvalidPrecision)
-    );
+    assert_eq!(Decimal::new_with_append_prec(12, 3).unwrap().precision(), 3);
+    let p = Decimal::new_with_prec(1, -1).unwrap_err();
+    assert!(p.matches(ErrorKind::InvalidPrecision));
 }
 
 #[test]
@@ -110,8 +106,8 @@ fn comparison_matches_independent_rational_order() {
         for b in -30..=30 {
             let sa = (a + 30) % 6;
             let sb = (b + 30) % 7;
-            let x = Decimal::new_with_prec(a, sa as isize);
-            let y = Decimal::new_with_prec(b, sb as isize);
+            let x = Decimal::new_with_prec(a, sa as isize).unwrap();
+            let y = Decimal::new_with_prec(b, sb as isize).unwrap();
             let ra = BigRational::new(BigInt::from(a), BigInt::from(10).pow(sa as u32));
             let rb = BigRational::new(BigInt::from(b), BigInt::from(10).pow(sb as u32));
             assert_eq!(x.cmp(&y), ra.cmp(&rb) as i32);
@@ -123,14 +119,14 @@ fn comparison_matches_independent_rational_order() {
 fn native_limits_and_constant_mappings() {
     assert_eq!(Decimal::new(i64::MIN).big_int(), BigInt::from(i64::MIN));
     assert_eq!(
-        Decimal::new_from_uint64(u64::MAX, 2).big_int(),
+        Decimal::new_from_uint64(u64::MAX, 2).unwrap().big_int(),
         BigInt::from(u64::MAX)
     );
     assert_eq!(rs_decimal::zero(), Decimal::new(0));
     assert_eq!(rs_decimal::one(), Decimal::new(1));
     assert_eq!(rs_decimal::ten(), Decimal::new(10));
     assert_eq!(rs_decimal::hundred(), Decimal::new(100));
-    let a = Decimal::new_with_prec(10, 1);
+    let a = Decimal::new_with_prec(10, 1).unwrap();
     let b = Decimal::new(1);
     assert_eq!(rs_decimal::max(&a, &b).precision(), 1);
     assert_eq!(rs_decimal::min(&a, &b).precision(), 1);

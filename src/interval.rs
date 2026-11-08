@@ -60,8 +60,10 @@ impl Interval {
     }
     pub fn rounded(&self, scale: &BigInt, multiplier: &BigInt) -> Option<BigInt> {
         assert!(self.lo <= self.hi && scale.is_positive());
-        let lo = rounded_div(&(&self.lo * multiplier), scale, RoundingMode::HalfEven);
-        let hi = rounded_div(&(&self.hi * multiplier), scale, RoundingMode::HalfEven);
+        let lo = rounded_div(&(&self.lo * multiplier), scale, RoundingMode::HalfEven)
+            .expect("positive interval scale and half-even rounding are valid");
+        let hi = rounded_div(&(&self.hi * multiplier), scale, RoundingMode::HalfEven)
+            .expect("positive interval scale and half-even rounding are valid");
         (lo == hi).then_some(lo)
     }
 }

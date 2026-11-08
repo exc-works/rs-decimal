@@ -1,5 +1,7 @@
 # rs-decimal PR plan
 
+Historical implementation plan: requirements to preserve Go panic forms or defer fallible APIs are superseded by the [current Rust error policy](rust-api.md#recoverable-errors-and-migration). Numerical, state and resource contracts remain unchanged.
+
 The numbers below define the stacked PR plan, execution order, and dependencies. Update the public API compatibility matrix and test-coverage status as each PR merges. See the [implementation plan](implementation-plan.md) for overall goals and the [technical design](technical-design.md) for interface details.
 
 ## PR 01 Project setup and compatibility baseline

@@ -36,8 +36,8 @@ impl Decimal {
         let parsed = match value {
             ScanValue::Null => Self::default(),
             ScanValue::Int64(n) => Self::new(n),
-            ScanValue::Float32(f) if f.is_finite() => Self::new_from_float32(f),
-            ScanValue::Float64(f) if f.is_finite() => Self::new_from_float64(f),
+            ScanValue::Float32(f) if f.is_finite() => Self::new_from_float32(f)?,
+            ScanValue::Float64(f) if f.is_finite() => Self::new_from_float64(f)?,
             ScanValue::Text(s) => text(s.as_bytes())?,
             ScanValue::Bytes(s) => text(s)?,
             _ => return Err(invalid()),

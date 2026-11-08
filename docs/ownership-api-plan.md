@@ -1,5 +1,7 @@
 # Decimal ownership and Rust API evolution
 
+Historical implementation plan: requirements to preserve Go panic forms or defer fallible APIs are superseded by the [current Rust error policy](rust-api.md#recoverable-errors-and-migration). Numerical, state and resource contracts remain unchanged.
+
 Status: proposed; implementation starts only after Codex review of this design PR reports no outstanding actionable findings. Base: `main` at `0dc7109e2c04f0e2c87d6df023e851845f973d7d` (remote verified on 2026-11-07). This is an additive evolution of the [technical design](technical-design.md), not a replacement of the pinned Go compatibility contract.
 
 ## Problem and decisions

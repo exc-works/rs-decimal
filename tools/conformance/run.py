@@ -11,6 +11,62 @@ class ConformanceError(RuntimeError):
     pass
 
 
+# The pinned Go implementation keeps its panic API. Rust now returns errors for
+# these specific failures. Normalize only the Go side, never a Rust panic, and
+# retain exact category/state comparisons. Explicit must_* operations are absent.
+RETURNED_ERROR_MIGRATIONS = {
+    "construct": {"InvalidPrecision"},
+    "from_float": {"InvalidFormat"},
+    "from_rat_prec": {"InvalidPrecision", "RoundUnnecessary"},
+    "rescale": {"InvalidPrecision", "RoundUnnecessary"},
+    "rescale_down": {"InvalidPrecision"},
+    "floor": {"InvalidPrecision"},
+    "ceil": {"InvalidPrecision"},
+    "round": {"InvalidPrecision"},
+    "truncate": {"InvalidPrecision"},
+    "shift": {"Overflow"},
+    "significant": {"RoundUnnecessary"},
+    "mul": {"RoundUnnecessary"},
+    "mul_exact": {"Overflow"},
+    "mul_prec": {"InvalidPrecision", "RoundUnnecessary"},
+    "quo": {"DivideByZero", "Overflow", "RoundUnnecessary"},
+    "quo_down": {"DivideByZero", "Overflow"},
+    "quo_prec": {"InvalidPrecision", "DivideByZero", "Overflow", "RoundUnnecessary"},
+    "quo_rem": {"DivideByZero"},
+    "mod": {"DivideByZero"},
+    "power": {"DivideByZero", "Overflow"},
+    "sqrt_prec": {"InvalidPrecision"},
+    "root_prec": {"InvalidPrecision"},
+    "ln_prec": {"InvalidPrecision"},
+    "log2_prec": {"InvalidPrecision"},
+    "log10_prec": {"InvalidPrecision"},
+    "exp_prec": {"InvalidPrecision"},
+    "log2": {"InvalidLog", "NoConvergence"},
+}
+ASSERTION_MIGRATIONS = {
+    "mode": "InvalidArgument",
+    "msb": "InvalidArgument",
+    "safe_add": "InvalidArgument",
+    "safe_sub": "InvalidArgument",
+    "significant": "InvalidArgument",
+}
+
+
+def normalize_go_failure(request, response):
+    if response.get("outcome") != "panic":
+        return response
+    operation = request["operation"]
+    kinds = response.get("error_kinds")
+    if not isinstance(kinds, list) or len(kinds) != 1 or not isinstance(kinds[0], str):
+        return response
+    kind = kinds[0]
+    if kind == "Assertion" and operation in ASSERTION_MIGRATIONS:
+        kind = ASSERTION_MIGRATIONS[operation]
+    elif kind not in RETURNED_ERROR_MIGRATIONS.get(operation, set()):
+        return response
+    return dict(response, outcome="error", error_kinds=[kind])
+
+
 def validate_state(state):
     if not isinstance(state, dict) or set(state) != {"coefficient", "scale", "initialized"}:
         raise ConformanceError("incomplete decimal state")
@@ -54,6 +110,10 @@ def compare(requests, left, right, expected=None):
         raise ConformanceError("expected outcome count mismatch")
     counts = collections.Counter()
     for req, a, b, want in zip(requests, left, right, expected):
+        normalized = normalize_go_failure(req, a) if want == "panic" else a
+        if want == "panic" and normalized.get("outcome") == "error" and a.get("outcome") == "panic":
+            want = "error"
+        a = normalized
         for response in (a, b):
             if response.get("schema_version") != 1 or response.get("case_id") != req["case_id"]:
                 raise ConformanceError("comparison identity mismatch")

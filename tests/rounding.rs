@@ -1,6 +1,6 @@
 use num_integer::Integer;
 use num_traits::{Signed, Zero};
-use rs_decimal::{BigInt, BigRational, Decimal, DecimalError, ErrorKind, RoundingMode as M};
+use rs_decimal::{BigInt, BigRational, Decimal, ErrorKind, RoundingMode as M};
 
 // Independent reference: choose between adjacent integers using exact distances.
 fn oracle(r: BigRational, mode: M) -> Option<BigInt> {
@@ -60,14 +60,14 @@ fn all_modes_match_exact_rational_neighbors() {
         for scale in 0..=3 {
             for target in 0..=3 {
                 for raw in 0..=6 {
-                    let mode = M::from_raw(raw);
-                    let d = Decimal::new_with_prec(n, scale);
+                    let mode = M::from_raw(raw).unwrap();
+                    let d = Decimal::new_with_prec(n, scale).unwrap();
                     let r = BigRational::new(
                         BigInt::from(n) * BigInt::from(10).pow(target as u32),
                         BigInt::from(10).pow(scale as u32),
                     );
                     let want = oracle(r, mode);
-                    let got = std::panic::catch_unwind(|| d.rescale(target, mode));
+                    let got = d.rescale(target, mode);
                     match want {
                         Some(c) => {
                             let got = got.unwrap();
@@ -75,12 +75,7 @@ fn all_modes_match_exact_rational_neighbors() {
                             assert_eq!(got.precision(), target);
                             assert!(!got.is_nil());
                         }
-                        None => assert!(
-                            got.unwrap_err()
-                                .downcast_ref::<DecimalError>()
-                                .unwrap()
-                                .matches(ErrorKind::RoundUnnecessary)
-                        ),
+                        None => assert!(got.unwrap_err().matches(ErrorKind::RoundUnnecessary)),
                     }
                     assert_eq!(d.big_int(), BigInt::from(n));
                     assert_eq!(d.precision(), scale);
@@ -93,45 +88,44 @@ fn all_modes_match_exact_rational_neighbors() {
 #[test]
 fn floor_ceil_shift_and_significant_figures() {
     let d = Decimal::must_from_string("-12.345");
-    assert_eq!(d.floor_with_prec(2).string(), "-12.35");
-    assert_eq!(d.ceil_with_prec(2).string(), "-12.34");
-    assert_eq!(d.shift(4).string(), "-123450");
-    assert_eq!(d.shift(-2).string(), "-0.12345");
+    assert_eq!(d.floor_with_prec(2).unwrap().string(), "-12.35");
+    assert_eq!(d.ceil_with_prec(2).unwrap().string(), "-12.34");
+    assert_eq!(d.shift(4).unwrap().string(), "-123450");
+    assert_eq!(d.shift(-2).unwrap().string(), "-0.12345");
     assert_eq!(
         Decimal::must_from_string("12345")
             .significant_figures(3, M::HalfEven)
+            .unwrap()
             .string(),
         "12300"
     );
     assert_eq!(
         Decimal::must_from_string("0.0012300")
             .significant_figures(2, M::HalfEven)
+            .unwrap()
             .string(),
         "0.0012"
     );
     assert_eq!(
         Decimal::must_from_string("1.20")
             .significant_figures(9, M::HalfEven)
+            .unwrap()
             .precision(),
         2
     );
-    assert!(std::panic::catch_unwind(|| M::from_raw(7)).is_err());
-    let err = std::panic::catch_unwind(|| Decimal::new(1).shift(isize::MIN)).unwrap_err();
-    assert!(
-        err.downcast_ref::<DecimalError>()
-            .unwrap()
-            .matches(ErrorKind::Overflow)
-    );
+    assert!(M::from_raw(7).is_err());
+    let err = Decimal::new(1).shift(isize::MIN).unwrap_err();
+    assert!(err.matches(ErrorKind::Overflow));
 }
 
 #[test]
 fn zero_and_trailing_zero_states() {
     let nil = Decimal::default();
     assert!(!nil.round().is_nil());
-    assert!(!nil.shift(0).is_nil());
-    let zero = Decimal::new_with_prec(0, 8);
-    assert_eq!(zero.rescale(3, M::Unnecessary).precision(), 3);
-    assert_eq!(zero.significant_figures(2, M::Down).precision(), 8);
+    assert!(!nil.shift(0).unwrap().is_nil());
+    let zero = Decimal::new_with_prec(0, 8).unwrap();
+    assert_eq!(zero.rescale(3, M::Unnecessary).unwrap().precision(), 3);
+    assert_eq!(zero.significant_figures(2, M::Down).unwrap().precision(), 8);
     assert_eq!(zero.strip_trailing_zeros().precision(), 0);
     for s in [
         "123.45000",
@@ -146,6 +140,6 @@ fn zero_and_trailing_zero_states() {
             Decimal::must_from_string(&d.string()).precision()
         );
     }
-    let d = Decimal::new_with_prec(1000, isize::MAX);
+    let d = Decimal::new_with_prec(1000, isize::MAX).unwrap();
     assert_eq!(d.strip_trailing_zeros().precision(), isize::MAX - 3);
 }

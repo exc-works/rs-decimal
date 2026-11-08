@@ -1,6 +1,6 @@
 # rs-decimal
 
-rs-decimal is a Rust port that preserves the numerical and state contract of exc-works/decimal. It implements the numerical core, formatting, Text/Param, JSON/Serde, Go binary, YAML/XML/BSON, Scan/Value, PostgreSQL SQLx, exact validation, and configuration decoding. All 166 baseline APIs have an implementation or an explicit platform mapping; the crate has not yet been published.
+rs-decimal is a Rust port that preserves the numerical and state contract of exc-works/decimal, with recoverable Rust errors for ordinary fallible APIs. It implements the numerical core, formatting, Text/Param, JSON/Serde, Go binary, YAML/XML/BSON, Scan/Value, PostgreSQL SQLx, exact validation, and configuration decoding. All 166 baseline APIs have an implementation or an explicit platform mapping; the crate has not yet been published.
 
 ## Development
 
@@ -26,7 +26,7 @@ The plan is based on Go repository commit `a8791208e2d15483cf652cd2814b74b0c1a84
 
 For user-facing API documentation, run `cargo doc --all-features --open`. See the [release process](docs/releasing.md) for release checks and the [CHANGELOG](CHANGELOG.md) for version changes.
 
-See the [Rust API guide](docs/rust-api.md) for integer `From` conversions, borrowed operators, coefficient borrowing/moving, and consuming arithmetic/rescaling methods. Existing compatibility entry points retain their contracts.
+See the [Rust API guide](docs/rust-api.md) for integer `From` conversions, borrowed operators, coefficient borrowing/moving, and consuming arithmetic/rescaling methods. Numerical and state contracts are retained; fallible entry points now return errors as described in the migration guide.
 
 ## Using the numerical core
 
@@ -34,16 +34,16 @@ See the [Rust API guide](docs/rust-api.md) for integer `From` conversions, borro
 use rs_decimal::{Decimal, GoFormat, RoundingMode};
 let price = Decimal::must_from_string("12.350");
 assert_eq!(price.string_with_trailing_zeros(), "12.350");
-let total = price.mul_exact(&Decimal::new(3));
+let total = price.mul_exact(&Decimal::new(3))?;
 assert_eq!(total.string(), "37.05");
-let third = Decimal::new(1).quo_with_prec(&Decimal::new(3), 2, RoundingMode::HalfEven);
+let third = Decimal::new(1).quo_with_prec(&Decimal::new(3), 2, RoundingMode::HalfEven)?;
 assert_eq!(third.string_with_trailing_zeros(), "0.33");
 assert_eq!(Decimal::new(2).sqrt_with_prec(5)?.string(), "1.41421");
-assert_eq!(price.format_go(GoFormat { verb: 'f', precision: Some(2), ..GoFormat::default() }), "12.35");
+assert_eq!(price.format_go(GoFormat { verb: 'f', precision: Some(2), ..GoFormat::default() })?, "12.35");
 # Ok::<(), rs_decimal::DecimalError>(())
 ```
 
-Decimal preserves its coefficient and scale. Default is uninitialized zero; numerical equality does not imply identical representation. Arithmetic leaves inputs unchanged. Ln, roots, and similar operations return Result; the default Log2 entry point and contracts such as negative precision or division by zero use typed DecimalError panics. Among the seven rounding modes, Up rounds away from zero and Ceiling rounds toward positive infinity.
+Decimal preserves its coefficient and scale. Default is uninitialized zero; numerical equality does not imply identical representation. Arithmetic leaves inputs unchanged. Fallible constructors, arithmetic, precision changes, roots, logarithms (including Log2), and formatting return Result. Negative precision, division by zero, overflow, and forbidden rounding return DecimalError; only explicitly named must_* methods panic for expected input failures. This intentionally changes Go failure forms while preserving numerical results and check order. See the [migration guide](docs/rust-api.md#recoverable-errors-and-migration). Among the seven rounding modes, Up rounds away from zero and Ceiling rounds toward positive infinity.
 
 Version `0.1.0-alpha.1` has not yet been published; see the API matrix for preview scope, error rules, and validation evidence. `tools/conformance/core-gates.py` runs the full differential suite, 512 random cases with a fixed seed, and an independent oracle, then checks every result and reports batch timings including process/JSONL overhead. These timings do not establish arithmetic speedups. CI executes paired i686 Go/Rust and 64-bit tests in debug/release and saves timing reports. Extreme native-scale fixtures use isize::MAX in the 32-bit pairing; i64/u64 value ranges remain unchanged.
 

@@ -19,7 +19,8 @@ fn general_rounding_crosses_notation_threshold_once() {
                 precision: Some(p),
                 alternate: hash,
                 ..GoFormat::default()
-            }),
+            })
+            .unwrap(),
             want
         );
     }
@@ -28,7 +29,7 @@ fn general_rounding_crosses_notation_threshold_once() {
 fn scientific_extreme_scale_does_not_expand_zeros() {
     for scale in [131072, isize::MAX] {
         for c in [1, -100] {
-            let d = Decimal::new_with_prec(c, scale);
+            let d = Decimal::new_with_prec(c, scale).unwrap();
             let want = if c == 1 {
                 format!("1.000000e-{scale}")
             } else {
@@ -38,7 +39,8 @@ fn scientific_extreme_scale_does_not_expand_zeros() {
                 d.format_go(GoFormat {
                     verb: 'e',
                     ..GoFormat::default()
-                }),
+                })
+                .unwrap(),
                 want
             );
         }
@@ -57,7 +59,7 @@ fn append_zero_state_separators_and_padding() {
         d.format_with_separators('\u{202f}', ','),
         "-1\u{202f}234,500"
     );
-    let z = Decimal::new_with_prec(0, 3);
+    let z = Decimal::new_with_prec(0, 3).unwrap();
     assert_eq!(z.string(), "0");
     assert_eq!(z.string_with_trailing_zeros(), "0.000");
     let nil = Decimal::default();
@@ -71,19 +73,26 @@ fn append_zero_state_separators_and_padding() {
             precision: Some(3),
             zero: true,
             ..GoFormat::default()
-        }),
+        })
+        .unwrap(),
         "  012"
     );
     assert_eq!(
-        Decimal::new_with_prec(12355, 3).format_go(GoFormat {
-            verb: 'f',
-            width: Some(10),
-            precision: Some(2),
-            plus: true,
-            zero: true,
-            ..GoFormat::default()
-        }),
+        Decimal::new_with_prec(12355, 3)
+            .unwrap()
+            .format_go(GoFormat {
+                verb: 'f',
+                width: Some(10),
+                precision: Some(2),
+                plus: true,
+                zero: true,
+                ..GoFormat::default()
+            })
+            .unwrap(),
         "+000012.36"
     );
-    assert_eq!(format!("{}", Decimal::new_with_prec(12300, 3)), "12.3");
+    assert_eq!(
+        format!("{}", Decimal::new_with_prec(12300, 3).unwrap()),
+        "12.3"
+    );
 }

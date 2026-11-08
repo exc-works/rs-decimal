@@ -18,21 +18,19 @@ impl Decimal {
     ///
     /// # Errors
     /// Returns `NoConvergence` when rounding cannot be certified within the budget.
-    ///
-    /// # Panics
-    /// Panics with `InvalidPrecision` for negative precision.
+    /// Returns `InvalidPrecision` for negative precision.
     pub fn exp_with_prec(&self, prec: isize) -> Result<Self, DecimalError> {
-        let p = precision(prec);
+        let p = precision(prec)?;
         if p > MAX_PARSED_PRECISION || self.scale > MAX_PARSED_PRECISION {
             return Err(no_convergence());
         }
         if self.is_zero() {
-            return Ok(Self::new_with_append_prec(1, prec));
+            return Self::new_with_append_prec(1, prec);
         }
         let negative = self.is_negative();
         let r = self.big_rat().abs();
         if negative && r >= BigRational::new(BigInt::from(5 * (p + 1)), BigInt::from(2)) {
-            return Ok(Self::new_with_prec(0, prec));
+            return Self::new_with_prec(0, prec);
         }
         let digits = ceil_div(r.numer(), r.denom())
             .to_usize()

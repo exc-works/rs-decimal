@@ -23,10 +23,13 @@ def main():
             encoding="utf-8",
         )
         (consumer / "src/main.rs").write_text(
-            'use rs_decimal::{Decimal, RoundingMode};\n'
-            'fn main() {\n'
-            'let x: Decimal = "1.25".parse().unwrap();\n'
-            'assert_eq!(x.rescale(1, RoundingMode::HalfEven).string(), "1.2");\n'
+            'use rs_decimal::{Decimal, DecimalError, ErrorKind, RoundingMode};\n'
+            'fn main() -> Result<(), DecimalError> {\n'
+            'let x: Decimal = "1.25".parse()?;\n'
+            'assert_eq!(x.rescale(1, RoundingMode::HalfEven)?.string(), "1.2");\n'
+            'assert!(x.sqrt_with_prec(-1).unwrap_err().matches(ErrorKind::InvalidPrecision));\n'
+            'assert!(x.quo_down(&Decimal::new(0)).unwrap_err().matches(ErrorKind::DivideByZero));\n'
+            'Ok(())\n'
             '}\n', encoding="utf-8",
         )
         environment = dict(os.environ)

@@ -1,11 +1,12 @@
-use rs_decimal::{BigInt, Decimal, DecimalError, ErrorKind};
+use rs_decimal::{BigInt, Decimal, ErrorKind};
 #[test]
 fn defaults_and_explicit_scales() {
     for s in [0, 20, 30] {
         let d = Decimal::new_from_big_int_with_prec(
             &(BigInt::from(2) * BigInt::from(10).pow(s as u32)),
             s,
-        );
+        )
+        .unwrap();
         assert_eq!(d.sqrt().unwrap().precision(), s.max(20));
         assert_eq!(d.approx_root(3).unwrap().precision(), s.max(20));
         assert_eq!(
@@ -75,11 +76,6 @@ fn domain_budgets_fast_paths_and_error_order() {
             .big_int(),
         BigInt::from(10)
     );
-    let err =
-        std::panic::catch_unwind(|| Decimal::new(-1).approx_root_with_prec(0, -1)).unwrap_err();
-    assert!(
-        err.downcast_ref::<DecimalError>()
-            .unwrap()
-            .matches(ErrorKind::InvalidPrecision)
-    );
+    let err = Decimal::new(-1).approx_root_with_prec(0, -1).unwrap_err();
+    assert!(err.matches(ErrorKind::InvalidPrecision));
 }
