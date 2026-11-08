@@ -73,17 +73,24 @@ fn main() {
     measure("add_mixed_scale", 100_000, || {
         black_box(&left).add(black_box(&mixed))
     });
-    assert_eq!(left.mul_exact(&Decimal::new(2)).string(), "24691.34");
+    assert_eq!(
+        left.mul_exact(&Decimal::new(2)).unwrap().string(),
+        "24691.34"
+    );
     let two = Decimal::new(2);
     measure("multiply_exact", 100_000, || {
-        black_box(&left).mul_exact(black_box(&two))
+        black_box(&left).mul_exact(black_box(&two)).unwrap()
     });
     assert_eq!(
-        left.quo_with_prec(&two, 2, RoundingMode::HalfEven).string(),
+        left.quo_with_prec(&two, 2, RoundingMode::HalfEven)
+            .unwrap()
+            .string(),
         "6172.84"
     );
     measure("divide_rounded", 20_000, || {
-        black_box(&left).quo_with_prec(black_box(&two), 2, RoundingMode::HalfEven)
+        black_box(&left)
+            .quo_with_prec(black_box(&two), 2, RoundingMode::HalfEven)
+            .unwrap()
     });
     assert_eq!(left.string(), "12345.67");
     measure("format_money", 100_000, || black_box(&left).string());
@@ -96,17 +103,17 @@ fn main() {
 fn copy_paths() {
     for digits in [6, 1000] {
         let coefficient: rs_decimal::BigInt = "7".repeat(digits).parse().unwrap();
-        let a = Decimal::new_from_big_int_with_prec(&coefficient, 2);
-        let b = Decimal::new_with_prec(123, 2);
-        assert_eq!(a.safe_add(&b).big_int(), &coefficient + 123);
-        assert_eq!(a.safe_sub(&b).big_int(), &coefficient - 123);
+        let a = Decimal::new_from_big_int_with_prec(&coefficient, 2).unwrap();
+        let b = Decimal::new_with_prec(123, 2).unwrap();
+        assert_eq!(a.safe_add(&b).unwrap().big_int(), &coefficient + 123);
+        assert_eq!(a.safe_sub(&b).unwrap().big_int(), &coefficient - 123);
         measure(&format!("safe_add_{digits}"), 1000, || {
-            black_box(&a).safe_add(black_box(&b))
+            black_box(&a).safe_add(black_box(&b)).unwrap()
         });
         measure(&format!("safe_sub_{digits}"), 1000, || {
-            black_box(&a).safe_sub(black_box(&b))
+            black_box(&a).safe_sub(black_box(&b)).unwrap()
         });
-        let lower = Decimal::new_from_big_int_with_prec(&coefficient, 0);
+        let lower = Decimal::new_from_big_int_with_prec(&coefficient, 0).unwrap();
         for (order, left, right) in [("left", &lower, &a), ("right", &a, &lower)] {
             let aligned_left =
                 left.big_int() * rs_decimal::BigInt::from(10).pow((2 - left.precision()) as u32);
@@ -122,7 +129,7 @@ fn copy_paths() {
             });
         }
         for (shift, scale) in [("positive", 0), ("zero", 2), ("negative", 4)] {
-            let numerator = Decimal::new_from_big_int_with_prec(&coefficient, scale);
+            let numerator = Decimal::new_from_big_int_with_prec(&coefficient, scale).unwrap();
             let divisor = Decimal::new(3);
             let factor = rs_decimal::BigInt::from(10).pow(scale.abs_diff(2) as u32);
             let expected = if scale <= 2 {
@@ -133,11 +140,14 @@ fn copy_paths() {
             assert_eq!(
                 numerator
                     .quo_with_prec(&divisor, 2, RoundingMode::Down)
+                    .unwrap()
                     .big_int(),
                 expected
             );
             measure(&format!("divide_{shift}_{digits}"), 1000, || {
-                black_box(&numerator).quo_with_prec(black_box(&divisor), 2, RoundingMode::Down)
+                black_box(&numerator)
+                    .quo_with_prec(black_box(&divisor), 2, RoundingMode::Down)
+                    .unwrap()
             });
         }
         let negative = a.neg();
@@ -146,18 +156,22 @@ fn copy_paths() {
         measure(&format!("format_negative_{digits}"), 1000, || {
             black_box(&negative).string()
         });
-        let scientific = negative.format_go(rs_decimal::GoFormat {
-            verb: 'e',
-            precision: Some(2),
-            ..Default::default()
-        });
-        assert_eq!(scientific, format!("-7.78e+{:02}", digits - 3));
-        measure(&format!("format_scientific_{digits}"), 1000, || {
-            black_box(&negative).format_go(rs_decimal::GoFormat {
+        let scientific = negative
+            .format_go(rs_decimal::GoFormat {
                 verb: 'e',
                 precision: Some(2),
                 ..Default::default()
             })
+            .unwrap();
+        assert_eq!(scientific, format!("-7.78e+{:02}", digits - 3));
+        measure(&format!("format_scientific_{digits}"), 1000, || {
+            black_box(&negative)
+                .format_go(rs_decimal::GoFormat {
+                    verb: 'e',
+                    precision: Some(2),
+                    ..Default::default()
+                })
+                .unwrap()
         });
     }
 }
@@ -167,13 +181,14 @@ fn ownership_paths() {
     for digits in [6, 1000] {
         let coefficient: rs_decimal::BigInt = "7".repeat(digits).parse().unwrap();
         let start = Decimal::try_from_coefficient(coefficient.clone(), 2).unwrap();
-        let rhs = Decimal::new_with_prec(123, 2);
+        let rhs = Decimal::new_with_prec(123, 2).unwrap();
         let borrowed = || {
             start
                 .clone()
                 .add(&rhs)
                 .sub(&rhs)
                 .rescale(2, RoundingMode::Unnecessary)
+                .unwrap()
         };
         let owned = || {
             start
@@ -181,6 +196,7 @@ fn ownership_paths() {
                 .add_owned(&rhs)
                 .sub_owned(&rhs)
                 .into_rescaled(2, RoundingMode::Unnecessary)
+                .unwrap()
         };
         for result in [borrowed(), owned()] {
             assert_eq!(result.coefficient(), &coefficient);
@@ -193,6 +209,7 @@ fn ownership_paths() {
                 .add(black_box(&rhs))
                 .sub(black_box(&rhs))
                 .rescale(2, RoundingMode::Unnecessary)
+                .unwrap()
         });
         measure(&format!("pipeline_owned_{digits}"), 1000, || {
             black_box(&start)
@@ -200,6 +217,7 @@ fn ownership_paths() {
                 .add_owned(black_box(&rhs))
                 .sub_owned(black_box(&rhs))
                 .into_rescaled(2, RoundingMode::Unnecessary)
+                .unwrap()
         });
         assert_eq!(start.big_int(), *start.coefficient());
         assert_eq!(start.clone().into_coefficient(), coefficient);

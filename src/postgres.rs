@@ -227,11 +227,12 @@ mod tests {
         buf.extend_from_slice(b"prefix");
         assert!(
             Decimal::new_with_prec(1, 16384)
+                .unwrap()
                 .encode_by_ref(&mut buf)
                 .is_err()
         );
         assert_eq!(&buf[..], b"prefix");
-        let zero = Decimal::new_with_prec(0, 4);
+        let zero = Decimal::new_with_prec(0, 4).unwrap();
         assert_eq!(decode(&encode(&zero).unwrap()).unwrap().precision(), 4);
     }
 }
@@ -246,7 +247,7 @@ mod wire_properties {
         let mut seed = 0x00de_c1a1_u64;
         for index in 0..512 {
             seed = seed.wrapping_mul(6364136223846793005).wrapping_add(1);
-            let value = Decimal::new_with_prec(seed as i64, index % 25);
+            let value = Decimal::new_with_prec(seed as i64, index % 25).unwrap();
             let frame = encode(&value).unwrap();
             let decoded = decode(&frame).unwrap();
             assert_eq!(decoded, value);

@@ -1,4 +1,4 @@
-use rs_decimal::{BigInt, BigRational, Decimal, DecimalError, ErrorKind, RoundingMode as M};
+use rs_decimal::{BigInt, BigRational, Decimal, ErrorKind, RoundingMode as M};
 
 #[test]
 fn exact_rational_factorization_and_rounding() {
@@ -27,17 +27,13 @@ fn exact_rational_factorization_and_rounding() {
 }
 #[test]
 fn shortest_float_inputs_and_nonfinite_rejection() {
-    assert_eq!(Decimal::new_from_float64(0.1).string(), "0.1");
-    assert_eq!(Decimal::new_from_float32(0.1).precision(), 1);
-    assert_eq!(Decimal::new_from_float64(1.0).precision(), 0);
-    assert_eq!(Decimal::new_from_float64(-0.0).sign(), 0);
+    assert_eq!(Decimal::new_from_float64(0.1).unwrap().string(), "0.1");
+    assert_eq!(Decimal::new_from_float32(0.1).unwrap().precision(), 1);
+    assert_eq!(Decimal::new_from_float64(1.0).unwrap().precision(), 0);
+    assert_eq!(Decimal::new_from_float64(-0.0).unwrap().sign(), 0);
     for f in [f64::NAN, f64::INFINITY, f64::NEG_INFINITY] {
-        let e = std::panic::catch_unwind(|| Decimal::new_from_float64(f)).unwrap_err();
-        assert!(
-            e.downcast_ref::<DecimalError>()
-                .unwrap()
-                .matches(ErrorKind::InvalidFormat)
-        );
+        let e = Decimal::new_from_float64(f).unwrap_err();
+        assert!(e.matches(ErrorKind::InvalidFormat));
     }
 }
 #[test]
@@ -85,13 +81,16 @@ fn native_integer_exactness_and_bits() {
     }
     assert_eq!(Decimal::new(i64::MIN).int64(), (i64::MIN, true));
     assert_eq!(
-        Decimal::new_from_uint64(u64::MAX, 0).uint64(),
+        Decimal::new_from_uint64(u64::MAX, 0).unwrap().uint64(),
         (u64::MAX, true)
     );
     assert_eq!(Decimal::new(-1).uint64(), (0, false));
-    assert_eq!(Decimal::new_with_prec(0, isize::MAX).int64(), (0, true));
+    assert_eq!(
+        Decimal::new_with_prec(0, isize::MAX).unwrap().int64(),
+        (0, true)
+    );
     assert_eq!(Decimal::new(8).bit_len(), 4);
-    assert_eq!(rs_decimal::most_significant_bit(&8.into()), 3);
-    assert_eq!(rs_decimal::most_significant_bit(&0.into()), 0);
-    assert!(std::panic::catch_unwind(|| rs_decimal::most_significant_bit(&(-1).into())).is_err());
+    assert_eq!(rs_decimal::most_significant_bit(&8.into()).unwrap(), 3);
+    assert_eq!(rs_decimal::most_significant_bit(&0.into()).unwrap(), 0);
+    assert!(rs_decimal::most_significant_bit(&(-1).into()).is_err());
 }

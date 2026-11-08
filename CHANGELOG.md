@@ -2,6 +2,15 @@
 
 ## 0.1.0-alpha.1 — unreleased
 
+- Breaking alpha API change: ordinary fallible constructors, arithmetic, precision
+  changes, Log2, raw rounding-mode conversion, most-significant-bit validation and
+  Go formatting return `Result` for expected failures. Negative precision also
+  returns `Err` from APIs that already returned `Result`. Only explicit `must_*`
+  methods retain input-related panics. Numerical/state/protocol behavior and
+  existing resource limits are unchanged; see the Rust API migration guide.
+- Update callers, error/state regressions and the differential comparator to
+  verify the intentional Go-panic/Rust-error mapping without accepting Rust panics.
+
 - Port the numerical and state contract of exc-works/decimal v0.8.0 at
   `a8791208e2d15483cf652cd2814b74b0c1a84187` (166 mapped API declarations).
 - Preserve decimal scale, uninitialized zero, seven rounding modes and exact

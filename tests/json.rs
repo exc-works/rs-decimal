@@ -2,7 +2,7 @@
 use rs_decimal::{Decimal, ErrorKind, NullDecimal};
 #[test]
 fn exact_tokens_null_and_failed_updates() {
-    let mut d = Decimal::new_with_prec(1230, 2);
+    let mut d = Decimal::new_with_prec(1230, 2).unwrap();
     d.unmarshal_json(b"null").unwrap();
     assert_eq!(d.string_with_trailing_zeros(), "12.30");
     for token in [

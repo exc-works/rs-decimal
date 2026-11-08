@@ -1,5 +1,6 @@
 use crate::{
     BigRational, Decimal, DecimalError, ErrorKind, RoundingMode,
+    error::error,
     integer::{pow10, precision, trunc_div_rem},
     rounding::rounded_div,
 };
@@ -9,14 +10,13 @@ use num_traits::{Signed, ToPrimitive, Zero};
 
 /// Returns the zero-based highest set-bit index; zero returns 0.
 ///
-/// # Panics
-/// Panics with a string payload for a negative input.
-pub fn most_significant_bit(value: &BigInt) -> usize {
-    assert!(
-        !value.is_negative(),
-        "MostSignificantBit of not positive number"
-    );
-    value.bits().saturating_sub(1) as usize
+/// # Errors
+/// Returns `InvalidArgument` for a negative input.
+pub fn most_significant_bit(value: &BigInt) -> Result<usize, DecimalError> {
+    if value.is_negative() {
+        return Err(error(ErrorKind::InvalidArgument));
+    }
+    Ok(value.bits().saturating_sub(1) as usize)
 }
 
 fn shortest(text: &str) -> String {
@@ -37,24 +37,24 @@ impl Decimal {
     /// Converts the shortest decimal representation that round-trips to this float.
     /// This does not recover decimal digits lost before conversion.
     ///
-    /// # Panics
-    /// Panics with `InvalidFormat` for NaN or infinity.
-    pub fn new_from_float32(value: f32) -> Self {
+    /// # Errors
+    /// Returns `InvalidFormat` for NaN or infinity.
+    pub fn new_from_float32(value: f32) -> Result<Self, DecimalError> {
         if !value.is_finite() {
-            return Self::must_from_string("NaN");
+            return Err(error(ErrorKind::InvalidFormat));
         }
-        Self::must_from_string(&shortest(ryu::Buffer::new().format_finite(value)))
+        Self::new_from_string(&shortest(ryu::Buffer::new().format_finite(value)))
     }
     /// Converts the shortest decimal representation that round-trips to this float.
     /// Use text input for exact decimal data.
     ///
-    /// # Panics
-    /// Panics with `InvalidFormat` for NaN or infinity.
-    pub fn new_from_float64(value: f64) -> Self {
+    /// # Errors
+    /// Returns `InvalidFormat` for NaN or infinity.
+    pub fn new_from_float64(value: f64) -> Result<Self, DecimalError> {
         if !value.is_finite() {
-            return Self::must_from_string("NaN");
+            return Err(error(ErrorKind::InvalidFormat));
         }
-        Self::must_from_string(&shortest(ryu::Buffer::new().format_finite(value)))
+        Self::new_from_string(&shortest(ryu::Buffer::new().format_finite(value)))
     }
     /// Converts a rational exactly.
     ///
@@ -99,20 +99,20 @@ impl Decimal {
     }
     /// Rounds a rational to `prec` decimal places; successful conversions return `Ok`.
     ///
-    /// # Panics
-    /// Despite the compatibility `Result` signature, negative precision and required
-    /// rounding with `Unnecessary` panic with a [`DecimalError`].
+    /// # Errors
+    /// Returns `InvalidPrecision` for negative precision or `RoundUnnecessary`
+    /// when exact rounding would discard nonzero digits.
     pub fn new_from_big_rat_with_prec(
         value: &BigRational,
         prec: isize,
         mode: RoundingMode,
     ) -> Result<Self, DecimalError> {
-        let p = precision(prec);
+        let p = precision(prec)?;
         if value.is_zero() {
             return Ok(Self::from_parts(BigInt::zero(), p));
         }
         Ok(Self::from_parts(
-            rounded_div(&(value.numer() * pow10(p)), value.denom(), mode),
+            rounded_div(&(value.numer() * pow10(p)), value.denom(), mode)?,
             p,
         ))
     }

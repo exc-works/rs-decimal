@@ -17,7 +17,7 @@ fn precise_scan_and_values() {
 }
 #[test]
 fn nullable_and_atomic_errors() {
-    let mut n = NullDecimal::new(Decimal::new_with_prec(1230, 2));
+    let mut n = NullDecimal::new(Decimal::new_with_prec(1230, 2).unwrap());
     for value in [
         ScanValue::Text(""),
         ScanValue::Text("\"\""),

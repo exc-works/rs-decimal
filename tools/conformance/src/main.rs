@@ -18,6 +18,7 @@ impl State {
                 &self.coefficient.parse::<BigInt>().unwrap(),
                 self.scale.parse().unwrap(),
             )
+            .expect("validated state scale")
         } else {
             Decimal::default()
         }
@@ -54,6 +55,16 @@ struct Request {
 }
 
 fn execute(req: &Request) -> Value {
+    execute_inner(req).unwrap_or_else(|error| {
+        json!({
+            "schema_version": 1, "case_id": req.case_id,
+            "outcome": "error", "inputs_after": req.inputs,
+            "error_kinds": error.kinds().iter().map(|kind| format!("{kind:?}")).collect::<Vec<_>>()
+        })
+    })
+}
+
+fn execute_inner(req: &Request) -> Result<Value, DecimalError> {
     let mut response = json!({"schema_version": 1, "case_id": req.case_id,
         "outcome": "unsupported", "inputs_after": req.inputs, "error_kinds": []});
     if req.schema_version != 1 || req.case_id.is_empty() || !req.inputs.iter().all(State::valid) {
@@ -275,7 +286,7 @@ fn execute(req: &Request) -> Value {
                     zero: flags.contains('0'),
                     alternate: flags.contains('#'),
                 };
-                Ok(json!(values[0].format_go(f)))
+                Ok(json!(values[0].format_go(f)?))
             }
             "string" if values.len() == 1 => Ok(json!(values[0].string())),
             "trailing" if values.len() == 1 => Ok(json!(values[0].string_with_trailing_zeros())),
@@ -300,7 +311,7 @@ fn execute(req: &Request) -> Value {
                 let result = match req.operation.as_str() {
                     "ln" => a.ln(),
                     "ln_prec" => a.ln_with_prec(p("precision").parse().unwrap()),
-                    "log2" => Ok(a.log2()),
+                    "log2" => Ok(a.log2()?),
                     "log2_prec" => a.log2_with_prec(p("precision").parse().unwrap()),
                     "log10" => a.log10(),
                     "log10_prec" => a.log10_with_prec(p("precision").parse().unwrap()),
@@ -328,9 +339,9 @@ fn execute(req: &Request) -> Value {
             "from_float" => {
                 let bits = u64::from_str_radix(p("bits"), 16).unwrap();
                 let d = if p("width") == "32" {
-                    Decimal::new_from_float32(f32::from_bits(bits as u32))
+                    Decimal::new_from_float32(f32::from_bits(bits as u32))?
                 } else {
-                    Decimal::new_from_float64(f64::from_bits(bits))
+                    Decimal::new_from_float64(f64::from_bits(bits))?
                 };
                 Ok(capture(&d))
             }
@@ -355,7 +366,7 @@ fn execute(req: &Request) -> Value {
                     Decimal::new_from_big_rat_with_prec(
                         &r,
                         p("precision").parse().unwrap(),
-                        RoundingMode::from_raw(p("mode").parse().unwrap()),
+                        RoundingMode::from_raw(p("mode").parse().unwrap())?,
                     )
                 };
                 d.map(|d| capture(&d))
@@ -372,7 +383,7 @@ fn execute(req: &Request) -> Value {
                 )
             }
             "msb" => Ok(json!(
-                rs_decimal::most_significant_bit(&p("value").parse().unwrap()).to_string()
+                rs_decimal::most_significant_bit(&p("value").parse().unwrap())?.to_string()
             )),
             "add" | "sub" | "safe_add" | "safe_sub" | "mul" | "mul_down" | "mul_exact"
             | "mul_prec" | "quo" | "quo_down" | "quo_prec" | "quo_rem" | "mod"
@@ -381,7 +392,7 @@ fn execute(req: &Request) -> Value {
                 let (a, b) = (&values[0], &values[1]);
                 let mode = RoundingMode::from_raw(
                     req.params["mode"].as_str().unwrap_or("5").parse().unwrap(),
-                );
+                )?;
                 let prec = req.params["precision"]
                     .as_str()
                     .unwrap_or("0")
@@ -390,19 +401,21 @@ fn execute(req: &Request) -> Value {
                 let result = match req.operation.as_str() {
                     "add" => a.add(b),
                     "sub" => a.sub(b),
-                    "safe_add" => a.safe_add(b),
-                    "safe_sub" => a.safe_sub(b),
-                    "mul" => a.mul(b, mode),
+                    "safe_add" => a.safe_add(b)?,
+                    "safe_sub" => a.safe_sub(b)?,
+                    "mul" => a.mul(b, mode)?,
                     "mul_down" => a.mul_down(b),
-                    "mul_exact" => a.mul_exact(b),
-                    "mul_prec" => a.mul_with_prec(b, prec, mode),
-                    "quo" => a.quo(b, mode),
-                    "quo_down" => a.quo_down(b),
-                    "quo_prec" => a.quo_with_prec(b, prec, mode),
-                    "mod" => a.r#mod(b),
+                    "mul_exact" => a.mul_exact(b)?,
+                    "mul_prec" => a.mul_with_prec(b, prec, mode)?,
+                    "quo" => a.quo(b, mode)?,
+                    "quo_down" => a.quo_down(b)?,
+                    "quo_prec" => a.quo_with_prec(b, prec, mode)?,
+                    "mod" => a.r#mod(b)?,
                     "quo_rem" => {
-                        let (q, r) = a.quo_rem(b);
-                        return json!({"schema_version":1,"case_id":req.case_id,"outcome":"ok","error_kinds":[],"inputs_after":req.inputs,"result":[capture(&q),capture(&r)]});
+                        let (q, r) = a.quo_rem(b)?;
+                        return Ok(
+                            json!({"schema_version":1,"case_id":req.case_id,"outcome":"ok","error_kinds":[],"inputs_after":req.inputs,"result":[capture(&q),capture(&r)]}),
+                        );
                     }
                     _ => unreachable!(),
                 };
@@ -414,7 +427,7 @@ fn execute(req: &Request) -> Value {
                 let a = &values[0];
                 let value = req.params["value"].as_str().unwrap_or("0").parse().unwrap();
                 match req.operation.as_str() {
-                    "power" => Ok(capture(&a.power(value))),
+                    "power" => Ok(capture(&a.power(value)?)),
                     "add_raw" => Ok(capture(&a.add_raw(value))),
                     "sub_raw" => Ok(capture(&a.sub_raw(value))),
                     "must_non_negative" => Ok(capture(&a.must_non_negative())),
@@ -428,7 +441,7 @@ fn execute(req: &Request) -> Value {
                 }
             }
             "mode" => Ok(json!(
-                (RoundingMode::from_raw(p("mode").parse().unwrap()) as i32).to_string()
+                (RoundingMode::from_raw(p("mode").parse().unwrap())? as i32).to_string()
             )),
             "rescale" | "rescale_down" | "floor" | "ceil" | "round" | "truncate" | "shift"
             | "strip" | "significant"
@@ -442,19 +455,19 @@ fn execute(req: &Request) -> Value {
                     .unwrap();
                 let result = match req.operation.as_str() {
                     "rescale" => {
-                        a.rescale(prec, RoundingMode::from_raw(p("mode").parse().unwrap()))
+                        a.rescale(prec, RoundingMode::from_raw(p("mode").parse().unwrap())?)?
                     }
-                    "rescale_down" => a.rescale_down(prec),
-                    "floor" => a.floor_with_prec(prec),
-                    "ceil" => a.ceil_with_prec(prec),
-                    "round" => a.round_with_prec(prec),
-                    "truncate" => a.truncate_with_prec(prec),
-                    "shift" => a.shift(p("places").parse().unwrap()),
+                    "rescale_down" => a.rescale_down(prec)?,
+                    "floor" => a.floor_with_prec(prec)?,
+                    "ceil" => a.ceil_with_prec(prec)?,
+                    "round" => a.round_with_prec(prec)?,
+                    "truncate" => a.truncate_with_prec(prec)?,
+                    "shift" => a.shift(p("places").parse().unwrap())?,
                     "strip" => a.strip_trailing_zeros(),
                     "significant" => a.significant_figures(
                         p("figures").parse().unwrap(),
-                        RoundingMode::from_raw(p("mode").parse().unwrap()),
-                    ),
+                        RoundingMode::from_raw(p("mode").parse().unwrap())?,
+                    )?,
                     _ => unreachable!(),
                 };
                 Ok(capture(&result))
@@ -470,18 +483,18 @@ fn execute(req: &Request) -> Value {
                 let d = match p("kind") {
                     "new" => Decimal::new(p("value").parse().unwrap()),
                     "int" => Decimal::new_from_int(p("value").parse().unwrap()),
-                    "with_prec" => Decimal::new_with_prec(p("value").parse().unwrap(), prec),
-                    "int64" => Decimal::new_from_int64(p("value").parse().unwrap(), prec),
-                    "uint64" => Decimal::new_from_uint64(p("value").parse().unwrap(), prec),
+                    "with_prec" => Decimal::new_with_prec(p("value").parse().unwrap(), prec)?,
+                    "int64" => Decimal::new_from_int64(p("value").parse().unwrap(), prec)?,
+                    "uint64" => Decimal::new_from_uint64(p("value").parse().unwrap(), prec)?,
                     "big_int" => Decimal::new_from_big_int(&p("value").parse().unwrap()),
                     "big_int_prec" => {
-                        Decimal::new_from_big_int_with_prec(&p("value").parse().unwrap(), prec)
+                        Decimal::new_from_big_int_with_prec(&p("value").parse().unwrap(), prec)?
                     }
-                    "append" => Decimal::new_with_append_prec(p("value").parse().unwrap(), prec),
+                    "append" => Decimal::new_with_append_prec(p("value").parse().unwrap(), prec)?,
                     "uint_append" => {
-                        Decimal::new_from_uint_with_append_prec(p("value").parse().unwrap(), prec)
+                        Decimal::new_from_uint_with_append_prec(p("value").parse().unwrap(), prec)?
                     }
-                    _ => return response,
+                    _ => return Ok(response),
                 };
                 Ok(capture(&d))
             }
@@ -505,7 +518,7 @@ fn execute(req: &Request) -> Value {
             "clone" if values.len() == 1 => Ok(capture(&Decimal::new_from_decimal(&values[0]))),
             "abs" if values.len() == 1 => Ok(capture(&values[0].abs())),
             "neg" if values.len() == 1 => Ok(capture(&values[0].neg())),
-            _ => return response,
+            _ => return Ok(response),
         };
         match result {
             Ok(value) => {
@@ -523,7 +536,7 @@ fn execute(req: &Request) -> Value {
             }
         }
     }
-    response
+    Ok(response)
 }
 
 fn encode_hex(bytes: &[u8]) -> String {

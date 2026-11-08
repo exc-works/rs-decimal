@@ -10,10 +10,10 @@
 //! ```
 //! use rs_decimal::{Decimal, RoundingMode};
 //! let price: Decimal = "12.350".parse()?;
-//! let total = price.mul_exact(&Decimal::new(3));
+//! let total = price.mul_exact(&Decimal::new(3))?;
 //! assert_eq!(total.string(), "37.05");
 //! assert_eq!(total.string_with_trailing_zeros(), "37.050");
-//! let third = Decimal::new(1).quo_with_prec(&Decimal::new(3), 2, RoundingMode::HalfEven);
+//! let third = Decimal::new(1).quo_with_prec(&Decimal::new(3), 2, RoundingMode::HalfEven)?;
 //! assert_eq!(third.string_with_trailing_zeros(), "0.33");
 //! # Ok::<(), rs_decimal::DecimalError>(())
 //! ```
@@ -27,7 +27,7 @@
 //! let sum = &a + &b;
 //! assert_eq!(sum.to_string(), "3.25");
 //! assert_eq!(a.scale(), 2);
-//! let result = sum.sub_owned(&b).into_rescaled(1, RoundingMode::HalfEven);
+//! let result = sum.sub_owned(&b).into_rescaled(1, RoundingMode::HalfEven)?;
 //! assert_eq!(result.to_string(), "1.2");
 //! let mode = RoundingMode::try_from(5)?;
 //! assert_eq!(mode, RoundingMode::HalfEven);
@@ -63,12 +63,13 @@
 //! keeps the sum of the scales. Explicit `*_with_prec` methods select the result
 //! scale. [`RoundingMode::Down`] means toward zero, **not** toward negative infinity.
 //!
-//! Parsing, decoding, roots, logarithms (except [`Decimal::log2`]) and exponentials
-//! return [`Result`]. Compatibility arithmetic uses typed [`DecimalError`] panic
-//! payloads for negative precision, zero divisors and forbidden rounding.
-//! Some Go assertion-style methods use string panic payloads; each entry documents
-//! its behavior. A `Result` signature does not make a negative precision valid.
-//! Check untrusted precision/divisors before invoking arithmetic.
+//! Fallible constructors, arithmetic, precision changes, roots, logarithms and
+//! exponentials return [`Result`]. Invalid precision, zero divisors, overflow and
+//! forbidden rounding are returned as [`DecimalError`], including through `?`.
+//! Only explicitly named `must_*` methods panic for expected input failures.
+//! Infallible operations such as addition, subtraction and scale-zero rounding
+//! still return values directly. Internal invariant bugs and allocation failures
+//! are outside this recoverable-error contract.
 //!
 //! Coefficients are arbitrary-size, not resource-unlimited. Parsing bounds scale
 //! magnitude to 131072; certified transcendental algorithms have finite budgets

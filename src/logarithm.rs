@@ -19,28 +19,22 @@ impl Decimal {
     ///
     /// # Errors
     /// Returns domain errors or `NoConvergence` when rounding cannot be certified within the budget.
-    ///
-    /// # Panics
-    /// Panics with `InvalidPrecision` for negative precision.
+    /// Returns `InvalidPrecision` for negative precision.
     pub fn ln_with_prec(&self, prec: isize) -> Result<Self, DecimalError> {
         self.certified_log(prec, 0)
     }
     /// Computes the base-two logarithm at `max(self.precision(), 20)` decimal places.
     ///
-    /// # Panics
-    /// Panics with the [`DecimalError`] returned by [`Self::log2_with_prec`].
-    /// Use that method when the caller needs to handle domain or convergence errors.
-    pub fn log2(&self) -> Self {
+    /// # Errors
+    /// Returns domain errors or `NoConvergence` when rounding cannot be certified within the budget.
+    pub fn log2(&self) -> Result<Self, DecimalError> {
         self.log2_with_prec(self.precision().max(20))
-            .unwrap_or_else(|e| std::panic::panic_any(e))
     }
     /// Computes the base-two logarithm, rounded half-even to `prec` decimal places.
     ///
     /// # Errors
     /// Returns domain errors or `NoConvergence` when rounding cannot be certified within the budget.
-    ///
-    /// # Panics
-    /// Panics with `InvalidPrecision` for negative precision.
+    /// Returns `InvalidPrecision` for negative precision.
     pub fn log2_with_prec(&self, prec: isize) -> Result<Self, DecimalError> {
         self.certified_log(prec, 2)
     }
@@ -55,14 +49,12 @@ impl Decimal {
     ///
     /// # Errors
     /// Returns domain errors or `NoConvergence` when rounding cannot be certified within the budget.
-    ///
-    /// # Panics
-    /// Panics with `InvalidPrecision` for negative precision.
+    /// Returns `InvalidPrecision` for negative precision.
     pub fn log10_with_prec(&self, prec: isize) -> Result<Self, DecimalError> {
         self.certified_log(prec, 10)
     }
     fn certified_log(&self, prec: isize, base: i64) -> Result<Self, DecimalError> {
-        let p = precision(prec);
+        let p = precision(prec)?;
         if self.sign() <= 0 {
             return Err(DecimalError::new(
                 ErrorKind::InvalidLog,
@@ -74,16 +66,16 @@ impl Decimal {
         }
         let r = self.big_rat();
         if r.is_one() {
-            return Ok(Self::new_with_prec(0, prec));
+            return Self::new_with_prec(0, prec);
         }
         if base == 2
             && r.numer().trailing_zeros() == Some(r.numer().bits() - 1)
             && r.denom().trailing_zeros() == Some(r.denom().bits() - 1)
         {
-            return Ok(Self::new_with_append_prec(
+            return Self::new_with_append_prec(
                 r.numer().bits() as i64 - r.denom().bits() as i64,
                 prec,
-            ));
+            );
         }
         if base == 10 {
             let n = r.numer().to_string();
@@ -91,10 +83,7 @@ impl Decimal {
             let power_ten =
                 |s: &str| s.starts_with('1') && s.as_bytes()[1..].iter().all(|b| *b == b'0');
             if power_ten(&n) && power_ten(&d) {
-                return Ok(Self::new_with_append_prec(
-                    n.len() as i64 - d.len() as i64,
-                    prec,
-                ));
+                return Self::new_with_append_prec(n.len() as i64 - d.len() as i64, prec);
             }
         }
         let (arg, reciprocal) = reduce(r.numer(), r.denom(), base);

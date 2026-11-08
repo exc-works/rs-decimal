@@ -27,3 +27,15 @@ cargo build --locked -p decimal-conformance
 python3 tools/conformance/test_driver.py
 python3 tools/conformance/run.py --go .cache/go-reference --rust target/debug/decimal-conformance --cases testdata/conformance/state.jsonl
 ```
+
+## Rust returned-error mapping
+
+The Rust executor now reports `error` for ordinary fallible APIs. Frozen fixture
+`expected_outcome` values still describe the pinned Go implementation. Before
+comparison, `run.py` maps only the explicit operation/category pairs in
+`RETURNED_ERROR_MIGRATIONS` and `ASSERTION_MIGRATIONS` on the Go side. Typed
+categories are retained; migrated input assertions become `InvalidArgument`.
+The Rust response must be `error` with the matching categories and complete
+unchanged input states. Rust panics are never normalized, and `must_parse` /
+`must_non_negative` remain panic operations. Successful results, decoder failures,
+unsupported operations, transport failures and must-succeed checks are unchanged.

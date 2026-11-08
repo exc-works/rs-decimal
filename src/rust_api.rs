@@ -1,4 +1,4 @@
-use crate::{BigInt, Decimal, DecimalError, ErrorKind, RoundingMode};
+use crate::{BigInt, Decimal, DecimalError, RoundingMode};
 use std::ops::{Add, Neg, Sub};
 
 /// Moves an arbitrary-size integer into an initialized scale-zero Decimal.
@@ -40,7 +40,7 @@ from_integer!(
 /// ```
 /// use rs_decimal::Decimal;
 /// let a = Decimal::from(2);
-/// let b = Decimal::new_with_prec(25, 2);
+/// let b = Decimal::new_with_prec(25, 2).unwrap();
 /// assert_eq!((&a + &b).string_with_trailing_zeros(), "2.25");
 /// assert_eq!(a.to_string(), "2");
 /// ```
@@ -56,7 +56,7 @@ impl Add<&Decimal> for &Decimal {
 /// ```
 /// use rs_decimal::Decimal;
 /// let a = Decimal::from(2);
-/// let b = Decimal::new_with_prec(25, 2);
+/// let b = Decimal::new_with_prec(25, 2).unwrap();
 /// assert_eq!((&a - &b).string_with_trailing_zeros(), "1.75");
 /// assert_eq!(b.to_string(), "0.25");
 /// ```
@@ -71,7 +71,7 @@ impl Sub<&Decimal> for &Decimal {
 ///
 /// ```
 /// use rs_decimal::Decimal;
-/// let d = Decimal::new_with_prec(1230, 2);
+/// let d = Decimal::new_with_prec(1230, 2).unwrap();
 /// assert_eq!((-&d).string_with_trailing_zeros(), "-12.30");
 /// assert_eq!(d.to_string(), "12.3");
 /// ```
@@ -84,7 +84,7 @@ impl Neg for &Decimal {
 
 /// Validates an external mode discriminant without panicking.
 /// Values 0 through 6 follow the pinned Go mode mapping; other values return
-/// [`ErrorKind::InvalidArgument`]. The legacy [`Self::from_raw`] still panics.
+/// [`crate::ErrorKind::InvalidArgument`], just like [`Self::from_raw`].
 ///
 /// ```
 /// use rs_decimal::{ErrorKind, RoundingMode};
@@ -95,13 +95,6 @@ impl Neg for &Decimal {
 impl TryFrom<i32> for RoundingMode {
     type Error = DecimalError;
     fn try_from(value: i32) -> Result<Self, Self::Error> {
-        if (0..=6).contains(&value) {
-            Ok(Self::from_raw(value))
-        } else {
-            Err(DecimalError::new(
-                ErrorKind::InvalidArgument,
-                "invalid rounding mode",
-            ))
-        }
+        Self::from_raw(value)
     }
 }

@@ -32,9 +32,9 @@ fn primitive_conversions_cover_each_full_integer_range() {
 fn borrowed_operator_traits_keep_legacy_calls_and_inputs_usable() {
     let values = [
         Decimal::default(),
-        Decimal::new_with_prec(0, 4),
-        Decimal::new_with_prec(-123, 2),
-        Decimal::new_with_prec(123, 3),
+        Decimal::new_with_prec(0, 4).unwrap(),
+        Decimal::new_with_prec(-123, 2).unwrap(),
+        Decimal::new_with_prec(123, 3).unwrap(),
         Decimal::from(i128::MIN),
         Decimal::from(u128::MAX),
     ];
@@ -59,7 +59,7 @@ fn borrowed_operator_traits_keep_legacy_calls_and_inputs_usable() {
 }
 
 #[test]
-fn fallible_modes_preserve_legacy_mapping_and_panic() {
+fn fallible_modes_preserve_mapping_and_return_errors() {
     for (raw, expected) in [
         RoundingMode::Down,
         RoundingMode::Up,
@@ -73,7 +73,7 @@ fn fallible_modes_preserve_legacy_mapping_and_panic() {
     .enumerate()
     {
         assert_eq!(RoundingMode::try_from(raw as i32).unwrap(), expected);
-        assert_eq!(RoundingMode::from_raw(raw as i32), expected);
+        assert_eq!(RoundingMode::from_raw(raw as i32).unwrap(), expected);
     }
     for raw in [i32::MIN, -1, 7, i32::MAX] {
         assert!(
@@ -81,11 +81,10 @@ fn fallible_modes_preserve_legacy_mapping_and_panic() {
                 .unwrap_err()
                 .matches(ErrorKind::InvalidArgument)
         );
-        let payload = std::panic::catch_unwind(|| RoundingMode::from_raw(raw)).unwrap_err();
-        let message = payload
-            .downcast_ref::<&str>()
-            .copied()
-            .or_else(|| payload.downcast_ref::<String>().map(String::as_str));
-        assert_eq!(message, Some("invalid rounding mode"));
+        assert!(
+            RoundingMode::from_raw(raw)
+                .unwrap_err()
+                .matches(ErrorKind::InvalidArgument)
+        );
     }
 }

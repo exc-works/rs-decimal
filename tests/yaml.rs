@@ -197,7 +197,7 @@ fn fixed_scalar_syntax_and_exact_digits() {
 }
 #[test]
 fn null_semantics_and_parser_boundaries() {
-    let mut d = Decimal::new_with_prec(1230, 2);
+    let mut d = Decimal::new_with_prec(1230, 2).unwrap();
     d.unmarshal_yaml("null").unwrap();
     assert_eq!(d.string_with_trailing_zeros(), "12.30");
     let mut n = NullDecimal::new(d);
@@ -242,7 +242,7 @@ fn custom_tags_and_later_document_syntax() {
         );
     }
     for text in ["---\n1\n---\n[2", "---\n1\n---\n{a:"] {
-        let mut n = NullDecimal::new(Decimal::new_with_prec(1230, 2));
+        let mut n = NullDecimal::new(Decimal::new_with_prec(1230, 2).unwrap());
         assert!(
             n.unmarshal_yaml(text)
                 .unwrap_err()

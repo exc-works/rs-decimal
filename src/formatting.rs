@@ -1,4 +1,4 @@
-use crate::{Decimal, RoundingMode};
+use crate::{Decimal, DecimalError, ErrorKind, RoundingMode};
 
 /// Options for one Go-compatible formatting verb (not a printf format parser).
 /// Numeric flags apply to d/f/F/e/E/g/G/b. Unknown verbs return Go's error marker.
@@ -115,17 +115,17 @@ impl Decimal {
     }
     /// Applies one Go formatting verb and its flags. Unsupported verbs return a `%!` marker.
     ///
-    /// # Panics
-    /// Panics if fixed-point precision exceeds the native signed integer range.
+    /// # Errors
+    /// Returns `InvalidPrecision` if fixed-point precision exceeds the native signed integer range.
     /// Output allocation grows with the requested width and precision.
-    pub fn format_go(&self, f: GoFormat) -> String {
+    pub fn format_go(&self, f: GoFormat) -> Result<String, DecimalError> {
         let error = || format!("%!{}(decimal.Decimal={})", f.verb, self.string());
         let mut core = match f.verb {
             'v' | 's' => self.string(),
             'q' => format!("\"{}\"", self.string()),
             'd' => {
                 if !self.is_integer() {
-                    return error();
+                    return Ok(error());
                 }
                 let integer = self.int_part();
                 let mut digits = integer.magnitude().to_string();
@@ -144,9 +144,10 @@ impl Decimal {
             'f' | 'F' => {
                 let mut s = if let Some(p) = f.precision {
                     self.rescale(
-                        isize::try_from(p).expect("precision exceeds native range"),
+                        isize::try_from(p)
+                            .map_err(|_| crate::error::error(ErrorKind::InvalidPrecision))?,
                         RoundingMode::HalfEven,
-                    )
+                    )?
                     .string_with_trailing_zeros()
                 } else {
                     self.string_with_trailing_zeros()
@@ -171,7 +172,7 @@ impl Decimal {
             }
             'g' | 'G' => self.general(f.precision, f.verb == 'G', f.alternate),
             'b' => format!("{}p-{}", self.raw().to_str_radix(2), self.scale),
-            _ => return error(),
+            _ => return Ok(error()),
         };
         let numeric = matches!(f.verb, 'd' | 'f' | 'F' | 'e' | 'E' | 'g' | 'G' | 'b');
         if numeric && !core.is_empty() && !core.starts_with('-') {
@@ -190,7 +191,7 @@ impl Decimal {
         } else {
             core.insert_str(0, &" ".repeat(pad));
         }
-        core
+        Ok(core)
     }
     fn significand(&self) -> (String, i128) {
         if self.is_zero() {

@@ -1,12 +1,12 @@
-use rs_decimal::{BigInt, Decimal, DecimalError, ErrorKind};
+use rs_decimal::{BigInt, Decimal, ErrorKind};
 #[test]
 fn defaults_match_explicit_scales_and_preserve_inputs() {
     for s in [0, 20, 30] {
-        let d = Decimal::new_with_append_prec(3, s);
+        let d = Decimal::new_with_append_prec(3, s).unwrap();
         let before = d.clone();
         let default = [
             d.ln().unwrap(),
-            d.log2(),
+            d.log2().unwrap(),
             d.log10().unwrap(),
             d.exp().unwrap(),
         ];
@@ -37,7 +37,7 @@ fn defaults_match_explicit_scales_and_preserve_inputs() {
 }
 #[test]
 fn exact_identities_domains_and_budget_order() {
-    assert_eq!(Decimal::new(8).log2().string(), "3");
+    assert_eq!(Decimal::new(8).log2().unwrap().string(), "3");
     assert_eq!(
         Decimal::must_from_string("0.001").log10().unwrap().string(),
         "-3"
@@ -61,16 +61,12 @@ fn exact_identities_domains_and_budget_order() {
         for e in [d.ln(), d.log10(), d.log2_with_prec(20)] {
             assert!(e.unwrap_err().matches(ErrorKind::InvalidLog));
         }
-        let e = std::panic::catch_unwind(|| d.log2()).unwrap_err();
-        assert!(
-            e.downcast_ref::<DecimalError>()
-                .unwrap()
-                .matches(ErrorKind::InvalidLog)
-        );
+        let e = d.log2().unwrap_err();
+        assert!(e.matches(ErrorKind::InvalidLog));
     }
     for d in [
-        Decimal::new_with_prec(0, 131073),
-        Decimal::new_with_prec(1, 131073),
+        Decimal::new_with_prec(0, 131073).unwrap(),
+        Decimal::new_with_prec(1, 131073).unwrap(),
     ] {
         assert!(d.exp().unwrap_err().matches(ErrorKind::NoConvergence));
     }
@@ -92,11 +88,7 @@ fn exact_identities_domains_and_budget_order() {
         Decimal::log10_with_prec,
         Decimal::exp_with_prec,
     ] {
-        let e = std::panic::catch_unwind(|| f(&Decimal::new(-1), -1)).unwrap_err();
-        assert!(
-            e.downcast_ref::<DecimalError>()
-                .unwrap()
-                .matches(ErrorKind::InvalidPrecision)
-        );
+        let e = f(&Decimal::new(-1), -1).unwrap_err();
+        assert!(e.matches(ErrorKind::InvalidPrecision));
     }
 }
