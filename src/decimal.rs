@@ -79,10 +79,12 @@ impl Decimal {
         Self::from_parts(BigInt::from(value), precision(prec))
     }
     /// Copies an arbitrary-size integer with scale zero.
+    /// Use [`Self::try_from_coefficient`] to transfer ownership instead.
     pub fn new_from_big_int(value: &BigInt) -> Self {
         Self::from_parts(value.clone(), 0)
     }
     /// Copies a coefficient at `prec` decimal places.
+    /// Use [`Self::try_from_coefficient`] to transfer ownership instead.
     ///
     /// # Panics
     /// Panics with `InvalidPrecision` when `prec` is negative.
@@ -123,6 +125,7 @@ impl Decimal {
             .unwrap_or_else(|e: DecimalError| std::panic::panic_any(e))
     }
     /// Returns an independent copy of the unscaled integer coefficient.
+    /// Use [`Self::coefficient`] to borrow or [`Self::into_coefficient`] to move it.
     pub fn big_int(&self) -> BigInt {
         self.raw().clone()
     }
