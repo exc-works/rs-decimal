@@ -1,6 +1,6 @@
 use crate::{
     Decimal, DecimalError, ErrorKind,
-    integer::{MAX_PARSED_PRECISION, ceil_div, floor_div, precision},
+    integer::{MAX_CALCULATION_DIGITS, ceil_div, floor_div, precision},
     interval::Interval,
     transcendental::{certify, no_convergence},
 };
@@ -61,7 +61,7 @@ impl Decimal {
                 "logarithm of non-positive value",
             ));
         }
-        if self.scale > MAX_PARSED_PRECISION || p > MAX_PARSED_PRECISION {
+        if self.scale > MAX_CALCULATION_DIGITS || p > MAX_CALCULATION_DIGITS {
             return Err(no_convergence());
         }
         let r = self.big_rat();

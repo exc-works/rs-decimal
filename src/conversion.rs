@@ -118,6 +118,9 @@ impl Decimal {
     }
     /// Returns the exact rational value, independent of decimal scale.
     pub fn big_rat(&self) -> BigRational {
+        if self.is_zero() {
+            return BigRational::zero();
+        }
         BigRational::new(self.raw().clone(), pow10(self.scale))
     }
     /// Returns the bit length of the absolute unscaled coefficient; zero returns 0.

@@ -111,6 +111,17 @@ The integer helper layer provides separate trunc_div_rem, floor_div, and ceil_di
 
 Initial budgets follow the original implementation: parsing precision magnitude is limited to 1<<17; roots allow at most 300 iterations; root degree, scale, and their products retain the original constraints; Ziv guard bits double from 64 to 8192. Transcendental working precision uses the same rational upper-bound conversion. These budgets are not a universal scale limit; exact fast paths and budget-check order must also match.
 
+Wire scale and calculation digits use separately named internal constants even
+though both currently equal 131072. No public resource context is required. See
+the [resource boundary table](rust-api.md#resource-boundaries) for their different
+units, exceptions and error categories. Certification checks room for its first
+guard interval before allocating `10^p`. For nonzero integer `n` with bit length
+`b`, `e >= b` proves `abs(n) / 10^e < 1/2`; rounding can therefore use `sign(n)/10`
+without constructing the enormous denominator. This preserves directed rounding
+and exactness errors as well as nearest rounding. It also applies to division
+by a nonzero integer times `10^e`, retaining the divisor sign. These shortcuts
+reduce unnecessary allocations but do not impose a memory or runtime budget.
+
 ## Roots and transcendental functions
 
 Default output scale for Sqrt, ApproxRoot, Ln, Log2, Log10, and Exp is uniformly `max(input scale, 20)`, not a fixed 20 decimal places or 20 significant figures. WithPrec variants use exactly the specified nonnegative scale `p`, including `p < 20`; all successful results use HalfEven. This rule has been checked against the pinned baseline's `docs/numeric-contract.md`, `workingLogPrec` in `math.go`, and all six default entry points.

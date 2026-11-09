@@ -1,6 +1,6 @@
 use crate::{
     BigRational, Decimal, DecimalError,
-    integer::{MAX_PARSED_PRECISION, ceil_div, floor_div, precision},
+    integer::{MAX_CALCULATION_DIGITS, ceil_div, floor_div, precision},
     interval::Interval,
     transcendental::{certify, no_convergence},
 };
@@ -21,7 +21,7 @@ impl Decimal {
     /// Returns `InvalidPrecision` for negative precision.
     pub fn exp_with_prec(&self, prec: isize) -> Result<Self, DecimalError> {
         let p = precision(prec)?;
-        if p > MAX_PARSED_PRECISION || self.scale > MAX_PARSED_PRECISION {
+        if p > MAX_CALCULATION_DIGITS || self.scale > MAX_CALCULATION_DIGITS {
             return Err(no_convergence());
         }
         if self.is_zero() {
@@ -34,7 +34,7 @@ impl Decimal {
         }
         let digits = ceil_div(r.numer(), r.denom())
             .to_usize()
-            .filter(|n| *n <= MAX_PARSED_PRECISION)
+            .filter(|n| *n <= MAX_CALCULATION_DIGITS)
             .ok_or_else(no_convergence)?;
         // Reduce |x| to at most 1/2 for the positive Taylor series. Squaring
         // restores exp(|x|); interval reciprocal handles negative inputs.

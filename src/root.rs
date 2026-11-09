@@ -1,10 +1,12 @@
 use crate::{
     Decimal, DecimalError, ErrorKind, RoundingMode,
-    integer::{MAX_PARSED_PRECISION, pow10, precision},
+    integer::{MAX_CALCULATION_DIGITS, pow10, precision},
 };
 use num_bigint::BigInt;
 use num_integer::Integer;
 use num_traits::Zero;
+
+const MAX_ROOT_ITERATIONS: usize = 300;
 
 fn no_convergence() -> DecimalError {
     DecimalError::new(
@@ -70,10 +72,10 @@ impl Decimal {
         if self == &Self::new(1) {
             return Self::new_with_append_prec(1, prec);
         }
-        if self.scale > MAX_PARSED_PRECISION
-            || p > MAX_PARSED_PRECISION
-            || degree > MAX_PARSED_PRECISION as i64
-            || degree as usize > MAX_PARSED_PRECISION / p.max(1)
+        if self.scale > MAX_CALCULATION_DIGITS
+            || p > MAX_CALCULATION_DIGITS
+            || degree > MAX_CALCULATION_DIGITS as i64
+            || degree as usize > MAX_CALCULATION_DIGITS / p.max(1)
         {
             return Err(no_convergence());
         }
@@ -108,7 +110,7 @@ fn integer_root(x: &BigInt, n: usize) -> Option<BigInt> {
         return Some(BigInt::from(1));
     }
     let mut guess = root_upper_bound(x, n);
-    for _ in 0..300 {
+    for _ in 0..MAX_ROOT_ITERATIONS {
         let next = (x / guess.pow((n - 1) as u32) + &guess * (n - 1)) / n;
         if next >= guess {
             return Some(guess);

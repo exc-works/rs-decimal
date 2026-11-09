@@ -1,7 +1,7 @@
 use crate::{
     Decimal, DecimalError, ErrorKind, RoundingMode,
     integer::{pow10, precision},
-    rounding::rounded_div,
+    rounding::rounded_div_pow10,
 };
 use num_bigint::BigInt;
 use num_traits::Zero;
@@ -102,7 +102,7 @@ impl Decimal {
         } else if target > scale {
             coefficient * pow10(target - scale)
         } else {
-            rounded_div(&coefficient, &pow10(scale - target), mode)?
+            rounded_div_pow10(&coefficient, (scale - target) as u128, mode)?
         };
         Ok(Self::from_parts(coefficient, target))
     }

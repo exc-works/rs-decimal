@@ -1,4 +1,4 @@
-use crate::{Decimal, DecimalError, ErrorKind, integer::MAX_PARSED_PRECISION};
+use crate::{Decimal, DecimalError, ErrorKind, integer::MAX_WIRE_SCALE};
 use num_bigint::{BigInt, Sign};
 /// Byte length of Go's big-endian precision prefix.
 pub const PRECISION_FIXED_SIZE: usize = 4;
@@ -9,7 +9,7 @@ impl Decimal {
             return Ok(Vec::new());
         }
         let d = self.strip_trailing_zeros();
-        if d.scale > MAX_PARSED_PRECISION {
+        if d.scale > MAX_WIRE_SCALE {
             return Err(DecimalError::new(
                 ErrorKind::InvalidPrecision,
                 "binary scale exceeds budget",
@@ -38,7 +38,7 @@ impl Decimal {
         }
         let scale = u32::from_be_bytes(bytes[..4].try_into().unwrap());
         // Fixed-width validation precedes native conversion, including on 32-bit.
-        if scale > MAX_PARSED_PRECISION as u32 {
+        if scale > MAX_WIRE_SCALE as u32 {
             return Err(invalid());
         }
         let payload = &bytes[4..];
