@@ -2,6 +2,14 @@
 
 ## 0.1.0-alpha.1 — unreleased
 
+- Avoid enormous powers of ten when rounding tiny values, multiplying at reduced
+  precision, dividing by a sufficiently scaled denominator, or computing zero
+  quotient/remainder. Preserve rounding, scale, initialization and error rules.
+  Reject exhausted certification budgets before allocating the output multiplier;
+  skip scale expansion for zero parsing, constructors and rational conversion.
+  Document distinct wire/algorithm
+  limits without adding a context API or narrowing supported numeric ranges.
+
 - Breaking alpha API change: ordinary fallible constructors, arithmetic, precision
   changes, Log2, raw rounding-mode conversion, most-significant-bit validation and
   Go formatting return `Result` for expected failures. Negative precision also

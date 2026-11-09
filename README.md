@@ -47,6 +47,11 @@ Decimal preserves its coefficient and scale. Default is uninitialized zero; nume
 
 Version `0.1.0-alpha.1` has not yet been published; see the API matrix for preview scope, error rules, and validation evidence. `tools/conformance/core-gates.py` runs the full differential suite, 512 random cases with a fixed seed, and an independent oracle, then checks every result and reports batch timings including process/JSONL overhead. These timings do not establish arithmetic speedups. CI executes paired i686 Go/Rust and 64-bit tests in debug/release and saves timing reports. Extreme native-scale fixtures use isize::MAX in the 32-bit pairing; i64/u64 value ranges remain unchanged.
 
+Resource limits are operation-specific; direct constructors can store scales
+beyond the parser's cap. Ordinary calls require no context configuration. See
+[resource boundaries](docs/rust-api.md#resource-boundaries) for existing limits,
+error categories, allocation costs, and application-side input/output checks.
+
 ## Optional JSON and Serde
 
 `json` provides marshal_json/unmarshal_json, preserving JSON number tokens directly for high-precision external input. For plain Decimal, null leaves the existing value unchanged; for NullDecimal, null clears the state. `serde` provides Serialize/Deserialize using exact strings, integers, and null. Deserializing null into a new object produces the default value, with no previous state. Generic Deserialize rejects floating-point input; when reading decimal tokens through serde_json, use the json entry points or encode decimal values as strings. The two features can be enabled independently.

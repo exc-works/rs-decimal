@@ -1,7 +1,7 @@
 use crate::{
     Decimal, DecimalError, ErrorKind,
     error::error,
-    integer::{ceil_div, floor_div, pow10, precision, trunc_div_rem},
+    integer::{floor_div, pow10, precision, trunc_div_rem},
 };
 use num_bigint::BigInt;
 use num_integer::Integer;
@@ -79,6 +79,24 @@ pub(crate) fn rounded_div(
     Ok(q)
 }
 
+pub(crate) fn rounded_div_pow10(
+    n: &BigInt,
+    exponent: u128,
+    mode: RoundingMode,
+) -> Result<BigInt, DecimalError> {
+    if exponent == 0 || n.is_zero() {
+        return Ok(n.clone());
+    }
+    // For b = bits(|n|) >= 1 and exponent >= b:
+    // |n| < 2^b <= 10^exponent / 2. The exact nonzero quotient lies
+    // strictly between zero and half a unit, so sign/10 rounds identically.
+    // Keep the exponent wide: multiplying scales can exceed isize::MAX.
+    if exponent >= n.bits() as u128 {
+        return rounded_div(&n.signum(), &BigInt::from(10), mode);
+    }
+    rounded_div(n, &pow10(exponent as usize), mode)
+}
+
 impl Decimal {
     /// Changes decimal places, rounding only when digits must be discarded.
     /// The result is initialized, including when the input is uninitialized zero.
@@ -92,7 +110,7 @@ impl Decimal {
         } else if p > self.scale {
             self.raw() * pow10(p - self.scale)
         } else {
-            rounded_div(self.raw(), &pow10(self.scale - p), mode)?
+            rounded_div_pow10(self.raw(), (self.scale - p) as u128, mode)?
         };
         Ok(Self::from_parts(c, p))
     }
@@ -141,6 +159,12 @@ impl Decimal {
         if p >= self.scale || self.is_zero() {
             return self.rescale_down(prec);
         }
+        if (self.scale - p) as u128 >= self.raw().bits() as u128 {
+            return Ok(Self::from_parts(
+                BigInt::from(-i32::from(self.is_negative())),
+                p,
+            ));
+        }
         Ok(Self::from_parts(
             floor_div(self.raw(), &pow10(self.scale - p)),
             p,
@@ -156,14 +180,7 @@ impl Decimal {
     /// # Errors
     /// Returns `InvalidPrecision` for negative precision.
     pub fn ceil_with_prec(&self, prec: isize) -> Result<Self, DecimalError> {
-        let p = precision(prec)?;
-        if p >= self.scale || self.is_zero() {
-            return self.rescale_down(prec);
-        }
-        Ok(Self::from_parts(
-            ceil_div(self.raw(), &pow10(self.scale - p)),
-            p,
-        ))
+        self.rescale(prec, RoundingMode::Ceiling)
     }
     /// Multiplies the value by `10^places`, adjusting scale where possible.
     ///
@@ -242,6 +259,24 @@ impl Decimal {
 mod tests {
     use super::*;
     #[test]
+    fn power_of_ten_shortcut_matches_exact_division_at_rounding_boundaries() {
+        for coefficient in -257..=257 {
+            let n = BigInt::from(coefficient);
+            for exponent in 0..=10 {
+                let denominator = pow10(exponent);
+                for raw_mode in 0..=6 {
+                    let mode = RoundingMode::from_raw(raw_mode).unwrap();
+                    assert_eq!(
+                        rounded_div_pow10(&n, exponent as u128, mode),
+                        rounded_div(&n, &denominator, mode),
+                        "coefficient={coefficient}, exponent={exponent}, mode={mode:?}",
+                    );
+                }
+            }
+        }
+    }
+
+    #[test]
     fn directed_integer_division_all_signs() {
         for a in -7..=7 {
             for b in [-3, 3] {
@@ -250,7 +285,7 @@ mod tests {
                 assert_eq!(&q * &b + &r, a);
                 assert!(r.is_zero() || r.sign() == a.sign());
                 let floor = floor_div(&a, &b);
-                let ceil = ceil_div(&a, &b);
+                let ceil = crate::integer::ceil_div(&a, &b);
                 let rat = num_rational::BigRational::new(a, b);
                 assert!(num_rational::BigRational::from_integer(floor) <= rat);
                 assert!(num_rational::BigRational::from_integer(ceil) >= rat);

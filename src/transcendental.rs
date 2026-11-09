@@ -1,10 +1,13 @@
 //! Bounded Ziv refinement accepts agreement of enclosure endpoints only.
 use crate::{
     Decimal, DecimalError, ErrorKind,
-    integer::{MAX_PARSED_PRECISION, pow10},
+    integer::{MAX_CALCULATION_DIGITS, pow10},
     interval::Interval,
 };
 use num_bigint::BigInt;
+
+const INITIAL_GUARD_BITS: usize = 64;
+const MAX_GUARD_BITS: usize = 8192;
 
 pub(crate) fn no_convergence() -> DecimalError {
     DecimalError::new(
@@ -20,14 +23,19 @@ pub(crate) fn certify(
     extra: usize,
     mut enclose: impl FnMut(&BigInt, usize) -> Result<Interval, DecimalError>,
 ) -> Result<Decimal, DecimalError> {
-    if p > MAX_PARSED_PRECISION || extra > MAX_PARSED_PRECISION - p {
+    if p > MAX_CALCULATION_DIGITS || extra > MAX_CALCULATION_DIGITS - p {
         return Err(no_convergence());
     }
     let base_bits = decimal_bits(p + extra);
-    let max_bits = decimal_bits(MAX_PARSED_PRECISION);
+    let max_bits = decimal_bits(MAX_CALCULATION_DIGITS);
+    // No enclosure can run without the initial guard bits. Reject before
+    // allocating the decimal multiplier when that first attempt cannot fit.
+    if base_bits + INITIAL_GUARD_BITS > max_bits {
+        return Err(no_convergence());
+    }
     let multiplier = pow10(p);
-    let mut guard = 64;
-    while guard <= 8192 {
+    let mut guard = INITIAL_GUARD_BITS;
+    while guard <= MAX_GUARD_BITS {
         let bits = base_bits + guard;
         if bits > max_bits {
             break;

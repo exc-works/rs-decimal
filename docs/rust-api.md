@@ -19,6 +19,36 @@ assert_eq!(amount.scale(), 3);
 
 Prefer `parse` for fallible text input. `must_from_string` retains its panic behavior. Floating-point constructors now return `InvalidFormat` for nonfinite inputs. Rational conversion remains explicit about exactness and rounding.
 
+## Resource boundaries
+
+Ordinary calls need no context or limit configuration. Existing bounds have
+different purposes; 131072 is not a universal limit on `Decimal` values.
+
+| Boundary | Limit and failure |
+| --- | --- |
+| Text parsing | The exponent must fit `i32`; the absolute final scale must be at most 131072, including zero inputs. Failure is `InvalidFormat`. Integer digit count and input byte length are not capped. |
+| Go binary | Encoded scale is at most 131072. Encoding checks after removing trailing zeros and returns `InvalidPrecision`; decoding checks before reading the coefficient and returns `Unmarshal`. |
+| Direct coefficient constructors | Nonnegative scale through `isize::MAX`; no text-parser cap. A small coefficient with a large scale is cheap to store, but subsequent operations may be expensive. |
+| General roots | Input scale, output scale, degree, and `degree * max(1, output scale)` must be at most 131072. Newton iteration is capped at 300. Exhaustion returns `NoConvergence`. Degree-one, zero and one fast paths run before these checks. |
+| Logarithms / exponentials | Input and output scales are capped at 131072 before identity fast paths. General certification also needs room for guard bits and, for exponentials, estimated integer digits. Guard bits double from 64 to 8192 within the working-size budget; exhaustion returns `NoConvergence`. |
+| Arithmetic | `mul_exact` caps summed scale at `i32::MAX`; a nonzero `shift` caps nonnegative result scale at `i32::MAX`. Division rejects a positive scaling shift above `isize::MAX`. General integer powers bound exponent times the larger of normalized coefficient bits and scale by `i32::MAX`. These are operation-specific bounds, not memory quotas. |
+| Formatting and exact rational conversion | Fixed-point output expands stored scale; formatting width/precision can add padding. `big_rat()` may construct a large power of ten. There is no common output-byte or allocation cap. |
+
+Shrinking a tiny value no longer constructs `10^n` when coefficient bit length
+already proves a magnitude below half an output unit. Rescaling, owned rescaling,
+rounded multiplication, and division with a sufficiently large denominator shift
+use this proof while retaining all rounding modes, including `RoundUnnecessary`.
+Floor/ceiling, zero-dividend remainder operations, zero append-precision
+constructors and zero-to-rational conversion also avoid needless scale expansion.
+Inputs remain unchanged and result scale/initialization are preserved.
+
+For external inputs, bound request bytes **before parsing**, then validate the
+accepted scale and coefficient size before computation. Bound requested output
+precision/width and operation count in the application as well. Input length
+alone is insufficient: a short scientific-notation string can expand into a much
+larger value. Passing the checks above does not guarantee a memory or runtime
+budget, and `Result` does not make arbitrary allocation failures recoverable.
+
 ## Choose borrowing, copying or consuming
 
 | Need | Entry | Ownership and cost |

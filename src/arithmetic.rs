@@ -2,7 +2,7 @@ use crate::{
     Decimal, DecimalError, ErrorKind, RoundingMode,
     error::error,
     integer::{pow10, precision, trunc_div_rem},
-    rounding::rounded_div,
+    rounding::{rounded_div, rounded_div_pow10},
 };
 use num_bigint::BigInt;
 use num_traits::{Signed, Zero};
@@ -97,7 +97,7 @@ impl Decimal {
         let product = self.raw() * other.raw();
         let discard = self.scale.min(other.scale);
         let c = if discard > 0 && !product.is_zero() {
-            rounded_div(&product, &pow10(discard), mode)?
+            rounded_div_pow10(&product, discard as u128, mode)?
         } else {
             product
         };
@@ -137,14 +137,7 @@ impl Decimal {
         let scale = self.scale as u128 + other.scale as u128;
         let c = match scale.cmp(&(p as u128)) {
             std::cmp::Ordering::Less => product * pow10(p - scale as usize),
-            std::cmp::Ordering::Greater => {
-                let discard = scale - p as u128;
-                if discard > product.bits() as u128 {
-                    rounded_div(&product.signum(), &BigInt::from(10), mode)?
-                } else {
-                    rounded_div(&product, &pow10(discard as usize), mode)?
-                }
-            }
+            std::cmp::Ordering::Greater => rounded_div_pow10(&product, scale - p as u128, mode)?,
             std::cmp::Ordering::Equal => product,
         };
         Ok(Self::from_parts(c, p))
@@ -176,7 +169,13 @@ impl Decimal {
                 rounded_div(&(self.raw() * pow10(shift as usize)), other.raw(), mode)?
             }
             std::cmp::Ordering::Less => {
-                rounded_div(self.raw(), &(other.raw() * pow10((-shift) as usize)), mode)?
+                // The nonzero integer divisor has magnitude >= 1. If 10^-shift
+                // alone proves a result below half a unit, its magnitude is irrelevant.
+                if (-shift) as u128 >= self.raw().bits() as u128 {
+                    rounded_div(&self.raw().signum(), &(other.raw().signum() * 10), mode)?
+                } else {
+                    rounded_div(self.raw(), &(other.raw() * pow10((-shift) as usize)), mode)?
+                }
             }
             std::cmp::Ordering::Equal => rounded_div(self.raw(), other.raw(), mode)?,
         };
@@ -205,6 +204,9 @@ impl Decimal {
             return Err(error(ErrorKind::DivideByZero));
         }
         let scale = self.scale.max(other.scale);
+        if self.is_zero() {
+            return Ok((Self::new(0), Self::from_parts(BigInt::zero(), scale)));
+        }
         let dividend = self.coefficient_at_scale(scale);
         let divisor = other.coefficient_at_scale(scale);
         let (quotient, remainder) = trunc_div_rem(&dividend, &divisor);

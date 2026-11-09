@@ -2,7 +2,13 @@ use crate::{DecimalError, ErrorKind, error::error};
 use num_bigint::BigInt;
 use num_integer::Integer;
 
-pub(crate) const MAX_PARSED_PRECISION: usize = 1 << 17;
+// Text final-scale magnitude and Go binary scale are wire-format boundaries.
+// They are not limits on coefficients or direct constructors.
+pub(crate) const MAX_WIRE_SCALE: usize = 1 << 17;
+
+// Root/log/exp algorithms use a separate decimal working-size budget.
+// Equal values do not make the wire and calculation policies interchangeable.
+pub(crate) const MAX_CALCULATION_DIGITS: usize = 1 << 17;
 
 pub(crate) fn precision(p: isize) -> Result<usize, DecimalError> {
     if p < 0 {

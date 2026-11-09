@@ -1,6 +1,6 @@
 use crate::{
     DecimalError, ErrorKind,
-    integer::{MAX_PARSED_PRECISION, pow10, precision},
+    integer::{MAX_WIRE_SCALE, pow10, precision},
 };
 use num_bigint::BigInt;
 use num_traits::{Signed, Zero};
@@ -99,6 +99,9 @@ impl Decimal {
     /// Returns `InvalidPrecision` when `prec` is negative.
     pub fn new_with_append_prec(value: i64, prec: isize) -> Result<Self, DecimalError> {
         let p = precision(prec)?;
+        if value == 0 {
+            return Ok(Self::from_parts(BigInt::zero(), p));
+        }
         Ok(Self::from_parts(BigInt::from(value) * pow10(p), p))
     }
     /// Preserves the unsigned integer value while appending decimal places.
@@ -107,6 +110,9 @@ impl Decimal {
     /// Returns `InvalidPrecision` when `prec` is negative.
     pub fn new_from_uint_with_append_prec(value: u64, prec: isize) -> Result<Self, DecimalError> {
         let p = precision(prec)?;
+        if value == 0 {
+            return Ok(Self::from_parts(BigInt::zero(), p));
+        }
         Ok(Self::from_parts(BigInt::from(value) * pow10(p), p))
     }
     /// Parses trimmed decimal text with an optional sign and exponent.
@@ -282,11 +288,11 @@ impl FromStr for Decimal {
             return Err(invalid());
         }
         let scale = fraction.len() as i128 - i128::from(exponent);
-        if scale.abs() > MAX_PARSED_PRECISION as i128 {
+        if scale.abs() > MAX_WIRE_SCALE as i128 {
             return Err(invalid());
         }
         let mut coefficient = parse_coefficient(whole, fraction);
-        if scale < 0 {
+        if scale < 0 && !coefficient.is_zero() {
             coefficient *= pow10((-scale) as usize);
         }
         if negative {
