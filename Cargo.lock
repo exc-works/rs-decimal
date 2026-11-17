@@ -136,6 +136,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "decimal-web-api"
+version = "0.0.0"
+dependencies = [
+ "quote",
+ "serde",
+ "serde_json",
+ "syn 2.0.119",
+]
+
+[[package]]
 name = "digest"
 version = "0.10.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
