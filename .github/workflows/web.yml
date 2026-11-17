@@ -15,6 +15,10 @@ jobs:
           install-chromedriver: true
       - run: cargo install wasm-bindgen-cli --version 0.2.105 --locked
       - run: python3 tools/build-web-wasm.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test website/tests/bridge.test.mjs
       - run: cargo test --locked -p decimal-playground-bridge --target wasm32-unknown-unknown
         env:
           CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUNNER: wasm-bindgen-test-runner
