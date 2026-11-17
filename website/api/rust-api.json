@@ -240,6 +240,14 @@
     "receiver": "trait"
   },
   {
+    "id": "Decimal::impl Add < & Decimal >::Output",
+    "kind": "associated_type",
+    "signature": "type Output = Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
     "id": "Decimal::impl Add < & Decimal >::add",
     "kind": "trait_method",
     "signature": "fn add (self , other : & Decimal) -> Decimal",
@@ -460,6 +468,14 @@
     "receiver": "trait"
   },
   {
+    "id": "Decimal::impl FromStr::Err",
+    "kind": "associated_type",
+    "signature": "type Err = DecimalError",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
     "id": "Decimal::impl FromStr::from_str",
     "kind": "trait_method",
     "signature": "fn from_str (text : & str) -> Result < Self , Self :: Err >",
@@ -471,6 +487,14 @@
     "id": "Decimal::impl Neg",
     "kind": "trait_impl",
     "signature": "impl Neg for & Decimal ",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Neg::Output",
+    "kind": "associated_type",
+    "signature": "type Output = Decimal",
     "source": "src/rust_api.rs",
     "conditions": [],
     "receiver": "trait"
@@ -575,6 +599,14 @@
     "id": "Decimal::impl Sub < & Decimal >",
     "kind": "trait_impl",
     "signature": "impl Sub < & Decimal > for & Decimal ",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Sub < & Decimal >::Output",
+    "kind": "associated_type",
+    "signature": "type Output = Decimal",
     "source": "src/rust_api.rs",
     "conditions": [],
     "receiver": "trait"
@@ -2231,6 +2263,14 @@
     "id": "RoundingMode::impl TryFrom < i32 >",
     "kind": "trait_impl",
     "signature": "impl TryFrom < i32 > for RoundingMode ",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "RoundingMode::impl TryFrom < i32 >::Error",
+    "kind": "associated_type",
+    "signature": "type Error = DecimalError",
     "source": "src/rust_api.rs",
     "conditions": [],
     "receiver": "trait"

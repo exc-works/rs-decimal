@@ -330,6 +330,17 @@
     "tests": []
   },
   {
+    "id": "Decimal::impl Add < & Decimal >::Output",
+    "disposition": "rust-only",
+    "status": "planned",
+    "owner": "WEB-13b",
+    "doc_id": "decimal-impl-add-decimal-output",
+    "reason": "Rust trait associated type or constant; documented with the corresponding trait implementation.",
+    "bridge_signature": null,
+    "examples": [],
+    "tests": []
+  },
+  {
     "id": "Decimal::impl Add < & Decimal >::add",
     "disposition": "rust-only",
     "status": "planned",
@@ -616,6 +627,17 @@
     "tests": []
   },
   {
+    "id": "Decimal::impl FromStr::Err",
+    "disposition": "rust-only",
+    "status": "planned",
+    "owner": "WEB-13b",
+    "doc_id": "decimal-impl-fromstr-err",
+    "reason": "Rust trait associated type or constant; documented with the corresponding trait implementation.",
+    "bridge_signature": null,
+    "examples": [],
+    "tests": []
+  },
+  {
     "id": "Decimal::impl FromStr::from_str",
     "disposition": "rust-only",
     "status": "planned",
@@ -633,6 +655,17 @@
     "owner": "WEB-13b",
     "doc_id": "decimal-impl-neg",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
+    "bridge_signature": null,
+    "examples": [],
+    "tests": []
+  },
+  {
+    "id": "Decimal::impl Neg::Output",
+    "disposition": "rust-only",
+    "status": "planned",
+    "owner": "WEB-13b",
+    "doc_id": "decimal-impl-neg-output",
+    "reason": "Rust trait associated type or constant; documented with the corresponding trait implementation.",
     "bridge_signature": null,
     "examples": [],
     "tests": []
@@ -765,6 +798,17 @@
     "owner": "WEB-13b",
     "doc_id": "decimal-impl-sub-decimal",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
+    "bridge_signature": null,
+    "examples": [],
+    "tests": []
+  },
+  {
+    "id": "Decimal::impl Sub < & Decimal >::Output",
+    "disposition": "rust-only",
+    "status": "planned",
+    "owner": "WEB-13b",
+    "doc_id": "decimal-impl-sub-decimal-output",
+    "reason": "Rust trait associated type or constant; documented with the corresponding trait implementation.",
     "bridge_signature": null,
     "examples": [],
     "tests": []
@@ -2943,6 +2987,17 @@
     "owner": "WEB-13b",
     "doc_id": "roundingmode-impl-tryfrom-i32",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
+    "bridge_signature": null,
+    "examples": [],
+    "tests": []
+  },
+  {
+    "id": "RoundingMode::impl TryFrom < i32 >::Error",
+    "disposition": "rust-only",
+    "status": "planned",
+    "owner": "WEB-13b",
+    "doc_id": "roundingmode-impl-tryfrom-i32-error",
+    "reason": "Rust trait associated type or constant; documented with the corresponding trait implementation.",
     "bridge_signature": null,
     "examples": [],
     "tests": []

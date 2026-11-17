@@ -288,7 +288,11 @@ fn inventory(root: &Path) -> Result<Vec<Entry>> {
     for u in &units {
         for item in &u.items {
             match item {
-                Item::Struct(v) if public(&v.vis) && types.contains_key(&v.ident.to_string()) => {
+                Item::Struct(v)
+                    if public(&v.vis)
+                        && exported(&path(&u.module, &v.ident.to_string()), &exports, &units)
+                            .is_some() =>
+                {
                     let id = &types[&v.ident.to_string()];
                     insert(
                         &mut out,
@@ -302,7 +306,11 @@ fn inventory(root: &Path) -> Result<Vec<Entry>> {
                     fields(&mut out, u, id, &v.fields, &v.attrs)?;
                     derived(&mut out, u, id, &v.attrs)?;
                 }
-                Item::Enum(v) if public(&v.vis) && types.contains_key(&v.ident.to_string()) => {
+                Item::Enum(v)
+                    if public(&v.vis)
+                        && exported(&path(&u.module, &v.ident.to_string()), &exports, &units)
+                            .is_some() =>
+                {
                     let id = &types[&v.ident.to_string()];
                     insert(
                         &mut out,
@@ -400,19 +408,52 @@ fn inventory(root: &Path) -> Result<Vec<Entry>> {
                             "trait",
                         )?;
                         for member in &v.items {
-                            if let syn::ImplItem::Fn(f) = member {
-                                let mut attrs = v.attrs.clone();
-                                attrs.extend(f.attrs.clone());
-                                insert(
-                                    &mut out,
-                                    u,
-                                    format!("{trait_id}::{}", f.sig.ident),
+                            let (name, kind, signature, member_attrs) = match member {
+                                syn::ImplItem::Fn(f) => (
+                                    f.sig.ident.to_string(),
                                     "trait_method",
                                     tokens(&f.sig),
-                                    &attrs,
-                                    "trait",
-                                )?;
-                            }
+                                    &f.attrs,
+                                ),
+                                syn::ImplItem::Type(t) => (
+                                    t.ident.to_string(),
+                                    "associated_type",
+                                    format!(
+                                        "type {}{} = {}",
+                                        t.ident,
+                                        tokens(&t.generics),
+                                        tokens(&t.ty)
+                                    ),
+                                    &t.attrs,
+                                ),
+                                syn::ImplItem::Const(c) => (
+                                    c.ident.to_string(),
+                                    "associated_constant",
+                                    format!(
+                                        "const {}: {} = {}",
+                                        c.ident,
+                                        tokens(&c.ty),
+                                        tokens(&c.expr)
+                                    ),
+                                    &c.attrs,
+                                ),
+                                _ => {
+                                    return Err(
+                                        format!("unsupported trait member in {trait_id}").into()
+                                    );
+                                }
+                            };
+                            let mut attrs = v.attrs.clone();
+                            attrs.extend(member_attrs.clone());
+                            insert(
+                                &mut out,
+                                u,
+                                format!("{trait_id}::{name}"),
+                                kind,
+                                signature,
+                                &attrs,
+                                "trait",
+                            )?;
                         }
                     } else {
                         for member in &v.items {
@@ -481,7 +522,14 @@ fn inventory(root: &Path) -> Result<Vec<Entry>> {
                         )?;
                     }
                 }
-                Item::Macro(v) if v.mac.path.is_ident("macro_rules") => {}
+                Item::Macro(v) if v.mac.path.is_ident("macro_rules") => {
+                    if v.attrs
+                        .iter()
+                        .any(|a| tokens(&a.meta).contains("macro_export"))
+                    {
+                        return Err("exported macro definitions require inventory support".into());
+                    }
+                }
                 Item::Macro(v) => {
                     return Err(format!(
                         "unhandled item macro in {}: {}",
@@ -495,6 +543,9 @@ fn inventory(root: &Path) -> Result<Vec<Entry>> {
                 }
                 Item::Trait(v) if public(&v.vis) => {
                     return Err(format!("public trait needs inventory support: {}", v.ident).into());
+                }
+                Item::Union(v) if public(&v.vis) => {
+                    return Err(format!("public union needs inventory support: {}", v.ident).into());
                 }
                 Item::Static(v) if public(&v.vis) => {
                     return Err(
@@ -571,6 +622,53 @@ mod tests {
             || e.id.contains("Interval")
             || e.id.contains("tests::")));
     }
+    #[test]
+    fn associated_type_and_constant_changes_are_visible() {
+        let root = std::env::temp_dir().join(format!("decimal-api-members-{}", std::process::id()));
+        fs::create_dir_all(root.join("src")).unwrap();
+        let source = "pub struct Example; impl Convert for Example { type Output = i64; const WIDTH: u32 = 64; fn convert(&self) -> Self::Output { 0 } }";
+        fs::write(root.join("src/lib.rs"), source).unwrap();
+        let first = inventory(&root).unwrap();
+        assert!(
+            first
+                .iter()
+                .any(|e| e.id == "Example::impl Convert::Output" && e.signature.contains("i64"))
+        );
+        assert!(
+            first
+                .iter()
+                .any(|e| e.id == "Example::impl Convert::WIDTH" && e.signature.contains("64"))
+        );
+        fs::write(root.join("src/lib.rs"), source.replace("i64", "i32")).unwrap();
+        assert_ne!(first, inventory(&root).unwrap());
+        fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn exported_macros_fail_closed() {
+        let root = std::env::temp_dir().join(format!("decimal-api-macro-{}", std::process::id()));
+        fs::create_dir_all(root.join("src")).unwrap();
+        for attr in [
+            "#[macro_export]",
+            "#[cfg_attr(feature = \"extra\", macro_export)]",
+        ] {
+            fs::write(
+                root.join("src/lib.rs"),
+                format!("{attr} macro_rules! exported {{ () => {{}} }}"),
+            )
+            .unwrap();
+            assert!(
+                inventory(&root)
+                    .unwrap_err()
+                    .to_string()
+                    .contains("exported macro")
+            );
+        }
+        fs::write(root.join("src/lib.rs"), "macro_rules! private { () => {} }").unwrap();
+        assert!(inventory(&root).unwrap().is_empty());
+        fs::remove_dir_all(root).unwrap();
+    }
+
     #[test]
     fn reexport_groups_and_aliases_are_explicit() {
         let tree: syn::ItemUse = syn::parse_quote!(

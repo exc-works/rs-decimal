@@ -49,7 +49,10 @@ def check(root=ROOT, release=False):
             for example_id in row['examples']:
                 example = root / 'website/examples' / f'{example_id}.json'
                 data = json.loads(example.read_text())
-                if data['id'] != example_id or row['id'] not in data['api_ids']:
+                api_ids = data.get('api_ids')
+                if not isinstance(api_ids, list) or not api_ids or any(not isinstance(x, str) or x not in ids for x in api_ids) or len(api_ids) != len(set(api_ids)):
+                    raise ValueError(f'invalid example API IDs: {example_id}')
+                if data['id'] != example_id or row['id'] not in api_ids:
                     raise ValueError(f'example does not cover API: {example_id}')
                 if set(data) != {'id', 'api_ids', 'rust', 'javascript', 'expected', 'schema_version'} or data['schema_version'] != 1:
                     raise ValueError(f'invalid example envelope: {example_id}')
