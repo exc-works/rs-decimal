@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>rs-decimal Wasm feasibility check</title>
+<h1>Rust decimal in the browser</h1>
+<p>This trusted test page verifies the minimal bridge. It does not run user scripts.</p>
+<pre id="result">Loading Wasm…</pre>
+<script type="module">
+import init, { Decimal, metadata } from '../public/wasm/decimal.js';
+const output = document.querySelector('#result');
+try {
+  const start = performance.now();
+  await init();
+  const initialized = performance.now();
+  const a = Decimal.new_from_string('12.350');
+  const b = Decimal.new_from_string('3');
+  const product = a.mul_exact(b);
+  if (product.string_with_trailing_zeros() !== '37.050') throw Error('Product mismatch');
+  const x = Decimal.new_from_string('1.245');
+  const rounded = x.rescale(2, 5);
+  if (rounded.string() !== '1.24') throw Error('HalfEven mismatch');
+  let invalidRejected = false;
+  try { Decimal.new_from_string('invalid'); } catch { invalidRejected = true; }
+  if (!invalidRejected) throw Error('Invalid input accepted');
+  const report = { status: 'passed', metadata: JSON.parse(metadata()), initialization_ms: initialized-start, execution_ms: performance.now()-initialized, product: JSON.parse(product.snapshot()), rounded: rounded.string(), invalidRejected };
+  output.textContent = JSON.stringify(report, null, 2);
+  document.documentElement.dataset.result = 'passed';
+  for (const value of [a,b,product,x,rounded]) value.free();
+} catch (error) {
+  output.textContent = String(error);
+  document.documentElement.dataset.result = 'failed';
+  throw error;
+}
+</script>
+</html>
