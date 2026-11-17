@@ -39,6 +39,9 @@ jobs:
       - run: cargo run --locked --manifest-path target/package/rs-decimal-0.1.0-alpha.1/Cargo.toml --example configuration --all-features
       - run: python3 tools/check-baseline.py
       - run: python3 tools/check-release-matrix.py
+      - run: cargo run --locked -p decimal-web-api -- --check
+      - run: python3 tools/check-web-api/check.py
+      - run: python3 tools/check-web-api/test_check.py
   baseline:
     runs-on: ubuntu-latest
     steps:

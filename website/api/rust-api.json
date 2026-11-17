@@ -1,0 +1,2982 @@
+[
+  {
+    "id": "COMPATIBILITY_REVISION",
+    "kind": "constant",
+    "signature": "const COMPATIBILITY_REVISION: & str = \"a8791208e2d15483cf652cd2814b74b0c1a84187\"",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal",
+    "kind": "struct",
+    "signature": "pub struct Decimal",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::abs",
+    "kind": "method",
+    "signature": "fn abs (& self) -> Self",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::add",
+    "kind": "method",
+    "signature": "fn add (& self , other : & Self) -> Self",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::add_owned",
+    "kind": "method",
+    "signature": "fn add_owned (self , other : & Self) -> Self",
+    "source": "src/ownership.rs",
+    "conditions": [],
+    "receiver": "consuming"
+  },
+  {
+    "id": "Decimal::add_raw",
+    "kind": "method",
+    "signature": "fn add_raw (& self , value : i64) -> Self",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::append_text",
+    "kind": "method",
+    "signature": "fn append_text (& self , dst : & mut Vec < u8 >)",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::append_text_with_trailing_zeros",
+    "kind": "method",
+    "signature": "fn append_text_with_trailing_zeros (& self , dst : & mut Vec < u8 >)",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::approx_root",
+    "kind": "method",
+    "signature": "fn approx_root (& self , degree : i64) -> Result < Self , DecimalError >",
+    "source": "src/root.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::approx_root_with_prec",
+    "kind": "method",
+    "signature": "fn approx_root_with_prec (& self , degree : i64 , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/root.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::big_int",
+    "kind": "method",
+    "signature": "fn big_int (& self) -> BigInt",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::big_rat",
+    "kind": "method",
+    "signature": "fn big_rat (& self) -> BigRational",
+    "source": "src/conversion.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::bit_len",
+    "kind": "method",
+    "signature": "fn bit_len (& self) -> usize",
+    "source": "src/conversion.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::ceil",
+    "kind": "method",
+    "signature": "fn ceil (& self) -> Self",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::ceil_with_prec",
+    "kind": "method",
+    "signature": "fn ceil_with_prec (& self , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::cmp",
+    "kind": "method",
+    "signature": "fn cmp (& self , other : & Self) -> i32",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::coefficient",
+    "kind": "method",
+    "signature": "fn coefficient (& self) -> & BigInt",
+    "source": "src/ownership.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::equal",
+    "kind": "method",
+    "signature": "fn equal (& self , other : & Self) -> bool",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::exp",
+    "kind": "method",
+    "signature": "fn exp (& self) -> Result < Self , DecimalError >",
+    "source": "src/exponential.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::exp_with_prec",
+    "kind": "method",
+    "signature": "fn exp_with_prec (& self , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/exponential.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::float32",
+    "kind": "method",
+    "signature": "fn float32 (& self) -> (f32 , bool)",
+    "source": "src/conversion.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::float64",
+    "kind": "method",
+    "signature": "fn float64 (& self) -> (f64 , bool)",
+    "source": "src/conversion.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::floor",
+    "kind": "method",
+    "signature": "fn floor (& self) -> Self",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::floor_with_prec",
+    "kind": "method",
+    "signature": "fn floor_with_prec (& self , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::format_go",
+    "kind": "method",
+    "signature": "fn format_go (& self , f : GoFormat) -> Result < String , DecimalError >",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::format_with_separators",
+    "kind": "method",
+    "signature": "fn format_with_separators (& self , thousands : char , decimal : char) -> String",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::gt",
+    "kind": "method",
+    "signature": "fn gt (& self , other : & Self) -> bool",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::gte",
+    "kind": "method",
+    "signature": "fn gte (& self , other : & Self) -> bool",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::has_fraction",
+    "kind": "method",
+    "signature": "fn has_fraction (& self) -> bool",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::impl Add < & Decimal >",
+    "kind": "trait_impl",
+    "signature": "impl Add < & Decimal > for & Decimal ",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Add < & Decimal >::add",
+    "kind": "trait_method",
+    "signature": "fn add (self , other : & Decimal) -> Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Clone",
+    "kind": "derived_trait",
+    "signature": "impl Clone for Decimal",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Debug",
+    "kind": "derived_trait",
+    "signature": "impl Debug for Decimal",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Decode < 'r , Postgres >",
+    "kind": "trait_impl",
+    "signature": "impl< 'r > Decode < 'r , Postgres > for Decimal ",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Decode < 'r , Postgres >::decode",
+    "kind": "trait_method",
+    "signature": "fn decode (value : PgValueRef < 'r >) -> Result < Self , BoxDynError >",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Default",
+    "kind": "derived_trait",
+    "signature": "impl Default for Decimal",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Deserialize < 'de >",
+    "kind": "trait_impl",
+    "signature": "impl< 'de > Deserialize < 'de > for Decimal ",
+    "source": "src/serde_impl.rs",
+    "conditions": [
+      "cfg (feature = \"serde\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Deserialize < 'de >::deserialize",
+    "kind": "trait_method",
+    "signature": "fn deserialize < D : Deserializer < 'de > > (d : D) -> Result < Self , D :: Error >",
+    "source": "src/serde_impl.rs",
+    "conditions": [
+      "cfg (feature = \"serde\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Encode < '_ , Postgres >",
+    "kind": "trait_impl",
+    "signature": "impl Encode < '_ , Postgres > for Decimal ",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Encode < '_ , Postgres >::encode_by_ref",
+    "kind": "trait_method",
+    "signature": "fn encode_by_ref (& self , buf : & mut PgArgumentBuffer) -> Result < IsNull , BoxDynError >",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Eq",
+    "kind": "trait_impl",
+    "signature": "impl Eq for Decimal ",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl From < BigInt >",
+    "kind": "trait_impl",
+    "signature": "impl From < BigInt > for Decimal ",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl From < BigInt >::from",
+    "kind": "trait_method",
+    "signature": "fn from (value : BigInt) -> Self",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl From < i128 >",
+    "kind": "macro_trait",
+    "signature": "impl From<i128> for Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl From < i16 >",
+    "kind": "macro_trait",
+    "signature": "impl From<i16> for Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl From < i32 >",
+    "kind": "macro_trait",
+    "signature": "impl From<i32> for Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl From < i64 >",
+    "kind": "macro_trait",
+    "signature": "impl From<i64> for Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl From < i8 >",
+    "kind": "macro_trait",
+    "signature": "impl From<i8> for Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl From < isize >",
+    "kind": "macro_trait",
+    "signature": "impl From<isize> for Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl From < u128 >",
+    "kind": "macro_trait",
+    "signature": "impl From<u128> for Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl From < u16 >",
+    "kind": "macro_trait",
+    "signature": "impl From<u16> for Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl From < u32 >",
+    "kind": "macro_trait",
+    "signature": "impl From<u32> for Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl From < u64 >",
+    "kind": "macro_trait",
+    "signature": "impl From<u64> for Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl From < u8 >",
+    "kind": "macro_trait",
+    "signature": "impl From<u8> for Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl From < usize >",
+    "kind": "macro_trait",
+    "signature": "impl From<usize> for Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl FromStr",
+    "kind": "trait_impl",
+    "signature": "impl FromStr for Decimal ",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl FromStr::from_str",
+    "kind": "trait_method",
+    "signature": "fn from_str (text : & str) -> Result < Self , Self :: Err >",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Neg",
+    "kind": "trait_impl",
+    "signature": "impl Neg for & Decimal ",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Neg::neg",
+    "kind": "trait_method",
+    "signature": "fn neg (self) -> Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Ord",
+    "kind": "trait_impl",
+    "signature": "impl Ord for Decimal ",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Ord::cmp",
+    "kind": "trait_method",
+    "signature": "fn cmp (& self , other : & Self) -> Ordering",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl PartialEq",
+    "kind": "trait_impl",
+    "signature": "impl PartialEq for Decimal ",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl PartialEq::eq",
+    "kind": "trait_method",
+    "signature": "fn eq (& self , other : & Self) -> bool",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl PartialOrd",
+    "kind": "trait_impl",
+    "signature": "impl PartialOrd for Decimal ",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl PartialOrd::partial_cmp",
+    "kind": "trait_method",
+    "signature": "fn partial_cmp (& self , other : & Self) -> Option < Ordering >",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl PgHasArrayType",
+    "kind": "trait_impl",
+    "signature": "impl PgHasArrayType for Decimal ",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl PgHasArrayType::array_type_info",
+    "kind": "trait_method",
+    "signature": "fn array_type_info () -> PgTypeInfo",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Serialize",
+    "kind": "trait_impl",
+    "signature": "impl Serialize for Decimal ",
+    "source": "src/serde_impl.rs",
+    "conditions": [
+      "cfg (feature = \"serde\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Serialize::serialize",
+    "kind": "trait_method",
+    "signature": "fn serialize < S : Serializer > (& self , s : S) -> Result < S :: Ok , S :: Error >",
+    "source": "src/serde_impl.rs",
+    "conditions": [
+      "cfg (feature = \"serde\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Sub < & Decimal >",
+    "kind": "trait_impl",
+    "signature": "impl Sub < & Decimal > for & Decimal ",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Sub < & Decimal >::sub",
+    "kind": "trait_method",
+    "signature": "fn sub (self , other : & Decimal) -> Decimal",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Type < Postgres >",
+    "kind": "trait_impl",
+    "signature": "impl Type < Postgres > for Decimal ",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Type < Postgres >::compatible",
+    "kind": "trait_method",
+    "signature": "fn compatible (ty : & PgTypeInfo) -> bool",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl Type < Postgres >::type_info",
+    "kind": "trait_method",
+    "signature": "fn type_info () -> PgTypeInfo",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl fmt :: Display",
+    "kind": "trait_impl",
+    "signature": "impl fmt :: Display for Decimal ",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::impl fmt :: Display::fmt",
+    "kind": "trait_method",
+    "signature": "fn fmt (& self , f : & mut fmt :: Formatter < '_ >) -> fmt :: Result",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "Decimal::int64",
+    "kind": "method",
+    "signature": "fn int64 (& self) -> (i64 , bool)",
+    "source": "src/conversion.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::int_part",
+    "kind": "method",
+    "signature": "fn int_part (& self) -> BigInt",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::into_coefficient",
+    "kind": "method",
+    "signature": "fn into_coefficient (self) -> BigInt",
+    "source": "src/ownership.rs",
+    "conditions": [],
+    "receiver": "consuming"
+  },
+  {
+    "id": "Decimal::into_rescaled",
+    "kind": "method",
+    "signature": "fn into_rescaled (self , prec : isize , mode : RoundingMode) -> Result < Self , DecimalError >",
+    "source": "src/ownership.rs",
+    "conditions": [],
+    "receiver": "consuming"
+  },
+  {
+    "id": "Decimal::is_integer",
+    "kind": "method",
+    "signature": "fn is_integer (& self) -> bool",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::is_negative",
+    "kind": "method",
+    "signature": "fn is_negative (& self) -> bool",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::is_nil",
+    "kind": "method",
+    "signature": "fn is_nil (& self) -> bool",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::is_not_zero",
+    "kind": "method",
+    "signature": "fn is_not_zero (& self) -> bool",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::is_positive",
+    "kind": "method",
+    "signature": "fn is_positive (& self) -> bool",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::is_zero",
+    "kind": "method",
+    "signature": "fn is_zero (& self) -> bool",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::ln",
+    "kind": "method",
+    "signature": "fn ln (& self) -> Result < Self , DecimalError >",
+    "source": "src/logarithm.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::ln_with_prec",
+    "kind": "method",
+    "signature": "fn ln_with_prec (& self , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/logarithm.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::log10",
+    "kind": "method",
+    "signature": "fn log10 (& self) -> Result < Self , DecimalError >",
+    "source": "src/logarithm.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::log10_with_prec",
+    "kind": "method",
+    "signature": "fn log10_with_prec (& self , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/logarithm.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::log2",
+    "kind": "method",
+    "signature": "fn log2 (& self) -> Result < Self , DecimalError >",
+    "source": "src/logarithm.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::log2_with_prec",
+    "kind": "method",
+    "signature": "fn log2_with_prec (& self , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/logarithm.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::lt",
+    "kind": "method",
+    "signature": "fn lt (& self , other : & Self) -> bool",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::lte",
+    "kind": "method",
+    "signature": "fn lte (& self , other : & Self) -> bool",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::marshal_binary",
+    "kind": "method",
+    "signature": "fn marshal_binary (& self) -> Result < Vec < u8 > , DecimalError >",
+    "source": "src/binary.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::marshal_bson_value",
+    "kind": "method",
+    "signature": "fn marshal_bson_value (& self) -> Result < (u8 , Vec < u8 >) , DecimalError >",
+    "source": "src/bson.rs",
+    "conditions": [
+      "cfg (feature = \"bson\")"
+    ],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::marshal_json",
+    "kind": "method",
+    "signature": "fn marshal_json (& self) -> Vec < u8 >",
+    "source": "src/json.rs",
+    "conditions": [
+      "cfg (feature = \"json\")"
+    ],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::marshal_text",
+    "kind": "method",
+    "signature": "fn marshal_text (& self) -> Vec < u8 >",
+    "source": "src/text.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::marshal_xml",
+    "kind": "method",
+    "signature": "fn marshal_xml (& self) -> String",
+    "source": "src/xml.rs",
+    "conditions": [
+      "cfg (feature = \"xml\")"
+    ],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::marshal_xml_attr",
+    "kind": "method",
+    "signature": "fn marshal_xml_attr (& self) -> String",
+    "source": "src/xml.rs",
+    "conditions": [
+      "cfg (feature = \"xml\")"
+    ],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::marshal_yaml",
+    "kind": "method",
+    "signature": "fn marshal_yaml (& self) -> String",
+    "source": "src/yaml.rs",
+    "conditions": [
+      "cfg (feature = \"yaml\")"
+    ],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::max",
+    "kind": "method",
+    "signature": "fn max (& self , other : & Self) -> Self",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::max_ref",
+    "kind": "method",
+    "signature": "fn max_ref < 'a > (& 'a self , other : & 'a Self) -> & 'a Self",
+    "source": "src/ownership.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::min",
+    "kind": "method",
+    "signature": "fn min (& self , other : & Self) -> Self",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::min_ref",
+    "kind": "method",
+    "signature": "fn min_ref < 'a > (& 'a self , other : & 'a Self) -> & 'a Self",
+    "source": "src/ownership.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::modulo",
+    "kind": "method",
+    "signature": "fn modulo (& self , other : & Self) -> Result < Self , DecimalError >",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::mul",
+    "kind": "method",
+    "signature": "fn mul (& self , other : & Self , mode : RoundingMode) -> Result < Self , DecimalError >",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::mul_down",
+    "kind": "method",
+    "signature": "fn mul_down (& self , other : & Self) -> Self",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::mul_exact",
+    "kind": "method",
+    "signature": "fn mul_exact (& self , other : & Self) -> Result < Self , DecimalError >",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::mul_with_prec",
+    "kind": "method",
+    "signature": "fn mul_with_prec (& self , other : & Self , prec : isize , mode : RoundingMode ,) -> Result < Self , DecimalError >",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::must_from_string",
+    "kind": "method",
+    "signature": "fn must_from_string (text : & str) -> Self",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::must_non_negative",
+    "kind": "method",
+    "signature": "fn must_non_negative (& self) -> Self",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::neg",
+    "kind": "method",
+    "signature": "fn neg (& self) -> Self",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::new",
+    "kind": "method",
+    "signature": "fn new (value : i64) -> Self",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::new_from_big_int",
+    "kind": "method",
+    "signature": "fn new_from_big_int (value : & BigInt) -> Self",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::new_from_big_int_with_prec",
+    "kind": "method",
+    "signature": "fn new_from_big_int_with_prec (value : & BigInt , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::new_from_big_rat",
+    "kind": "method",
+    "signature": "fn new_from_big_rat (value : & BigRational) -> Result < Self , DecimalError >",
+    "source": "src/conversion.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::new_from_big_rat_with_prec",
+    "kind": "method",
+    "signature": "fn new_from_big_rat_with_prec (value : & BigRational , prec : isize , mode : RoundingMode ,) -> Result < Self , DecimalError >",
+    "source": "src/conversion.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::new_from_decimal",
+    "kind": "method",
+    "signature": "fn new_from_decimal (value : & Self) -> Self",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::new_from_float32",
+    "kind": "method",
+    "signature": "fn new_from_float32 (value : f32) -> Result < Self , DecimalError >",
+    "source": "src/conversion.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::new_from_float64",
+    "kind": "method",
+    "signature": "fn new_from_float64 (value : f64) -> Result < Self , DecimalError >",
+    "source": "src/conversion.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::new_from_int",
+    "kind": "method",
+    "signature": "fn new_from_int (value : isize) -> Self",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::new_from_int64",
+    "kind": "method",
+    "signature": "fn new_from_int64 (value : i64 , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::new_from_string",
+    "kind": "method",
+    "signature": "fn new_from_string (text : & str) -> Result < Self , DecimalError >",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::new_from_uint64",
+    "kind": "method",
+    "signature": "fn new_from_uint64 (value : u64 , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::new_from_uint_with_append_prec",
+    "kind": "method",
+    "signature": "fn new_from_uint_with_append_prec (value : u64 , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::new_with_append_prec",
+    "kind": "method",
+    "signature": "fn new_with_append_prec (value : i64 , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::new_with_prec",
+    "kind": "method",
+    "signature": "fn new_with_prec (value : i64 , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::not_equal",
+    "kind": "method",
+    "signature": "fn not_equal (& self , other : & Self) -> bool",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::power",
+    "kind": "method",
+    "signature": "fn power (& self , power : i64) -> Result < Self , DecimalError >",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::precision",
+    "kind": "method",
+    "signature": "fn precision (& self) -> isize",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::quo",
+    "kind": "method",
+    "signature": "fn quo (& self , other : & Self , mode : RoundingMode) -> Result < Self , DecimalError >",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::quo_down",
+    "kind": "method",
+    "signature": "fn quo_down (& self , other : & Self) -> Result < Self , DecimalError >",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::quo_rem",
+    "kind": "method",
+    "signature": "fn quo_rem (& self , other : & Self) -> Result < (Self , Self) , DecimalError >",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::quo_with_prec",
+    "kind": "method",
+    "signature": "fn quo_with_prec (& self , other : & Self , prec : isize , mode : RoundingMode ,) -> Result < Self , DecimalError >",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::r#mod",
+    "kind": "method",
+    "signature": "fn r#mod (& self , other : & Self) -> Result < Self , DecimalError >",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::remainder",
+    "kind": "method",
+    "signature": "fn remainder (& self) -> (BigInt , BigInt)",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::rescale",
+    "kind": "method",
+    "signature": "fn rescale (& self , prec : isize , mode : RoundingMode) -> Result < Self , DecimalError >",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::rescale_down",
+    "kind": "method",
+    "signature": "fn rescale_down (& self , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::round",
+    "kind": "method",
+    "signature": "fn round (& self) -> Self",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::round_with_prec",
+    "kind": "method",
+    "signature": "fn round_with_prec (& self , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::safe_add",
+    "kind": "method",
+    "signature": "fn safe_add (& self , other : & Self) -> Result < Self , DecimalError >",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::safe_sub",
+    "kind": "method",
+    "signature": "fn safe_sub (& self , other : & Self) -> Result < Self , DecimalError >",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::scale",
+    "kind": "method",
+    "signature": "fn scale (& self) -> usize",
+    "source": "src/ownership.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::scan",
+    "kind": "method",
+    "signature": "fn scan (& mut self , value : ScanValue < '_ >) -> Result < () , DecimalError >",
+    "source": "src/sql.rs",
+    "conditions": [],
+    "receiver": "mutable"
+  },
+  {
+    "id": "Decimal::shift",
+    "kind": "method",
+    "signature": "fn shift (& self , places : isize) -> Result < Self , DecimalError >",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::sign",
+    "kind": "method",
+    "signature": "fn sign (& self) -> i32",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::significant_figures",
+    "kind": "method",
+    "signature": "fn significant_figures (& self , figures : isize , mode : RoundingMode ,) -> Result < Self , DecimalError >",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::sqrt",
+    "kind": "method",
+    "signature": "fn sqrt (& self) -> Result < Self , DecimalError >",
+    "source": "src/root.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::sqrt_with_prec",
+    "kind": "method",
+    "signature": "fn sqrt_with_prec (& self , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/root.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::string",
+    "kind": "method",
+    "signature": "fn string (& self) -> String",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::string_with_trailing_zeros",
+    "kind": "method",
+    "signature": "fn string_with_trailing_zeros (& self) -> String",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::strip_trailing_zeros",
+    "kind": "method",
+    "signature": "fn strip_trailing_zeros (& self) -> Self",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::sub",
+    "kind": "method",
+    "signature": "fn sub (& self , other : & Self) -> Self",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::sub_owned",
+    "kind": "method",
+    "signature": "fn sub_owned (self , other : & Self) -> Self",
+    "source": "src/ownership.rs",
+    "conditions": [],
+    "receiver": "consuming"
+  },
+  {
+    "id": "Decimal::sub_raw",
+    "kind": "method",
+    "signature": "fn sub_raw (& self , value : i64) -> Self",
+    "source": "src/arithmetic.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::truncate",
+    "kind": "method",
+    "signature": "fn truncate (& self) -> Self",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::truncate_with_prec",
+    "kind": "method",
+    "signature": "fn truncate_with_prec (& self , prec : isize) -> Result < Self , DecimalError >",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::try_from_coefficient",
+    "kind": "method",
+    "signature": "fn try_from_coefficient (coefficient : BigInt , scale : usize) -> Result < Self , DecimalError >",
+    "source": "src/ownership.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "Decimal::uint64",
+    "kind": "method",
+    "signature": "fn uint64 (& self) -> (u64 , bool)",
+    "source": "src/conversion.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "Decimal::unmarshal_binary",
+    "kind": "method",
+    "signature": "fn unmarshal_binary (& mut self , bytes : & [u8]) -> Result < () , DecimalError >",
+    "source": "src/binary.rs",
+    "conditions": [],
+    "receiver": "mutable"
+  },
+  {
+    "id": "Decimal::unmarshal_bson_value",
+    "kind": "method",
+    "signature": "fn unmarshal_bson_value (& mut self , kind : u8 , data : & [u8]) -> Result < () , DecimalError >",
+    "source": "src/bson.rs",
+    "conditions": [
+      "cfg (feature = \"bson\")"
+    ],
+    "receiver": "mutable"
+  },
+  {
+    "id": "Decimal::unmarshal_json",
+    "kind": "method",
+    "signature": "fn unmarshal_json (& mut self , bytes : & [u8]) -> Result < () , DecimalError >",
+    "source": "src/json.rs",
+    "conditions": [
+      "cfg (feature = \"json\")"
+    ],
+    "receiver": "mutable"
+  },
+  {
+    "id": "Decimal::unmarshal_param",
+    "kind": "method",
+    "signature": "fn unmarshal_param (& mut self , param : & str) -> Result < () , DecimalError >",
+    "source": "src/text.rs",
+    "conditions": [],
+    "receiver": "mutable"
+  },
+  {
+    "id": "Decimal::unmarshal_text",
+    "kind": "method",
+    "signature": "fn unmarshal_text (& mut self , text : & [u8]) -> Result < () , DecimalError >",
+    "source": "src/text.rs",
+    "conditions": [],
+    "receiver": "mutable"
+  },
+  {
+    "id": "Decimal::unmarshal_xml",
+    "kind": "method",
+    "signature": "fn unmarshal_xml (& mut self , source : & str) -> Result < () , DecimalError >",
+    "source": "src/xml.rs",
+    "conditions": [
+      "cfg (feature = \"xml\")"
+    ],
+    "receiver": "mutable"
+  },
+  {
+    "id": "Decimal::unmarshal_xml_attr",
+    "kind": "method",
+    "signature": "fn unmarshal_xml_attr (& mut self , value : & str) -> Result < () , DecimalError >",
+    "source": "src/xml.rs",
+    "conditions": [
+      "cfg (feature = \"xml\")"
+    ],
+    "receiver": "mutable"
+  },
+  {
+    "id": "Decimal::unmarshal_yaml",
+    "kind": "method",
+    "signature": "fn unmarshal_yaml (& mut self , source : & str) -> Result < () , DecimalError >",
+    "source": "src/yaml.rs",
+    "conditions": [
+      "cfg (feature = \"yaml\")"
+    ],
+    "receiver": "mutable"
+  },
+  {
+    "id": "Decimal::value",
+    "kind": "method",
+    "signature": "fn value (& self) -> String",
+    "source": "src/sql.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "DecimalError",
+    "kind": "struct",
+    "signature": "pub struct DecimalError",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "DecimalError::impl Clone",
+    "kind": "derived_trait",
+    "signature": "impl Clone for DecimalError",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "DecimalError::impl Debug",
+    "kind": "derived_trait",
+    "signature": "impl Debug for DecimalError",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "DecimalError::impl Eq",
+    "kind": "derived_trait",
+    "signature": "impl Eq for DecimalError",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "DecimalError::impl Error",
+    "kind": "trait_impl",
+    "signature": "impl Error for DecimalError ",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "DecimalError::impl PartialEq",
+    "kind": "derived_trait",
+    "signature": "impl PartialEq for DecimalError",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "DecimalError::impl fmt :: Display",
+    "kind": "trait_impl",
+    "signature": "impl fmt :: Display for DecimalError ",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "DecimalError::impl fmt :: Display::fmt",
+    "kind": "trait_method",
+    "signature": "fn fmt (& self , f : & mut fmt :: Formatter < '_ >) -> fmt :: Result",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "DecimalError::kinds",
+    "kind": "method",
+    "signature": "fn kinds (& self) -> & [ErrorKind]",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "DecimalError::matches",
+    "kind": "method",
+    "signature": "fn matches (& self , kind : ErrorKind) -> bool",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "DecimalError::new",
+    "kind": "method",
+    "signature": "fn new (kind : ErrorKind , message : impl Into < String >) -> Self",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "DecimalError::with_kind",
+    "kind": "method",
+    "signature": "fn with_kind (mut self , kind : ErrorKind) -> Self",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "consuming"
+  },
+  {
+    "id": "ErrorKind",
+    "kind": "enum",
+    "signature": "pub enum ErrorKind",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ErrorKind::DivideByZero",
+    "kind": "variant",
+    "signature": "DivideByZero",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ErrorKind::InvalidArgument",
+    "kind": "variant",
+    "signature": "InvalidArgument",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ErrorKind::InvalidFormat",
+    "kind": "variant",
+    "signature": "InvalidFormat",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ErrorKind::InvalidLog",
+    "kind": "variant",
+    "signature": "InvalidLog",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ErrorKind::InvalidPrecision",
+    "kind": "variant",
+    "signature": "InvalidPrecision",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ErrorKind::InvalidRoot",
+    "kind": "variant",
+    "signature": "InvalidRoot",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ErrorKind::NegativeRoot",
+    "kind": "variant",
+    "signature": "NegativeRoot",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ErrorKind::NoConvergence",
+    "kind": "variant",
+    "signature": "NoConvergence",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ErrorKind::Overflow",
+    "kind": "variant",
+    "signature": "Overflow",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ErrorKind::RoundUnnecessary",
+    "kind": "variant",
+    "signature": "RoundUnnecessary",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ErrorKind::Unmarshal",
+    "kind": "variant",
+    "signature": "Unmarshal",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ErrorKind::impl Clone",
+    "kind": "derived_trait",
+    "signature": "impl Clone for ErrorKind",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "ErrorKind::impl Copy",
+    "kind": "derived_trait",
+    "signature": "impl Copy for ErrorKind",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "ErrorKind::impl Debug",
+    "kind": "derived_trait",
+    "signature": "impl Debug for ErrorKind",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "ErrorKind::impl Eq",
+    "kind": "derived_trait",
+    "signature": "impl Eq for ErrorKind",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "ErrorKind::impl Ord",
+    "kind": "derived_trait",
+    "signature": "impl Ord for ErrorKind",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "ErrorKind::impl PartialEq",
+    "kind": "derived_trait",
+    "signature": "impl PartialEq for ErrorKind",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "ErrorKind::impl PartialOrd",
+    "kind": "derived_trait",
+    "signature": "impl PartialOrd for ErrorKind",
+    "source": "src/error.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "GoFormat",
+    "kind": "struct",
+    "signature": "pub struct GoFormat",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "GoFormat.alternate",
+    "kind": "field",
+    "signature": "alternate: bool",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "field"
+  },
+  {
+    "id": "GoFormat.left",
+    "kind": "field",
+    "signature": "left: bool",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "field"
+  },
+  {
+    "id": "GoFormat.plus",
+    "kind": "field",
+    "signature": "plus: bool",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "field"
+  },
+  {
+    "id": "GoFormat.precision",
+    "kind": "field",
+    "signature": "precision: Option < usize >",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "field"
+  },
+  {
+    "id": "GoFormat.space",
+    "kind": "field",
+    "signature": "space: bool",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "field"
+  },
+  {
+    "id": "GoFormat.verb",
+    "kind": "field",
+    "signature": "verb: char",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "field"
+  },
+  {
+    "id": "GoFormat.width",
+    "kind": "field",
+    "signature": "width: Option < usize >",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "field"
+  },
+  {
+    "id": "GoFormat.zero",
+    "kind": "field",
+    "signature": "zero: bool",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "field"
+  },
+  {
+    "id": "GoFormat::impl Clone",
+    "kind": "derived_trait",
+    "signature": "impl Clone for GoFormat",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "GoFormat::impl Copy",
+    "kind": "derived_trait",
+    "signature": "impl Copy for GoFormat",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "GoFormat::impl Debug",
+    "kind": "derived_trait",
+    "signature": "impl Debug for GoFormat",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "GoFormat::impl Default",
+    "kind": "trait_impl",
+    "signature": "impl Default for GoFormat ",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "GoFormat::impl Default::default",
+    "kind": "trait_method",
+    "signature": "fn default () -> Self",
+    "source": "src/formatting.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal",
+    "kind": "struct",
+    "signature": "pub struct NullDecimal",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "NullDecimal.decimal",
+    "kind": "field",
+    "signature": "decimal: Decimal",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "field"
+  },
+  {
+    "id": "NullDecimal.valid",
+    "kind": "field",
+    "signature": "valid: bool",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "field"
+  },
+  {
+    "id": "NullDecimal::impl Clone",
+    "kind": "derived_trait",
+    "signature": "impl Clone for NullDecimal",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl Debug",
+    "kind": "derived_trait",
+    "signature": "impl Debug for NullDecimal",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl Decode < 'r , Postgres >",
+    "kind": "trait_impl",
+    "signature": "impl< 'r > Decode < 'r , Postgres > for NullDecimal ",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl Decode < 'r , Postgres >::decode",
+    "kind": "trait_method",
+    "signature": "fn decode (value : PgValueRef < 'r >) -> Result < Self , BoxDynError >",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl Default",
+    "kind": "derived_trait",
+    "signature": "impl Default for NullDecimal",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl Deserialize < 'de >",
+    "kind": "trait_impl",
+    "signature": "impl< 'de > Deserialize < 'de > for NullDecimal ",
+    "source": "src/serde_impl.rs",
+    "conditions": [
+      "cfg (feature = \"serde\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl Deserialize < 'de >::deserialize",
+    "kind": "trait_method",
+    "signature": "fn deserialize < D : Deserializer < 'de > > (d : D) -> Result < Self , D :: Error >",
+    "source": "src/serde_impl.rs",
+    "conditions": [
+      "cfg (feature = \"serde\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl Encode < '_ , Postgres >",
+    "kind": "trait_impl",
+    "signature": "impl Encode < '_ , Postgres > for NullDecimal ",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl Encode < '_ , Postgres >::encode_by_ref",
+    "kind": "trait_method",
+    "signature": "fn encode_by_ref (& self , buf : & mut PgArgumentBuffer) -> Result < IsNull , BoxDynError >",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl PgHasArrayType",
+    "kind": "trait_impl",
+    "signature": "impl PgHasArrayType for NullDecimal ",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl PgHasArrayType::array_type_info",
+    "kind": "trait_method",
+    "signature": "fn array_type_info () -> PgTypeInfo",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl Serialize",
+    "kind": "trait_impl",
+    "signature": "impl Serialize for NullDecimal ",
+    "source": "src/serde_impl.rs",
+    "conditions": [
+      "cfg (feature = \"serde\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl Serialize::serialize",
+    "kind": "trait_method",
+    "signature": "fn serialize < S : Serializer > (& self , s : S) -> Result < S :: Ok , S :: Error >",
+    "source": "src/serde_impl.rs",
+    "conditions": [
+      "cfg (feature = \"serde\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl Type < Postgres >",
+    "kind": "trait_impl",
+    "signature": "impl Type < Postgres > for NullDecimal ",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl Type < Postgres >::compatible",
+    "kind": "trait_method",
+    "signature": "fn compatible (ty : & PgTypeInfo) -> bool",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl Type < Postgres >::type_info",
+    "kind": "trait_method",
+    "signature": "fn type_info () -> PgTypeInfo",
+    "source": "src/postgres.rs",
+    "conditions": [
+      "cfg (feature = \"postgres\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl std :: fmt :: Display",
+    "kind": "trait_impl",
+    "signature": "impl std :: fmt :: Display for NullDecimal ",
+    "source": "src/text.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::impl std :: fmt :: Display::fmt",
+    "kind": "trait_method",
+    "signature": "fn fmt (& self , f : & mut std :: fmt :: Formatter < '_ >) -> std :: fmt :: Result",
+    "source": "src/text.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "NullDecimal::marshal_bson_value",
+    "kind": "method",
+    "signature": "fn marshal_bson_value (& self) -> Result < (u8 , Vec < u8 >) , DecimalError >",
+    "source": "src/bson.rs",
+    "conditions": [
+      "cfg (feature = \"bson\")"
+    ],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "NullDecimal::marshal_json",
+    "kind": "method",
+    "signature": "fn marshal_json (& self) -> Vec < u8 >",
+    "source": "src/json.rs",
+    "conditions": [
+      "cfg (feature = \"json\")"
+    ],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "NullDecimal::marshal_text",
+    "kind": "method",
+    "signature": "fn marshal_text (& self) -> Vec < u8 >",
+    "source": "src/text.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "NullDecimal::marshal_xml",
+    "kind": "method",
+    "signature": "fn marshal_xml (& self) -> String",
+    "source": "src/xml.rs",
+    "conditions": [
+      "cfg (feature = \"xml\")"
+    ],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "NullDecimal::marshal_xml_attr",
+    "kind": "method",
+    "signature": "fn marshal_xml_attr (& self) -> Option < String >",
+    "source": "src/xml.rs",
+    "conditions": [
+      "cfg (feature = \"xml\")"
+    ],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "NullDecimal::marshal_yaml",
+    "kind": "method",
+    "signature": "fn marshal_yaml (& self) -> Option < String >",
+    "source": "src/yaml.rs",
+    "conditions": [
+      "cfg (feature = \"yaml\")"
+    ],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "NullDecimal::new",
+    "kind": "method",
+    "signature": "fn new (decimal : Decimal) -> Self",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "NullDecimal::scan",
+    "kind": "method",
+    "signature": "fn scan (& mut self , value : ScanValue < '_ >) -> Result < () , DecimalError >",
+    "source": "src/sql.rs",
+    "conditions": [],
+    "receiver": "mutable"
+  },
+  {
+    "id": "NullDecimal::string",
+    "kind": "method",
+    "signature": "fn string (& self) -> String",
+    "source": "src/text.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "NullDecimal::unmarshal_bson_value",
+    "kind": "method",
+    "signature": "fn unmarshal_bson_value (& mut self , kind : u8 , data : & [u8]) -> Result < () , DecimalError >",
+    "source": "src/bson.rs",
+    "conditions": [
+      "cfg (feature = \"bson\")"
+    ],
+    "receiver": "mutable"
+  },
+  {
+    "id": "NullDecimal::unmarshal_json",
+    "kind": "method",
+    "signature": "fn unmarshal_json (& mut self , bytes : & [u8]) -> Result < () , DecimalError >",
+    "source": "src/json.rs",
+    "conditions": [
+      "cfg (feature = \"json\")"
+    ],
+    "receiver": "mutable"
+  },
+  {
+    "id": "NullDecimal::unmarshal_param",
+    "kind": "method",
+    "signature": "fn unmarshal_param (& mut self , param : & str) -> Result < () , DecimalError >",
+    "source": "src/text.rs",
+    "conditions": [],
+    "receiver": "mutable"
+  },
+  {
+    "id": "NullDecimal::unmarshal_text",
+    "kind": "method",
+    "signature": "fn unmarshal_text (& mut self , text : & [u8]) -> Result < () , DecimalError >",
+    "source": "src/text.rs",
+    "conditions": [],
+    "receiver": "mutable"
+  },
+  {
+    "id": "NullDecimal::unmarshal_xml",
+    "kind": "method",
+    "signature": "fn unmarshal_xml (& mut self , source : & str) -> Result < () , DecimalError >",
+    "source": "src/xml.rs",
+    "conditions": [
+      "cfg (feature = \"xml\")"
+    ],
+    "receiver": "mutable"
+  },
+  {
+    "id": "NullDecimal::unmarshal_xml_attr",
+    "kind": "method",
+    "signature": "fn unmarshal_xml_attr (& mut self , value : & str) -> Result < () , DecimalError >",
+    "source": "src/xml.rs",
+    "conditions": [
+      "cfg (feature = \"xml\")"
+    ],
+    "receiver": "mutable"
+  },
+  {
+    "id": "NullDecimal::unmarshal_yaml",
+    "kind": "method",
+    "signature": "fn unmarshal_yaml (& mut self , source : & str) -> Result < () , DecimalError >",
+    "source": "src/yaml.rs",
+    "conditions": [
+      "cfg (feature = \"yaml\")"
+    ],
+    "receiver": "mutable"
+  },
+  {
+    "id": "NullDecimal::value",
+    "kind": "method",
+    "signature": "fn value (& self) -> Option < String >",
+    "source": "src/sql.rs",
+    "conditions": [],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "PRECISION_FIXED_SIZE",
+    "kind": "constant",
+    "signature": "const PRECISION_FIXED_SIZE: usize = 4",
+    "source": "src/binary.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "RoundingMode",
+    "kind": "enum",
+    "signature": "pub enum RoundingMode",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "RoundingMode::Ceiling",
+    "kind": "variant",
+    "signature": "Ceiling = 2",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "RoundingMode::Down",
+    "kind": "variant",
+    "signature": "Down = 0",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "RoundingMode::HalfDown",
+    "kind": "variant",
+    "signature": "HalfDown = 4",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "RoundingMode::HalfEven",
+    "kind": "variant",
+    "signature": "HalfEven = 5",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "RoundingMode::HalfUp",
+    "kind": "variant",
+    "signature": "HalfUp = 3",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "RoundingMode::Unnecessary",
+    "kind": "variant",
+    "signature": "Unnecessary = 6",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "RoundingMode::Up",
+    "kind": "variant",
+    "signature": "Up = 1",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "RoundingMode::from_raw",
+    "kind": "method",
+    "signature": "fn from_raw (value : i32) -> Result < Self , DecimalError >",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "RoundingMode::impl Clone",
+    "kind": "derived_trait",
+    "signature": "impl Clone for RoundingMode",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "RoundingMode::impl Copy",
+    "kind": "derived_trait",
+    "signature": "impl Copy for RoundingMode",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "RoundingMode::impl Debug",
+    "kind": "derived_trait",
+    "signature": "impl Debug for RoundingMode",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "RoundingMode::impl Eq",
+    "kind": "derived_trait",
+    "signature": "impl Eq for RoundingMode",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "RoundingMode::impl PartialEq",
+    "kind": "derived_trait",
+    "signature": "impl PartialEq for RoundingMode",
+    "source": "src/rounding.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "RoundingMode::impl TryFrom < i32 >",
+    "kind": "trait_impl",
+    "signature": "impl TryFrom < i32 > for RoundingMode ",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "RoundingMode::impl TryFrom < i32 >::try_from",
+    "kind": "trait_method",
+    "signature": "fn try_from (value : i32) -> Result < Self , Self :: Error >",
+    "source": "src/rust_api.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "ScanValue",
+    "kind": "enum",
+    "signature": "pub enum ScanValue< 'a >",
+    "source": "src/sql.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ScanValue::Bytes",
+    "kind": "variant",
+    "signature": "Bytes (& 'a [u8])",
+    "source": "src/sql.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ScanValue::Float32",
+    "kind": "variant",
+    "signature": "Float32 (f32)",
+    "source": "src/sql.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ScanValue::Float64",
+    "kind": "variant",
+    "signature": "Float64 (f64)",
+    "source": "src/sql.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ScanValue::Int64",
+    "kind": "variant",
+    "signature": "Int64 (i64)",
+    "source": "src/sql.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ScanValue::Null",
+    "kind": "variant",
+    "signature": "Null",
+    "source": "src/sql.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ScanValue::Text",
+    "kind": "variant",
+    "signature": "Text (& 'a str)",
+    "source": "src/sql.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ScanValue::Unsupported",
+    "kind": "variant",
+    "signature": "Unsupported",
+    "source": "src/sql.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ScanValue::impl Clone",
+    "kind": "derived_trait",
+    "signature": "impl Clone for ScanValue",
+    "source": "src/sql.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "ScanValue::impl Copy",
+    "kind": "derived_trait",
+    "signature": "impl Copy for ScanValue",
+    "source": "src/sql.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "ScanValue::impl Debug",
+    "kind": "derived_trait",
+    "signature": "impl Debug for ScanValue",
+    "source": "src/sql.rs",
+    "conditions": [],
+    "receiver": "trait"
+  },
+  {
+    "id": "between",
+    "kind": "function",
+    "signature": "fn between (v : & Decimal , lower : & Decimal , upper : & Decimal) -> bool",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "config",
+    "kind": "module",
+    "signature": "pub mod config",
+    "source": "src/lib.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::ConfigValue",
+    "kind": "enum",
+    "signature": "pub enum ConfigValue< 'a >",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::ConfigValue::Bytes",
+    "kind": "variant",
+    "signature": "Bytes (& 'a [u8])",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::ConfigValue::Decimal",
+    "kind": "variant",
+    "signature": "Decimal (& 'a Decimal)",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::ConfigValue::Float32",
+    "kind": "variant",
+    "signature": "Float32 (f32)",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::ConfigValue::Float64",
+    "kind": "variant",
+    "signature": "Float64 (f64)",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::ConfigValue::Null",
+    "kind": "variant",
+    "signature": "Null",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::ConfigValue::Nullable",
+    "kind": "variant",
+    "signature": "Nullable (& 'a NullDecimal)",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::ConfigValue::Number",
+    "kind": "variant",
+    "signature": "Number (& 'a str)",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::ConfigValue::Signed",
+    "kind": "variant",
+    "signature": "Signed (i128)",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::ConfigValue::Text",
+    "kind": "variant",
+    "signature": "Text (& 'a str)",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::ConfigValue::Unsigned",
+    "kind": "variant",
+    "signature": "Unsigned (u128)",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::ConfigValue::Unsupported",
+    "kind": "variant",
+    "signature": "Unsupported",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::ConfigValue::impl Clone",
+    "kind": "derived_trait",
+    "signature": "impl Clone for config::ConfigValue",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "config::ConfigValue::impl Copy",
+    "kind": "derived_trait",
+    "signature": "impl Copy for config::ConfigValue",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "config::ConfigValue::impl Debug",
+    "kind": "derived_trait",
+    "signature": "impl Debug for config::ConfigValue",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "config::decode_decimal",
+    "kind": "function",
+    "signature": "fn decode_decimal (value : ConfigValue < '_ >) -> Result < Decimal , DecimalError >",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::decode_nullable",
+    "kind": "function",
+    "signature": "fn decode_nullable (value : ConfigValue < '_ >) -> Result < NullDecimal , DecimalError >",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::deserialize_json_decimal",
+    "kind": "function",
+    "signature": "fn deserialize_json_decimal < 'de , D : Deserializer < 'de > > (deserializer : D ,) -> Result < Decimal , D :: Error >",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "config::deserialize_json_nullable",
+    "kind": "function",
+    "signature": "fn deserialize_json_nullable < 'de , D : Deserializer < 'de > > (deserializer : D ,) -> Result < NullDecimal , D :: Error >",
+    "source": "src/config.rs",
+    "conditions": [
+      "cfg (feature = \"config\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "hundred",
+    "kind": "function",
+    "signature": "fn hundred () -> Decimal",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "max",
+    "kind": "function",
+    "signature": "fn max (a : & Decimal , b : & Decimal) -> Decimal",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "min",
+    "kind": "function",
+    "signature": "fn min (a : & Decimal , b : & Decimal) -> Decimal",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "most_significant_bit",
+    "kind": "function",
+    "signature": "fn most_significant_bit (value : & BigInt) -> Result < usize , DecimalError >",
+    "source": "src/conversion.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "one",
+    "kind": "function",
+    "signature": "fn one () -> Decimal",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::BigInt",
+    "kind": "reexport",
+    "signature": "pub use num_bigint::BigInt as BigInt",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::BigRational",
+    "kind": "reexport",
+    "signature": "pub use num_rational::BigRational as BigRational",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::Decimal",
+    "kind": "reexport",
+    "signature": "pub use decimal::Decimal as Decimal",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::DecimalError",
+    "kind": "reexport",
+    "signature": "pub use error::DecimalError as DecimalError",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::ErrorKind",
+    "kind": "reexport",
+    "signature": "pub use error::ErrorKind as ErrorKind",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::GoFormat",
+    "kind": "reexport",
+    "signature": "pub use formatting::GoFormat as GoFormat",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::NullDecimal",
+    "kind": "reexport",
+    "signature": "pub use decimal::NullDecimal as NullDecimal",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::PRECISION_FIXED_SIZE",
+    "kind": "reexport",
+    "signature": "pub use binary::PRECISION_FIXED_SIZE as PRECISION_FIXED_SIZE",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::RoundingMode",
+    "kind": "reexport",
+    "signature": "pub use rounding::RoundingMode as RoundingMode",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::ScanValue",
+    "kind": "reexport",
+    "signature": "pub use sql::ScanValue as ScanValue",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::between",
+    "kind": "reexport",
+    "signature": "pub use decimal::between as between",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::hundred",
+    "kind": "reexport",
+    "signature": "pub use decimal::hundred as hundred",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::max",
+    "kind": "reexport",
+    "signature": "pub use decimal::max as max",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::min",
+    "kind": "reexport",
+    "signature": "pub use decimal::min as min",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::most_significant_bit",
+    "kind": "reexport",
+    "signature": "pub use conversion::most_significant_bit as most_significant_bit",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::one",
+    "kind": "reexport",
+    "signature": "pub use decimal::one as one",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::ten",
+    "kind": "reexport",
+    "signature": "pub use decimal::ten as ten",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::validation::default_validation_messages",
+    "kind": "reexport",
+    "signature": "pub use validation::messages::default_validation_messages as default_validation_messages",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "reexport::zero",
+    "kind": "reexport",
+    "signature": "pub use decimal::zero as zero",
+    "source": "src/lib.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "ten",
+    "kind": "function",
+    "signature": "fn ten () -> Decimal",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  },
+  {
+    "id": "validation",
+    "kind": "module",
+    "signature": "pub mod validation",
+    "source": "src/lib.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "validation::ValidationError",
+    "kind": "struct",
+    "signature": "pub struct ValidationError",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "validation::ValidationError.field",
+    "kind": "field",
+    "signature": "field: String",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "field"
+  },
+  {
+    "id": "validation::ValidationError.parameter",
+    "kind": "field",
+    "signature": "parameter: String",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "field"
+  },
+  {
+    "id": "validation::ValidationError.tag",
+    "kind": "field",
+    "signature": "tag: & 'static str",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "field"
+  },
+  {
+    "id": "validation::ValidationError::impl Clone",
+    "kind": "derived_trait",
+    "signature": "impl Clone for validation::ValidationError",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "validation::ValidationError::impl Debug",
+    "kind": "derived_trait",
+    "signature": "impl Debug for validation::ValidationError",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "validation::ValidationError::impl Eq",
+    "kind": "derived_trait",
+    "signature": "impl Eq for validation::ValidationError",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "validation::ValidationError::impl PartialEq",
+    "kind": "derived_trait",
+    "signature": "impl PartialEq for validation::ValidationError",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "validation::ValidationMessages",
+    "kind": "struct",
+    "signature": "pub struct ValidationMessages",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "validation::ValidationMessages::impl Clone",
+    "kind": "derived_trait",
+    "signature": "impl Clone for validation::ValidationMessages",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "validation::ValidationMessages::impl Debug",
+    "kind": "derived_trait",
+    "signature": "impl Debug for validation::ValidationMessages",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "validation::ValidationMessages::new",
+    "kind": "method",
+    "signature": "fn new (locale : & str) -> Self",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "validation::ValidationMessages::translate",
+    "kind": "method",
+    "signature": "fn translate (& self , errors : & [ValidationError]) -> Vec < String >",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "validation::ValidationMessages::with_messages",
+    "kind": "method",
+    "signature": "fn with_messages (messages : BTreeMap < String , String >) -> Result < Self , DecimalError >",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "validation::ValidationRule",
+    "kind": "struct",
+    "signature": "pub struct ValidationRule",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "validation::ValidationRule::impl Clone",
+    "kind": "derived_trait",
+    "signature": "impl Clone for validation::ValidationRule",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "validation::ValidationRule::impl Debug",
+    "kind": "derived_trait",
+    "signature": "impl Debug for validation::ValidationRule",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "trait"
+  },
+  {
+    "id": "validation::ValidationRule::matches",
+    "kind": "method",
+    "signature": "fn matches (& self , value : & Decimal) -> bool",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "validation::ValidationRule::parse",
+    "kind": "method",
+    "signature": "fn parse (tag : & str , parameter : & str) -> Result < Self , DecimalError >",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "validation::ValidationRule::validate",
+    "kind": "method",
+    "signature": "fn validate (& self , field : & str , value : & Decimal) -> Result < () , ValidationError >",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "borrowed"
+  },
+  {
+    "id": "validation::default_validation_messages",
+    "kind": "function",
+    "signature": "fn default_validation_messages (locale : & str) -> BTreeMap < String , String >",
+    "source": "src/validation/messages.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "validation::validate_decimal",
+    "kind": "function",
+    "signature": "fn validate_decimal (field : & str , value : & Decimal , rules : & [ValidationRule] ,) -> Vec < ValidationError >",
+    "source": "src/validation.rs",
+    "conditions": [
+      "cfg (feature = \"validation\")"
+    ],
+    "receiver": "none"
+  },
+  {
+    "id": "zero",
+    "kind": "function",
+    "signature": "fn zero () -> Decimal",
+    "source": "src/decimal.rs",
+    "conditions": [],
+    "receiver": "none"
+  }
+]
