@@ -21,6 +21,8 @@ The [API compatibility matrix](docs/api-compatibility.md) records the implementa
 - [Implementation plan](docs/implementation-plan.md): goals, scope, milestones, risks, and completion criteria.
 - [Technical design](docs/technical-design.md): types, algorithms, errors, conversions, codecs, and validation protocols.
 - [PR plan](docs/pr-plan.md): dependency order, deliverables, and acceptance criteria for each PR.
+- [Web documentation and playground design](docs/web-playground-design.md): eight-language usage documentation and a browser-only Rust/Wasm bridge (planned).
+- [Web delivery plan](docs/web-playground-pr-plan.md): stacked PR scopes, review requirements, and release gates.
 
 The plan is based on Go repository commit `a8791208e2d15483cf652cd2814b74b0c1a84187` and its v0.8.0 numerical contract. The repository is named `rs-decimal`; publication under the same name on crates.io still needs to be verified.
 
