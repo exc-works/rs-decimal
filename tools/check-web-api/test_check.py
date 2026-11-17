@@ -44,6 +44,25 @@ class CoverageTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'missing evidence'):
             checker.check(self.root)
 
+    def test_example_ids_are_exact_list_members_not_substrings(self):
+        self.row.update(status='implemented', bridge_signature='Decimal.new(value: bigint): Decimal', examples=['example'], tests=['test.rs'])
+        self.write([self.row])
+        (self.root / 'test.rs').write_text('test evidence')
+        (self.root / 'website/examples').mkdir()
+        for locale in checker.LOCALES:
+            folder = self.root / 'website/docs' / locale / 'api'
+            folder.mkdir(parents=True)
+            (folder / 'decimal-new.md').write_text('method documentation')
+        example = dict(schema_version=1, id='example', api_ids='Decimal::new_from_string', rust='let value = Decimal::new(0);', javascript='const value = Decimal.new(0n);', expected={'coefficient': '0'})
+        for bad in ['Decimal::new_from_string', ['Unknown'], [None], ['Decimal::new', 'Decimal::new']]:
+            example['api_ids'] = bad
+            (self.root / 'website/examples/example.json').write_text(json.dumps(example))
+            with self.assertRaisesRegex(ValueError, 'invalid example API IDs'):
+                checker.check(self.root, release=True)
+        example['api_ids'] = ['Decimal::new']
+        (self.root / 'website/examples/example.json').write_text(json.dumps(example))
+        self.assertEqual(checker.check(self.root, release=True), 1)
+
     def test_adapter_requires_reason(self):
         self.row['disposition'] = 'adapter'
         self.write([self.row])
