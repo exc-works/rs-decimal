@@ -10,8 +10,10 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: wasm32-unknown-unknown
-      - uses: browser-actions/setup-chrome@v1
+      - uses: browser-actions/setup-chrome@v2
+        id: chrome
         with:
+          chrome-version: '157.0.8103.78'
           install-chromedriver: true
       - run: cargo install wasm-bindgen-cli --version 0.2.105 --locked
       - run: python3 tools/build-web-wasm.py
@@ -19,10 +21,16 @@ jobs:
         with:
           node-version: '22'
       - run: node --test website/tests/bridge.test.mjs
+      - name: Select the matching browser binary
+        run: python3 -c 'import json, os; open("webdriver.json", "w").write(json.dumps({"goog:chromeOptions":{"binary":os.environ["TEST_CHROME_BINARY"]}}))'
+        env:
+          TEST_CHROME_BINARY: ${{ steps.chrome.outputs.chrome-path }}
       - run: cargo test --locked -p decimal-playground-bridge --target wasm32-unknown-unknown
         env:
           CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUNNER: wasm-bindgen-test-runner
+          CHROMEDRIVER: ${{ steps.chrome.outputs.chromedriver-path }}
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: wasm-proof
           path: website/public/wasm/
