@@ -1,0 +1,24 @@
+name: Web bridge
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  wasm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: browser-actions/setup-chrome@v1
+        with:
+          install-chromedriver: true
+      - run: cargo install wasm-bindgen-cli --version 0.2.105 --locked
+      - run: python3 tools/build-web-wasm.py
+      - run: cargo test --locked -p decimal-playground-bridge --target wasm32-unknown-unknown
+        env:
+          CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUNNER: wasm-bindgen-test-runner
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wasm-proof
+          path: website/public/wasm/

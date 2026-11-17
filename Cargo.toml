@@ -48,7 +48,7 @@ xml = ["dep:quick-xml"]
 serde = { version = "=1.0.228", features = ["derive"] }
 
 [workspace]
-members = ["tools/conformance", "tools/postgres-tests", "tools/check-web-api"]
+members = ["tools/conformance", "tools/postgres-tests", "tools/check-web-api", "crates/playground-bridge"]
 resolver = "2"
 
 [[bench]]
