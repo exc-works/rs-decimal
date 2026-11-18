@@ -58,3 +58,12 @@ entries) complete all 355 zh-Hant references. Review covers generic Serde versus
 raw JSON adapters, 128-bit input ranges, nullable state, native-only trait syntax,
 PostgreSQL OIDs/wire limits and the separate live-database fixture profile. The
 manifest now uses `*` so future API groups cannot bypass zh-Hant completeness.
+
+## fr
+
+The 130 core references (WEB-07a–d, WEB-08 and WEB-09a–b) and supplemental
+bridge/resource guides are translated from en-US. The review follows the French
+glossary (échelle, décimales, chiffres significatifs, arrondi, initialisation),
+preserving sign/tie rules, state distinctions, borrowing/consumption, integer
+widths and error/resource boundaries. Shared examples and Rust identifiers are
+unchanged. Other French API groups remain pending and use explicit fallback.

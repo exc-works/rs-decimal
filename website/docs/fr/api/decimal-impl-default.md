@@ -1,10 +1,29 @@
 ---
 locale: fr
+source_revision: 9ab9d90f4fdbf97aeb5b036e4b2c138345a66dab28af2a920054edaddf0608dd
+translation_provenance: en-US-french-reviewed
 api_id: Decimal::impl Default
-translation_status: pending
 ---
 # Decimal::impl Default
 
-La traduction française de cette méthode est en cours. Consultez la référence anglaise pour les usages courants, les paramètres, les exemples et les précautions. Cette page ne constitue pas une traduction complète.
+Créer un zéro numérique non initialisé avec Rust Default.
 
-[Référence en anglais](../../en-US/api/decimal-impl-default)
+```rust
+impl Default for Decimal
+```
+
+## Utilisation courante et sémantique
+
+La valeur par défaut est numériquement égale à un zéro construit, mais is_nil() vaut true. Le bridge propose Decimal.default() ; cette page décrit le trait Rust lui-même.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-decimal-impl-default" locale="fr" />
+
+Cet exemple de syntaxe Rust est exécuté dans les tests natifs et ne prétend pas prendre en charge les traits dans le navigateur.
+
+## Documentation associée
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)
