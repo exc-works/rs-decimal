@@ -73,6 +73,14 @@ export interface Decimal {
   sqrt_with_prec(prec: number): Decimal;
   approx_root(degree: bigint): Decimal;
   approx_root_with_prec(degree: bigint, prec: number): Decimal;
+  ln(): Decimal;
+  ln_with_prec(prec: number): Decimal;
+  log2(): Decimal;
+  log2_with_prec(prec: number): Decimal;
+  log10(): Decimal;
+  log10_with_prec(prec: number): Decimal;
+  exp(): Decimal;
+  exp_with_prec(prec: number): Decimal;
   mul_exact(other: Decimal): Decimal;
   ceil(): Decimal;
   floor(): Decimal;

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "log-exp-decimal-ln",
+  "api_ids": [
+    "Decimal::ln"
+  ],
+  "rust": "let value = Decimal::new_from_string(\"2\")?.ln()?;",
+  "javascript": "const value = Decimal.new_from_string(\"2\").ln();",
+  "expected": {
+    "coefficient": "69314718055994530942",
+    "scale": "20",
+    "initialized": true,
+    "string": "0.69314718055994530942",
+    "string_with_trailing_zeros": "0.69314718055994530942"
+  }
+}

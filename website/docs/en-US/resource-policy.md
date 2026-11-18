@@ -13,6 +13,8 @@ results within these limits remain unchanged. The core crate is not modified.
 | ByteBuffer input | 65536 bytes |
 | Calls entering a Wasm instance | 10000, including getters, snapshots and metadata |
 | Nontrivial root degree | 128 |
+| Log/exp output precision, input scale, input coefficient | 128 places, 256 places, 4096 bits |
+| Ordinary exp absolute input | 64 (proven negative round-to-zero fast path retained) |
 | Built Wasm linear memory maximum | 64 MiB |
 
 Input scale and positive exponent expansion are checked before Rust parsing.
@@ -32,6 +34,10 @@ before mutation; even a just-fitting operation may be rejected.
 Roots bound scaled values, Newton powers and exact midpoint certification before
 calling the core. Nontrivial degrees are at most 128; zero, unit and degree-one
 fast paths remain available within the output scale budget.
+Log/exp have tighter input and precision budgets to bound rational reduction and
+all interval refinement retries, including the core maximum of 8192 guard bits.
+Exp additionally bounds ordinary argument magnitude; sufficiently negative input
+that the core proves rounds to zero keeps its safe fast path.
 Negative precision and zero divisors retain their core
 errors when the core can reject them before allocation.
 Rescale checks the requested scale and a conservative growth estimate before

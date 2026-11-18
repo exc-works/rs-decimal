@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "log-exp-decimal-log2-with-prec",
+  "api_ids": [
+    "Decimal::log2_with_prec"
+  ],
+  "rust": "let value = Decimal::new_from_string(\"3\")?.log2_with_prec(6)?;",
+  "javascript": "const value = Decimal.new_from_string(\"3\").log2_with_prec(6);",
+  "expected": {
+    "coefficient": "1584963",
+    "scale": "6",
+    "initialized": true,
+    "string": "1.584963",
+    "string_with_trailing_zeros": "1.584963"
+  }
+}

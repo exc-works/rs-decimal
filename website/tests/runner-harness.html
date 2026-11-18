@@ -189,6 +189,11 @@
         result = await client.run('assert(most_significant_bit(120n) === 6); print(Decimal.new_from_string("-1e-1000").float64()); print(Decimal.new_from_string("1e1000").float32()); print(NaN);', { onOutput: x => out.push(JSON.parse(x)) });
         assert(result.type === "done" && out[0][0].value === "-0" && out[0][0].bits === "8000000000000000" && out[0][1] === false && out[1][0].value === "Infinity" && out[1][1] === false && out[2].value === "NaN", "special floats and exactness survive output transport");
         checks.push("float output bits and conversion helper");
+        result = await client.run('print("started"); const d = Decimal.new(2n); while (true) d.ln_with_prec(128).free();', { onOutput: () => setTimeout(() => client.stop(), 50) });
+        assert(result.category === "cancelled", "stop during Rust transcendental calls");
+        result = await client.run('assert(Decimal.default().exp().string() === "1");');
+        assert(result.type === "done", "fresh exponential run after stop");
+        checks.push("stop during Rust calculations and fresh recovery");
         window.testResult = { ok: true, checks };
       } catch (error) {
         window.testResult = {

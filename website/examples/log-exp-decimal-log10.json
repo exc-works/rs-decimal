@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "log-exp-decimal-log10",
+  "api_ids": [
+    "Decimal::log10"
+  ],
+  "rust": "let value = Decimal::new_from_string(\"2\")?.log10()?;",
+  "javascript": "const value = Decimal.new_from_string(\"2\").log10();",
+  "expected": {
+    "coefficient": "30102999566398119521",
+    "scale": "20",
+    "initialized": true,
+    "string": "0.30102999566398119521",
+    "string_with_trailing_zeros": "0.30102999566398119521"
+  }
+}
