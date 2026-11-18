@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "constructor-new-from-big-int",
+  "api_ids": [
+    "Decimal::new_from_big_int"
+  ],
+  "rust": "let coefficient: BigInt = \"900719925474099312345\".parse()?;\nlet value = Decimal::new_from_big_int(&coefficient);",
+  "javascript": "const value = Decimal.new_from_big_int(900719925474099312345n);",
+  "expected": {
+    "coefficient": "900719925474099312345",
+    "scale": "0",
+    "initialized": true,
+    "string": "900719925474099312345",
+    "string_with_trailing_zeros": "900719925474099312345"
+  }
+}

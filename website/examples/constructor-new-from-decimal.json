@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "constructor-new-from-decimal",
+  "api_ids": [
+    "Decimal::new_from_decimal"
+  ],
+  "rust": "let original = Decimal::new_from_string(\"12.00\")?;\nlet value = Decimal::new_from_decimal(&original);",
+  "javascript": "const original = Decimal.new_from_string(\"12.00\");\nconst value = Decimal.new_from_decimal(original);",
+  "expected": {
+    "coefficient": "1200",
+    "scale": "2",
+    "initialized": true,
+    "string": "12",
+    "string_with_trailing_zeros": "12.00"
+  }
+}

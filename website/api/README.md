@@ -64,3 +64,17 @@ examples will add explicit typed expected outcomes without erasing distinctions
 between returned errors and traps. Store arbitrary integers as strings and
 special floating values as tagged bit representations. This illustrative envelope
 is not implementation evidence until both runners execute and compare it.
+
+## Executing published examples
+
+WEB-07a runs each shared JSON example through native Rust (`cargo run --locked
+-p decimal-web-examples`), Node with the compiled Wasm (`tests/examples.test.mjs`),
+and the isolated browser Worker (`tests/examples-harness.html`, driven by
+`tests/browser-runner.py`). All runners compare the complete expected snapshot.
+The index must contain every example exactly once. Pages render the same source
+and result, so translations cannot change executable code independently.
+
+`npm run check:i18n` validates both the eight shared locale shells and current
+en-US/zh-Hans method source hashes. `node scripts/check-i18n.mjs --release`
+requires current method pages in all eight locales. Preview catalog links
+explicitly label the English reference when a method translation is still pending.

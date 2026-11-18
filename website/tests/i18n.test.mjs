@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { createHash } from 'node:crypto';
-import { checkTranslations, expectedLocales } from '../scripts/check-i18n.mjs';
+import { checkTranslations, checkMethodTranslations, expectedLocales } from '../scripts/check-i18n.mjs';
 import { locales } from '../locales.mjs';
 
 test('all published shared pages have current translations and interface labels', async () => {
@@ -33,4 +33,24 @@ test('source edits, missing locales and incomplete labels fail closed', async ()
     const broken = structuredClone(locales); delete broken.fr.search;
     await assert.rejects(checkTranslations(root, broken), /Missing interface labels: fr/);
   } finally { await rm(dir, {recursive:true,force:true}); }
+});
+
+test('method revisions and API identities cannot silently drift', async () => {
+  assert.equal(await checkMethodTranslations(), 11);
+  const dir = await mkdtemp(join(tmpdir(), 'decimal-method-i18n-'));
+  const root = pathToFileURL(dir + '/');
+  const body = '# Decimal::new\n\nCreates an integer.\n';
+  const hash = createHash('sha256').update(body).digest('hex');
+  try {
+    await mkdir(new URL('api/', root));
+    await writeFile(new URL('api/coverage.json', root), JSON.stringify([{id:'Decimal::new', doc_id:'decimal-new',status:'implemented'}]));
+    for (const locale of ['en-US','zh-Hans']) {
+      await mkdir(new URL(`docs/${locale}/api/`, root), {recursive:true});
+      await writeFile(new URL(`docs/${locale}/api/decimal-new.md`, root), `---\nlocale: ${locale}\nsource_revision: ${hash}\napi_id: Decimal::new\n---\n${body}`);
+    }
+    assert.equal(await checkMethodTranslations(root), 1);
+    await assert.rejects(checkMethodTranslations(root, true), /ENOENT/);
+    await writeFile(new URL('docs/en-US/api/decimal-new.md', root), `---\nlocale: en-US\nsource_revision: ${hash}\napi_id: Decimal::new\n---\n${body}Changed meaning.\n`);
+    await assert.rejects(checkMethodTranslations(root), /stale method translation/);
+  } finally { await rm(dir, {recursive:true, force:true}); }
 });

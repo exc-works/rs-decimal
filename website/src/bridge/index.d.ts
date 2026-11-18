@@ -24,7 +24,20 @@ export interface NullDecimal {
 }
 export interface ByteBuffer { to_uint8_array(): Uint8Array; free(): void; }
 export interface Bridge {
-  Decimal: { "new": (value: bigint) => Decimal; new_from_string(text: string): Decimal; default(): Decimal };
+  Decimal: {
+    "new": (value: bigint) => Decimal;
+    new_from_string(text: string): Decimal;
+    new_from_int(value: number): Decimal;
+    new_from_decimal(value: Decimal): Decimal;
+    new_with_prec(value: bigint, prec: number): Decimal;
+    new_from_int64(value: bigint, prec: number): Decimal;
+    new_from_uint64(value: bigint, prec: number): Decimal;
+    new_from_big_int(value: bigint): Decimal;
+    new_from_big_int_with_prec(value: bigint, prec: number): Decimal;
+    new_with_append_prec(value: bigint, prec: number): Decimal;
+    new_from_uint_with_append_prec(value: bigint, prec: number): Decimal;
+    default(): Decimal;
+  };
   NullDecimal: { "new": (decimal: Decimal) => NullDecimal; default(): NullDecimal };
   ByteBuffer: { "new": (bytes: Uint8Array) => ByteBuffer };
   RoundingMode: typeof RoundingMode;

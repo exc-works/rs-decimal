@@ -65,6 +65,15 @@ try:
         js('const el=document.querySelector("#api-query"); el.value="mul_exact"; el.dispatchEvent(new Event("input",{bubbles:true}));')
         until(lambda: 0 < js('return document.querySelectorAll("tbody tr").length') < count)
         assert js('return [...document.querySelectorAll("tbody tr")].every(x=>x.textContent.includes("mul_exact"))')
+    for locale in ['en-US', 'zh-Hans']:
+        navigate(f'{locale}/api/decimal-new-with-prec.html')
+        until(lambda: js('return document.querySelectorAll(".method-example pre").length') == 3)
+        assert 'Decimal.new_with_prec(12n, 2)' in js('return document.querySelector(".method-example").textContent')
+        js('document.querySelector(".VPNavBarTranslations button").click()')
+        js('Array.from(document.querySelectorAll(".VPNavBarTranslations a")).find(x=>x.href.includes("/ja/")).click()')
+        until(lambda: js('return document.documentElement.lang') == 'ja')
+        until(lambda: js('return document.querySelector(".vp-doc")?.textContent.includes("準備中")'))
+        assert js('return document.querySelector(".vp-doc a[href*=en-US]").pathname') == '/rs-decimal/en-US/api/decimal-new-with-prec.html'
     navigate('zh-Hans/guide.html')
     until(lambda: js('return !!document.querySelector(".VPNavBarTranslations button")'))
     js('document.querySelector(".VPNavBarTranslations button").click()')

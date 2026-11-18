@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "constructor-new-from-uint-with-append-prec",
+  "api_ids": [
+    "Decimal::new_from_uint_with_append_prec"
+  ],
+  "rust": "let value = Decimal::new_from_uint_with_append_prec(12, 2)?;",
+  "javascript": "const value = Decimal.new_from_uint_with_append_prec(12n, 2);",
+  "expected": {
+    "coefficient": "1200",
+    "scale": "2",
+    "initialized": true,
+    "string": "12",
+    "string_with_trailing_zeros": "12.00"
+  }
+}

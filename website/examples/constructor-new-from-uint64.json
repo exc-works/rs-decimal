@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "constructor-new-from-uint64",
+  "api_ids": [
+    "Decimal::new_from_uint64"
+  ],
+  "rust": "let value = Decimal::new_from_uint64(12, 2)?;",
+  "javascript": "const value = Decimal.new_from_uint64(12n, 2);",
+  "expected": {
+    "coefficient": "12",
+    "scale": "2",
+    "initialized": true,
+    "string": "0.12",
+    "string_with_trailing_zeros": "0.12"
+  }
+}

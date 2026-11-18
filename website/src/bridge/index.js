@@ -26,6 +26,19 @@ export const RoundingMode = Object.freeze({
   Down: 0, Up: 1, Ceiling: 2, HalfUp: 3, HalfDown: 4, HalfEven: 5, Unnecessary: 6,
 });
 
+const BIGINT_LIMIT = 10n ** 4096n;
+function bigintText(value, unsigned = false) {
+  requireType(typeof value === 'bigint', 'value must be bigint');
+  const min = unsigned ? 0n : -(1n << 63n), max = unsigned ? 1n << 64n : 1n << 63n;
+  requireType(value >= min && value < max, unsigned ? 'value must fit u64' : 'value must fit i64');
+  return value.toString();
+}
+function bigText(value) {
+  requireType(typeof value === 'bigint', 'value must be bigint');
+  resource(value > -BIGINT_LIMIT && value < BIGINT_LIMIT, 'playground coefficient exceeds 4096 digits');
+  return value.toString();
+}
+
 // A factory keeps wrapper identities tied to one Wasm instance/run.
 export function createBridge(raw) {
   const key = Symbol('bridge construction');
@@ -63,6 +76,15 @@ export function createBridge(raw) {
       resource(text.length <= 8192, 'playground input exceeds the input budget');
       return wrap(Decimal, raw.Decimal.new_from_string(text));
     }
+    static new_from_int(value) { return wrap(Decimal, raw.Decimal.new_from_int(integer(value, 'value'))); }
+    static new_from_decimal(value) { return wrap(Decimal, raw.Decimal.new_from_decimal(borrow(value, Decimal))); }
+    static new_with_prec(value, prec) { return wrap(Decimal, raw.Decimal.new_with_prec(bigintText(value), integer(prec, 'prec'))); }
+    static new_from_int64(value, prec) { return wrap(Decimal, raw.Decimal.new_from_int64(bigintText(value), integer(prec, 'prec'))); }
+    static new_from_uint64(value, prec) { return wrap(Decimal, raw.Decimal.new_from_uint64(bigintText(value, true), integer(prec, 'prec'))); }
+    static new_from_big_int(value) { return wrap(Decimal, raw.Decimal.new_from_big_int(bigText(value))); }
+    static new_from_big_int_with_prec(value, prec) { return wrap(Decimal, raw.Decimal.new_from_big_int_with_prec(bigText(value), integer(prec, 'prec'))); }
+    static new_with_append_prec(value, prec) { return wrap(Decimal, raw.Decimal.new_with_append_prec(bigintText(value), integer(prec, 'prec'))); }
+    static new_from_uint_with_append_prec(value, prec) { return wrap(Decimal, raw.Decimal.new_from_uint_with_append_prec(bigintText(value, true), integer(prec, 'prec'))); }
     static default() { return wrap(Decimal, raw.Decimal.default()); }
     clone() { return wrap(Decimal, borrow(this, Decimal).clone()); }
     coefficient() { return BigInt(borrow(this, Decimal).coefficient_text()); }
