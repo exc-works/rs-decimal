@@ -68,7 +68,8 @@ try:
         assert js('return [...document.querySelectorAll("tbody tr")].every(x=>x.textContent.includes("mul_exact"))')
     for locale in ['en-US', 'zh-Hans']:
         navigate(f'{locale}/api/decimal-new-with-prec.html')
-        until(lambda: js('return document.querySelectorAll(".method-example pre").length') == 3)
+        until(lambda: js('return document.querySelectorAll(".method-example > pre").length') == 3)
+        until(lambda: js('return !!document.querySelector(".method-form [data-parameter]")'))
         assert 'Decimal.new_with_prec(12n, 2)' in js('return document.querySelector(".method-example").textContent')
         js('document.querySelector(".VPNavBarTranslations button").click()')
         js('Array.from(document.querySelectorAll(".VPNavBarTranslations a")).find(x=>x.href.includes("/ja/")).click()')
@@ -76,10 +77,10 @@ try:
         until(lambda: js('return document.querySelector(".vp-doc")?.textContent.includes("準備中")'))
         assert js('return document.querySelector(".vp-doc a[href*=en-US]").pathname') == '/rs-decimal/en-US/api/decimal-new-with-prec.html'
     navigate('en-US/api/decimal-impl-clone.html')
-    until(lambda: js('return document.querySelectorAll(".method-example pre").length') == 2)
+    until(lambda: js('return document.querySelectorAll(".method-example > pre").length') == 2)
     assert 'native test harness' in js('return document.querySelector(".method-example").textContent')
     navigate('en-US/api/nulldecimal-valid.html')
-    until(lambda: js('return document.querySelectorAll(".method-example pre").length') == 3)
+    until(lambda: js('return document.querySelectorAll(".method-example > pre").length') == 3)
     assert '"valid": false' in js('return document.querySelector(".method-example").textContent')
     navigate('zh-Hans/guide.html')
     until(lambda: js('return !!document.querySelector(".VPNavBarTranslations button")'))

@@ -31,6 +31,7 @@ jobs:
           RUNNER_ALLOW_LOCALHOST: '1'
       - run: node --test website/tests/protocol.test.mjs
       - run: node --test website/tests/draft.test.mjs
+      - run: node --test website/tests/transfer.test.mjs
       - run: python3 website/tests/browser-runner.py
         env:
           CHROMEDRIVER: ${{ steps.chrome.outputs.chromedriver-path }}

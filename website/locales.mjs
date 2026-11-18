@@ -64,7 +64,18 @@ export const locales = {
     "pgImported": "File imported. Review it before running.",
     "pgImportError": "The file could not be read.",
     "pgRestored": "Your local draft was restored. It has not been run.",
-    "pgDraftError": "The saved draft is unavailable or invalid. The example is shown."
+    "pgDraftError": "The saved draft is unavailable or invalid. The example is shown.",
+    "methodTry": "Try the example",
+    "methodHelp": "Edit literal arguments in call order. The Rust snippet and expected state above describe the original example. Open the generated code to edit complex values and run it manually.",
+    "methodInvalid": "Invalid parameter or code exceeds 64 KiB.",
+    "methodOpen": "Open in Playground",
+    "pgShare": "Share",
+    "pgShareLink": "Share link",
+    "pgShareHelp": "Copy this link. Shared code loads without running and requires the same library build.",
+    "pgShareLarge": "Links support up to 4 KiB of UTF-8 code. Export a file for larger scripts.",
+    "pgShareInvalid": "Invalid link or different library build; your current draft was kept.",
+    "pgSharedLoaded": "Shared code loaded. Review it, then choose Run.",
+    "pgExampleLoaded": "Example loaded. Review it, then choose Run."
   },
   "en-GB": {
     "label": "English (UK)",
@@ -131,7 +142,18 @@ export const locales = {
     "pgImported": "File imported. Review it before running.",
     "pgImportError": "The file could not be read.",
     "pgRestored": "Your local draft was restored. It has not been run.",
-    "pgDraftError": "The saved draft is unavailable or invalid. The example is shown."
+    "pgDraftError": "The saved draft is unavailable or invalid. The example is shown.",
+    "methodTry": "Try the example",
+    "methodHelp": "Edit literal arguments in call order. The Rust snippet and expected state above describe the original example. Open the generated code to edit complex values and run it manually.",
+    "methodInvalid": "Invalid parameter or code exceeds 64 KiB.",
+    "methodOpen": "Open in Playground",
+    "pgShare": "Share",
+    "pgShareLink": "Share link",
+    "pgShareHelp": "Copy this link. Shared code loads without running and requires the same library build.",
+    "pgShareLarge": "Links support up to 4 KiB of UTF-8 code. Export a file for larger scripts.",
+    "pgShareInvalid": "Invalid link or different library build; your current draft was kept.",
+    "pgSharedLoaded": "Shared code loaded. Review it, then choose Run.",
+    "pgExampleLoaded": "Example loaded. Review it, then choose Run."
   },
   "zh-Hans": {
     "label": "简体中文",
@@ -198,7 +220,18 @@ export const locales = {
     "pgImported": "文件已导入，请检查后再运行。",
     "pgImportError": "无法读取文件。",
     "pgRestored": "已恢复本地草稿，尚未运行。",
-    "pgDraftError": "保存的草稿不可用或无效，当前显示示例。"
+    "pgDraftError": "保存的草稿不可用或无效，当前显示示例。",
+    "methodTry": "试用示例",
+    "methodHelp": "按调用顺序编辑字面量参数。上面的 Rust 代码和预期状态对应原始示例。打开生成的代码后，可编辑复杂值并手动运行。",
+    "methodInvalid": "参数无效或代码超过 64 KiB。",
+    "methodOpen": "在 Playground 中打开",
+    "pgShare": "分享",
+    "pgShareLink": "分享链接",
+    "pgShareHelp": "复制此链接。分享的代码只会载入，不会自动运行，且要求相同的库构建版本。",
+    "pgShareLarge": "链接最多支持 4 KiB 的 UTF-8 代码。较大脚本请导出为文件。",
+    "pgShareInvalid": "链接无效或库构建版本不同；当前草稿已保留。",
+    "pgSharedLoaded": "分享代码已载入。检查后点击运行。",
+    "pgExampleLoaded": "示例已载入。检查后点击运行。"
   },
   "zh-Hant": {
     "label": "繁體中文",
@@ -265,7 +298,18 @@ export const locales = {
     "pgImported": "檔案已匯入，請檢查後再執行。",
     "pgImportError": "無法讀取檔案。",
     "pgRestored": "已還原本機草稿，尚未執行。",
-    "pgDraftError": "儲存的草稿無法使用或無效，目前顯示範例。"
+    "pgDraftError": "儲存的草稿無法使用或無效，目前顯示範例。",
+    "methodTry": "試用範例",
+    "methodHelp": "依呼叫順序編輯常值參數。上方的 Rust 程式碼與預期狀態對應原始範例。開啟產生的程式碼後，可編輯複雜值並手動執行。",
+    "methodInvalid": "參數無效或程式碼超過 64 KiB。",
+    "methodOpen": "在 Playground 中開啟",
+    "pgShare": "分享",
+    "pgShareLink": "分享連結",
+    "pgShareHelp": "複製此連結。分享的程式碼只會載入，不會自動執行，且需要相同的程式庫建置版本。",
+    "pgShareLarge": "連結最多支援 4 KiB 的 UTF-8 程式碼。較大的腳本請匯出為檔案。",
+    "pgShareInvalid": "連結無效或程式庫建置版本不同；目前的草稿已保留。",
+    "pgSharedLoaded": "分享的程式碼已載入。檢查後按下執行。",
+    "pgExampleLoaded": "範例已載入。檢查後按下執行。"
   },
   "fr": {
     "label": "Français",
@@ -332,7 +376,18 @@ export const locales = {
     "pgImported": "Fichier importé. Vérifiez-le avant de l’exécuter.",
     "pgImportError": "Impossible de lire le fichier.",
     "pgRestored": "Brouillon local restauré, sans exécution.",
-    "pgDraftError": "Le brouillon enregistré est indisponible ou invalide. L’exemple est affiché."
+    "pgDraftError": "Le brouillon enregistré est indisponible ou invalide. L’exemple est affiché.",
+    "methodTry": "Essayer l’exemple",
+    "methodHelp": "Modifiez les arguments littéraux dans l’ordre des appels. Le code Rust et l’état attendu ci-dessus décrivent l’exemple original. Ouvrez le code généré pour modifier les valeurs complexes et l’exécuter manuellement.",
+    "methodInvalid": "Paramètre incorrect ou code supérieur à 64 Kio.",
+    "methodOpen": "Ouvrir dans Playground",
+    "pgShare": "Partager",
+    "pgShareLink": "Lien de partage",
+    "pgShareHelp": "Copiez ce lien. Le code partagé est chargé sans être exécuté et nécessite la même version compilée de la bibliothèque.",
+    "pgShareLarge": "Les liens acceptent au maximum 4 Kio de code UTF-8. Exportez les scripts plus longs dans un fichier.",
+    "pgShareInvalid": "Lien incorrect ou version compilée différente ; votre brouillon actuel a été conservé.",
+    "pgSharedLoaded": "Code partagé chargé. Vérifiez-le, puis cliquez sur Exécuter.",
+    "pgExampleLoaded": "Exemple chargé. Vérifiez-le, puis cliquez sur Exécuter."
   },
   "ko": {
     "label": "한국어",
@@ -399,7 +454,18 @@ export const locales = {
     "pgImported": "파일을 가져왔습니다. 실행 전에 확인하세요.",
     "pgImportError": "파일을 읽지 못했습니다.",
     "pgRestored": "로컬 초안을 복원했습니다. 아직 실행하지 않았습니다.",
-    "pgDraftError": "저장된 초안이 없거나 유효하지 않아 예제를 표시합니다."
+    "pgDraftError": "저장된 초안이 없거나 유효하지 않아 예제를 표시합니다.",
+    "methodTry": "예제 사용해 보기",
+    "methodHelp": "호출 순서대로 리터럴 인수를 편집합니다. 위의 Rust 코드와 예상 상태는 원본 예제에 해당합니다. 생성된 코드를 열어 복잡한 값을 편집하고 직접 실행할 수 있습니다.",
+    "methodInvalid": "매개변수가 잘못되었거나 코드가 64 KiB를 초과합니다.",
+    "methodOpen": "Playground에서 열기",
+    "pgShare": "공유",
+    "pgShareLink": "공유 링크",
+    "pgShareHelp": "이 링크를 복사하세요. 공유 코드는 실행 없이 불러오며 동일한 라이브러리 빌드가 필요합니다.",
+    "pgShareLarge": "링크는 최대 4 KiB의 UTF-8 코드를 지원합니다. 더 큰 스크립트는 파일로 내보내세요.",
+    "pgShareInvalid": "링크가 잘못되었거나 라이브러리 빌드가 다릅니다. 현재 초안은 유지되었습니다.",
+    "pgSharedLoaded": "공유 코드를 불러왔습니다. 확인 후 실행하세요.",
+    "pgExampleLoaded": "예제를 불러왔습니다. 확인 후 실행하세요."
   },
   "ja": {
     "label": "日本語",
@@ -466,7 +532,18 @@ export const locales = {
     "pgImported": "ファイルをインポートしました。実行前に確認してください。",
     "pgImportError": "ファイルを読み込めませんでした。",
     "pgRestored": "ローカルの下書きを復元しました。まだ実行していません。",
-    "pgDraftError": "保存済みの下書きが無効または利用できないため、例を表示しています。"
+    "pgDraftError": "保存済みの下書きが無効または利用できないため、例を表示しています。",
+    "methodTry": "例を試す",
+    "methodHelp": "呼び出し順にリテラル引数を編集できます。上の Rust コードと期待される状態は元の例に対応しています。生成されたコードを開くと、複雑な値を編集して手動で実行できます。",
+    "methodInvalid": "パラメーターが無効か、コードが 64 KiB を超えています。",
+    "methodOpen": "Playground で開く",
+    "pgShare": "共有",
+    "pgShareLink": "共有リンク",
+    "pgShareHelp": "このリンクをコピーしてください。共有コードは実行せずに読み込まれ、同じライブラリビルドが必要です。",
+    "pgShareLarge": "リンクでは UTF-8 コードを 4 KiB まで共有できます。大きなスクリプトはファイルにエクスポートしてください。",
+    "pgShareInvalid": "リンクが無効か、ライブラリビルドが異なります。現在の下書きは保持されています。",
+    "pgSharedLoaded": "共有コードを読み込みました。確認してから実行してください。",
+    "pgExampleLoaded": "例を読み込みました。確認してから実行してください。"
   },
   "de": {
     "label": "Deutsch",
@@ -533,6 +610,17 @@ export const locales = {
     "pgImported": "Datei importiert. Prüfen Sie sie vor der Ausführung.",
     "pgImportError": "Die Datei konnte nicht gelesen werden.",
     "pgRestored": "Lokaler Entwurf wiederhergestellt, ohne Ausführung.",
-    "pgDraftError": "Der gespeicherte Entwurf ist nicht verfügbar oder ungültig. Das Beispiel wird angezeigt."
+    "pgDraftError": "Der gespeicherte Entwurf ist nicht verfügbar oder ungültig. Das Beispiel wird angezeigt.",
+    "methodTry": "Beispiel ausprobieren",
+    "methodHelp": "Bearbeiten Sie literale Argumente in der Reihenfolge der Aufrufe. Der Rust-Code und der erwartete Zustand oben beziehen sich auf das ursprüngliche Beispiel. Öffnen Sie den erzeugten Code, um komplexe Werte zu bearbeiten und ihn manuell auszuführen.",
+    "methodInvalid": "Ungültiger Parameter oder Code größer als 64 KiB.",
+    "methodOpen": "In Playground öffnen",
+    "pgShare": "Teilen",
+    "pgShareLink": "Freigabelink",
+    "pgShareHelp": "Kopieren Sie diesen Link. Geteilter Code wird ohne Ausführung geladen und benötigt denselben Bibliotheksbuild.",
+    "pgShareLarge": "Links unterstützen bis zu 4 KiB UTF-8-Code. Exportieren Sie größere Skripte als Datei.",
+    "pgShareInvalid": "Ungültiger Link oder anderer Bibliotheksbuild; Ihr aktueller Entwurf wurde beibehalten.",
+    "pgSharedLoaded": "Geteilter Code geladen. Prüfen Sie ihn und klicken Sie auf Ausführen.",
+    "pgExampleLoaded": "Beispiel geladen. Prüfen Sie es und klicken Sie auf Ausführen."
   }
 };

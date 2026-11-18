@@ -4,6 +4,7 @@ import { useData } from "vitepress";
 import { RunnerClient } from "../../src/runner/client.js";
 import { sourceValid } from "../../src/runner/protocol.js";
 import { session } from "../../src/editor/state";
+import { HANDOFF_KEY, encodeShare, decodeShare, decodeTransfer } from '../../src/editor/transfer.mjs';
 import {
   DEFAULT_SOURCE,
   DRAFT_KEY,
@@ -18,6 +19,7 @@ const { isDark } = useData();
 const editorHost = ref<HTMLElement>();
 const runnerHost = ref<HTMLElement>();
 const fileInput = ref<HTMLInputElement>();
+const sharedUrl = ref('');
 const ready = ref(false),
   notice = ref(""),
   editorError = ref(false);
@@ -48,6 +50,7 @@ function visibilityChanged() {
   if (document.visibilityState === "hidden") flush();
 }
 function changed() {
+  sharedUrl.value = '';
   session.source = editor.getValue();
   clearTimeout(saveTimer);
   saveTimer = setTimeout(save, 200);
@@ -150,6 +153,30 @@ function exportFile() {
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+function share() {
+  try {
+    const url = new URL(location.href);
+    url.hash = encodeShare(session.source, __PLAYGROUND_CONFIG__.commit);
+    sharedUrl.value = url.href;
+    notice.value = 'pgShareHelp';
+  } catch { sharedUrl.value = ''; notice.value = 'pgShareLarge'; }
+}
+function loadTransfer(source: string, message: string) {
+  ++generation;
+  stop();
+  Object.assign(session, { source, output: [], running: false, status: 'idle', message: '', kinds: [], elapsed: 0 });
+  editor?.setValue(source);
+  notice.value = message;
+  sharedUrl.value = '';
+  save();
+}
+function readShare() {
+  if (!location.hash.startsWith('#share=')) return false;
+  try { loadTransfer(decodeShare(location.hash, __PLAYGROUND_CONFIG__.commit), 'pgSharedLoaded'); }
+  catch { notice.value = 'pgShareInvalid'; }
+  history.replaceState(history.state, '', location.pathname + location.search);
+  return true;
+}
 const status = computed(() =>
   session.running
     ? props.labels.pgRunning
@@ -169,6 +196,7 @@ function pretty(text: string) {
   }
 }
 onMounted(async () => {
+  window.addEventListener('hashchange', readShare);
   window.addEventListener("pagehide", flush);
   document.addEventListener("visibilitychange", visibilityChanged);
   if (!session.initialized) {
@@ -187,6 +215,13 @@ onMounted(async () => {
       if (text !== null) Object.assign(session, decodeResult(text));
     } catch {}
   }
+  // A link takes precedence over a pending local handoff; neither runs code.
+  const shared = readShare();
+  try {
+    const pending = sessionStorage.getItem(HANDOFF_KEY);
+    sessionStorage.removeItem(HANDOFF_KEY);
+    if (!shared && pending !== null) loadTransfer(decodeTransfer(pending, __PLAYGROUND_CONFIG__.commit), 'pgExampleLoaded');
+  } catch { if (!shared) notice.value = 'pgShareInvalid'; }
   try {
     const { loadEditor } = await import("../../src/editor/loader");
     const module = await loadEditor(props.locale);
@@ -206,6 +241,7 @@ onMounted(async () => {
 });
 watch(isDark, (value) => editor?.setTheme(value));
 onBeforeUnmount(() => {
+  window.removeEventListener('hashchange', readShare);
   window.removeEventListener("pagehide", flush);
   document.removeEventListener("visibilitychange", visibilityChanged);
   disposed = true;
@@ -255,6 +291,7 @@ onBeforeUnmount(() => {
       <button data-action="export" :disabled="!ready" @click="exportFile">
         {{ labels.pgExport }}
       </button>
+      <button data-action="share" :disabled="!ready || !valid" @click="share">{{ labels.pgShare }}</button>
       <input
         ref="fileInput"
         class="pg-file"
@@ -264,6 +301,9 @@ onBeforeUnmount(() => {
         @change="importFile"
       />
     </div>
+    <label v-if="sharedUrl" class="pg-share">{{ labels.pgShareLink }}
+      <input data-share-link readonly :value="sharedUrl" @focus="($event.target as HTMLInputElement).select()" />
+    </label>
     <p class="pg-status" aria-live="polite">
       {{ status }}
       <span v-if="session.elapsed">· {{ session.elapsed.toFixed(0) }} ms</span>
@@ -337,6 +377,7 @@ onBeforeUnmount(() => {
 .pg-file {
   display: none;
 }
+.pg-share input{width:100%;padding:8px;border:1px solid var(--vp-c-divider);border-radius:4px;font-size:13px;background:var(--vp-c-bg)}
 .pg-output pre,
 .pg-error pre {
   white-space: pre-wrap;
