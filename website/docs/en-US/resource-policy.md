@@ -12,6 +12,7 @@ results within these limits remain unchanged. The core crate is not modified.
 | Estimated result coefficient | 16384 bits (at most 4933 decimal digits) |
 | ByteBuffer input | 65536 bytes |
 | Calls entering a Wasm instance | 10000, including getters, snapshots and metadata |
+| Nontrivial root degree | 128 |
 | Built Wasm linear memory maximum | 64 MiB |
 
 Input scale and positive exponent expansion are checked before Rust parsing.
@@ -28,6 +29,9 @@ before multiplication. Nonzero-denominator validation precedes rational construc
 Formatting bounds width (65536 bytes), precision (1000) and fixed-point coefficient
 growth. Append checks the existing buffer plus a conservative decimal text bound
 before mutation; even a just-fitting operation may be rejected.
+Roots bound scaled values, Newton powers and exact midpoint certification before
+calling the core. Nontrivial degrees are at most 128; zero, unit and degree-one
+fast paths remain available within the output scale budget.
 Negative precision and zero divisors retain their core
 errors when the core can reject them before allocation.
 Rescale checks the requested scale and a conservative growth estimate before

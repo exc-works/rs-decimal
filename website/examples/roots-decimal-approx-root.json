@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "roots-decimal-approx-root",
+  "api_ids": [
+    "Decimal::approx_root"
+  ],
+  "rust": "let value = Decimal::new_from_string(\"-8\")?.approx_root(3)?;",
+  "javascript": "const value = Decimal.new_from_string(\"-8\").approx_root(3n);",
+  "expected": {
+    "coefficient": "-200000000000000000000",
+    "scale": "20",
+    "initialized": true,
+    "string": "-2",
+    "string_with_trailing_zeros": "-2.00000000000000000000"
+  }
+}

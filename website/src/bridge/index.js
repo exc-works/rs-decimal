@@ -193,6 +193,10 @@ export function createBridge(raw) {
     format_go(f) { return borrow(this, Decimal).format_go(formatOptions(f)); }
     append_text(dst) { borrow(this, Decimal).append_text(borrow(dst, ByteBuffer)); }
     append_text_with_trailing_zeros(dst) { borrow(this, Decimal).append_text_with_trailing_zeros(borrow(dst, ByteBuffer)); }
+    sqrt() { return wrap(Decimal, borrow(this, Decimal).sqrt()); }
+    sqrt_with_prec(prec) { return wrap(Decimal, borrow(this, Decimal).sqrt_with_prec(integer(prec, 'prec'))); }
+    approx_root(degree) { return wrap(Decimal, borrow(this, Decimal).approx_root(bigintText(degree))); }
+    approx_root_with_prec(degree, prec) { return wrap(Decimal, borrow(this, Decimal).approx_root_with_prec(bigintText(degree), integer(prec, 'prec'))); }
     mul_exact(other) {
       return wrap(Decimal, borrow(this, Decimal).mul_exact(borrow(other, Decimal)));
     }
