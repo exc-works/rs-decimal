@@ -1,0 +1,37 @@
+name: Documentation website
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: browser-actions/setup-chrome@v2
+        id: chrome
+        with:
+          chrome-version: '157.0.8103.78'
+          install-chromedriver: true
+      - run: cargo run --locked --example web_getting_started
+      - run: npm ci --ignore-scripts
+        working-directory: website
+      - run: npm run check:i18n && node --test tests/i18n.test.mjs && npm run build
+        working-directory: website
+        env:
+          DOCS_BASE: /rs-decimal/
+      - run: python3 website/tests/browser-site.py
+        env:
+          CHROMEDRIVER: ${{ steps.chrome.outputs.chromedriver-path }}
+          TEST_CHROME_BINARY: ${{ steps.chrome.outputs.chrome-path }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: documentation-preview
+          path: website/docs/.vitepress/dist/

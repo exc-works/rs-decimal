@@ -2,4 +2,8 @@
 /.cache/
 __pycache__/
 *.pyc
+
+/website/node_modules/
+/website/docs/.vitepress/cache/
+/website/docs/.vitepress/dist/
 /website/public/wasm/
