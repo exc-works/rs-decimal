@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 08a6704725cb461888907af8e46adcebe3aa92b6c462154ff5ba96f3a955340f
+source_revision: 9cb35d36232b48dfa841cf9ea23e2fcf6d9b36b6ef45c2f68538158901813e1b
 api_id: Decimal::round_with_prec
 ---
 # Decimal::round_with_prec
@@ -8,12 +8,22 @@ api_id: Decimal::round_with_prec
 向最接近值舍入，正中间值取偶数，保留指定的小数位数。
 
 ```rust
-fn round_with_prec (& self , prec : isize) -> Result < Self , DecimalError >
+fn round_with_prec(&self, prec: isize) -> Result<Self, DecimalError>
 ```
 
-## 参数、返回值及常规用法
+## 参数
 
-prec: isize/整数 number；Rust 返回 Result<Decimal, DecimalError>，bridge 返回 Decimal 或抛出错误。负精度返回 InvalidPrecision。这里默认使用 HalfEven，与 JavaScript Math.round 的正中间值处理规则不同。输入仅被借用，保持不变。结果已初始化，包括默认零输入。提高精度会追加零，不改变数值。
+`prec: isize` — 保留的小数位数。bridge 接受 JavaScript 整数 number。
+
+## 返回值
+
+返回已初始化的 Decimal，包括默认零输入。方法借用输入，提高精度会追加尾零。
+
+`2.345 → 2.34` · `2.355 → 2.36` (HalfEven). 使用 [`rescale`](./decimal-rescale) 可指定其他舍入模式。
+
+## 错误
+
+负精度返回 `InvalidPrecision`. bridge 会抛出对应错误。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 08a6704725cb461888907af8e46adcebe3aa92b6c462154ff5ba96f3a955340f
+source_revision: 9cb35d36232b48dfa841cf9ea23e2fcf6d9b36b6ef45c2f68538158901813e1b
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::round_with_prec
 ---
@@ -9,12 +9,22 @@ api_id: Decimal::round_with_prec
 Bei gewählter Nachkommastellenzahl zum nächsten Wert und bei Gleichstand zur geraden Ziffer runden.
 
 ```rust
-fn round_with_prec (& self , prec : isize) -> Result < Self , DecimalError >
+fn round_with_prec(&self, prec: isize) -> Result<Self, DecimalError>
 ```
 
-## Parameter, Rückgabe und übliche Verwendung
+## Parameter
 
-prec: isize/ganzzahlige number; Rust liefert Result<Decimal, DecimalError>, die Bridge Decimal oder eine Ausnahme. Negative Präzision liefert InvalidPrecision. Hier ist HalfEven voreingestellt; dies ist nicht die Gleichstandsregel von JavaScript Math.round. Eingaben werden ausgeliehen und bleiben unverändert. Ergebnisse sind auch bei Standardnull initialisiert. Höhere Präzision hängt Nullen an, ohne den Zahlenwert zu ändern.
+`prec: isize` — Anzahl der Nachkommastellen. Die Bridge erwartet eine ganzzahlige JavaScript-Zahl.
+
+## Rückgabewert
+
+Ein initialisierter Decimal, auch bei einer nicht initialisierten Null als Eingabe. Der Wert wird ausgeliehen. Höhere Präzision hängt Nullen an.
+
+`2.345 → 2.34` · `2.355 → 2.36` (HalfEven). Mit [`rescale`](./decimal-rescale) lässt sich der Rundungsmodus wählen.
+
+## Fehler
+
+Negative Präzision ergibt `InvalidPrecision`. Die Bridge wirft den entsprechenden Fehler.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

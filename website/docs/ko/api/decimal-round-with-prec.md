@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 08a6704725cb461888907af8e46adcebe3aa92b6c462154ff5ba96f3a955340f
+source_revision: 9cb35d36232b48dfa841cf9ea23e2fcf6d9b36b6ef45c2f68538158901813e1b
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::round_with_prec
 ---
@@ -9,12 +9,22 @@ api_id: Decimal::round_with_prec
 지정한 소수 자릿수에서 가장 가까운 값으로 반올림하며 중간이면 짝수 쪽을 택합니다.
 
 ```rust
-fn round_with_prec (& self , prec : isize) -> Result < Self , DecimalError >
+fn round_with_prec(&self, prec: isize) -> Result<Self, DecimalError>
 ```
 
-## 매개변수, 반환값, 일반적인 사용법
+## 매개변수
 
-prec: isize/정수 number. Rust는 Result<Decimal, DecimalError>를, bridge는 Decimal 또는 예외를 반환합니다. 음수 정밀도는 InvalidPrecision입니다. 여기서는 최근접 짝수 반올림이 기본이며 JavaScript Math.round의 중간값 처리와 다릅니다. 입력은 빌려 사용하며 변경하지 않습니다. 기본 0이 입력이어도 결과는 초기화됩니다. 정밀도를 높이면 수치를 바꾸지 않고 0을 추가합니다.
+`prec: isize` — 소수점 아래 자릿수입니다. 브리지는 JavaScript 정숫값을 받습니다.
+
+## 반환값
+
+기본 영 값을 입력해도 초기화된 Decimal을 반환합니다. 입력을 빌리며 정밀도를 높이면 끝에 0을 붙입니다.
+
+`2.345 → 2.34` · `2.355 → 2.36` (HalfEven). 다른 반올림 모드는 [`rescale`](./decimal-rescale) 호출로 지정합니다.
+
+## 오류
+
+음수 정밀도가 반환하는 오류는 `InvalidPrecision`. 브리지는 해당 오류를 던집니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";
