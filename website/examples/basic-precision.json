@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "basic-precision",
+  "api_ids": [
+    "Decimal::precision"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"-12.340\")?;\nlet value = serde_json::json!({\"value\": input.precision()});",
+  "javascript": "const input = Decimal.new_from_string(\"-12.340\");\nconst value = { value: input.precision() };",
+  "expected": {
+    "value": 3
+  }
+}

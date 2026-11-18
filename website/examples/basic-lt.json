@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "basic-lt",
+  "api_ids": [
+    "Decimal::lt"
+  ],
+  "rust": "let left = Decimal::new_from_string(\"12.00\")?;\nlet right = Decimal::new_from_string(\"12.0\")?;\nlet value = serde_json::json!({\"value\": left.lt(&right)});",
+  "javascript": "const left = Decimal.new_from_string(\"12.00\");\nconst right = Decimal.new_from_string(\"12.0\");\nconst value = { value: left.lt(right) };",
+  "expected": {
+    "value": false
+  }
+}

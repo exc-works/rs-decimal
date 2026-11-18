@@ -8,6 +8,24 @@ export interface Decimal {
   is_nil(): boolean;
   string(): string;
   string_with_trailing_zeros(): string;
+  precision(): number;
+  sign(): number;
+  is_zero(): boolean;
+  is_not_zero(): boolean;
+  is_positive(): boolean;
+  is_negative(): boolean;
+  big_int(): bigint;
+  cmp(other: Decimal): number;
+  equal(other: Decimal): boolean;
+  not_equal(other: Decimal): boolean;
+  gt(other: Decimal): boolean;
+  gte(other: Decimal): boolean;
+  lt(other: Decimal): boolean;
+  lte(other: Decimal): boolean;
+  abs(): Decimal;
+  neg(): Decimal;
+  max(other: Decimal): Decimal;
+  min(other: Decimal): Decimal;
   mul_exact(other: Decimal): Decimal;
   rescale(prec: number, mode: Rounding): Decimal;
   /** Consumes this value, even if the Rust operation returns an error. */

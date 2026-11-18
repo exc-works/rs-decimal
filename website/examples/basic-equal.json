@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "basic-equal",
+  "api_ids": [
+    "Decimal::equal"
+  ],
+  "rust": "let left = Decimal::new_from_string(\"12.00\")?;\nlet right = Decimal::new_from_string(\"12.0\")?;\nlet value = serde_json::json!({\"value\": left.equal(&right)});",
+  "javascript": "const left = Decimal.new_from_string(\"12.00\");\nconst right = Decimal.new_from_string(\"12.0\");\nconst value = { value: left.equal(right) };",
+  "expected": {
+    "value": true
+  }
+}

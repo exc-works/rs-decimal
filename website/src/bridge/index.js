@@ -92,6 +92,24 @@ export function createBridge(raw) {
     is_nil() { return borrow(this, Decimal).is_nil(); }
     string() { return borrow(this, Decimal).string(); }
     string_with_trailing_zeros() { return borrow(this, Decimal).string_with_trailing_zeros(); }
+    precision() { return borrow(this, Decimal).precision(); }
+    sign() { return borrow(this, Decimal).sign(); }
+    is_zero() { return borrow(this, Decimal).is_zero(); }
+    is_not_zero() { return borrow(this, Decimal).is_not_zero(); }
+    is_positive() { return borrow(this, Decimal).is_positive(); }
+    is_negative() { return borrow(this, Decimal).is_negative(); }
+    big_int() { return BigInt(borrow(this, Decimal).big_int_text()); }
+    cmp(other) { return borrow(this, Decimal).cmp(borrow(other, Decimal)); }
+    equal(other) { return borrow(this, Decimal).equal(borrow(other, Decimal)); }
+    not_equal(other) { return borrow(this, Decimal).not_equal(borrow(other, Decimal)); }
+    gt(other) { return borrow(this, Decimal).gt(borrow(other, Decimal)); }
+    gte(other) { return borrow(this, Decimal).gte(borrow(other, Decimal)); }
+    lt(other) { return borrow(this, Decimal).lt(borrow(other, Decimal)); }
+    lte(other) { return borrow(this, Decimal).lte(borrow(other, Decimal)); }
+    abs() { return wrap(Decimal, borrow(this, Decimal).abs()); }
+    neg() { return wrap(Decimal, borrow(this, Decimal).neg()); }
+    max(other) { return wrap(Decimal, borrow(this, Decimal).max(borrow(other, Decimal))); }
+    min(other) { return wrap(Decimal, borrow(this, Decimal).min(borrow(other, Decimal))); }
     mul_exact(other) {
       return wrap(Decimal, borrow(this, Decimal).mul_exact(borrow(other, Decimal)));
     }

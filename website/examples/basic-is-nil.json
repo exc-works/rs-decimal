@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "basic-is-nil",
+  "api_ids": [
+    "Decimal::is_nil"
+  ],
+  "rust": "let input = Decimal::default();\nlet value = serde_json::json!({\"value\": input.is_nil()});",
+  "javascript": "const input = Decimal.default();\nconst value = { value: input.is_nil() };",
+  "expected": {
+    "value": true
+  }
+}

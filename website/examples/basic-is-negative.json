@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "basic-is-negative",
+  "api_ids": [
+    "Decimal::is_negative"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"-12.340\")?;\nlet value = serde_json::json!({\"value\": input.is_negative()});",
+  "javascript": "const input = Decimal.new_from_string(\"-12.340\");\nconst value = { value: input.is_negative() };",
+  "expected": {
+    "value": true
+  }
+}

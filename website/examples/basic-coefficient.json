@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "basic-coefficient",
+  "api_ids": [
+    "Decimal::coefficient"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"-12.340\")?;\nlet value = serde_json::json!({\"value\": input.coefficient().to_string()});",
+  "javascript": "const input = Decimal.new_from_string(\"-12.340\");\nconst value = { value: input.coefficient().toString() };",
+  "expected": {
+    "value": "-12340"
+  }
+}
