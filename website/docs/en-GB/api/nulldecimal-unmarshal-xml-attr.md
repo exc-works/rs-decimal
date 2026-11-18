@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: c7a1930837be67e808eeab76b8c26f44a4383de987cd691171dbb7ac852d0e40
+source_revision: 72730d41ab3e71fa242fbf48a88a0c6a502506e0eb80815d9391890ebfff87d8
 translation_provenance: en-US-reviewed-reuse
 api_id: "NullDecimal::unmarshal_xml_attr"
 ---
@@ -14,7 +14,7 @@ fn unmarshal_xml_attr (& mut self , value : & str) -> Result < () , DecimalError
 
 ## Parameters, return and normal usage
 
-value: &str/string; mutates the receiver and returns `Result<(), DecimalError>`/undefined. Rust requires xml. Pass the already entity-decoded attribute value, not an XML attribute fragment: "1.23" is valid but "&#49;.23" is not decoded again. Trims surrounding whitespace and parses exact decimal text. Empty content clears valid and resets the inner Decimal to uninitialized zero. Successful non-null decoding initializes the decimal and preserves nonzero trailing scale. It sets valid=true. Errors preserve all receiver fields and retain library error kinds including Unmarshal.
+value: &str/string; mutates the receiver and returns `Result<(), DecimalError>`/undefined. Rust requires xml. Pass the already entity-decoded attribute value, not an XML attribute fragment: "1.23" is valid but `"&#49;.23"` is not decoded again. Trims surrounding whitespace and parses exact decimal text. Empty content clears valid and resets the inner Decimal to uninitialized zero. Successful non-null decoding initializes the decimal and preserves nonzero trailing scale. It sets valid=true. Errors preserve all receiver fields and retain library error kinds including Unmarshal.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

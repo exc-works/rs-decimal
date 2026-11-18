@@ -1,10 +1,31 @@
 ---
 locale: zh-Hant
+source_revision: b07552403b149d5a66b24c1aa4c0547e8259f4d124ac401ca1161c70929a6aa6
+translation_provenance: zh-Hans-terminology-reviewed
 api_id: "NullDecimal::marshal_bson_value"
-translation_status: pending
 ---
 # NullDecimal::marshal_bson_value
 
-本方法的繁體中文翻譯尚未完成。請參閱英文文件中的常規用法、參數、範例及注意事項。這個提示頁不計入翻譯完成度。
+編碼 BSON 類型位元組和純量負載。
 
-[英文參考文件](../../en-US/api/nulldecimal-marshal-bson-value)
+```rust
+fn marshal_bson_value (& self) -> Result < (u8 , Vec < u8 >) , DecimalError >
+```
+
+## 參數、回傳值及常規用法
+
+無參數，回傳 `Result<(u8, Vec<u8>), DecimalError>`/[number, Uint8Array]。Rust 需要 bson feature，瀏覽器建置已啟用。元組包含 BSON 純量，而非完整 BSON 文件。有效 nullable 值編碼為 BSON 字串，包括內部零未初始化的有效值；無效值編碼為類型 10 和空負載。字串負載先寫小端 i32 位元組長度（包含結尾 NUL），隨後寫無小數末尾零的規範文字和 NUL。回傳位元組是獨立副本；編碼不改變初始化或有效旗標。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="binary-bson-nulldecimal-marshal-bson-value" locale="zh-Hant" />
+
+## 瀏覽器邊界
+
+輸入必須為 Uint8Array，kind 必須是 0–255 的整數。複製到 Wasm 前限制輸入為 65536 位元組；Rust 再檢查二進位 scale 不超過 1000、實際係數不超過 16384 位。BSON 字串需滿足 8192 位元組文字限制，Decimal128 的指數展開也接受 [資源檢查](../resource-policy)。這些限制可能比原生程式庫更嚴格。所有檢查在接收者改變之前完成；Core 錯誤與資源錯誤保持區分，已移動的控制代碼不可重複使用。
+
+## 相關方法
+
+[marshal_binary](./decimal-marshal-binary) · [unmarshal_bson_value](./decimal-unmarshal-bson-value) · [unmarshal_json](./decimal-unmarshal-json)

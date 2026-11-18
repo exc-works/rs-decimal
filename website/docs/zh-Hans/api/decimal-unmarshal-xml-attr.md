@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 54029652b1ccf0bd92160e138af8c8334fba2feb6f64eea2e573873d94dfb3f7
+source_revision: 8121a233cd958a145b10a44401309e0a697f7d8f9d3c70b88d07ca9cdb298e4f
 api_id: "Decimal::unmarshal_xml_attr"
 ---
 # Decimal::unmarshal_xml_attr
@@ -13,7 +13,7 @@ fn unmarshal_xml_attr (& mut self , value : & str) -> Result < () , DecimalError
 
 ## 参数、返回值及常规用法
 
-value: &str/string；修改接收者，返回 `Result<(), DecimalError>`/undefined。Rust 需要 xml。传入已完成实体解码的属性值，而不是 XML 属性片段："1.23" 有效，但 "&#49;.23" 不会再次解码。去除首尾空白后精确解析小数文本。空内容将接收者重置为未初始化零。成功解码非空值会初始化小数，并保留非零值的末尾 scale。错误保留接收者全部字段，并保留包含 Unmarshal 的库错误类别。
+value: &str/string；修改接收者，返回 `Result<(), DecimalError>`/undefined。Rust 需要 xml。传入已完成实体解码的属性值，而不是 XML 属性片段："1.23" 有效，但 `"&#49;.23"` 不会再次解码。去除首尾空白后精确解析小数文本。空内容将接收者重置为未初始化零。成功解码非空值会初始化小数，并保留非零值的末尾 scale。错误保留接收者全部字段，并保留包含 Unmarshal 的库错误类别。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";
