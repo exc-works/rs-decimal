@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "native-roundingmode-impl-tryfrom-i32-error",
+  "api_ids": [
+    "RoundingMode::impl TryFrom < i32 >::Error"
+  ],
+  "rust": "let mode = RoundingMode::try_from(5)?;\nlet error: <RoundingMode as TryFrom<i32>>::Error = RoundingMode::try_from(7).unwrap_err();\nlet value = serde_json::json!({\"half_even\": mode == RoundingMode::HalfEven, \"invalid_argument\": error.matches(rs_decimal::ErrorKind::InvalidArgument)});",
+  "javascript": "",
+  "expected": {
+    "half_even": true,
+    "invalid_argument": true
+  }
+}

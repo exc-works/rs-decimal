@@ -526,35 +526,53 @@
   {
     "id": "Decimal::impl Add < & Decimal >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-add-decimal",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-add-decimal"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl Add < & Decimal >::Output",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-add-decimal-output",
     "reason": "Rust trait associated type or constant; documented with the corresponding trait implementation.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-add-decimal-output"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl Add < & Decimal >::add",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-add-decimal-add",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-add-decimal-add"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl Clone",
@@ -595,24 +613,40 @@
   {
     "id": "Decimal::impl Decode < 'r , Postgres >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-decode-r-postgres",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-decode-r-postgres"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "Decimal::impl Decode < 'r , Postgres >::decode",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-decode-r-postgres-decode",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-decode-r-postgres-decode"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "Decimal::impl Default",
@@ -671,24 +705,40 @@
   {
     "id": "Decimal::impl Encode < '_ , Postgres >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-encode-postgres",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-encode-postgres"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "Decimal::impl Encode < '_ , Postgres >::encode_by_ref",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-encode-postgres-encode-by-ref",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-encode-postgres-encode-by-ref"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "Decimal::impl Eq",
@@ -711,156 +761,240 @@
   {
     "id": "Decimal::impl From < BigInt >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-from-bigint",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-from-bigint"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl From < BigInt >::from",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-from-bigint-from",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-from-bigint-from"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl From < i128 >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-from-i128",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-from-i128"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl From < i16 >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-from-i16",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-from-i16"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl From < i32 >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-from-i32",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-from-i32"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl From < i64 >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-from-i64",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-from-i64"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl From < i8 >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-from-i8",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-from-i8"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl From < isize >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-from-isize",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-from-isize"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl From < u128 >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-from-u128",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-from-u128"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl From < u16 >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-from-u16",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-from-u16"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl From < u32 >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-from-u32",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-from-u32"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl From < u64 >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-from-u64",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-from-u64"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl From < u8 >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-from-u8",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-from-u8"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl From < usize >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-from-usize",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-from-usize"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl FromStr",
@@ -919,35 +1053,53 @@
   {
     "id": "Decimal::impl Neg",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-neg",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-neg"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl Neg::Output",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-neg-output",
     "reason": "Rust trait associated type or constant; documented with the corresponding trait implementation.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-neg-output"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl Neg::neg",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-neg-neg",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-neg-neg"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl Ord",
@@ -1060,24 +1212,40 @@
   {
     "id": "Decimal::impl PgHasArrayType",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-pghasarraytype",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-pghasarraytype"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "Decimal::impl PgHasArrayType::array_type_info",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-pghasarraytype-array-type-info",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-pghasarraytype-array-type-info"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "Decimal::impl Serialize",
@@ -1118,68 +1286,110 @@
   {
     "id": "Decimal::impl Sub < & Decimal >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-sub-decimal",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-sub-decimal"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl Sub < & Decimal >::Output",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-sub-decimal-output",
     "reason": "Rust trait associated type or constant; documented with the corresponding trait implementation.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-sub-decimal-output"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl Sub < & Decimal >::sub",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-sub-decimal-sub",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-sub-decimal-sub"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "Decimal::impl Type < Postgres >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-type-postgres",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-type-postgres"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "Decimal::impl Type < Postgres >::compatible",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-type-postgres-compatible",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-type-postgres-compatible"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "Decimal::impl Type < Postgres >::type_info",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "decimal-impl-type-postgres-type-info",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-decimal-impl-type-postgres-type-info"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "Decimal::impl fmt :: Display",
@@ -3801,24 +4011,40 @@
   {
     "id": "NullDecimal::impl Decode < 'r , Postgres >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "nulldecimal-impl-decode-r-postgres",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-nulldecimal-impl-decode-r-postgres"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "NullDecimal::impl Decode < 'r , Postgres >::decode",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "nulldecimal-impl-decode-r-postgres-decode",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-nulldecimal-impl-decode-r-postgres-decode"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "NullDecimal::impl Default",
@@ -3877,46 +4103,78 @@
   {
     "id": "NullDecimal::impl Encode < '_ , Postgres >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "nulldecimal-impl-encode-postgres",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-nulldecimal-impl-encode-postgres"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "NullDecimal::impl Encode < '_ , Postgres >::encode_by_ref",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "nulldecimal-impl-encode-postgres-encode-by-ref",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-nulldecimal-impl-encode-postgres-encode-by-ref"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "NullDecimal::impl PgHasArrayType",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "nulldecimal-impl-pghasarraytype",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-nulldecimal-impl-pghasarraytype"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "NullDecimal::impl PgHasArrayType::array_type_info",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "nulldecimal-impl-pghasarraytype-array-type-info",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-nulldecimal-impl-pghasarraytype-array-type-info"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "NullDecimal::impl Serialize",
@@ -3957,35 +4215,59 @@
   {
     "id": "NullDecimal::impl Type < Postgres >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "nulldecimal-impl-type-postgres",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-nulldecimal-impl-type-postgres"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "NullDecimal::impl Type < Postgres >::compatible",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "nulldecimal-impl-type-postgres-compatible",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-nulldecimal-impl-type-postgres-compatible"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "NullDecimal::impl Type < Postgres >::type_info",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "nulldecimal-impl-type-postgres-type-info",
     "reason": "SQLx PostgreSQL integration requires a native application and database.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-nulldecimal-impl-type-postgres-type-info"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py",
+      "tools/postgres-tests/src/lib.rs",
+      ".github/workflows/ci.yml"
+    ]
   },
   {
     "id": "NullDecimal::impl std :: fmt :: Display",
@@ -4602,35 +4884,53 @@
   {
     "id": "RoundingMode::impl TryFrom < i32 >",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "roundingmode-impl-tryfrom-i32",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-roundingmode-impl-tryfrom-i32"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "RoundingMode::impl TryFrom < i32 >::Error",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "roundingmode-impl-tryfrom-i32-error",
     "reason": "Rust trait associated type or constant; documented with the corresponding trait implementation.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-roundingmode-impl-tryfrom-i32-error"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "RoundingMode::impl TryFrom < i32 >::try_from",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-2",
     "doc_id": "roundingmode-impl-tryfrom-i32-try-from",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "native-roundingmode-impl-tryfrom-i32-try-from"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "tools/check-web-examples/build.rs",
+      "tools/check-web-api/test_check.py"
+    ]
   },
   {
     "id": "ScanValue",

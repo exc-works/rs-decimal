@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "native-nulldecimal-impl-pghasarraytype-array-type-info",
+  "api_ids": [
+    "NullDecimal::impl PgHasArrayType::array_type_info"
+  ],
+  "rust": "let info = <NullDecimal as sqlx::postgres::PgHasArrayType>::array_type_info();\nlet value = serde_json::json!({\"oid\": info.oid().unwrap().0});",
+  "javascript": "",
+  "expected": {
+    "oid": 1231
+  }
+}

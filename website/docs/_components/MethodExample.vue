@@ -10,12 +10,18 @@ const nativeLabels:Record<string,string>={
   fr:'Cet exemple Rust est exécuté par les tests natifs.', de:'Dieses Rust-Beispiel wird durch native Tests ausgeführt.',
   ja:'この Rust の例はネイティブテストで実行されます。', ko:'이 Rust 예제는 네이티브 테스트에서 실행됩니다.',
 };
+const liveLabels:Record<string,string>={
+  'en-US':'This example runs against PostgreSQL in the dedicated native CI job.', 'en-GB':'This example runs against PostgreSQL in the dedicated native CI job.',
+  'zh-Hans':'此示例在专门的原生 CI 任务中连接 PostgreSQL 执行。', 'zh-Hant':'此範例在專用原生 CI 工作中連線至 PostgreSQL 執行。',
+  fr:'Cet exemple est exécuté avec PostgreSQL dans une tâche CI native dédiée.', de:'Dieses Beispiel läuft mit PostgreSQL in einem eigenen nativen CI-Job.',
+  ja:'この例は専用のネイティブ CI ジョブで PostgreSQL に接続して実行されます。', ko:'이 예제는 전용 네이티브 CI 작업에서 PostgreSQL에 연결하여 실행됩니다.',
+};
 </script>
 <template>
   <section v-if="example" class="method-example">
     <h3>Rust</h3><pre><code>{{ example.rust }}</code></pre>
     <template v-if="example.javascript.trim()"><h3>JavaScript</h3><pre><code>{{ example.javascript }}</code></pre></template>
-    <p v-else>{{ nativeLabels[locale] }}</p>
+    <p v-else>{{ example.native_profile === "postgres-live" ? liveLabels[locale] : nativeLabels[locale] }}</p>
     <h3>{{ labels[locale] }}</h3><pre><code>{{ JSON.stringify(example.expected,null,2) }}</code></pre>
   </section>
 </template>

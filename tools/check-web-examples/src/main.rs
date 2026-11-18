@@ -21,6 +21,6 @@ fn snapshot(value: &impl ExampleState) -> serde_json::Value {
     value.state()
 }
 include!(concat!(env!("OUT_DIR"), "/examples.rs"));
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     run_examples()
 }

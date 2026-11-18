@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "native-decimal-impl-from-i128",
+  "api_ids": [
+    "Decimal::impl From < i128 >"
+  ],
+  "rust": "let input = i128::MIN;\nlet value = Decimal::from(input);",
+  "javascript": "",
+  "expected": {
+    "coefficient": "-170141183460469231731687303715884105728",
+    "scale": "0",
+    "initialized": true,
+    "string": "-170141183460469231731687303715884105728",
+    "string_with_trailing_zeros": "-170141183460469231731687303715884105728"
+  }
+}

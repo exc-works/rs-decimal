@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "native-decimal-impl-add-decimal",
+  "api_ids": [
+    "Decimal::impl Add < & Decimal >"
+  ],
+  "rust": "let left = Decimal::new_from_string(\"1.2300\")?;\nlet right = Decimal::new_from_string(\"2.7\")?;\nlet value: <&Decimal as std::ops::Add<&Decimal>>::Output = &left + &right;",
+  "javascript": "",
+  "expected": {
+    "coefficient": "39300",
+    "scale": "4",
+    "initialized": true,
+    "string": "3.93",
+    "string_with_trailing_zeros": "3.9300"
+  }
+}

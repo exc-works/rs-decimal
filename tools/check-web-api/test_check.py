@@ -62,6 +62,17 @@ class CoverageTests(unittest.TestCase):
         example['api_ids'] = ['Decimal::new']
         (self.root / 'website/examples/example.json').write_text(json.dumps(example))
         self.assertEqual(checker.check(self.root, release=True), 1)
+        for profile in ['unknown', 'postgres-live', None]:
+            example['native_profile'] = profile
+            (self.root / 'website/examples/example.json').write_text(json.dumps(example))
+            with self.assertRaisesRegex(ValueError, 'invalid native profile'):
+                checker.check(self.root)
+        self.row.update(disposition='rust-only', reason='Native PostgreSQL fixture')
+        self.write([self.row])
+        example.update(native_profile='postgres-live', javascript='')
+        (self.root / 'website/examples/example.json').write_text(json.dumps(example))
+        self.assertEqual(checker.check(self.root, release=True), 1)
+
 
     def test_adapter_requires_reason(self):
         self.row['disposition'] = 'adapter'

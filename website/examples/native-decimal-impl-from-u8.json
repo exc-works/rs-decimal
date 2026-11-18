@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "native-decimal-impl-from-u8",
+  "api_ids": [
+    "Decimal::impl From < u8 >"
+  ],
+  "rust": "let input: u8 = 42;\nlet value = Decimal::from(input);",
+  "javascript": "",
+  "expected": {
+    "coefficient": "42",
+    "scale": "0",
+    "initialized": true,
+    "string": "42",
+    "string_with_trailing_zeros": "42"
+  }
+}

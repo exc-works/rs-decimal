@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "native-nulldecimal-impl-encode-postgres-encode-by-ref",
+  "api_ids": [
+    "NullDecimal::impl Encode < '_ , Postgres >::encode_by_ref"
+  ],
+  "rust": "let input = NullDecimal::default();\nlet mut buffer = sqlx::postgres::PgArgumentBuffer::default();\nlet null = <NullDecimal as sqlx::Encode<sqlx::Postgres>>::encode_by_ref(&input, &mut buffer)?;\nlet value = serde_json::json!({\"is_null\": matches!(null, sqlx::encode::IsNull::Yes), \"bytes\": buffer.to_vec()});",
+  "javascript": "",
+  "expected": {
+    "is_null": true,
+    "bytes": []
+  }
+}
