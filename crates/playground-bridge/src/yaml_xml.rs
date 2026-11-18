@@ -23,6 +23,18 @@ fn yaml_budget(source: &str) -> Result<(), &'static str> {
                 if clean.chars().filter(char::is_ascii_hexdigit).count() > 4096 {
                     return Err("playground YAML scalar exceeds coefficient budget");
                 }
+                // Hexadecimal e/E are digits, not decimal exponent separators.
+                // The digit bound above also bounds explicit !!int allocation.
+                let magnitude = clean.trim_start_matches(['-', '+']);
+                if magnitude
+                    .strip_prefix("0x")
+                    .or_else(|| magnitude.strip_prefix("0X"))
+                    .is_some_and(|digits| {
+                        !digits.is_empty() && digits.bytes().all(|b| b.is_ascii_hexdigit())
+                    })
+                {
+                    continue;
+                }
                 limits::input(&clean)?;
                 // YAML float resolution inserts a fractional zero for `1.`.
                 // Check that representation too (e.g. `!!float 1.e-1000`).
@@ -161,6 +173,8 @@ mod tests {
         }
         assert!(yaml_budget(&format!("!!int 0x{}", "f".repeat(4097))).is_err());
         assert!(yaml_budget("1.25\n---\n1e100000").is_ok());
+        assert!(yaml_budget("0x1e100000").is_ok());
+        assert!(yaml_budget("!!int -0X1E100000").is_ok());
         assert!(xml_budget("<d>&#49;e100000</d>").is_err());
         assert!(xml_budget("<d>1<![CDATA[e100000]]></d>").is_err());
         assert!(xml_budget("<d>1<x>e100000</x>.25</d>").is_ok());

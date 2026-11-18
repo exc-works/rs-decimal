@@ -41,3 +41,12 @@ test('decoded escapes, YAML normalization and radix integers cannot bypass growt
 test('document methods reject nonstrings and moved handles and report enabled features',()=>{
  const d=D.new(1n);assert.throws(()=>d.unmarshal_yaml(1),{category:'parameter'});assert.throws(()=>d.unmarshal_xml({}),{category:'parameter'});d.into_coefficient();assert.throws(()=>d.unmarshal_yaml('1'),{category:'moved'});assert.ok(bridge.metadata().features.includes('yaml'));assert.ok(bridge.metadata().features.includes('xml'));
 });
+
+test('hexadecimal e digits are not mistaken for decimal exponents',()=>{
+ for(const source of ['0x1e100000','!!int 0x1e100000','!!int 0X1E100000','!!float 0x1e100000','0x1_e100000']){
+  const d=D.default(),n=N.default();d.unmarshal_yaml(source);n.unmarshal_yaml(source);
+  assert.equal(d.string(),'504365056',source);assert.equal(n.valid,true);assert.equal(n.string(),'504365056');d.free();n.free();
+ }
+ const d=D.default();d.unmarshal_yaml('!!int -0X1E100000');assert.equal(d.string(),'-504365056');
+ assert.throws(()=>d.unmarshal_yaml('"0x1e100000"'),library);d.free();
+});
