@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: fd72fd2afaa0763f177af4f30747e9166deea4da1bb1ba841cbd829b6d791a9d
+source_revision: 52c061e67f4d78f9abff6cb38b422cdd828bc88de770dccac8c7ef157f4fde94
 api_id: Decimal::new_from_float64
 ---
 # Decimal::new_from_float64
@@ -13,7 +13,7 @@ fn new_from_float64 (value : f64) -> Result < Self , DecimalError >
 
 ## 参数、返回值及常规用法
 
-value: f64，以 JS number 传入。无法恢复之前因二进制浮点而丢失的十进制数字。精确十进制输入请使用 new_from_string。NaN 和正负无穷返回 InvalidFormat；有限 f64 缩窄为 f32 时溢出也返回 InvalidFormat。负零变成已初始化且不带符号的 Decimal 零。
+value: f64，以 JS number 传入。无法恢复之前因二进制浮点而丢失的十进制数字。精确十进制输入请使用 new_from_string。NaN 和正负无穷返回 InvalidFormat。负零变成已初始化且不带符号的 Decimal 零。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

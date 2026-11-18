@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: fd72fd2afaa0763f177af4f30747e9166deea4da1bb1ba841cbd829b6d791a9d
+source_revision: 52c061e67f4d78f9abff6cb38b422cdd828bc88de770dccac8c7ef157f4fde94
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::new_from_float64
 ---
@@ -14,7 +14,7 @@ fn new_from_float64 (value : f64) -> Result < Self , DecimalError >
 
 ## Paramètres, résultat et utilisation courante
 
-value : f64, passé sous forme de number JavaScript. Cela ne restaure pas les chiffres décimaux déjà perdus dans un flottant binaire. Utilisez new_from_string pour une entrée décimale exacte. NaN et les deux infinis renvoient InvalidFormat ; un f64 fini qui déborde lors de la réduction en f32 renvoie aussi InvalidFormat. Le zéro négatif devient un zéro Decimal initialisé sans signe.
+value : f64, passé sous forme de number JavaScript. Cela ne restaure pas les chiffres décimaux déjà perdus dans un flottant binaire. Utilisez new_from_string pour une entrée décimale exacte. NaN et les deux infinis renvoient InvalidFormat. Le zéro négatif devient un zéro Decimal initialisé sans signe.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";
