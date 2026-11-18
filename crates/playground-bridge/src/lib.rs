@@ -4,6 +4,7 @@ mod comparison;
 mod constructors;
 mod helpers;
 mod limits;
+mod ownership;
 mod rounding;
 use rs_decimal::{Decimal as CoreDecimal, DecimalError, RoundingMode};
 use wasm_bindgen::prelude::*;

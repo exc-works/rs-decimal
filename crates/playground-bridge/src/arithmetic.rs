@@ -13,7 +13,7 @@ fn bound(bits: u64) -> Result<(), &'static str> {
         Ok(())
     }
 }
-fn aligned(a: &CoreDecimal, b: &CoreDecimal) -> Result<(), &'static str> {
+pub(super) fn aligned(a: &CoreDecimal, b: &CoreDecimal) -> Result<(), &'static str> {
     let scale = a.scale().max(b.scale());
     let a_bits = a.coefficient().bits() + (scale - a.scale()) as u64 * 4;
     let b_bits = b.coefficient().bits() + (scale - b.scale()) as u64 * 4;

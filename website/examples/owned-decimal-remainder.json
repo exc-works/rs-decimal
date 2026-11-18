@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "owned-decimal-remainder",
+  "api_ids": [
+    "Decimal::remainder"
+  ],
+  "rust": "let (integer, fraction) = Decimal::new_from_string(\"-12.750\")?.remainder();\nlet value = serde_json::json!({\"integer\": integer.to_string(), \"fraction\": fraction.to_string()});",
+  "javascript": "const [integer, fraction] = Decimal.new_from_string(\"-12.750\").remainder();\nconst value = { integer: integer.toString(), fraction: fraction.toString() };",
+  "expected": {
+    "integer": "-12",
+    "fraction": "-750"
+  }
+}

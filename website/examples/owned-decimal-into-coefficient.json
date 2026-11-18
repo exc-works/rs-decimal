@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "owned-decimal-into-coefficient",
+  "api_ids": [
+    "Decimal::into_coefficient"
+  ],
+  "rust": "let coefficient = Decimal::new_from_string(\"1.2300\")?.into_coefficient();\nlet value = serde_json::json!({\"value\": coefficient.to_string()});",
+  "javascript": "const coefficient = Decimal.new_from_string(\"1.2300\").into_coefficient();\nconst value = { value: coefficient.toString() };",
+  "expected": {
+    "value": "12300"
+  }
+}

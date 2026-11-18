@@ -8,7 +8,7 @@
     "preview": "vitepress preview docs",
     "check:i18n": "node scripts/check-i18n.mjs",
     "build:wasm": "python3 ../tools/build-web-wasm.py",
-    "test:bridge": "node --test tests/bridge.test.mjs tests/resources.test.mjs tests/constructors.test.mjs tests/comparison.test.mjs tests/helpers.test.mjs tests/types.test.mjs tests/rounding.test.mjs tests/arithmetic.test.mjs tests/examples.test.mjs",
+    "test:bridge": "node --test tests/bridge.test.mjs tests/resources.test.mjs tests/constructors.test.mjs tests/comparison.test.mjs tests/helpers.test.mjs tests/types.test.mjs tests/rounding.test.mjs tests/arithmetic.test.mjs tests/ownership.test.mjs tests/examples.test.mjs",
     "build:runner": "node scripts/build-runner.mjs"
   },
   "devDependencies": {
