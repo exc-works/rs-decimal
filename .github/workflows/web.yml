@@ -45,6 +45,19 @@ jobs:
         env:
           CHROMEDRIVER: ${{ steps.chrome.outputs.chromedriver-path }}
           TEST_CHROME_BINARY: ${{ steps.chrome.outputs.chrome-path }}
+      - name: Install three browser engines
+        run: npx playwright install --with-deps chromium firefox webkit
+        working-directory: website
+      - run: npm run test:browsers
+        working-directory: website
+      - name: Build the complete static package (localhost proof)
+        run: npm run build:release
+        working-directory: website
+        env:
+          DOCS_ORIGIN: http://127.0.0.1:4210
+          DOCS_BASE: /rs-decimal/
+          DOCS_RUNNER_URL: http://127.0.0.1:4211/
+          RELEASE_ALLOW_LOCALHOST: '1'
       - name: Select the matching browser binary
         run: python3 -c 'import json, os; open("webdriver.json", "w").write(json.dumps({"goog:chromeOptions":{"binary":os.environ["TEST_CHROME_BINARY"]}}))'
         env:
@@ -58,6 +71,9 @@ jobs:
         if: always()
         with:
           name: wasm-proof
+          include-hidden-files: true
           path: |
             website/public/wasm/
             website/runner-dist/
+            website/release-dist/
+            .cache/browser-engines.json

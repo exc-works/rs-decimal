@@ -1,3 +1,7 @@
+---
+locale: en-US
+source_revision: cd012116d4b52c3d753afdb334a916afcdf34239a5a89a6aa326b13a592ef135
+---
 # Playground resource policy
 
 The browser bridge has a deliberately smaller domain than the Rust library.

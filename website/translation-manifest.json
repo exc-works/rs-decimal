@@ -23,6 +23,8 @@
     "guide",
     "glossary",
     "api/index",
-    "playground"
+    "playground",
+    "bridge",
+    "resource-policy"
   ]
 }

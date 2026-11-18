@@ -1,9 +1,10 @@
-# Documentation preview
+# Documentation and browser playground
 
-This VitePress site is a preview, not a claim of complete method or translation
-coverage. The API catalogue comes from the reviewed Rust inventory and explicitly
-shows planned work. The release coverage gate remains `tools/check-web-api/check.py
---release` and is expected to fail until every planned family is delivered.
+This static VitePress site documents all 355 API entries in eight languages.
+The catalogue identifies browser-supported methods and native-only integrations;
+Rust/Wasm performs playground decimal operations. `npm run check:release` checks
+complete API coverage and current translations. See [DEPLOYMENT.md](DEPLOYMENT.md)
+for the two-origin static package, version checks, headers and release verification.
 
 Use Node 22 and `npm ci --ignore-scripts`, then `npm run dev` in this directory.
 `npm run check:i18n`, `node --test tests/i18n.test.mjs` and `npm run build` validate
@@ -24,14 +25,14 @@ reviewed from en-US with British spelling and retains the same provenance.
 
 Interface strings are complete per locale in `locales.mjs`. Rust names, code,
 input syntax and API identifiers remain unchanged between languages. Guides use
-one shared executable Rust snippet; future method pages use shared examples and
+one shared executable Rust snippet; method pages use shared examples and
 are subject to the separate API release gate. Source hashes detect outdated
 prose, not the linguistic quality of a translation; human editorial review is
 still useful before the final release.
 
 ## Build dependency maintenance
 
-Vue is pinned to 3.5.45. VitePress 1.6.4 still requests Vite 5, so this preview
+Vue is pinned to 3.5.45. VitePress 1.6.4 still requests Vite 5, so this site
 pins a tested Vite 6.4.6 override to include the maintained security fixes; the
 Vue plugin supports Vite 6. Build and browser checks cover this override.
 

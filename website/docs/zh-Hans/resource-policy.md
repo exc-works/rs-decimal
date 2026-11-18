@@ -1,3 +1,7 @@
+---
+locale: zh-Hans
+source_revision: cd012116d4b52c3d753afdb334a916afcdf34239a5a89a6aa326b13a592ef135
+---
 # Playground 资源限制
 
 浏览器 bridge 的允许范围小于 Rust 库。`BridgeError` 的 `category: "resource"`

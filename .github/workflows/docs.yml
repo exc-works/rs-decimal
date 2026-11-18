@@ -23,7 +23,7 @@ jobs:
       - run: cargo run --locked --example web_getting_started
       - run: npm ci --ignore-scripts
         working-directory: website
-      - run: npm run check:i18n && node --test tests/i18n.test.mjs && npm run build
+      - run: npm run check:release && node --test tests/i18n.test.mjs tests/release.test.mjs && npm run build
         working-directory: website
         env:
           DOCS_BASE: /rs-decimal/
@@ -33,5 +33,5 @@ jobs:
           TEST_CHROME_BINARY: ${{ steps.chrome.outputs.chrome-path }}
       - uses: actions/upload-artifact@v4
         with:
-          name: documentation-preview
+          name: documentation-site
           path: website/docs/.vitepress/dist/
