@@ -84,7 +84,7 @@ try:
         until(lambda: js('return document.documentElement.lang') == 'ja')
         until(lambda: js('return document.querySelector(".vp-doc")?.textContent.includes("準備中")'))
         assert js('return document.querySelector(".vp-doc a[href*=en-US]").pathname') == '/rs-decimal/en-US/api/decimal-new-with-prec.html'
-    for locale in ['en-US', 'zh-Hans', 'en-GB', 'zh-Hant']:
+    for locale in ['en-US', 'zh-Hans', 'en-GB', 'zh-Hant', 'fr']:
         navigate(f'{locale}/api/decimal-unmarshal-xml-attr.html')
         until(lambda: js('return document.querySelector(".vp-doc")?.textContent.includes("&#49;.23")'))
     navigate('en-US/api/decimal-impl-clone.html')

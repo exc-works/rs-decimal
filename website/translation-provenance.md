@@ -71,3 +71,8 @@ unchanged. Other French API groups remain pending and use explicit fallback.
 The French conversion/formatting/root/log-exp references (WEB-10a–b,
 WEB-11a–b; 47 additional entries) preserve exactness flags and IEEE edge cases,
 Unicode scalar formatting, certified half-even results and resource/domain limits.
+
+The French codec groups (WEB-12a–c; 33 additional entries) preserve distinct
+null/empty semantics, canonical versus stored scale, binary/BSON wire types,
+YAML/XML parsing caveats and atomic decode failures. XML entity literals remain
+code-formatted so their visible meaning is unchanged.
