@@ -24,6 +24,8 @@ export class RunnerClient {
     this.timeoutMs = timeoutMs;
     this.frame = document.createElement("iframe");
     this.frame.hidden = true;
+    // Theme iframe rules can override the browser's default [hidden] style.
+    this.frame.style.display = "none";
     this.frame.setAttribute("sandbox", "allow-scripts");
     this.frame.referrerPolicy = "no-referrer";
     const channel = new MessageChannel();
