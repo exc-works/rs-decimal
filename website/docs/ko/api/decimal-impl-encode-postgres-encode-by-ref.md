@@ -1,10 +1,31 @@
 ---
 locale: ko
+source_revision: fffeda8e0c1bfadf313784b442a7a511f5f66b4f19f1f54b40cd372d48ff003f
+translation_provenance: en-US-korean-reviewed
 api_id: "Decimal::impl Encode < '_ , Postgres >::encode_by_ref"
-translation_status: pending
 ---
 # Decimal::impl Encode < '_ , Postgres >::encode_by_ref
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+네이티브 SQLx PostgreSQL NUMERIC 연동을 사용합니다.
 
-[영어 참고 문서](../../en-US/api/decimal-impl-encode-postgres-encode-by-ref)
+```rust
+fn encode_by_ref (& self , buf : & mut PgArgumentBuffer) -> Result < IsNull , BoxDynError >
+```
+
+## 일반적인 사용법과 주의사항
+
+postgres 기능과 SQLx 0.8의 PostgreSQL 형식이 필요합니다. 이 구현은 네이티브 전용이며 브라우저 Playground는 데이터베이스에 연결하지 않습니다. encode_by_ref(&self, &mut PgArgumentBuffer)는 `Result<IsNull, BoxDynError>`를 반환합니다. 빌리기는 값을 유지하며 인코딩에 성공한 뒤에만 기존 인수 버퍼에 바이트를 추가합니다. 미초기화 Decimal도 NULL이 아닌 NUMERIC 0으로 인코딩합니다. 바이너리 형식은 빅 엔디언 10000진 그룹을 사용하고 표시 자릿수를 보존하며 float/BigDecimal을 거치지 않습니다. 소수 자릿수 16383 초과 또는 정수 자릿수 131072 초과는 거부합니다. 인코딩 오류는 대상 버퍼를 유지합니다.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="native-decimal-impl-encode-postgres-encode-by-ref" locale="ko" />
+
+## 실행
+
+이 항목은 네이티브 Rust 트레이트 구문이며 같은 이름의 JS 연산자나 SQLx 객체를 제공하지 않습니다. 기본 네이티브 문서 테스트 실행기가 이 예제를 실행합니다.
+
+## 관련 메서드
+
+[Decimal](./decimal) · [scan](./decimal-scan) · [new_from_string](./decimal-new-from-string)

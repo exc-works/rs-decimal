@@ -1,10 +1,31 @@
 ---
 locale: ko
+source_revision: 0830b6acb470b67cab11063b94daf8eafba63a697871936bf2d04b61331f067d
+translation_provenance: en-US-korean-reviewed
 api_id: "NullDecimal::impl Type < Postgres >"
-translation_status: pending
 ---
 # NullDecimal::impl Type < Postgres >
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+네이티브 SQLx PostgreSQL NUMERIC 연동을 사용합니다.
 
-[영어 참고 문서](../../en-US/api/nulldecimal-impl-type-postgres)
+```rust
+impl Type < Postgres > for NullDecimal
+```
+
+## 일반적인 사용법과 주의사항
+
+postgres 기능과 SQLx 0.8의 PostgreSQL 형식이 필요합니다. 이 구현은 네이티브 전용이며 브라우저 Playground는 데이터베이스에 연결하지 않습니다. type_info()는 NUMERIC OID 1700을 반환합니다. compatible(ty)는 이 OID만 허용하며 float8, 정수, 임의의 텍스트 형식은 허용하지 않습니다. 암묵적인 부동소수점 변환을 보장하지 않습니다.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="native-nulldecimal-impl-type-postgres" locale="ko" />
+
+## 실행
+
+이 항목은 네이티브 Rust 트레이트 구문이며 같은 이름의 JS 연산자나 SQLx 객체를 제공하지 않습니다. 기본 네이티브 문서 테스트 실행기가 이 예제를 실행합니다.
+
+## 관련 메서드
+
+[Decimal](./decimal) · [scan](./decimal-scan) · [new_from_string](./decimal-new-from-string)
