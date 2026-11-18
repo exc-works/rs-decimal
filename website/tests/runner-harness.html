@@ -175,6 +175,11 @@
         waiting.dispose();
         assert(cancelled.category === "cancelled", "stop during handshake");
         checks.push("pending handshake cancellation");
+        result = await client.run('Decimal.must_from_string("invalid");');
+        assert(result.category === "trap", "Rust panic must remain a Wasm trap");
+        result = await client.run('assert(between(one(), zero(), ten())); print(hundred());');
+        assert(result.type === "done", "fresh run after a Rust panic");
+        checks.push("Rust panic and fresh helper recovery");
         window.testResult = { ok: true, checks };
       } catch (error) {
         window.testResult = {

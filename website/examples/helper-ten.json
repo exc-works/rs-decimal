@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "helper-ten",
+  "api_ids": [
+    "ten"
+  ],
+  "rust": "let value = rs_decimal::ten();",
+  "javascript": "const value = ten();",
+  "expected": {
+    "coefficient": "10",
+    "scale": "0",
+    "initialized": true,
+    "string": "10",
+    "string_with_trailing_zeros": "10"
+  }
+}

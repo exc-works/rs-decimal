@@ -45,6 +45,8 @@ export interface Bridge {
   Decimal: {
     "new": (value: bigint) => Decimal;
     new_from_string(text: string): Decimal;
+    /** Panics on invalid Rust input; in Wasm this traps and ends the run. */
+    must_from_string(text: string): Decimal;
     new_from_int(value: number): Decimal;
     new_from_decimal(value: Decimal): Decimal;
     new_with_prec(value: bigint, prec: number): Decimal;
@@ -60,6 +62,13 @@ export interface Bridge {
   ByteBuffer: { "new": (bytes: Uint8Array) => ByteBuffer };
   RoundingMode: typeof RoundingMode;
   snapshot(value: Decimal|NullDecimal): Readonly<Record<string, unknown>>;
+  zero(): Decimal;
+  one(): Decimal;
+  ten(): Decimal;
+  hundred(): Decimal;
+  min(a: Decimal, b: Decimal): Decimal;
+  max(a: Decimal, b: Decimal): Decimal;
+  between(v: Decimal, lower: Decimal, upper: Decimal): boolean;
   metadata(): Record<string, unknown>;
 }
 export function createBridge(raw: unknown): Bridge;

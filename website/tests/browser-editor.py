@@ -89,6 +89,11 @@ with tempfile.TemporaryDirectory(prefix='decimal-editor-') as temp:
         call(f'/session/{session}/actions',{'actions':[{'type':'key','id':'keyboard','actions':keys}]})
         until(lambda:js('return document.querySelector(".suggest-widget")?.textContent.includes("new_from_string")'))
         print('Rust-named completion from bridge declarations passed',flush=True)
+        import_source('betw')
+        js('(document.querySelector(".monaco-editor .native-edit-context")||document.querySelector(".monaco-editor textarea.inputarea")).focus()')
+        call(f'/session/{session}/actions',{'actions':[{'type':'key','id':'keyboard','actions':keys}]})
+        until(lambda:js('return document.querySelector(".suggest-widget")?.textContent.includes("between")'))
+        print('Free helper completion passed',flush=True)
         import_source('Decimal.new_from_string(')
         js('(document.querySelector(".monaco-editor .native-edit-context")||document.querySelector(".monaco-editor textarea.inputarea")).focus()')
         modifier='\ue03d' if sys.platform=='darwin' else '\ue009'

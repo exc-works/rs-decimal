@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "helper-hundred",
+  "api_ids": [
+    "hundred"
+  ],
+  "rust": "let value = rs_decimal::hundred();",
+  "javascript": "const value = hundred();",
+  "expected": {
+    "coefficient": "100",
+    "scale": "0",
+    "initialized": true,
+    "string": "100",
+    "string_with_trailing_zeros": "100"
+  }
+}

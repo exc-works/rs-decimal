@@ -30,5 +30,13 @@
   "constructor-new-from-uint-with-append-prec",
   "constructor-new-from-uint64",
   "constructor-new-with-append-prec",
-  "constructor-new-with-prec"
+  "constructor-new-with-prec",
+  "helper-between",
+  "helper-decimal-must-from-string",
+  "helper-hundred",
+  "helper-max",
+  "helper-min",
+  "helper-one",
+  "helper-ten",
+  "helper-zero"
 ]

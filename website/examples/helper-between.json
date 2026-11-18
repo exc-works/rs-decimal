@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "helper-between",
+  "api_ids": [
+    "between"
+  ],
+  "rust": "let a = Decimal::new_from_string(\"12.00\")?;\nlet b = Decimal::new_from_string(\"12.0\")?;\nlet value = serde_json::json!({\"value\": rs_decimal::between(&a, &rs_decimal::zero(), &b)});",
+  "javascript": "const a = Decimal.new_from_string(\"12.00\");\nconst b = Decimal.new_from_string(\"12.0\");\nconst value = { value: between(a, zero(), b) };",
+  "expected": {
+    "value": true
+  }
+}

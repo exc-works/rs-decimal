@@ -76,6 +76,11 @@ export function createBridge(raw) {
       resource(text.length <= 8192, 'playground input exceeds the input budget');
       return wrap(Decimal, raw.Decimal.new_from_string(text));
     }
+    static must_from_string(text) {
+      requireType(typeof text === 'string', 'text must be a string');
+      resource(text.length <= 8192, 'playground input exceeds the input budget');
+      return wrap(Decimal, raw.Decimal.must_from_string(text));
+    }
     static new_from_int(value) { return wrap(Decimal, raw.Decimal.new_from_int(integer(value, 'value'))); }
     static new_from_decimal(value) { return wrap(Decimal, raw.Decimal.new_from_decimal(borrow(value, Decimal))); }
     static new_with_prec(value, prec) { return wrap(Decimal, raw.Decimal.new_with_prec(bigintText(value), integer(prec, 'prec'))); }
@@ -157,5 +162,14 @@ export function createBridge(raw) {
     }
     throw new BridgeError('parameter', 'snapshot expects a Decimal or NullDecimal from this run');
   }
-  return Object.freeze({ Decimal, NullDecimal, ByteBuffer, RoundingMode, snapshot, metadata: () => JSON.parse(raw.metadata()) });
+  const helpers = {
+    zero: () => wrap(Decimal, raw.zero()),
+    one: () => wrap(Decimal, raw.one()),
+    ten: () => wrap(Decimal, raw.ten()),
+    hundred: () => wrap(Decimal, raw.hundred()),
+    min: (a, b) => wrap(Decimal, raw.min(borrow(a, Decimal), borrow(b, Decimal))),
+    max: (a, b) => wrap(Decimal, raw.max(borrow(a, Decimal), borrow(b, Decimal))),
+    between: (v, lower, upper) => raw.between(borrow(v, Decimal), borrow(lower, Decimal), borrow(upper, Decimal)),
+  };
+  return Object.freeze({ Decimal, NullDecimal, ByteBuffer, RoundingMode, snapshot, ...helpers, metadata: () => JSON.parse(raw.metadata()) });
 }

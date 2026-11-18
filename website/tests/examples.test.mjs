@@ -12,6 +12,6 @@ test('example index includes every fixture once', async () => {
 });
 for(const id of ids)test(`paired documentation example: ${id}`,async()=>{
   const example=JSON.parse(await readFile(new URL(`../examples/${id}.json`,import.meta.url),'utf8'));
-  const value=new Function('Decimal',example.javascript+'\nreturn value;')(bridge.Decimal);
+  const value=new Function(...Object.keys(bridge),example.javascript+'\nreturn value;')(...Object.values(bridge));
   assert.deepEqual(value instanceof bridge.Decimal ? bridge.snapshot(value) : value,example.expected);value.free?.();
 });

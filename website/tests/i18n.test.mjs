@@ -36,7 +36,7 @@ test('source edits, missing locales and incomplete labels fail closed', async ()
 });
 
 test('method revisions and API identities cannot silently drift', async () => {
-  assert.equal(await checkMethodTranslations(), 32);
+  assert.equal(await checkMethodTranslations(), 40);
   const dir = await mkdtemp(join(tmpdir(), 'decimal-method-i18n-'));
   const root = pathToFileURL(dir + '/');
   const body = '# Decimal::new\n\nCreates an integer.\n';

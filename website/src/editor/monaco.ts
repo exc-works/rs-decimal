@@ -40,6 +40,13 @@ declare global {
   const ByteBuffer: Bridge["ByteBuffer"];
   const RoundingMode: Bridge["RoundingMode"];
   const snapshot: Bridge["snapshot"];
+  const zero: Bridge["zero"];
+  const one: Bridge["one"];
+  const ten: Bridge["ten"];
+  const hundred: Bridge["hundred"];
+  const min: Bridge["min"];
+  const max: Bridge["max"];
+  const between: Bridge["between"];
   function print(value: unknown): void;
   function show(value: unknown): void;
   function assert(condition: unknown, message?: string): asserts condition;
