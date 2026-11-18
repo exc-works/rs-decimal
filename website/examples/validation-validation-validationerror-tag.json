@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "validation-validation-validationerror-tag",
+  "api_ids": [
+    "validation::ValidationError.tag"
+  ],
+  "rust": "use rs_decimal::validation::{ValidationRule};\nlet rule = ValidationRule::parse(\"decimal_gt\", \" 0 \")?;\nlet error = rule.validate(\"amount{1}\", &Decimal::default()).unwrap_err();\nlet value = serde_json::json!({\"field\": error.field, \"tag\": error.tag, \"parameter\": error.parameter});",
+  "javascript": "const rule = validation.ValidationRule.parse(\"decimal_gt\", \" 0 \");\nlet error;\ntry { rule.validate(\"amount{1}\", Decimal.default()); } catch (e) { error = e; }\nconst value = { field: error.field, tag: error.tag, parameter: error.parameter };",
+  "expected": {
+    "field": "amount{1}",
+    "tag": "decimal_gt",
+    "parameter": " 0 "
+  }
+}

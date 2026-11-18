@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "validation-reexport-validation-default-validation-messages",
+  "api_ids": [
+    "reexport::validation::default_validation_messages"
+  ],
+  "rust": "let templates = rs_decimal::validation::default_validation_messages(\"zh-Hant\");\nlet value = serde_json::json!({\"required\": templates[\"decimal_required\"], \"count\": templates.len()});",
+  "javascript": "",
+  "expected": {
+    "required": "{0}為必填項",
+    "count": 12
+  }
+}

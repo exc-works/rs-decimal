@@ -1,3 +1,6 @@
+export interface ValidationError { field: string; tag: string; parameter: string; }
+export interface ValidationRule { matches(value: Decimal): boolean; validate(field: string, value: Decimal): void; free(): void; }
+export interface ValidationMessages { translate(errors: ValidationError[]): string[]; free(): void; }
 export type ErrorKindValue = 'DivideByZero'|'InvalidArgument'|'InvalidFormat'|'InvalidLog'|'InvalidPrecision'|'InvalidRoot'|'NegativeRoot'|'NoConvergence'|'Overflow'|'RoundUnnecessary'|'Unmarshal';
 export interface DecimalError { matches(kind: ErrorKindValue): boolean; kinds(): ErrorKindValue[]; with_kind(kind: ErrorKindValue): DecimalError; readonly message: string; free(): void; }
 export interface ScanValue { readonly kind: 'Null'|'Unsupported'|'Float32'|'Float64'|'Int64'|'Text'|'Bytes'; }
@@ -146,6 +149,13 @@ export interface NullDecimal {
 }
 export interface ByteBuffer { to_uint8_array(): Uint8Array; free(): void; }
 export interface Bridge {
+  validation: {
+    ValidationRule: { parse(tag: string, parameter: string): ValidationRule };
+    ValidationMessages: { "new": (locale: string) => ValidationMessages; with_messages(messages: Record<string,string>): ValidationMessages };
+    validate_decimal(field: string, value: Decimal, rules: ValidationRule[]): ValidationError[];
+    default_validation_messages(locale: string): Record<string,string>;
+  };
+
   ErrorKind: Readonly<Record<ErrorKindValue, ErrorKindValue>>;
   DecimalError: { "new": (kind: ErrorKindValue, message: string) => DecimalError };
   ScanValue: { readonly Null: ScanValue; readonly Unsupported: ScanValue; Float32(value: number): ScanValue; Float64(value: number): ScanValue; Int64(value: bigint): ScanValue; Text(value: string): ScanValue; Bytes(value: Uint8Array): ScanValue };

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "validation-validation-default-validation-messages",
+  "api_ids": [
+    "validation::default_validation_messages"
+  ],
+  "rust": "let templates = rs_decimal::validation::default_validation_messages(\"zh-Hant\");\nlet value = serde_json::json!({\"required\": templates[\"decimal_required\"], \"count\": templates.len()});",
+  "javascript": "const templates = validation.default_validation_messages(\"zh-Hant\");\nconst value = { required: templates.decimal_required, count: Object.keys(templates).length };",
+  "expected": {
+    "required": "{0}為必填項",
+    "count": 12
+  }
+}

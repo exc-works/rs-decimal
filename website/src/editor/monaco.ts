@@ -42,6 +42,7 @@ declare global {
   const DecimalError: Bridge["DecimalError"];
   const ErrorKind: Bridge["ErrorKind"];
   const ScanValue: Bridge["ScanValue"];
+  const validation: Bridge["validation"];
   const RoundingMode: Bridge["RoundingMode"];
   const snapshot: Bridge["snapshot"];
   const zero: Bridge["zero"];

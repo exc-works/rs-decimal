@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "validation-validation-validationmessages-impl-debug",
+  "api_ids": [
+    "validation::ValidationMessages::impl Debug"
+  ],
+  "rust": "use rs_decimal::validation::{ValidationMessages};\nlet input = ValidationMessages::new(\"zh-Hant\");\nlet value = serde_json::json!({\"value\": !format!(\"{input:?}\").is_empty()});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

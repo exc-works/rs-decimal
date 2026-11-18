@@ -11,6 +11,8 @@ results within these limits remain unchanged. The core crate is not modified.
 | Stored scale and input scale magnitude | 1000 decimal places |
 | Estimated result coefficient | 16384 bits (at most 4933 decimal digits) |
 | Binary/BSON and ByteBuffer input | 65536 bytes |
+| Validation rule/error lists and message maps | 64 entries; 8192 bytes per string; 65536-byte JSON transport |
+| Validation substituted text | conservative 65536-byte total before translation |
 | Calls entering a Wasm instance | 10000, including getters, snapshots and metadata |
 | Nontrivial root degree | 128 |
 | Log/exp output precision, input scale, input coefficient | 128 places, 256 places, 4096 bits |
@@ -18,6 +20,9 @@ results within these limits remain unchanged. The core crate is not modified.
 | Built Wasm linear memory maximum | 64 MiB |
 
 Input scale and positive exponent expansion are checked before Rust parsing.
+SQL scanning checks text after core-compatible outer quote removal. Validation
+checks decimal rule parameters before construction and bounds repeated placeholder
+expansion before translation; fields and inserted parameters remain literal text.
 Text/parameter/JSON decoders cap source bytes at 8192 and check decoded decimal
 text before mutation, including JSON escapes. Original JSON numeric bytes stay
 exact; the browser never parses them through JavaScript numbers.

@@ -326,6 +326,45 @@ export function createBridge(raw) {
       target.set_decimal(take(value, Decimal));
     }
   }
+  function validationJSON(value) {
+    const encoded = JSON.stringify(value);
+    resource(encoded.length <= 65536, 'playground validation data exceeds 65536 bytes');
+    return encoded;
+  }
+  function validationList(value) { requireType(Array.isArray(value), 'expected an array'); resource(value.length <= 64, 'playground validation list exceeds 64 items'); return value; }
+  class ValidationRule extends Handle {
+    static parse(tag, parameter) { return wrap(ValidationRule, raw.ValidationRule.parse(inputText(tag), inputText(parameter))); }
+    matches(value) { return borrow(this, ValidationRule).matches(borrow(value, Decimal)); }
+    validate(field, value) {
+      const error = JSON.parse(borrow(this, ValidationRule).validate(inputText(field), borrow(value, Decimal)));
+      if (error) throw Object.assign(new Error(`Validation failed: ${error.field} [${error.tag}]`), error, {name:'ValidationError',category:'validation'});
+    }
+  }
+  class ValidationMessages extends Handle {
+    static new(locale) { return wrap(ValidationMessages, raw.ValidationMessages.new(inputText(locale))); }
+    static with_messages(messages) {
+      requireType(messages !== null && typeof messages === 'object' && !Array.isArray(messages), 'expected a message map');
+      const keys = Reflect.ownKeys(messages); resource(keys.length <= 64, 'playground validation map exceeds 64 entries');
+      const pairs = keys.map(key => [inputText(key),inputText(messages[key])]);
+      return wrap(ValidationMessages, raw.ValidationMessages.with_messages(validationJSON(Object.fromEntries(pairs))));
+    }
+    translate(errors) {
+      const data = validationList(errors).map(e => {
+        requireType(e !== null && typeof e === 'object' && !Array.isArray(e), 'expected ValidationError fields');
+        return {field:inputText(e.field),tag:inputText(e.tag),parameter:inputText(e.parameter)};
+      });
+      return JSON.parse(borrow(this, ValidationMessages).translate(validationJSON(data)));
+    }
+  }
+  const validation = Object.freeze({
+    ValidationRule, ValidationMessages,
+    validate_decimal: (field,value,rules) => {
+      field = inputText(field); const decimal = borrow(value,Decimal);
+      const specs = validationList(rules).map(r => JSON.parse(borrow(r,ValidationRule).spec()));
+      return JSON.parse(raw.validate_decimal(field,decimal,validationJSON(specs)));
+    },
+    default_validation_messages: locale => JSON.parse(raw.default_validation_messages(inputText(locale))),
+  });
   class ByteBuffer extends Handle {
     static new(bytes) {
       requireType(bytes instanceof Uint8Array, 'bytes must be Uint8Array');
@@ -359,5 +398,5 @@ export function createBridge(raw) {
     most_significant_bit: value => raw.most_significant_bit(bigText(value)),
     between: (v, lower, upper) => raw.between(borrow(v, Decimal), borrow(lower, Decimal), borrow(upper, Decimal)),
   };
-  return Object.freeze({ Decimal, NullDecimal, DecimalError, get ErrorKind() { return errorKinds(); }, ScanValue, ByteBuffer, GoFormat, RoundingMode: rounding, snapshot, ...helpers, get PRECISION_FIXED_SIZE() { return raw.precision_fixed_size(); }, get COMPATIBILITY_REVISION() { return raw.compatibility_revision(); }, metadata: () => JSON.parse(raw.metadata()) });
+  return Object.freeze({ Decimal, NullDecimal, DecimalError, get ErrorKind() { return errorKinds(); }, ScanValue, validation, ByteBuffer, GoFormat, RoundingMode: rounding, snapshot, ...helpers, get PRECISION_FIXED_SIZE() { return raw.precision_fixed_size(); }, get COMPATIBILITY_REVISION() { return raw.compatibility_revision(); }, metadata: () => JSON.parse(raw.metadata()) });
 }

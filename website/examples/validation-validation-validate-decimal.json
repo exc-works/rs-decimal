@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "validation-validation-validate-decimal",
+  "api_ids": [
+    "validation::validate_decimal"
+  ],
+  "rust": "use rs_decimal::validation::{ValidationRule, ValidationMessages, validate_decimal};\nlet rules = [ValidationRule::parse(\"decimal_required\", \"\")?, ValidationRule::parse(\"decimal_gt\", \"0\")?];\nlet errors = validate_decimal(\"amount{1}\", &Decimal::default(), &rules);\nlet value = serde_json::json!({\"errors\": errors.iter().map(|e| serde_json::json!({\"field\":e.field,\"tag\":e.tag,\"parameter\":e.parameter})).collect::<Vec<_>>(), \"messages\": ValidationMessages::new(\"zh-Hans\").translate(&errors)});",
+  "javascript": "const rules = [validation.ValidationRule.parse(\"decimal_required\", \"\"), validation.ValidationRule.parse(\"decimal_gt\", \"0\")];\nconst errors = validation.validate_decimal(\"amount{1}\", Decimal.default(), rules);\nconst value = { errors, messages: validation.ValidationMessages.new(\"zh-Hans\").translate(errors) };",
+  "expected": {
+    "errors": [
+      {
+        "field": "amount{1}",
+        "tag": "decimal_required",
+        "parameter": ""
+      },
+      {
+        "field": "amount{1}",
+        "tag": "decimal_gt",
+        "parameter": "0"
+      }
+    ],
+    "messages": [
+      "amount{1}为必填项",
+      "amount{1}必须大于0"
+    ]
+  }
+}
