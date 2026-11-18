@@ -1,10 +1,29 @@
 ---
 locale: ko
+source_revision: 9ab9d90f4fdbf97aeb5b036e4b2c138345a66dab28af2a920054edaddf0608dd
+translation_provenance: en-US-korean-reviewed
 api_id: Decimal::impl Default
-translation_status: pending
 ---
 # Decimal::impl Default
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+Rust Default로 미초기화 수치 0을 만듭니다.
 
-[영어 참고 문서](../../en-US/api/decimal-impl-default)
+```rust
+impl Default for Decimal
+```
+
+## 일반적인 사용법과 의미
+
+Default는 생성한 0과 수치로는 같지만 is_nil()은 true입니다. bridge는 Decimal.default()를 제공하며, 이 페이지는 Rust 트레이트 자체를 설명합니다.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-decimal-impl-default" locale="ko" />
+
+이 Rust 문법 예제는 네이티브 테스트에서 실행하며 브라우저의 트레이트 지원을 뜻하지 않습니다.
+
+## 관련 문서
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)
