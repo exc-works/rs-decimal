@@ -1,0 +1,30 @@
+---
+locale: zh-Hans
+source_revision: 21a2321ebb07dad0e89ac689f0921883a544f6575bbd19e235e51c9aee9deb73
+api_id: "config::ConfigValue::Float64"
+---
+# config::ConfigValue::Float64
+
+选择 Float64 配置输入。
+
+```rust
+Float64 (f64)
+```
+
+## 参数、返回值及常规用法
+
+通过核心最短十进制转换传递 binary64。非有限数返回 Unmarshal，已因浮点舍入丢失的数字无法恢复。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="config-serde-config-configvalue-float64" locale="zh-Hans" />
+
+## 浏览器边界
+
+config 与 serde feature 已启用。源文本和字节最多 8192 个 UTF-8 字节；Rust 在解析前检查小数文本和 JSON 解码后的字符串，因此转义不能绕过 [资源限制](../resource-policy)。128 位整数必须使用范围内的 bigint。借用的 Decimal/NullDecimal 在解码时必须仍有效，转换生成独立值，不消耗输入。Serde 的通用 trait 语法由具体 JSON 适配器演示。
+
+## 相关方法
+
+[decode_decimal](./config-decode-decimal) · [decode_nullable](./config-decode-nullable) · [deserialize_json_decimal](./config-deserialize-json-decimal)

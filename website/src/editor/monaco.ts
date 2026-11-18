@@ -43,6 +43,7 @@ declare global {
   const ErrorKind: Bridge["ErrorKind"];
   const ScanValue: Bridge["ScanValue"];
   const validation: Bridge["validation"];
+  const config: Bridge["config"];
   const RoundingMode: Bridge["RoundingMode"];
   const snapshot: Bridge["snapshot"];
   const zero: Bridge["zero"];

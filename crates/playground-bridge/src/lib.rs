@@ -2,6 +2,7 @@
 mod arithmetic;
 mod binary_bson;
 mod comparison;
+mod config_serde;
 mod constructors;
 mod conversion;
 mod formatting;
@@ -295,7 +296,7 @@ pub fn metadata() -> Result<String, JsValue> {
         "bridge_schema": 1,
         "commit": option_env!("DECIMAL_BUILD_COMMIT").unwrap_or("development"),
         "target": "wasm32-unknown-unknown",
-        "features": ["bson", "json", "validation", "xml", "yaml"],
+        "features": ["bson", "config", "json", "serde", "validation", "xml", "yaml"],
         "stage": "preview",
         "limits": {"input_bytes": limits::INPUT_BYTES,"input_digits": limits::INPUT_DIGITS,"coefficient_bits": limits::COEFFICIENT_BITS,"scale": limits::SCALE,"buffer_bytes": limits::BUFFER_BYTES,"operations": limits::OPERATIONS}
     })

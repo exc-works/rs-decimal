@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "config-serde-config-configvalue-null",
+  "api_ids": [
+    "config::ConfigValue::Null"
+  ],
+  "rust": "use rs_decimal::config::{self, ConfigValue};\nlet value = config::decode_nullable(ConfigValue::Null)?;",
+  "javascript": "const value = config.decode_nullable(config.ConfigValue.Null);",
+  "expected": {
+    "valid": false,
+    "decimal": {
+      "coefficient": "0",
+      "scale": "0",
+      "initialized": false
+    }
+  }
+}

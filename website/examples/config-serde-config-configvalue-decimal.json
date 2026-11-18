@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "config-serde-config-configvalue-decimal",
+  "api_ids": [
+    "config::ConfigValue::Decimal"
+  ],
+  "rust": "use rs_decimal::config::{self, ConfigValue};\nlet original = Decimal::new_from_string(\"1.2300\")?;\nlet value = config::decode_decimal(ConfigValue::Decimal(&original))?;",
+  "javascript": "const original = Decimal.new_from_string(\"1.2300\");\nconst value = config.decode_decimal(config.ConfigValue.Decimal(original));",
+  "expected": {
+    "coefficient": "12300",
+    "scale": "4",
+    "initialized": true,
+    "string": "1.23",
+    "string_with_trailing_zeros": "1.2300"
+  }
+}

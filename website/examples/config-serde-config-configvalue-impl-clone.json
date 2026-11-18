@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "config-serde-config-configvalue-impl-clone",
+  "api_ids": [
+    "config::ConfigValue::impl Clone"
+  ],
+  "rust": "use rs_decimal::config::ConfigValue;\nlet original = Decimal::new_from_string(\"1.2300\")?;\nlet input = ConfigValue::Decimal(&original);\nfn clone_value<T: Clone>(input: &T) -> T { input.clone() }\nlet copy = clone_value(&input);\nlet value = serde_json::json!({\"value\": format!(\"{copy:?}\") == format!(\"{input:?}\")});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

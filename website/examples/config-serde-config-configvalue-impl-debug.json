@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "config-serde-config-configvalue-impl-debug",
+  "api_ids": [
+    "config::ConfigValue::impl Debug"
+  ],
+  "rust": "use rs_decimal::config::ConfigValue;\nlet original = Decimal::new_from_string(\"1.2300\")?;\nlet input = ConfigValue::Decimal(&original);\nlet value = serde_json::json!({\"value\": format!(\"{input:?}\").starts_with(\"Decimal(\")});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

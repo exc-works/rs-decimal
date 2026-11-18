@@ -180,6 +180,7 @@ name = "decimal-web-examples"
 version = "0.0.0"
 dependencies = [
  "rs-decimal",
+ "serde",
  "serde_json",
 ]
 

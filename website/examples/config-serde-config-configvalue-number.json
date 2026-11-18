@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "config-serde-config-configvalue-number",
+  "api_ids": [
+    "config::ConfigValue::Number"
+  ],
+  "rust": "use rs_decimal::config::{self, ConfigValue};\nlet value = config::decode_decimal(ConfigValue::Number(\"9007199254740993.2500\"))?;",
+  "javascript": "const value = config.decode_decimal(config.ConfigValue.Number(\"9007199254740993.2500\"));",
+  "expected": {
+    "coefficient": "90071992547409932500",
+    "scale": "4",
+    "initialized": true,
+    "string": "9007199254740993.25",
+    "string_with_trailing_zeros": "9007199254740993.2500"
+  }
+}
