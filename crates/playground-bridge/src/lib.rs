@@ -6,6 +6,7 @@ mod conversion;
 mod formatting;
 mod helpers;
 mod limits;
+mod log_exp;
 mod ownership;
 mod roots;
 mod rounding;

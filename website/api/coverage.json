@@ -326,24 +326,40 @@
   {
     "id": "Decimal::exp",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-11b",
     "doc_id": "decimal-exp",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.exp(): Decimal",
+    "examples": [
+      "log-exp-decimal-exp"
+    ],
+    "tests": [
+      "website/tests/log-exp.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html",
+      "website/tests/runner-harness.html"
+    ]
   },
   {
     "id": "Decimal::exp_with_prec",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-11b",
     "doc_id": "decimal-exp-with-prec",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.exp_with_prec(prec: number): Decimal",
+    "examples": [
+      "log-exp-decimal-exp-with-prec"
+    ],
+    "tests": [
+      "website/tests/log-exp.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html",
+      "website/tests/runner-harness.html"
+    ]
   },
   {
     "id": "Decimal::float32",
@@ -1356,68 +1372,116 @@
   {
     "id": "Decimal::ln",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-11b",
     "doc_id": "decimal-ln",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.ln(): Decimal",
+    "examples": [
+      "log-exp-decimal-ln"
+    ],
+    "tests": [
+      "website/tests/log-exp.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html",
+      "website/tests/runner-harness.html"
+    ]
   },
   {
     "id": "Decimal::ln_with_prec",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-11b",
     "doc_id": "decimal-ln-with-prec",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.ln_with_prec(prec: number): Decimal",
+    "examples": [
+      "log-exp-decimal-ln-with-prec"
+    ],
+    "tests": [
+      "website/tests/log-exp.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html",
+      "website/tests/runner-harness.html"
+    ]
   },
   {
     "id": "Decimal::log10",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-11b",
     "doc_id": "decimal-log10",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.log10(): Decimal",
+    "examples": [
+      "log-exp-decimal-log10"
+    ],
+    "tests": [
+      "website/tests/log-exp.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html",
+      "website/tests/runner-harness.html"
+    ]
   },
   {
     "id": "Decimal::log10_with_prec",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-11b",
     "doc_id": "decimal-log10-with-prec",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.log10_with_prec(prec: number): Decimal",
+    "examples": [
+      "log-exp-decimal-log10-with-prec"
+    ],
+    "tests": [
+      "website/tests/log-exp.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html",
+      "website/tests/runner-harness.html"
+    ]
   },
   {
     "id": "Decimal::log2",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-11b",
     "doc_id": "decimal-log2",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.log2(): Decimal",
+    "examples": [
+      "log-exp-decimal-log2"
+    ],
+    "tests": [
+      "website/tests/log-exp.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html",
+      "website/tests/runner-harness.html"
+    ]
   },
   {
     "id": "Decimal::log2_with_prec",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-11b",
     "doc_id": "decimal-log2-with-prec",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.log2_with_prec(prec: number): Decimal",
+    "examples": [
+      "log-exp-decimal-log2-with-prec"
+    ],
+    "tests": [
+      "website/tests/log-exp.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html",
+      "website/tests/runner-harness.html"
+    ]
   },
   {
     "id": "Decimal::lt",

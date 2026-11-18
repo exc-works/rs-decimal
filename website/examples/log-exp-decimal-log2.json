@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "log-exp-decimal-log2",
+  "api_ids": [
+    "Decimal::log2"
+  ],
+  "rust": "let value = Decimal::new_from_string(\"3\")?.log2()?;",
+  "javascript": "const value = Decimal.new_from_string(\"3\").log2();",
+  "expected": {
+    "coefficient": "158496250072115618145",
+    "scale": "20",
+    "initialized": true,
+    "string": "1.58496250072115618145",
+    "string_with_trailing_zeros": "1.58496250072115618145"
+  }
+}

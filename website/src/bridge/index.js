@@ -197,6 +197,14 @@ export function createBridge(raw) {
     sqrt_with_prec(prec) { return wrap(Decimal, borrow(this, Decimal).sqrt_with_prec(integer(prec, 'prec'))); }
     approx_root(degree) { return wrap(Decimal, borrow(this, Decimal).approx_root(bigintText(degree))); }
     approx_root_with_prec(degree, prec) { return wrap(Decimal, borrow(this, Decimal).approx_root_with_prec(bigintText(degree), integer(prec, 'prec'))); }
+    ln() { return wrap(Decimal, borrow(this, Decimal).ln()); }
+    ln_with_prec(prec) { return wrap(Decimal, borrow(this, Decimal).ln_with_prec(integer(prec, "prec"))); }
+    log2() { return wrap(Decimal, borrow(this, Decimal).log2()); }
+    log2_with_prec(prec) { return wrap(Decimal, borrow(this, Decimal).log2_with_prec(integer(prec, "prec"))); }
+    log10() { return wrap(Decimal, borrow(this, Decimal).log10()); }
+    log10_with_prec(prec) { return wrap(Decimal, borrow(this, Decimal).log10_with_prec(integer(prec, "prec"))); }
+    exp() { return wrap(Decimal, borrow(this, Decimal).exp()); }
+    exp_with_prec(prec) { return wrap(Decimal, borrow(this, Decimal).exp_with_prec(integer(prec, "prec"))); }
     mul_exact(other) {
       return wrap(Decimal, borrow(this, Decimal).mul_exact(borrow(other, Decimal)));
     }

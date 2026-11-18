@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "log-exp-decimal-exp",
+  "api_ids": [
+    "Decimal::exp"
+  ],
+  "rust": "let value = Decimal::new_from_string(\"1\")?.exp()?;",
+  "javascript": "const value = Decimal.new_from_string(\"1\").exp();",
+  "expected": {
+    "coefficient": "271828182845904523536",
+    "scale": "20",
+    "initialized": true,
+    "string": "2.71828182845904523536",
+    "string_with_trailing_zeros": "2.71828182845904523536"
+  }
+}
