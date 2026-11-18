@@ -118,6 +118,18 @@ export function createBridge(raw) {
     mul_exact(other) {
       return wrap(Decimal, borrow(this, Decimal).mul_exact(borrow(other, Decimal)));
     }
+    ceil() { return wrap(Decimal, borrow(this, Decimal).ceil()); }
+    floor() { return wrap(Decimal, borrow(this, Decimal).floor()); }
+    round() { return wrap(Decimal, borrow(this, Decimal).round()); }
+    truncate() { return wrap(Decimal, borrow(this, Decimal).truncate()); }
+    strip_trailing_zeros() { return wrap(Decimal, borrow(this, Decimal).strip_trailing_zeros()); }
+    ceil_with_prec(prec) { return wrap(Decimal, borrow(this, Decimal).ceil_with_prec(integer(prec, "prec"))); }
+    floor_with_prec(prec) { return wrap(Decimal, borrow(this, Decimal).floor_with_prec(integer(prec, "prec"))); }
+    round_with_prec(prec) { return wrap(Decimal, borrow(this, Decimal).round_with_prec(integer(prec, "prec"))); }
+    truncate_with_prec(prec) { return wrap(Decimal, borrow(this, Decimal).truncate_with_prec(integer(prec, "prec"))); }
+    rescale_down(prec) { return wrap(Decimal, borrow(this, Decimal).rescale_down(integer(prec, "prec"))); }
+    shift(places) { return wrap(Decimal, borrow(this, Decimal).shift(integer(places, 'places'))); }
+    significant_figures(figures, mode) { return wrap(Decimal, borrow(this, Decimal).significant_figures(integer(figures, 'figures'), integer(mode, 'mode'))); }
     rescale(prec, mode) {
       integer(prec, 'prec'); integer(mode, 'mode');
       return wrap(Decimal, borrow(this, Decimal).rescale(prec, mode));
@@ -162,6 +174,9 @@ export function createBridge(raw) {
     }
     throw new BridgeError('parameter', 'snapshot expects a Decimal or NullDecimal from this run');
   }
+  const rounding = Object.freeze({ ...RoundingMode,
+    from_raw: value => raw.rounding_mode_from_raw(integer(value, 'value')),
+  });
   const helpers = {
     zero: () => wrap(Decimal, raw.zero()),
     one: () => wrap(Decimal, raw.one()),
@@ -171,5 +186,5 @@ export function createBridge(raw) {
     max: (a, b) => wrap(Decimal, raw.max(borrow(a, Decimal), borrow(b, Decimal))),
     between: (v, lower, upper) => raw.between(borrow(v, Decimal), borrow(lower, Decimal), borrow(upper, Decimal)),
   };
-  return Object.freeze({ Decimal, NullDecimal, ByteBuffer, RoundingMode, snapshot, ...helpers, get COMPATIBILITY_REVISION() { return raw.compatibility_revision(); }, metadata: () => JSON.parse(raw.metadata()) });
+  return Object.freeze({ Decimal, NullDecimal, ByteBuffer, RoundingMode: rounding, snapshot, ...helpers, get COMPATIBILITY_REVISION() { return raw.compatibility_revision(); }, metadata: () => JSON.parse(raw.metadata()) });
 }

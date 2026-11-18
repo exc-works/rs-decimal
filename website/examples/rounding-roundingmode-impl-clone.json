@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "rounding-roundingmode-impl-clone",
+  "api_ids": [
+    "RoundingMode::impl Clone"
+  ],
+  "rust": "fn duplicate<T: Clone>(v: &T) -> T { v.clone() }\nlet mode = duplicate(&RoundingMode::HalfEven);\nlet value = serde_json::json!({\"value\": mode as i32});",
+  "javascript": "",
+  "expected": {
+    "value": 5
+  }
+}

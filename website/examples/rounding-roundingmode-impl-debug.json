@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "rounding-roundingmode-impl-debug",
+  "api_ids": [
+    "RoundingMode::impl Debug"
+  ],
+  "rust": "let value = serde_json::json!({\"value\": format!(\"{:?}\", RoundingMode::HalfEven)});",
+  "javascript": "",
+  "expected": {
+    "value": "HalfEven"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "rounding-roundingmode-from-raw",
+  "api_ids": [
+    "RoundingMode::from_raw"
+  ],
+  "rust": "let value = serde_json::json!({\"value\": RoundingMode::from_raw(5)? as i32});",
+  "javascript": "const value = { value: RoundingMode.from_raw(5) };",
+  "expected": {
+    "value": 5
+  }
+}

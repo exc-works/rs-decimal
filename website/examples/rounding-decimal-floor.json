@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "rounding-decimal-floor",
+  "api_ids": [
+    "Decimal::floor"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"-1.5\")?;\nlet value = input.floor();",
+  "javascript": "const input = Decimal.new_from_string(\"-1.5\");\nconst value = input.floor();",
+  "expected": {
+    "coefficient": "-2",
+    "scale": "0",
+    "initialized": true,
+    "string": "-2",
+    "string_with_trailing_zeros": "-2"
+  }
+}
