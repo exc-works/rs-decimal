@@ -1,10 +1,31 @@
 ---
 locale: fr
+source_revision: 4f55aceb4528bb2f23f6df7261d576123104df5097928d86a2b9915f6c2f9824
+translation_provenance: en-US-french-reviewed
 api_id: "validation::ValidationRule"
-translation_status: pending
 ---
 # validation::ValidationRule
 
-La traduction française de cette méthode est en cours. Consultez la référence anglaise pour les usages courants, les paramètres, les exemples et les précautions. Cette page ne constitue pas une traduction complète.
+Évaluer une règle décimale exacte.
 
-[Référence en anglais](../../en-US/api/validation-validationrule)
+```rust
+pub struct ValidationRule
+```
+
+## Paramètres, résultat et utilisation courante
+
+Créez une règle avec parse(tag, parameter), puis réutilisez-la avec matches ou validate. Les paramètres sont vérifiés lors de la construction ; les handles du navigateur appartiennent à une exécution et peuvent être libérés explicitement. Les règles comparent exactement les valeurs Decimal sans conversion flottante. decimal_required vérifie l’initialisation : un zéro initialisé passe donc le test. eq/ne/gt/gte/lt/lte comparent numériquement, même pour un zéro non initialisé. between utilise lower~upper avec bornes incluses et exige en plus l’initialisation. positive/negative/nonzero exigent l’initialisation. max_precision vérifie l’échelle stockée, y compris les zéros finaux conservés ; cela n’implique pas required.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="validation-validation-validationrule" locale="fr" />
+
+## Limites du navigateur
+
+La fonctionnalité validation est activée. Chaque chaîne est limitée à 8192 octets UTF-8 ; les listes de règles/erreurs et les tables de messages à 64 entrées ; le transport JSON à 65536 octets. Les paramètres décimaux des règles suivent la [politique de ressources](../resource-policy). La traduction contrôle préalablement une estimation conservatrice de 65536 octets pour le texte total après substitution et peut rejeter un résultat qui tiendrait exactement. Les étiquettes et champs personnalisés sont des données, jamais du code exécuté. Les échecs de validation, erreurs de configuration et erreurs de ressources du bridge restent distincts.
+
+## Méthodes associées
+
+[parse](./validation-validationrule-parse) · [validate_decimal](./validation-validate-decimal) · [translate](./validation-validationmessages-translate)

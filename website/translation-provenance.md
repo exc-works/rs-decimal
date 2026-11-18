@@ -76,3 +76,8 @@ The French codec groups (WEB-12a–c; 33 additional entries) preserve distinct
 null/empty semantics, canonical versus stored scale, binary/BSON wire types,
 YAML/XML parsing caveats and atomic decode failures. XML entity literals remain
 code-formatted so their visible meaning is unchanged.
+
+French SQL scalar/error and validation/message references (WEB-13a-1–2;
+73 more entries) retain borrowed buffers, null state, multi-kind errors,
+constructed versus thrown errors, rule-specific initialization and literal
+message substitution. Rule tags, placeholders and runtime messages are unchanged.
