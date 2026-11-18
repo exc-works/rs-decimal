@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 4842619da75eb5fbcf11cdce1b3ca781ba18031962688508c5f82ef39efdcf01
+source_revision: dc01349bb451c857128d1cca5bf8b130f9b144b0e48f2d3acb755c072d9a7962
 api_id: Decimal::quo
 ---
 # Decimal::quo
@@ -13,7 +13,7 @@ fn quo (& self , other : & Self , mode : RoundingMode) -> Result < Self , Decima
 
 ## 参数、返回值及常规用法
 
-other: &Decimal；Rust 返回 Result<Decimal, DecimalError>。输出小数位数为两个输入中较大者，因此两个整数输入也产生整数：1 / 3 得到 0。需要小数结果请使用 quo_with_prec。零除数返回 DivideByZero。mode 控制舍入；Unnecessary 对不精确结果返回 RoundUnnecessary。
+other: &Decimal；Rust 返回 Result<Decimal, DecimalError>。输出小数位数为两个输入中较大者，因此两个整数输入也产生整数：1 / 3 使用 Down 得到 0，使用 Up 则得到 1。需要小数结果请使用 quo_with_prec。零除数返回 DivideByZero。mode 控制舍入；Unnecessary 对不精确结果返回 RoundUnnecessary。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

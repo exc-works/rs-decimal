@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 4842619da75eb5fbcf11cdce1b3ca781ba18031962688508c5f82ef39efdcf01
+source_revision: dc01349bb451c857128d1cca5bf8b130f9b144b0e48f2d3acb755c072d9a7962
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::quo
 ---
@@ -14,7 +14,7 @@ fn quo (& self , other : & Self , mode : RoundingMode) -> Result < Self , Decima
 
 ## Paramètres, résultat et utilisation courante
 
-other : &Decimal ; Rust renvoie Result<Decimal, DecimalError>. L’échelle de sortie est la plus grande des échelles des opérandes. Deux entrées entières produisent donc un entier : 1 / 3 donne 0. Utilisez quo_with_prec pour une sortie fractionnaire. Un diviseur nul renvoie DivideByZero. mode contrôle l’arrondi ; Unnecessary renvoie RoundUnnecessary pour un résultat inexact.
+other : &Decimal ; Rust renvoie Result<Decimal, DecimalError>. L’échelle de sortie est la plus grande des échelles des opérandes. Deux entrées entières produisent donc un entier : 1 / 3 donne 0 avec Down, mais 1 avec Up. Utilisez quo_with_prec pour une sortie fractionnaire. Un diviseur nul renvoie DivideByZero. mode contrôle l’arrondi ; Unnecessary renvoie RoundUnnecessary pour un résultat inexact.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";
