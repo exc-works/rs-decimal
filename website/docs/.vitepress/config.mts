@@ -3,7 +3,10 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { locales } from '../../locales.mjs';
 
+import { referencePage } from '../../scripts/reference-page.mjs';
+
 export default defineConfig({
+  transformPageData: referencePage,
   title: 'rs-decimal',
   description: 'Exact decimal arithmetic, explicit scale and rounding.',
   base: process.env.DOCS_BASE || '/',

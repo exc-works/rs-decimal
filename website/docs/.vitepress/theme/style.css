@@ -9,3 +9,17 @@
 .api-table-wrap { overflow-x: auto; }
 .api-table-wrap code { white-space: normal; overflow-wrap: anywhere; }
 .locale-links { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+.ref-context { display: grid; gap: .35rem; margin-bottom: 1.5rem; font-size: .85rem; }
+.ref-context a { overflow-wrap: anywhere; }
+.ref-context strong { margin-top: .5rem; }
+.ref-context [aria-current], .ref-path a, .ref-group a { color: var(--vp-c-brand-1); }
+.ref-path { margin-bottom: 1rem; font-size: .85rem; color: var(--vp-c-text-2); }
+.ref-group { margin: 2rem 0; scroll-margin-top: 6rem; }
+.ref-group h2 { font-weight: 650; font-size: 1.25rem; }
+.ref-group dt { border-top: 1px solid var(--vp-c-divider); padding-top: .65rem; font-family: var(--vp-font-family-mono); overflow-wrap: anywhere; }
+.ref-group dd { margin: .25rem 0 .75rem; color: var(--vp-c-text-2); }
+.ref-types { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr)); gap: .6rem; }
+.ref-types a { padding: .65rem .8rem; border: 1px solid var(--vp-c-divider); border-radius: 6px; }
+.ref-jump { display: flex; flex-wrap: wrap; gap: .3rem .9rem; font-size: .85rem; margin-bottom: 1.2rem; }
+.ref-jump a { text-decoration: underline; }

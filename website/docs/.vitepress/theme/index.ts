@@ -1,11 +1,13 @@
 import DefaultTheme from 'vitepress/theme';
 import { onMounted } from 'vue';
 import type { Theme } from 'vitepress';
+import Layout from './Layout.vue';
 import './style.css';
 
 let hydrated = false;
 export default {
   extends: DefaultTheme,
+  Layout,
   enhanceApp({ router }) {
     if (typeof window === 'undefined') return;
     const initial = new URL(location.href);
