@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "basic-big-int",
+  "api_ids": [
+    "Decimal::big_int"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"-12.340\")?;\nlet value = serde_json::json!({\"value\": input.big_int().to_string()});",
+  "javascript": "const input = Decimal.new_from_string(\"-12.340\");\nconst value = { value: input.big_int().toString() };",
+  "expected": {
+    "value": "-12340"
+  }
+}

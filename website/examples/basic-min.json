@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "basic-min",
+  "api_ids": [
+    "Decimal::min"
+  ],
+  "rust": "let left = Decimal::new_from_string(\"12.00\")?;\nlet right = Decimal::new_from_string(\"12.0\")?;\nlet value = Decimal::min(&left, &right);",
+  "javascript": "const left = Decimal.new_from_string(\"12.00\");\nconst right = Decimal.new_from_string(\"12.0\");\nconst value = left.min(right);",
+  "expected": {
+    "coefficient": "1200",
+    "scale": "2",
+    "initialized": true,
+    "string": "12",
+    "string_with_trailing_zeros": "12.00"
+  }
+}

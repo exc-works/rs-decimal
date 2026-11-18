@@ -1,4 +1,5 @@
 //! Bounded browser bridge. Execution isolation is supplied by the runner.
+mod comparison;
 mod constructors;
 mod limits;
 use rs_decimal::{Decimal as CoreDecimal, DecimalError, RoundingMode};

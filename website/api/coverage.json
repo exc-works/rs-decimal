@@ -3,7 +3,7 @@
     "id": "COMPATIBILITY_REVISION",
     "disposition": "direct",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "compatibility-revision",
     "reason": "",
     "bridge_signature": null,
@@ -14,7 +14,7 @@
     "id": "Decimal",
     "disposition": "direct",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal",
     "reason": "",
     "bridge_signature": null,
@@ -24,13 +24,20 @@
   {
     "id": "Decimal::abs",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-abs",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.abs(): Decimal",
+    "examples": [
+      "basic-abs"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::add",
@@ -112,13 +119,20 @@
   {
     "id": "Decimal::big_int",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-big-int",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.big_int(): bigint",
+    "examples": [
+      "basic-big-int"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::big_rat",
@@ -167,35 +181,56 @@
   {
     "id": "Decimal::cmp",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-cmp",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.cmp(other: Decimal): number",
+    "examples": [
+      "basic-cmp"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::coefficient",
     "disposition": "adapter",
-    "status": "planned",
-    "owner": "WEB-09b",
+    "status": "implemented",
+    "owner": "WEB-07b",
     "doc_id": "decimal-coefficient",
     "reason": "Returns an immutable bigint snapshot in JavaScript.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.coefficient(): bigint",
+    "examples": [
+      "basic-coefficient"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::equal",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-equal",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.equal(other: Decimal): boolean",
+    "examples": [
+      "basic-equal"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::exp",
@@ -288,24 +323,38 @@
   {
     "id": "Decimal::gt",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-gt",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.gt(other: Decimal): boolean",
+    "examples": [
+      "basic-gt"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::gte",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-gte",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.gte(other: Decimal): boolean",
+    "examples": [
+      "basic-gte"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::has_fraction",
@@ -355,7 +404,7 @@
     "id": "Decimal::impl Clone",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal-impl-clone",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -366,7 +415,7 @@
     "id": "Decimal::impl Debug",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal-impl-debug",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -399,7 +448,7 @@
     "id": "Decimal::impl Default",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal-impl-default",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -454,7 +503,7 @@
     "id": "Decimal::impl Eq",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal-impl-eq",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -619,7 +668,7 @@
     "id": "Decimal::impl FromStr",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal-impl-fromstr",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -641,7 +690,7 @@
     "id": "Decimal::impl FromStr::from_str",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal-impl-fromstr-from-str",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -685,7 +734,7 @@
     "id": "Decimal::impl Ord",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal-impl-ord",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -696,7 +745,7 @@
     "id": "Decimal::impl Ord::cmp",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal-impl-ord-cmp",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -707,7 +756,7 @@
     "id": "Decimal::impl PartialEq",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal-impl-partialeq",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -718,7 +767,7 @@
     "id": "Decimal::impl PartialEq::eq",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal-impl-partialeq-eq",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -729,7 +778,7 @@
     "id": "Decimal::impl PartialOrd",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal-impl-partialord",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -740,7 +789,7 @@
     "id": "Decimal::impl PartialOrd::partial_cmp",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal-impl-partialord-partial-cmp",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -861,7 +910,7 @@
     "id": "Decimal::impl fmt :: Display",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal-impl-fmt-display",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -872,7 +921,7 @@
     "id": "Decimal::impl fmt :: Display::fmt",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal-impl-fmt-display-fmt",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -937,57 +986,92 @@
   {
     "id": "Decimal::is_negative",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-is-negative",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.is_negative(): boolean",
+    "examples": [
+      "basic-is-negative"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::is_nil",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-is-nil",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.is_nil(): boolean",
+    "examples": [
+      "basic-is-nil"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::is_not_zero",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-is-not-zero",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.is_not_zero(): boolean",
+    "examples": [
+      "basic-is-not-zero"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::is_positive",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-is-positive",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.is_positive(): boolean",
+    "examples": [
+      "basic-is-positive"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::is_zero",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-is-zero",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.is_zero(): boolean",
+    "examples": [
+      "basic-is-zero"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::ln",
@@ -1058,24 +1142,38 @@
   {
     "id": "Decimal::lt",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-lt",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.lt(other: Decimal): boolean",
+    "examples": [
+      "basic-lt"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::lte",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-lte",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.lte(other: Decimal): boolean",
+    "examples": [
+      "basic-lte"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::marshal_binary",
@@ -1157,13 +1255,20 @@
   {
     "id": "Decimal::max",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-max",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.max(other: Decimal): Decimal",
+    "examples": [
+      "basic-max"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::max_ref",
@@ -1179,13 +1284,20 @@
   {
     "id": "Decimal::min",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-min",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.min(other: Decimal): Decimal",
+    "examples": [
+      "basic-min"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::min_ref",
@@ -1257,7 +1369,7 @@
     "id": "Decimal::must_from_string",
     "disposition": "direct",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "decimal-must-from-string",
     "reason": "",
     "bridge_signature": null,
@@ -1278,13 +1390,20 @@
   {
     "id": "Decimal::neg",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-neg",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.neg(): Decimal",
+    "examples": [
+      "basic-neg"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::new",
@@ -1531,13 +1650,20 @@
   {
     "id": "Decimal::not_equal",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-not-equal",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.not_equal(other: Decimal): boolean",
+    "examples": [
+      "basic-not-equal"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::power",
@@ -1553,13 +1679,20 @@
   {
     "id": "Decimal::precision",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-precision",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.precision(): number",
+    "examples": [
+      "basic-precision"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::quo",
@@ -1696,13 +1829,20 @@
   {
     "id": "Decimal::scale",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-09b",
+    "status": "implemented",
+    "owner": "WEB-07b",
     "doc_id": "decimal-scale",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.scale(): number",
+    "examples": [
+      "basic-scale"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::scan",
@@ -1729,13 +1869,20 @@
   {
     "id": "Decimal::sign",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07b",
     "doc_id": "decimal-sign",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.sign(): number",
+    "examples": [
+      "basic-sign"
+    ],
+    "tests": [
+      "website/tests/comparison.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::significant_figures",
@@ -2478,7 +2625,7 @@
     "id": "NullDecimal",
     "disposition": "direct",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "nulldecimal",
     "reason": "",
     "bridge_signature": null,
@@ -2489,7 +2636,7 @@
     "id": "NullDecimal.decimal",
     "disposition": "adapter",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "nulldecimal-decimal",
     "reason": "Explicit inner-value access policy; do not present a cloned getter as a live mutable borrow.",
     "bridge_signature": null,
@@ -2500,7 +2647,7 @@
     "id": "NullDecimal.valid",
     "disposition": "direct",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "nulldecimal-valid",
     "reason": "",
     "bridge_signature": null,
@@ -2511,7 +2658,7 @@
     "id": "NullDecimal::impl Clone",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "nulldecimal-impl-clone",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -2522,7 +2669,7 @@
     "id": "NullDecimal::impl Debug",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "nulldecimal-impl-debug",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -2555,7 +2702,7 @@
     "id": "NullDecimal::impl Default",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "nulldecimal-impl-default",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -2775,7 +2922,7 @@
     "id": "NullDecimal::new",
     "disposition": "direct",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "nulldecimal-new",
     "reason": "",
     "bridge_signature": null,
@@ -3215,7 +3362,7 @@
     "id": "between",
     "disposition": "direct",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "between",
     "reason": "",
     "bridge_signature": null,
@@ -3226,7 +3373,7 @@
     "id": "config",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "config",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3446,7 +3593,7 @@
     "id": "hundred",
     "disposition": "direct",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "hundred",
     "reason": "",
     "bridge_signature": null,
@@ -3457,7 +3604,7 @@
     "id": "max",
     "disposition": "direct",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "max",
     "reason": "",
     "bridge_signature": null,
@@ -3468,7 +3615,7 @@
     "id": "min",
     "disposition": "direct",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "min",
     "reason": "",
     "bridge_signature": null,
@@ -3490,7 +3637,7 @@
     "id": "one",
     "disposition": "direct",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "one",
     "reason": "",
     "bridge_signature": null,
@@ -3501,7 +3648,7 @@
     "id": "reexport::BigInt",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-bigint",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3512,7 +3659,7 @@
     "id": "reexport::BigRational",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-bigrational",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3523,7 +3670,7 @@
     "id": "reexport::Decimal",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-decimal",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3534,7 +3681,7 @@
     "id": "reexport::DecimalError",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-decimalerror",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3545,7 +3692,7 @@
     "id": "reexport::ErrorKind",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-errorkind",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3556,7 +3703,7 @@
     "id": "reexport::GoFormat",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-goformat",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3567,7 +3714,7 @@
     "id": "reexport::NullDecimal",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-nulldecimal",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3578,7 +3725,7 @@
     "id": "reexport::PRECISION_FIXED_SIZE",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-precision-fixed-size",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3589,7 +3736,7 @@
     "id": "reexport::RoundingMode",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-roundingmode",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3600,7 +3747,7 @@
     "id": "reexport::ScanValue",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-scanvalue",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3611,7 +3758,7 @@
     "id": "reexport::between",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-between",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3622,7 +3769,7 @@
     "id": "reexport::hundred",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-hundred",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3633,7 +3780,7 @@
     "id": "reexport::max",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-max",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3644,7 +3791,7 @@
     "id": "reexport::min",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-min",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3655,7 +3802,7 @@
     "id": "reexport::most_significant_bit",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-most-significant-bit",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3666,7 +3813,7 @@
     "id": "reexport::one",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-one",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3677,7 +3824,7 @@
     "id": "reexport::ten",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-ten",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3699,7 +3846,7 @@
     "id": "reexport::zero",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "reexport-zero",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3710,7 +3857,7 @@
     "id": "ten",
     "disposition": "direct",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "ten",
     "reason": "",
     "bridge_signature": null,
@@ -3721,7 +3868,7 @@
     "id": "validation",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "validation",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3974,7 +4121,7 @@
     "id": "zero",
     "disposition": "direct",
     "status": "planned",
-    "owner": "WEB-07b",
+    "owner": "WEB-07c",
     "doc_id": "zero",
     "reason": "",
     "bridge_signature": null,

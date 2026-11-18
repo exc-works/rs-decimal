@@ -7,7 +7,7 @@ try {
   const ids=await (await fetch('../examples/index.json')).json();
   for(const id of ids){
     const example=await(await fetch(`../examples/${id}.json`)).json();const output=[];
-    const result=await client.run(example.javascript+'\nprint(snapshot(value));',{onOutput:x=>output.push(JSON.parse(x))});
+    const result=await client.run(example.javascript+'\nprint(value);',{onOutput:x=>output.push(JSON.parse(x))});
     if(result.type!=='done'||output.length!==1||JSON.stringify(Object.entries(output[0]).sort())!==JSON.stringify(Object.entries(example.expected).sort()))throw Error(`${id}: ${JSON.stringify({result,output})}`);
     checks.push(id);
   }

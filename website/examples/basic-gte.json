@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "basic-gte",
+  "api_ids": [
+    "Decimal::gte"
+  ],
+  "rust": "let left = Decimal::new_from_string(\"12.00\")?;\nlet right = Decimal::new_from_string(\"12.0\")?;\nlet value = serde_json::json!({\"value\": left.gte(&right)});",
+  "javascript": "const left = Decimal.new_from_string(\"12.00\");\nconst right = Decimal.new_from_string(\"12.0\");\nconst value = { value: left.gte(right) };",
+  "expected": {
+    "value": true
+  }
+}

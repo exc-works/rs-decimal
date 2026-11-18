@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "basic-sign",
+  "api_ids": [
+    "Decimal::sign"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"-12.340\")?;\nlet value = serde_json::json!({\"value\": input.sign()});",
+  "javascript": "const input = Decimal.new_from_string(\"-12.340\");\nconst value = { value: input.sign() };",
+  "expected": {
+    "value": -1
+  }
+}

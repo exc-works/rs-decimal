@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "basic-neg",
+  "api_ids": [
+    "Decimal::neg"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"-12.340\")?;\nlet value = input.neg();",
+  "javascript": "const input = Decimal.new_from_string(\"-12.340\");\nconst value = input.neg();",
+  "expected": {
+    "coefficient": "12340",
+    "scale": "3",
+    "initialized": true,
+    "string": "12.34",
+    "string_with_trailing_zeros": "12.340"
+  }
+}
