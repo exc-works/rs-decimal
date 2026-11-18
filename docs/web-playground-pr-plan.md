@@ -53,7 +53,8 @@ merge, not permission to omit the requested review.
 | WEB-06 | Monaco editor and run controls | 03, 04b, 05 | Completion, parameter help, snapshots, stop/reset, drafts and file import/export |
 | WEB-07a | Safe constructors and executable documentation examples | 03, 05 | Integer width, coefficient/append precision, input preservation and shared native/Wasm/browser examples |
 | WEB-07b | Representation queries and borrowed comparison/unary methods | 07a | State distinctions, cross-scale comparison, equality tie representation and borrowed input preservation |
-| WEB-07c | Free helpers, nullable/type/trait documentation and panic constructor | 07b | Native-only trait examples, helper behavior, state distinctions and panic/error separation |
+| WEB-07c | Free helpers and panic constructor | 07b | Inclusive bounds, helper completion, shared examples and native panic/Wasm trap separation |
+| WEB-07d | Nullable/type/trait documentation and metadata | 07c | Native-only trait examples, helper re-exports, initialization and nullable state distinctions |
 | WEB-08 | Rounding and scale operations | 07 | Seven modes, signed ties, Unnecessary, precision and platform checks |
 | WEB-09a | Add/sub/mul/div, safe/raw variants | 08 | Result scale, zero divisors, errors and unchanged inputs match native |
 | WEB-09b | Powers, remainders, quotient/remainder and consuming methods | 09a | Tuple results, limits, owned success/error consumption and alias handling |

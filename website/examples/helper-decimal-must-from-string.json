@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "helper-decimal-must-from-string",
+  "api_ids": [
+    "Decimal::must_from_string"
+  ],
+  "rust": "let value = Decimal::must_from_string(\"12.00\");",
+  "javascript": "const value = Decimal.must_from_string(\"12.00\");",
+  "expected": {
+    "coefficient": "1200",
+    "scale": "2",
+    "initialized": true,
+    "string": "12",
+    "string_with_trailing_zeros": "12.00"
+  }
+}

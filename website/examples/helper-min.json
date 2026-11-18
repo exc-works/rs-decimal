@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "helper-min",
+  "api_ids": [
+    "min"
+  ],
+  "rust": "let a = Decimal::new_from_string(\"12.00\")?;\nlet b = Decimal::new_from_string(\"12.0\")?;\nlet value = rs_decimal::min(&a, &b);",
+  "javascript": "const a = Decimal.new_from_string(\"12.00\");\nconst b = Decimal.new_from_string(\"12.0\");\nconst value = min(a, b);",
+  "expected": {
+    "coefficient": "1200",
+    "scale": "2",
+    "initialized": true,
+    "string": "12",
+    "string_with_trailing_zeros": "12.00"
+  }
+}
