@@ -3,3 +3,6 @@
 __pycache__/
 *.pyc
 /website/public/wasm/
+
+/website/node_modules/
+/website/runner-dist/

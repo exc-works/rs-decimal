@@ -21,6 +21,18 @@ jobs:
         with:
           node-version: '22'
       - run: node --test website/tests/bridge.test.mjs website/tests/resources.test.mjs
+      - run: npm ci --ignore-scripts
+        working-directory: website
+      - run: npm run build:runner
+        working-directory: website
+        env:
+          RUNNER_PARENT_ORIGINS: '["http://127.0.0.1:4210"]'
+          RUNNER_ALLOW_LOCALHOST: '1'
+      - run: node --test website/tests/protocol.test.mjs
+      - run: python3 website/tests/browser-runner.py
+        env:
+          CHROMEDRIVER: ${{ steps.chrome.outputs.chromedriver-path }}
+          TEST_CHROME_BINARY: ${{ steps.chrome.outputs.chrome-path }}
       - name: Select the matching browser binary
         run: python3 -c 'import json, os; open("webdriver.json", "w").write(json.dumps({"goog:chromeOptions":{"binary":os.environ["TEST_CHROME_BINARY"]}}))'
         env:
@@ -34,4 +46,6 @@ jobs:
         if: always()
         with:
           name: wasm-proof
-          path: website/public/wasm/
+          path: |
+            website/public/wasm/
+            website/runner-dist/

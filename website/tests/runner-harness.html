@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Runner integration tests</title>
+  </head>
+  <body>
+    <pre id="result">running</pre>
+    <script type="module">
+      import { RunnerClient } from "../src/runner/client.js";
+      const assert = (value, message) => {
+        if (!value) throw Error(message);
+      };
+      const manifest = await (await fetch("/runner-manifest.json")).json();
+      const client = new RunnerClient({
+        container: document.body,
+        runnerUrl: "http://127.0.0.1:4211/",
+        commit: manifest.commit,
+        timeoutMs: 1500,
+      });
+      const checks = [];
+      try {
+        let out = [];
+        let result = await client.run(
+          'print(snapshot(Decimal.new_from_string("12.350").mul_exact(Decimal.new(3n))));',
+          { onOutput: (x) => out.push(JSON.parse(x)) },
+        );
+        assert(
+          result.type === "done" &&
+            out[0].coefficient === "37050" &&
+            out[0].scale === "3",
+          "real Rust execution",
+        );
+        checks.push("exact Rust result");
+        result = await client.run("while(true){}");
+        assert(result.category === "timeout", "infinite-loop timeout");
+        checks.push("owner timeout");
+        const pending = client.run("while(true){}");
+        setTimeout(() => client.stop(), 50);
+        result = await pending;
+        assert(result.category === "cancelled", "explicit stop");
+        checks.push("stop");
+        out = [];
+        result = await client.run("print(Decimal.new(2n).string());", {
+          onOutput: (x) => out.push(JSON.parse(x)),
+        });
+        assert(result.type === "done" && out[0] === "2", "recovery");
+        checks.push("fresh run after cancellation");
+        out = [];
+        result = await client.run(
+          'setTimeout(()=>print("late"),100); print("current");',
+          { onOutput: (x) => out.push(JSON.parse(x)) },
+        );
+        await new Promise((r) => setTimeout(r, 150));
+        assert(out.join(",") === "current", "late output");
+        checks.push("late output discarded");
+        result = await client.run('Decimal.new_from_string("1e100000");');
+        assert(result.category === "resource", "Rust resource preflight");
+        checks.push("Rust resource error");
+        result = await client.run("for(let i=0;i<101;i++)print(i);");
+        assert(result.category === "resource", "output count");
+        checks.push("bounded output");
+        out = [];
+        result = await client.run('print("<img src=x onerror=alert(1)>");', {
+          onOutput: (x) => out.push(x),
+        });
+        assert(out[0].includes("<img"), "plain serialized output");
+        checks.push("text output");
+        out = [];
+        result = await client.run(
+          'for (const test of [()=>fetch("http://127.0.0.1:4211/probe.js"),()=>import("http://127.0.0.1:4211/probe.js"),()=>import("data:text/javascript,export default 1")]) {try{await test();print("open");}catch{print("blocked");}}',
+          { onOutput: (x) => out.push(JSON.parse(x)) },
+        );
+        assert(
+          result.type === "done" && out.join(",") === "blocked,blocked,blocked",
+          "network/import CSP",
+        );
+        checks.push("CSP blocks fetch and imports");
+        out = [];
+        result = await client.run(
+          'await new Promise(resolve=>{try{const w=new Worker("http://127.0.0.1:4211/probe.js");w.onerror=()=>{print("blocked");resolve();};w.onmessage=()=>{print("open");resolve();};}catch{print("blocked");resolve();}})',
+          { onOutput: (x) => out.push(JSON.parse(x)) },
+        );
+        assert(
+          result.type === "done" && out[0] === "blocked",
+          "nested worker CSP",
+        );
+        checks.push("CSP blocks nested workers");
+        out = [];
+        result = await client.run(
+          'postMessage({type:"output",runId:1,text:"forged"});',
+          { onOutput: (x) => out.push(x) },
+        );
+        assert(
+          result.type === "done" && out.length === 0,
+          "global worker message ignored",
+        );
+        checks.push("private message channel");
+        result = await client.run(
+          'throw new WebAssembly.RuntimeError("test trap");',
+        );
+        assert(result.category === "trap", "trap classification");
+        checks.push("trap handling");
+        result = await client.run("print(Decimal.default().is_nil());");
+        assert(result.type === "done", "recovery after trap");
+        checks.push("trap recovery");
+        let rejected = false;
+        try {
+          await client.run("x".repeat(65537));
+        } catch {
+          rejected = true;
+        }
+        assert(rejected, "source limit");
+        checks.push("source limit");
+        try {
+          new RunnerClient({
+            container: document.body,
+            runnerUrl: location.origin,
+            commit: manifest.commit,
+          });
+          throw Error("same origin accepted");
+        } catch (error) {
+          assert(
+            error.message.includes("separate trusted"),
+            "same-origin rejection",
+          );
+        }
+        checks.push("origin rejection");
+        const open = new RunnerClient({
+          container: document.body,
+          runnerUrl: "http://127.0.0.1:4212/",
+          commit: manifest.commit,
+        });
+        const insecure = await open.run('print("must not execute");');
+        open.dispose();
+        assert(insecure.category === "isolation", "missing CSP fails closed");
+        checks.push("missing CSP rejected");
+        const wrong = new RunnerClient({
+          container: document.body,
+          runnerUrl: "http://127.0.0.1:4211/",
+          commit: "wrong-commit",
+        });
+        let versionRejected = false;
+        try {
+          await wrong.run('print("must not run");');
+        } catch (error) {
+          versionRejected = error.message.includes("handshake");
+        } finally {
+          wrong.dispose();
+        }
+        assert(versionRejected, "version handshake");
+        checks.push("version mismatch rejected");
+        window.testResult = { ok: true, checks };
+      } catch (error) {
+        window.testResult = {
+          ok: false,
+          checks,
+          error: String(error.stack || error),
+        };
+      } finally {
+        client.dispose();
+        document.querySelector("#result").textContent = JSON.stringify(
+          window.testResult,
+          null,
+          2,
+        );
+      }
+    </script>
+  </body>
+</html>

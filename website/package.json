@@ -4,6 +4,10 @@
   "type": "module",
   "scripts": {
     "build:wasm": "python3 ../tools/build-web-wasm.py",
-    "test:bridge": "node --test tests/bridge.test.mjs tests/resources.test.mjs"
+    "test:bridge": "node --test tests/bridge.test.mjs tests/resources.test.mjs",
+    "build:runner": "node scripts/build-runner.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
   }
 }
