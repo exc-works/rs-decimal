@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "arithmetic-decimal-sub-raw",
+  "api_ids": [
+    "Decimal::sub_raw"
+  ],
+  "rust": "let value = Decimal::new_from_string(\"1.20\")?.sub_raw(1);",
+  "javascript": "const value = Decimal.new_from_string(\"1.20\").sub_raw(1n);",
+  "expected": {
+    "coefficient": "119",
+    "scale": "2",
+    "initialized": true,
+    "string": "1.19",
+    "string_with_trailing_zeros": "1.19"
+  }
+}

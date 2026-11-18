@@ -115,6 +115,22 @@ export function createBridge(raw) {
     neg() { return wrap(Decimal, borrow(this, Decimal).neg()); }
     max(other) { return wrap(Decimal, borrow(this, Decimal).max(borrow(other, Decimal))); }
     min(other) { return wrap(Decimal, borrow(this, Decimal).min(borrow(other, Decimal))); }
+    add(other) { return wrap(Decimal, borrow(this, Decimal).add(borrow(other, Decimal))); }
+    sub(other) { return wrap(Decimal, borrow(this, Decimal).sub(borrow(other, Decimal))); }
+    safe_add(other) { return wrap(Decimal, borrow(this, Decimal).safe_add(borrow(other, Decimal))); }
+    safe_sub(other) { return wrap(Decimal, borrow(this, Decimal).safe_sub(borrow(other, Decimal))); }
+    mul_down(other) { return wrap(Decimal, borrow(this, Decimal).mul_down(borrow(other, Decimal))); }
+    quo_down(other) { return wrap(Decimal, borrow(this, Decimal).quo_down(borrow(other, Decimal))); }
+    add_raw(value) { return wrap(Decimal, borrow(this, Decimal).add_raw(bigintText(value))); }
+    sub_raw(value) { return wrap(Decimal, borrow(this, Decimal).sub_raw(bigintText(value))); }
+    mul(other, mode) { return wrap(Decimal, borrow(this, Decimal).mul(borrow(other, Decimal), integer(mode, "mode"))); }
+    quo(other, mode) { return wrap(Decimal, borrow(this, Decimal).quo(borrow(other, Decimal), integer(mode, "mode"))); }
+    mul_with_prec(other, prec, mode) { return wrap(Decimal, borrow(this, Decimal).mul_with_prec(borrow(other, Decimal), integer(prec, "prec"), integer(mode, "mode"))); }
+    quo_with_prec(other, prec, mode) { return wrap(Decimal, borrow(this, Decimal).quo_with_prec(borrow(other, Decimal), integer(prec, "prec"), integer(mode, "mode"))); }
+    int_part() { return BigInt(borrow(this, Decimal).int_part_text()); }
+    is_integer() { return borrow(this, Decimal).is_integer(); }
+    has_fraction() { return borrow(this, Decimal).has_fraction(); }
+    must_non_negative() { return wrap(Decimal, borrow(this, Decimal).must_non_negative()); }
     mul_exact(other) {
       return wrap(Decimal, borrow(this, Decimal).mul_exact(borrow(other, Decimal)));
     }

@@ -15,7 +15,11 @@ results within these limits remain unchanged. The core crate is not modified.
 | Built Wasm linear memory maximum | 64 MiB |
 
 Input scale and positive exponent expansion are checked before Rust parsing.
-Products check the sum of scales and coefficient bit bounds before multiplying.
+Exact products check the sum of scales; rounded products check the output scale.
+Both bound intermediate coefficient bits before multiplying. Addition/subtraction
+check scale-alignment growth and a carry; division checks numerator or denominator
+scaling before allocation. Negative precision and zero divisors retain their core
+errors when the core can reject them before allocation.
 Rescale checks the requested scale and a conservative growth estimate before
 allocating powers of ten. Precision-specific rounding uses the same checks.
 Shift checks both the resulting scale and coefficient growth; significant-figure

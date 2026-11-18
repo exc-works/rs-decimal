@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "arithmetic-decimal-is-integer",
+  "api_ids": [
+    "Decimal::is_integer"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"12.00\")?;\nlet value = serde_json::json!({\"value\": input.is_integer()});",
+  "javascript": "const input = Decimal.new_from_string(\"12.00\");\nconst value = { value: input.is_integer() };",
+  "expected": {
+    "value": true
+  }
+}

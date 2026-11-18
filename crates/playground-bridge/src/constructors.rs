@@ -13,7 +13,7 @@ fn precision(value: f64) -> Result<isize, JsValue> {
     }
     Ok(value as isize)
 }
-fn signed(value: &str) -> Result<i64, JsValue> {
+pub(super) fn signed(value: &str) -> Result<i64, JsValue> {
     limits::input(value).map_err(resource_error)?;
     value
         .parse()

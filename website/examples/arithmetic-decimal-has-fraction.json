@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "arithmetic-decimal-has-fraction",
+  "api_ids": [
+    "Decimal::has_fraction"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"12.00\")?;\nlet value = serde_json::json!({\"value\": input.has_fraction()});",
+  "javascript": "const input = Decimal.new_from_string(\"12.00\");\nconst value = { value: input.has_fraction() };",
+  "expected": {
+    "value": false
+  }
+}

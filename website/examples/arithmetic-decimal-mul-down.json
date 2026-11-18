@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "arithmetic-decimal-mul-down",
+  "api_ids": [
+    "Decimal::mul_down"
+  ],
+  "rust": "let a = Decimal::new_from_string(\"1.25\")?;\nlet b = Decimal::new_from_string(\"1.3\")?;\nlet value = a.mul_down(&b);",
+  "javascript": "const a = Decimal.new_from_string(\"1.25\");\nconst b = Decimal.new_from_string(\"1.3\");\nconst value = a.mul_down(b);",
+  "expected": {
+    "coefficient": "162",
+    "scale": "2",
+    "initialized": true,
+    "string": "1.62",
+    "string_with_trailing_zeros": "1.62"
+  }
+}

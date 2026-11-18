@@ -56,13 +56,20 @@
   {
     "id": "Decimal::add",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-add",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.add(other: Decimal): Decimal",
+    "examples": [
+      "arithmetic-decimal-add"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::add_owned",
@@ -78,13 +85,20 @@
   {
     "id": "Decimal::add_raw",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-add-raw",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.add_raw(value: bigint): Decimal",
+    "examples": [
+      "arithmetic-decimal-add-raw"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::append_text",
@@ -401,13 +415,20 @@
   {
     "id": "Decimal::has_fraction",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-has-fraction",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.has_fraction(): boolean",
+    "examples": [
+      "arithmetic-decimal-has-fraction"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl Add < & Decimal >",
@@ -1089,13 +1110,20 @@
   {
     "id": "Decimal::int_part",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-int-part",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.int_part(): bigint",
+    "examples": [
+      "arithmetic-decimal-int-part"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::into_coefficient",
@@ -1122,13 +1150,20 @@
   {
     "id": "Decimal::is_integer",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-is-integer",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.is_integer(): boolean",
+    "examples": [
+      "arithmetic-decimal-is-integer"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::is_negative",
@@ -1471,46 +1506,74 @@
   {
     "id": "Decimal::mul",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-mul",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.mul(other: Decimal, mode: Rounding): Decimal",
+    "examples": [
+      "arithmetic-decimal-mul"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::mul_down",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-mul-down",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.mul_down(other: Decimal): Decimal",
+    "examples": [
+      "arithmetic-decimal-mul-down"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::mul_exact",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-mul-exact",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.mul_exact(other: Decimal): Decimal",
+    "examples": [
+      "arithmetic-decimal-mul-exact"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::mul_with_prec",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-mul-with-prec",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.mul_with_prec(other: Decimal, prec: number, mode: Rounding): Decimal",
+    "examples": [
+      "arithmetic-decimal-mul-with-prec"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::must_from_string",
@@ -1534,13 +1597,20 @@
   {
     "id": "Decimal::must_non_negative",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-must-non-negative",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.must_non_negative(): Decimal",
+    "examples": [
+      "arithmetic-decimal-must-non-negative"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::neg",
@@ -1852,24 +1922,38 @@
   {
     "id": "Decimal::quo",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-quo",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.quo(other: Decimal, mode: Rounding): Decimal",
+    "examples": [
+      "arithmetic-decimal-quo"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::quo_down",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-quo-down",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.quo_down(other: Decimal): Decimal",
+    "examples": [
+      "arithmetic-decimal-quo-down"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::quo_rem",
@@ -1885,13 +1969,20 @@
   {
     "id": "Decimal::quo_with_prec",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-quo-with-prec",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.quo_with_prec(other: Decimal, prec: number, mode: Rounding): Decimal",
+    "examples": [
+      "arithmetic-decimal-quo-with-prec"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::r#mod",
@@ -1990,24 +2081,38 @@
   {
     "id": "Decimal::safe_add",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-safe-add",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.safe_add(other: Decimal): Decimal",
+    "examples": [
+      "arithmetic-decimal-safe-add"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::safe_sub",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-safe-sub",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.safe_sub(other: Decimal): Decimal",
+    "examples": [
+      "arithmetic-decimal-safe-sub"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::scale",
@@ -2157,13 +2262,20 @@
   {
     "id": "Decimal::sub",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-sub",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.sub(other: Decimal): Decimal",
+    "examples": [
+      "arithmetic-decimal-sub"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::sub_owned",
@@ -2179,13 +2291,20 @@
   {
     "id": "Decimal::sub_raw",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09a",
     "doc_id": "decimal-sub-raw",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.sub_raw(value: bigint): Decimal",
+    "examples": [
+      "arithmetic-decimal-sub-raw"
+    ],
+    "tests": [
+      "website/tests/arithmetic.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::truncate",

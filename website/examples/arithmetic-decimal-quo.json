@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "arithmetic-decimal-quo",
+  "api_ids": [
+    "Decimal::quo"
+  ],
+  "rust": "let a = Decimal::new(1);\nlet b = Decimal::new(3);\nlet value = a.quo(&b, RoundingMode::HalfEven)?;",
+  "javascript": "const a = Decimal.new(1n);\nconst b = Decimal.new(3n);\nconst value = a.quo(b, RoundingMode.HalfEven);",
+  "expected": {
+    "coefficient": "0",
+    "scale": "0",
+    "initialized": true,
+    "string": "0",
+    "string_with_trailing_zeros": "0"
+  }
+}
