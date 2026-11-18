@@ -159,6 +159,22 @@
           "library error kinds",
         );
         checks.push("library error categories preserved");
+        const waiting = new RunnerClient({
+          container: document.body,
+          runnerUrl: "http://127.0.0.1:4211/",
+          commit: "not-ready",
+        });
+        const beforeReady = waiting.run('print("must not run");');
+        waiting.stop();
+        const cancelled = await Promise.race([
+          beforeReady,
+          new Promise((resolve) =>
+            setTimeout(() => resolve({ category: "too-slow" }), 500),
+          ),
+        ]);
+        waiting.dispose();
+        assert(cancelled.category === "cancelled", "stop during handshake");
+        checks.push("pending handshake cancellation");
         window.testResult = { ok: true, checks };
       } catch (error) {
         window.testResult = {

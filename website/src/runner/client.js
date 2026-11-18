@@ -79,8 +79,21 @@ export class RunnerClient {
       throw new Error("Source exceeds 65536 UTF-8 bytes");
     this.stop();
     const id = ++this.epoch;
-    await this.ready;
-    if (this.disposed || id !== this.epoch)
+    let cancel;
+    const cancellation = new Promise((resolve) => {
+      cancel = resolve;
+    });
+    this.pending = { id, cancel };
+    let ready;
+    try {
+      ready = await Promise.race([
+        this.ready.then(() => true),
+        cancellation.then(() => false),
+      ]);
+    } finally {
+      if (this.pending?.id === id) this.pending = null;
+    }
+    if (!ready || this.disposed || id !== this.epoch)
       return {
         type: "error",
         runId: id,
@@ -110,6 +123,9 @@ export class RunnerClient {
   }
   stop(category = "cancelled") {
     ++this.epoch;
+    const pending = this.pending;
+    this.pending = null;
+    pending?.cancel();
     const run = this.active;
     if (!run) return;
     this.finish({
