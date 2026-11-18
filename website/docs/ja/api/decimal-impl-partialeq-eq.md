@@ -1,10 +1,29 @@
 ---
 locale: ja
+source_revision: 1d252fa81f50f2414d333721b6e7df59a5331a4689705908696e9896f6fb4dbf
+translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::impl PartialEq::eq
-translation_status: pending
 ---
 # Decimal::impl PartialEq::eq
 
-このメソッドの日本語訳は準備中です。通常の使い方、引数、使用例、注意事項は英語のリファレンスを参照してください。この案内ページは翻訳済みとして扱いません。
+Rust の演算子または PartialEq で数値の等価性を比較します。
 
-[英語のリファレンス](../../en-US/api/decimal-impl-partialeq-eq)
+```rust
+fn eq (& self , other : & Self) -> bool
+```
+
+## 通常の使い方と意味
+
+eq は両オペランドを借用し、bool を返します。12.00 == 12.0 です。JavaScript では equal() を使います。=== はラッパーの同一性を調べます。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-decimal-impl-partialeq-eq" locale="ja" />
+
+この Rust 構文の例はネイティブテストで実行します。ブラウザーでのトレイト対応を意味しません。
+
+## 関連ドキュメント
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)

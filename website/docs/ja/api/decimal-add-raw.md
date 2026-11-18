@@ -1,10 +1,31 @@
 ---
 locale: ja
+source_revision: 872ef2a43e7ac5d06f4ea120672471b0a862ee6f8a70e48db9f1f9367f2518f7
+translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::add_raw
-translation_status: pending
 ---
 # Decimal::add_raw
 
-このメソッドの日本語訳は準備中です。通常の使い方、引数、使用例、注意事項は英語のリファレンスを参照してください。この案内ページは翻訳済みとして扱いません。
+スケール適用前の係数を i64 整数分だけ変更します。
 
-[英語のリファレンス](../../en-US/api/decimal-add-raw)
+```rust
+fn add_raw (& self , value : i64) -> Self
+```
+
+## 引数、戻り値、通常の使い方
+
+value: i64。bridge では bigint で表します。スケールは保持するため、スケール 2 で 1 を加減すると数値は 1 ではなく 0.01 変わります。Rust は新しい Decimal を返します。number と i64 範囲外の bigint は bridge が拒否します。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="arithmetic-decimal-add-raw" locale="ja" />
+
+## ブラウザーの制約
+
+入力は借用され、成功後も通常のエラー後も使用できます。返された Decimal は独立したデータを所有し、演算結果は初期化済みです。ブラウザーはコアの呼び出し前に[リソースポリシー](../resource-policy)を確認し、桁揃え、中間積、除算時のスケール調整、出力精度を制限します。保守的な事前検査により、最終結果が小さくても拒否される場合があります。リソースエラーと数値ライブラリのエラーは区別され、パニックは実行を終了します。
+
+## 関連メソッド
+
+[add](./decimal-add) · [mul_exact](./decimal-mul-exact) · [quo_with_prec](./decimal-quo-with-prec) · [RoundingMode](./roundingmode)

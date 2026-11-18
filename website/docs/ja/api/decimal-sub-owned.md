@@ -1,10 +1,31 @@
 ---
 locale: ja
+source_revision: dfbad807bf85fc60fbbfb720800bbf36eb483a86897e4245a66f95ff012fb636
+translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::sub_owned
-translation_status: pending
 ---
 # Decimal::sub_owned
 
-このメソッドの日本語訳は準備中です。通常の使い方、引数、使用例、注意事項は英語のリファレンスを参照してください。この案内ページは翻訳済みとして扱いません。
+左オペランドを消費して正確な演算を行います。
 
-[英語のリファレンス](../../en-US/api/decimal-sub-owned)
+```rust
+fn sub_owned (self , other : & Self) -> Self
+```
+
+## 引数、戻り値、通常の使い方
+
+other: &Decimal。入力の大きい方のスケールで初期化済み Decimal を返します。レシーバーはムーブされ、other は引き続き使用できます。記憶領域は再利用できますが、増大時には割り当てが発生することがあります。bridge は同じラッパーをレシーバーと other の両方に渡すことをムーブ前に拒否します。Rust に入ると、リソースエラーでもレシーバーを消費します。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="owned-decimal-sub-owned" locale="ja" />
+
+## ブラウザーの制約
+
+上記の所有権規則に従ってください。ムーブ後のアクセスは moved エラーになり、free は冪等です。型とエイリアスの検証はムーブ前に行いますが、Rust のエラーは消費済みのレシーバーを復元しません。[リソースポリシー](../resource-policy)はライブラリエラーとは別です。累乗では中間値を、桁揃えでは係数の増大を確認します。保守的な検査により最終結果が小さくても拒否される場合があります。
+
+## 関連メソッド
+
+[add_owned](./decimal-add-owned) · [quo_rem](./decimal-quo-rem) · [remainder](./decimal-remainder) · [power](./decimal-power)

@@ -1,10 +1,29 @@
 ---
 locale: ja
+source_revision: 71bc56362fd9f1c25a96932ba1ffd795db889517f58a951726bcd78e58fe2bc7
+translation_provenance: en-US-japanese-reviewed
 api_id: NullDecimal::impl Default
-translation_status: pending
 ---
 # NullDecimal::impl Default
 
-このメソッドの日本語訳は準備中です。通常の使い方、引数、使用例、注意事項は英語のリファレンスを参照してください。この案内ページは翻訳済みとして扱いません。
+Rust の Default で値のない nullable を作成します。
 
-[英語のリファレンス](../../en-US/api/nulldecimal-impl-default)
+```rust
+impl Default for NullDecimal
+```
+
+## 通常の使い方と意味
+
+有効性と内部の初期化状態はともに false です。bridge は NullDecimal.default() を提供します。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-nulldecimal-impl-default" locale="ja" />
+
+この Rust 構文の例はネイティブテストで実行します。ブラウザーでのトレイト対応を意味しません。
+
+## 関連ドキュメント
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)

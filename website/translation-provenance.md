@@ -87,3 +87,12 @@ entries) complete all 355 methods. Review preserves borrowed input lifetime,
 exact raw JSON versus generic Serde behavior, integer bounds, initialization
 and validity, PostgreSQL representation and native execution requirements.
 The manifest uses `*` to cover future API groups as well.
+
+## ja
+
+The 130 core references (WEB-07a–d, WEB-08 and WEB-09a–b) and bridge/resource
+guides are translated from en-US against the Japanese glossary. Review preserves
+scale versus significant figures, initialization versus numeric equality, signed
+rounding, borrowing/consumption, exact integer input and error/resource boundaries.
+Rust identifiers and shared fixtures remain unchanged. Remaining method groups
+retain explicit pending status and English fallback links.
