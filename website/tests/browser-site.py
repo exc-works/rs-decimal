@@ -3,18 +3,26 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
+import socket
 import time
 import urllib.error
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = 'http://127.0.0.1:9518'
-SITE = 'http://127.0.0.1:4175/rs-decimal/'
+def free_port():
+    with socket.socket() as listener:
+        listener.bind(('127.0.0.1', 0))
+        return listener.getsockname()[1]
 
-def call(path, payload=None):
+DRIVER_PORT, SITE_PORT = free_port(), free_port()
+BASE = f'http://127.0.0.1:{DRIVER_PORT}'
+SITE = f'http://127.0.0.1:{SITE_PORT}/rs-decimal/'
+
+def call(path, payload=None, method=None):
     request = urllib.request.Request(BASE + path,
         data=None if payload is None else json.dumps(payload).encode(),
-        headers={'Content-Type': 'application/json'})
+        headers={'Content-Type': 'application/json'}, method=method)
     try:
         with urllib.request.urlopen(request, timeout=20) as response:
             return json.load(response)['value']
@@ -31,9 +39,9 @@ def until(check):
 
 processes = []
 try:
-    processes.append(subprocess.Popen(['npm', 'run', 'preview', '--', '--host', '127.0.0.1', '--port', '4175'], cwd=ROOT,
+    processes.append(subprocess.Popen(['node', 'node_modules/vitepress/bin/vitepress.js', 'preview', 'docs', '--host', '127.0.0.1', '--port', str(SITE_PORT)], cwd=ROOT,
         env=dict(os.environ, DOCS_BASE='/rs-decimal/'), stdout=subprocess.DEVNULL))
-    processes.append(subprocess.Popen([os.environ['CHROMEDRIVER'], '--port=9518'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL))
+    processes.append(subprocess.Popen([os.environ['CHROMEDRIVER'], f'--port={DRIVER_PORT}'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL))
     def ready():
         try:
             call('/status')
@@ -42,14 +50,15 @@ try:
         except (OSError, RuntimeError):
             return False
     until(ready)
-    session = call('/session', {'capabilities': {'alwaysMatch': {'browserName': 'chrome', 'goog:chromeOptions': {
-        'binary': os.environ['TEST_CHROME_BINARY'], 'args': ['--headless=new', '--no-sandbox', '--window-size=1440,1000']}}}})['sessionId']
+    session = call('/session', {'capabilities': {'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': 'eager', 'goog:chromeOptions': {
+        'binary': os.environ['TEST_CHROME_BINARY'], 'args': ['--headless=new', '--window-size=1440,1000'] + (['--no-sandbox'] if sys.platform.startswith('linux') else [])}}}})['sessionId']
     def js(script):
         return call(f'/session/{session}/execute/sync', {'script': script, 'args': []})
     def navigate(path):
         call(f'/session/{session}/url', {'url': SITE + path})
     count = len(json.loads((ROOT / 'api/rust-api.json').read_text()))
     for locale in ['en-US', 'en-GB', 'zh-Hans', 'zh-Hant', 'fr', 'ko', 'ja', 'de']:
+        print('Checking', locale, flush=True)
         navigate(f'{locale}/api/')
         until(lambda: js('return document.querySelectorAll("tbody tr").length') == count)
         assert js('return document.documentElement.lang') == locale
@@ -76,6 +85,11 @@ try:
     assert js('return document.documentElement.scrollWidth <= innerWidth')
     print('Eight locale routes, API filtering, language switching, locale search and mobile layout passed.')
 finally:
+    if 'session' in globals():
+        try:
+            call(f'/session/{session}', method='DELETE')
+        except (OSError, RuntimeError):
+            pass
     for process in reversed(processes):
         process.terminate()
         process.wait(timeout=10)
