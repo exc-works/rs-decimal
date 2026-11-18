@@ -22,7 +22,10 @@ scaling before allocation. Quotient/remainder checks alignment after zero-diviso
 validation. Powers bound normalized intermediate scale and coefficient growth,
 including reciprocal scaling; core zero/unit fast paths and pre-allocation
 Overflow remain intact. Owned arithmetic consumes its receiver even when this
-preflight fails. Negative precision and zero divisors retain their core
+preflight fails. Exact rational conversion checks reduced denominator factors
+and coefficient growth; rounded rational conversion checks numerator scaling
+before multiplication. Nonzero-denominator validation precedes rational construction.
+Negative precision and zero divisors retain their core
 errors when the core can reject them before allocation.
 Rescale checks the requested scale and a conservative growth estimate before
 allocating powers of ten. Precision-specific rounding uses the same checks.

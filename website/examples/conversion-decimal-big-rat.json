@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "conversion-decimal-big-rat",
+  "api_ids": [
+    "Decimal::big_rat"
+  ],
+  "rust": "let rational = Decimal::new_from_string(\"-1.250\")?.big_rat();\nlet value = serde_json::json!({\"numerator\": rational.numer().to_string(), \"denominator\": rational.denom().to_string()});",
+  "javascript": "const rational = Decimal.new_from_string(\"-1.250\").big_rat();\nconst value = { numerator: rational.numerator.toString(), denominator: rational.denominator.toString() };",
+  "expected": {
+    "numerator": "-5",
+    "denominator": "4"
+  }
+}

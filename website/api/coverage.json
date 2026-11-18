@@ -172,24 +172,38 @@
   {
     "id": "Decimal::big_rat",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10a",
     "doc_id": "decimal-big-rat",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.big_rat(): Rational",
+    "examples": [
+      "conversion-decimal-big-rat"
+    ],
+    "tests": [
+      "website/tests/conversion.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::bit_len",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10a",
     "doc_id": "decimal-bit-len",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.bit_len(): number",
+    "examples": [
+      "conversion-decimal-bit-len"
+    ],
+    "tests": [
+      "website/tests/conversion.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::ceil",
@@ -306,24 +320,38 @@
   {
     "id": "Decimal::float32",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10a",
     "doc_id": "decimal-float32",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.float32(): [number, boolean]",
+    "examples": [
+      "conversion-decimal-float32"
+    ],
+    "tests": [
+      "website/tests/conversion.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::float64",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10a",
     "doc_id": "decimal-float64",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.float64(): [number, boolean]",
+    "examples": [
+      "conversion-decimal-float64"
+    ],
+    "tests": [
+      "website/tests/conversion.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::floor",
@@ -1106,13 +1134,20 @@
   {
     "id": "Decimal::int64",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10a",
     "doc_id": "decimal-int64",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.int64(): [bigint, boolean]",
+    "examples": [
+      "conversion-decimal-int64"
+    ],
+    "tests": [
+      "website/tests/conversion.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::int_part",
@@ -1729,24 +1764,38 @@
   {
     "id": "Decimal::new_from_big_rat",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10a",
     "doc_id": "decimal-new-from-big-rat",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.new_from_big_rat(value: Rational): Decimal",
+    "examples": [
+      "conversion-decimal-new-from-big-rat"
+    ],
+    "tests": [
+      "website/tests/conversion.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::new_from_big_rat_with_prec",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10a",
     "doc_id": "decimal-new-from-big-rat-with-prec",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.new_from_big_rat_with_prec(value: Rational, prec: number, mode: Rounding): Decimal",
+    "examples": [
+      "conversion-decimal-new-from-big-rat-with-prec"
+    ],
+    "tests": [
+      "website/tests/conversion.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::new_from_decimal",
@@ -1769,24 +1818,38 @@
   {
     "id": "Decimal::new_from_float32",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10a",
     "doc_id": "decimal-new-from-float32",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.new_from_float32(value: number): Decimal",
+    "examples": [
+      "conversion-decimal-new-from-float32"
+    ],
+    "tests": [
+      "website/tests/conversion.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::new_from_float64",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10a",
     "doc_id": "decimal-new-from-float64",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.new_from_float64(value: number): Decimal",
+    "examples": [
+      "conversion-decimal-new-from-float64"
+    ],
+    "tests": [
+      "website/tests/conversion.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::new_from_int",
@@ -2440,13 +2503,20 @@
   {
     "id": "Decimal::uint64",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10a",
     "doc_id": "decimal-uint64",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.uint64(): [bigint, boolean]",
+    "examples": [
+      "conversion-decimal-uint64"
+    ],
+    "tests": [
+      "website/tests/conversion.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::unmarshal_binary",
@@ -4225,13 +4295,20 @@
   {
     "id": "most_significant_bit",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10a",
     "doc_id": "most-significant-bit",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "most_significant_bit(value: bigint): number",
+    "examples": [
+      "conversion-most-significant-bit"
+    ],
+    "tests": [
+      "website/tests/conversion.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "one",
@@ -4255,24 +4332,38 @@
   {
     "id": "reexport::BigInt",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10a",
     "doc_id": "reexport-bigint",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "conversion-reexport-bigint"
+    ],
+    "tests": [
+      "website/tests/conversion.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::BigRational",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10a",
     "doc_id": "reexport-bigrational",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "conversion-reexport-bigrational"
+    ],
+    "tests": [
+      "website/tests/conversion.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::Decimal",
@@ -4458,13 +4549,20 @@
   {
     "id": "reexport::most_significant_bit",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10a",
     "doc_id": "reexport-most-significant-bit",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "conversion-reexport-most-significant-bit"
+    ],
+    "tests": [
+      "website/tests/conversion.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::one",

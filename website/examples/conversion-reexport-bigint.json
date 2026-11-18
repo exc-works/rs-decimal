@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "conversion-reexport-bigint",
+  "api_ids": [
+    "reexport::BigInt"
+  ],
+  "rust": "use rs_decimal::BigInt;\nlet value = Decimal::new_from_big_int(&BigInt::from(123));",
+  "javascript": "",
+  "expected": {
+    "coefficient": "123",
+    "scale": "0",
+    "initialized": true,
+    "string": "123",
+    "string_with_trailing_zeros": "123"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "conversion-decimal-float32",
+  "api_ids": [
+    "Decimal::float32"
+  ],
+  "rust": "let (number, exact) = Decimal::new_from_string(\"0.1\")?.float32();\nlet value = serde_json::json!({\"bits\": format!(\"{:08x}\", number.to_bits()), \"exact\": exact});",
+  "javascript": "const [number, exact] = Decimal.new_from_string(\"0.1\").float32();\nconst view = new DataView(new ArrayBuffer(8));\nview.setFloat32(0, number);\nconst value = { bits: view.getUint32(0).toString(16).padStart(8, \"0\"), exact };",
+  "expected": {
+    "bits": "3dcccccd",
+    "exact": false
+  }
+}

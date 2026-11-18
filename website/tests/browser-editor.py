@@ -83,7 +83,8 @@ with tempfile.TemporaryDirectory(prefix='decimal-editor-') as temp:
         assert 'Stopped' in js('return document.querySelector(".pg-status").textContent')
         click('reset');click('run');until(lambda:'37050' in output());until(finished)
         print('Stop, reset and recovery passed',flush=True)
-        import_source('Decimal.')
+        # Completion lists are virtualized; filter before asserting a row is rendered.
+        import_source('Decimal.new_from_s')
         js('(document.querySelector(".monaco-editor .native-edit-context")||document.querySelector(".monaco-editor textarea.inputarea")).focus()')
         keys=[{'type':'keyDown','value':'\ue010'},{'type':'keyUp','value':'\ue010'},{'type':'keyDown','value':'\ue009'},{'type':'keyDown','value':' '},{'type':'keyUp','value':' '},{'type':'keyUp','value':'\ue009'}]
         call(f'/session/{session}/actions',{'actions':[{'type':'key','id':'keyboard','actions':keys}]})
@@ -94,6 +95,11 @@ with tempfile.TemporaryDirectory(prefix='decimal-editor-') as temp:
         call(f'/session/{session}/actions',{'actions':[{'type':'key','id':'keyboard','actions':keys}]})
         until(lambda:js('return document.querySelector(".suggest-widget")?.textContent.includes("between")'))
         print('Free helper completion passed',flush=True)
+        import_source('most_signif')
+        js('(document.querySelector(".monaco-editor .native-edit-context")||document.querySelector(".monaco-editor textarea.inputarea")).focus()')
+        call(f'/session/{session}/actions',{'actions':[{'type':'key','id':'keyboard','actions':keys}]})
+        until(lambda:js('return document.querySelector(".suggest-widget")?.textContent.includes("most_significant_bit")'))
+        print('Conversion helper completion passed',flush=True)
         import_source('Decimal.new_from_string(')
         js('(document.querySelector(".monaco-editor .native-edit-context")||document.querySelector(".monaco-editor textarea.inputarea")).focus()')
         modifier='\ue03d' if sys.platform=='darwin' else '\ue009'

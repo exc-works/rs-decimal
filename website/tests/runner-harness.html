@@ -185,6 +185,10 @@
         result = await client.run('assert(Decimal.new(2n).add(Decimal.new(3n)).string() === "5");');
         assert(result.type === "done", "fresh arithmetic run after panic");
         checks.push("negative requirement panic and arithmetic recovery");
+        out = [];
+        result = await client.run('assert(most_significant_bit(120n) === 6); print(Decimal.new_from_string("-1e-1000").float64()); print(Decimal.new_from_string("1e1000").float32()); print(NaN);', { onOutput: x => out.push(JSON.parse(x)) });
+        assert(result.type === "done" && out[0][0].value === "-0" && out[0][0].bits === "8000000000000000" && out[0][1] === false && out[1][0].value === "Infinity" && out[1][1] === false && out[2].value === "NaN", "special floats and exactness survive output transport");
+        checks.push("float output bits and conversion helper");
         window.testResult = { ok: true, checks };
       } catch (error) {
         window.testResult = {
