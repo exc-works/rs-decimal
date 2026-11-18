@@ -10,6 +10,7 @@ mod log_exp;
 mod ownership;
 mod roots;
 mod rounding;
+mod text_json;
 use rs_decimal::{Decimal as CoreDecimal, DecimalError, RoundingMode};
 use wasm_bindgen::prelude::*;
 
@@ -290,8 +291,8 @@ pub fn metadata() -> Result<String, JsValue> {
         "bridge_schema": 1,
         "commit": option_env!("DECIMAL_BUILD_COMMIT").unwrap_or("development"),
         "target": "wasm32-unknown-unknown",
-        "features": [],
-        "stage": "WEB-04 resource policy",
+        "features": ["json"],
+        "stage": "preview",
         "limits": {"input_bytes": limits::INPUT_BYTES,"input_digits": limits::INPUT_DIGITS,"coefficient_bits": limits::COEFFICIENT_BITS,"scale": limits::SCALE,"buffer_bytes": limits::BUFFER_BYTES,"operations": limits::OPERATIONS}
     })
     .to_string())

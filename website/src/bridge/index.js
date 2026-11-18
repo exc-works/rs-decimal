@@ -39,6 +39,16 @@ function bigText(value) {
   return value.toString();
 }
 
+function inputBytes(bytes) {
+  requireType(bytes instanceof Uint8Array, 'bytes must be Uint8Array');
+  resource(bytes.byteLength <= 8192, 'playground decoder input exceeds 8192 bytes');
+  return bytes;
+}
+function inputText(text) {
+  requireType(typeof text === 'string', 'param must be a string');
+  resource(text.length <= 8192, 'playground decoder input exceeds the input budget');
+  return text;
+}
 function scalarText(value) {
   requireType(typeof value === 'string' && (value.length === 1 || (value.length === 2 && value.codePointAt(0) > 0xffff)) && !(value.codePointAt(0) >= 0xd800 && value.codePointAt(0) <= 0xdfff), 'expected one Unicode scalar value');
   return value;
@@ -205,6 +215,11 @@ export function createBridge(raw) {
     log10_with_prec(prec) { return wrap(Decimal, borrow(this, Decimal).log10_with_prec(integer(prec, "prec"))); }
     exp() { return wrap(Decimal, borrow(this, Decimal).exp()); }
     exp_with_prec(prec) { return wrap(Decimal, borrow(this, Decimal).exp_with_prec(integer(prec, "prec"))); }
+    marshal_text() { return borrow(this, Decimal).marshal_text(); }
+    unmarshal_text(bytes) { borrow(this, Decimal).unmarshal_text(inputBytes(bytes)); }
+    marshal_json() { return borrow(this, Decimal).marshal_json(); }
+    unmarshal_json(bytes) { borrow(this, Decimal).unmarshal_json(inputBytes(bytes)); }
+    unmarshal_param(param) { borrow(this, Decimal).unmarshal_param(inputText(param)); }
     mul_exact(other) {
       return wrap(Decimal, borrow(this, Decimal).mul_exact(borrow(other, Decimal)));
     }
@@ -234,6 +249,12 @@ export function createBridge(raw) {
   class NullDecimal extends Handle {
     static new(decimal) { return wrap(NullDecimal, raw.NullDecimal.new(take(decimal, Decimal))); }
     static default() { return wrap(NullDecimal, raw.NullDecimal.default()); }
+    marshal_text() { return borrow(this, NullDecimal).marshal_text(); }
+    unmarshal_text(bytes) { borrow(this, NullDecimal).unmarshal_text(inputBytes(bytes)); }
+    marshal_json() { return borrow(this, NullDecimal).marshal_json(); }
+    unmarshal_json(bytes) { borrow(this, NullDecimal).unmarshal_json(inputBytes(bytes)); }
+    unmarshal_param(param) { borrow(this, NullDecimal).unmarshal_param(inputText(param)); }
+    string() { return borrow(this, NullDecimal).string(); }
     get valid() { return borrow(this, NullDecimal).valid; }
     set valid(value) {
       requireType(typeof value === 'boolean', 'valid must be boolean');

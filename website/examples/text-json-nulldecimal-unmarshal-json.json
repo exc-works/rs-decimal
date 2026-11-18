@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "text-json-nulldecimal-unmarshal-json",
+  "api_ids": [
+    "NullDecimal::unmarshal_json"
+  ],
+  "rust": "let mut value = NullDecimal::new(Decimal::new(9));\nvalue.unmarshal_json(b\"null\")?;",
+  "javascript": "const value = NullDecimal.new(Decimal.new(9n));\nvalue.unmarshal_json(new TextEncoder().encode(\"null\"));",
+  "expected": {
+    "valid": false,
+    "decimal": {
+      "coefficient": "0",
+      "scale": "0",
+      "initialized": false
+    }
+  }
+}

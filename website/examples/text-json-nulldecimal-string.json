@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "text-json-nulldecimal-string",
+  "api_ids": [
+    "NullDecimal::string"
+  ],
+  "rust": "let value = serde_json::json!({\"value\": NullDecimal::default().string()});",
+  "javascript": "const value = { value: NullDecimal.default().string() };",
+  "expected": {
+    "value": "null"
+  }
+}

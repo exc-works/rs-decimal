@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "text-json-nulldecimal-impl-std-fmt-display",
+  "api_ids": [
+    "NullDecimal::impl std :: fmt :: Display"
+  ],
+  "rust": "let input = NullDecimal::new(Decimal::new_from_string(\"1.2300\")?);\nlet value = serde_json::json!({\"value\": format!(\"{input}\")});",
+  "javascript": "",
+  "expected": {
+    "value": "1.23"
+  }
+}

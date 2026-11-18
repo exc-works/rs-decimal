@@ -81,6 +81,11 @@ export interface Decimal {
   log10_with_prec(prec: number): Decimal;
   exp(): Decimal;
   exp_with_prec(prec: number): Decimal;
+  marshal_text(): Uint8Array;
+  marshal_json(): Uint8Array;
+  unmarshal_text(bytes: Uint8Array): void;
+  unmarshal_json(bytes: Uint8Array): void;
+  unmarshal_param(param: string): void;
   mul_exact(other: Decimal): Decimal;
   ceil(): Decimal;
   floor(): Decimal;
@@ -100,6 +105,13 @@ export interface Decimal {
   free(): void;
 }
 export interface NullDecimal {
+  string(): string;
+  marshal_text(): Uint8Array;
+  marshal_json(): Uint8Array;
+  unmarshal_text(bytes: Uint8Array): void;
+  unmarshal_json(bytes: Uint8Array): void;
+  unmarshal_param(param: string): void;
+
   valid: boolean;
   /** Explicit copy, not a live reference to the nullable field. */
   get_decimal_clone(): Decimal;

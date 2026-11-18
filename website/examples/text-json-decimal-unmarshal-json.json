@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "text-json-decimal-unmarshal-json",
+  "api_ids": [
+    "Decimal::unmarshal_json"
+  ],
+  "rust": "let mut value = Decimal::new(9);\nvalue.unmarshal_json(b\"9007199254740993.2500\")?;",
+  "javascript": "const value = Decimal.new(9n);\nvalue.unmarshal_json(new TextEncoder().encode(\"9007199254740993.2500\"));",
+  "expected": {
+    "coefficient": "90071992547409932500",
+    "scale": "4",
+    "initialized": true,
+    "string": "9007199254740993.25",
+    "string_with_trailing_zeros": "9007199254740993.2500"
+  }
+}

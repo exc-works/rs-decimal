@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "text-json-decimal-marshal-json",
+  "api_ids": [
+    "Decimal::marshal_json"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"12.3400\")?;\nlet value = serde_json::json!({\"bytes\": input.marshal_json()});",
+  "javascript": "const input = Decimal.new_from_string(\"12.3400\");\nconst value = { bytes: Array.from(input.marshal_json()) };",
+  "expected": {
+    "bytes": [
+      34,
+      49,
+      50,
+      46,
+      51,
+      52,
+      34
+    ]
+  }
+}

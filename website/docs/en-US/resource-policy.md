@@ -18,6 +18,9 @@ results within these limits remain unchanged. The core crate is not modified.
 | Built Wasm linear memory maximum | 64 MiB |
 
 Input scale and positive exponent expansion are checked before Rust parsing.
+Text/parameter/JSON decoders cap source bytes at 8192 and check decoded decimal
+text before mutation, including JSON escapes. Original JSON numeric bytes stay
+exact; the browser never parses them through JavaScript numbers.
 Exact products check the sum of scales; rounded products check the output scale.
 Both bound intermediate coefficient bits before multiplying. Addition/subtraction
 check scale-alignment growth and a carry; division checks numerator or denominator
