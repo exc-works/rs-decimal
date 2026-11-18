@@ -47,6 +47,7 @@ declare global {
   const min: Bridge["min"];
   const max: Bridge["max"];
   const between: Bridge["between"];
+  const COMPATIBILITY_REVISION: Bridge["COMPATIBILITY_REVISION"];
   function print(value: unknown): void;
   function show(value: unknown): void;
   function assert(condition: unknown, message?: string): asserts condition;

@@ -36,7 +36,7 @@ test('source edits, missing locales and incomplete labels fail closed', async ()
 });
 
 test('method revisions and API identities cannot silently drift', async () => {
-  assert.equal(await checkMethodTranslations(), 40);
+  assert.equal(await checkMethodTranslations(), 73);
   const dir = await mkdtemp(join(tmpdir(), 'decimal-method-i18n-'));
   const root = pathToFileURL(dir + '/');
   const body = '# Decimal::new\n\nCreates an integer.\n';
@@ -47,6 +47,10 @@ test('method revisions and API identities cannot silently drift', async () => {
     for (const locale of ['en-US','zh-Hans']) {
       await mkdir(new URL(`docs/${locale}/api/`, root), {recursive:true});
       await writeFile(new URL(`docs/${locale}/api/decimal-new.md`, root), `---\nlocale: ${locale}\nsource_revision: ${hash}\napi_id: Decimal::new\n---\n${body}`);
+    }
+    assert.equal(await checkMethodTranslations(root), 1);
+    for (const locale of ['en-US','zh-Hans']) {
+      await writeFile(new URL(`docs/${locale}/api/decimal-new.md`, root), `---\nlocale: ${locale}\nsource_revision: ${hash}\napi_id: "Decimal::new"\n---\n${body}`);
     }
     assert.equal(await checkMethodTranslations(root), 1);
     await assert.rejects(checkMethodTranslations(root, true), /ENOENT/);

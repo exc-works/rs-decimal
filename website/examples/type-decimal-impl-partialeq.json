@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "type-decimal-impl-partialeq",
+  "api_ids": [
+    "Decimal::impl PartialEq"
+  ],
+  "rust": "let left = Decimal::new_from_string(\"12.00\")?;\nlet right = Decimal::new_from_string(\"12.0\")?;\nlet value = serde_json::json!({\"value\": PartialEq::eq(&left, &right)});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

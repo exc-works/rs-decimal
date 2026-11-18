@@ -124,6 +124,7 @@ self.onmessage = async ({ data, ports }) => {
       "min",
       "max",
       "between",
+      "COMPATIBILITY_REVISION",
       "print",
       "show",
       "assert",
@@ -141,6 +142,7 @@ self.onmessage = async ({ data, ports }) => {
       bridge.min,
       bridge.max,
       bridge.between,
+      bridge.COMPATIBILITY_REVISION,
       print,
       print,
       (condition, message = "Assertion failed") => {

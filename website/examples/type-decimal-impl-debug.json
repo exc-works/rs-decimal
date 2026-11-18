@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "type-decimal-impl-debug",
+  "api_ids": [
+    "Decimal::impl Debug"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"12.00\")?;\nlet value = serde_json::json!({\"type_label\": format!(\"{input:?}\").starts_with(\"Decimal {\")});",
+  "javascript": "",
+  "expected": {
+    "type_label": true
+  }
+}

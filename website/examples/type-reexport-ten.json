@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "type-reexport-ten",
+  "api_ids": [
+    "reexport::ten"
+  ],
+  "rust": "use rs_decimal::ten;\nlet value = ten();",
+  "javascript": "",
+  "expected": {
+    "coefficient": "10",
+    "scale": "0",
+    "initialized": true,
+    "string": "10",
+    "string_with_trailing_zeros": "10"
+  }
+}

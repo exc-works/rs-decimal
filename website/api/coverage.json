@@ -2,24 +2,38 @@
   {
     "id": "COMPATIBILITY_REVISION",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "compatibility-revision",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "COMPATIBILITY_REVISION: string",
+    "examples": [
+      "type-compatibility-revision"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "decimal",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal: named-constructor handle",
+    "examples": [
+      "type-decimal"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::abs",
@@ -403,24 +417,38 @@
   {
     "id": "Decimal::impl Clone",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "decimal-impl-clone",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-decimal-impl-clone"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl Debug",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "decimal-impl-debug",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-decimal-impl-debug"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl Decode < 'r , Postgres >",
@@ -447,13 +475,20 @@
   {
     "id": "Decimal::impl Default",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "decimal-impl-default",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-decimal-impl-default"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl Deserialize < 'de >",
@@ -502,13 +537,20 @@
   {
     "id": "Decimal::impl Eq",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "decimal-impl-eq",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-decimal-impl-eq"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl From < BigInt >",
@@ -667,35 +709,56 @@
   {
     "id": "Decimal::impl FromStr",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "decimal-impl-fromstr",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-decimal-impl-fromstr"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl FromStr::Err",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-07d",
     "doc_id": "decimal-impl-fromstr-err",
     "reason": "Rust trait associated type or constant; documented with the corresponding trait implementation.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-decimal-impl-fromstr-err"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl FromStr::from_str",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "decimal-impl-fromstr-from-str",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-decimal-impl-fromstr-from-str"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl Neg",
@@ -733,68 +796,110 @@
   {
     "id": "Decimal::impl Ord",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "decimal-impl-ord",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-decimal-impl-ord"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl Ord::cmp",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "decimal-impl-ord-cmp",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-decimal-impl-ord-cmp"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl PartialEq",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "decimal-impl-partialeq",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-decimal-impl-partialeq"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl PartialEq::eq",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "decimal-impl-partialeq-eq",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-decimal-impl-partialeq-eq"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl PartialOrd",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "decimal-impl-partialord",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-decimal-impl-partialord"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl PartialOrd::partial_cmp",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "decimal-impl-partialord-partial-cmp",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-decimal-impl-partialord-partial-cmp"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl PgHasArrayType",
@@ -909,24 +1014,38 @@
   {
     "id": "Decimal::impl fmt :: Display",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "decimal-impl-fmt-display",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-decimal-impl-fmt-display"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl fmt :: Display::fmt",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "decimal-impl-fmt-display-fmt",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-decimal-impl-fmt-display-fmt"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::int64",
@@ -2632,57 +2751,92 @@
   {
     "id": "NullDecimal",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "nulldecimal",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal: nullable handle",
+    "examples": [
+      "type-nulldecimal"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal.decimal",
     "disposition": "adapter",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "nulldecimal-decimal",
     "reason": "Explicit inner-value access policy; do not present a cloned getter as a live mutable borrow.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.get_decimal_clone(): Decimal; set_decimal(value: Decimal): void",
+    "examples": [
+      "type-nulldecimal-decimal"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal.valid",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "nulldecimal-valid",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.valid: boolean",
+    "examples": [
+      "type-nulldecimal-valid"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::impl Clone",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "nulldecimal-impl-clone",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-nulldecimal-impl-clone"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::impl Debug",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "nulldecimal-impl-debug",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-nulldecimal-impl-debug"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::impl Decode < 'r , Postgres >",
@@ -2709,13 +2863,20 @@
   {
     "id": "NullDecimal::impl Default",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "nulldecimal-impl-default",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-nulldecimal-impl-default"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::impl Deserialize < 'de >",
@@ -2929,13 +3090,20 @@
   {
     "id": "NullDecimal::new",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "nulldecimal-new",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.new(decimal: Decimal): NullDecimal",
+    "examples": [
+      "type-nulldecimal-new"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::scan",
@@ -3389,7 +3557,7 @@
     "id": "config",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07d",
+    "owner": "WEB-13b",
     "doc_id": "config",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3696,7 +3864,7 @@
     "id": "reexport::BigInt",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07d",
+    "owner": "WEB-10a",
     "doc_id": "reexport-bigint",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3707,7 +3875,7 @@
     "id": "reexport::BigRational",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07d",
+    "owner": "WEB-10a",
     "doc_id": "reexport-bigrational",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3717,19 +3885,26 @@
   {
     "id": "reexport::Decimal",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "reexport-decimal",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-reexport-decimal"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::DecimalError",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07d",
+    "owner": "WEB-13a",
     "doc_id": "reexport-decimalerror",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3740,7 +3915,7 @@
     "id": "reexport::ErrorKind",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07d",
+    "owner": "WEB-13a",
     "doc_id": "reexport-errorkind",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3751,7 +3926,7 @@
     "id": "reexport::GoFormat",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07d",
+    "owner": "WEB-10b",
     "doc_id": "reexport-goformat",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3761,19 +3936,26 @@
   {
     "id": "reexport::NullDecimal",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "reexport-nulldecimal",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-reexport-nulldecimal"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::PRECISION_FIXED_SIZE",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07d",
+    "owner": "WEB-12b",
     "doc_id": "reexport-precision-fixed-size",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3784,7 +3966,7 @@
     "id": "reexport::RoundingMode",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07d",
+    "owner": "WEB-08",
     "doc_id": "reexport-roundingmode",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3795,7 +3977,7 @@
     "id": "reexport::ScanValue",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07d",
+    "owner": "WEB-13a",
     "doc_id": "reexport-scanvalue",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3805,52 +3987,80 @@
   {
     "id": "reexport::between",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "reexport-between",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-reexport-between"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::hundred",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "reexport-hundred",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-reexport-hundred"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::max",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "reexport-max",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-reexport-max"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::min",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "reexport-min",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-reexport-min"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::most_significant_bit",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07d",
+    "owner": "WEB-10a",
     "doc_id": "reexport-most-significant-bit",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
@@ -3860,24 +4070,38 @@
   {
     "id": "reexport::one",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "reexport-one",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-reexport-one"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::ten",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "reexport-ten",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-reexport-ten"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::validation::default_validation_messages",
@@ -3893,13 +4117,20 @@
   {
     "id": "reexport::zero",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-07d",
     "doc_id": "reexport-zero",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "type-reexport-zero"
+    ],
+    "tests": [
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/types.test.mjs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ten",
@@ -3924,7 +4155,7 @@
     "id": "validation",
     "disposition": "rust-only",
     "status": "planned",
-    "owner": "WEB-07d",
+    "owner": "WEB-13a",
     "doc_id": "validation",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,

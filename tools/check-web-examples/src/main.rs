@@ -1,10 +1,15 @@
-use rs_decimal::{BigInt, Decimal};
+use rs_decimal::{BigInt, Decimal, NullDecimal};
 trait ExampleState {
     fn state(&self) -> serde_json::Value;
 }
 impl ExampleState for Decimal {
     fn state(&self) -> serde_json::Value {
         serde_json::json!({"coefficient":self.coefficient().to_string(),"scale":self.scale().to_string(),"initialized":!self.is_nil(),"string":self.string(),"string_with_trailing_zeros":self.string_with_trailing_zeros()})
+    }
+}
+impl ExampleState for NullDecimal {
+    fn state(&self) -> serde_json::Value {
+        serde_json::json!({"valid": self.valid, "decimal": {"coefficient":self.decimal.coefficient().to_string(), "scale":self.decimal.scale().to_string(), "initialized":!self.decimal.is_nil()}})
     }
 }
 impl ExampleState for serde_json::Value {

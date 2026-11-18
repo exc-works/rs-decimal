@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "type-decimal-impl-fromstr-from-str",
+  "api_ids": [
+    "Decimal::impl FromStr::from_str"
+  ],
+  "rust": "let value: Decimal = \"12.00\".parse()?;",
+  "javascript": "",
+  "expected": {
+    "coefficient": "1200",
+    "scale": "2",
+    "initialized": true,
+    "string": "12",
+    "string_with_trailing_zeros": "12.00"
+  }
+}

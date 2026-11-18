@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "type-nulldecimal-impl-default",
+  "api_ids": [
+    "NullDecimal::impl Default"
+  ],
+  "rust": "let value: NullDecimal = Default::default();",
+  "javascript": "",
+  "expected": {
+    "valid": false,
+    "decimal": {
+      "coefficient": "0",
+      "scale": "0",
+      "initialized": false
+    }
+  }
+}

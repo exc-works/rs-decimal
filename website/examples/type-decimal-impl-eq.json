@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "type-decimal-impl-eq",
+  "api_ids": [
+    "Decimal::impl Eq"
+  ],
+  "rust": "fn require_eq<T: Eq>(_: &T) {}\nlet input = Decimal::default();\nrequire_eq(&input);\nlet value = serde_json::json!({\"value\": input == Decimal::new(0)});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

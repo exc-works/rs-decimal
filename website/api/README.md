@@ -78,3 +78,9 @@ and result, so translations cannot change executable code independently.
 en-US/zh-Hans method source hashes. `node scripts/check-i18n.mjs --release`
 requires current method pages in all eight locales. Preview catalog links
 explicitly label the English reference when a method translation is still pending.
+
+Rust-only trait/import examples use an empty JavaScript source and must cover
+only `rust-only` dispositions. The native harness still executes them; Node and
+browser reports explicitly list them as native-only, never as browser passes.
+Scalar observations use a `value` field; nullable snapshots retain both validity
+and the complete inner state, including an invalid nullable's hidden value.

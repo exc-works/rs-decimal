@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "type-nulldecimal-new",
+  "api_ids": [
+    "NullDecimal::new"
+  ],
+  "rust": "let value = NullDecimal::new(Decimal::default());",
+  "javascript": "const value = NullDecimal.new(Decimal.default());",
+  "expected": {
+    "valid": true,
+    "decimal": {
+      "coefficient": "0",
+      "scale": "0",
+      "initialized": false
+    }
+  }
+}

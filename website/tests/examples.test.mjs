@@ -10,8 +10,13 @@ test('example index includes every fixture once', async () => {
   const files=(await readdir(new URL('../examples/',import.meta.url))).filter(x=>x.endsWith('.json')&&x!=='index.json').map(x=>x.slice(0,-5)).sort();
   assert.deepEqual([...ids].sort(),files);
 });
-for(const id of ids)test(`paired documentation example: ${id}`,async()=>{
+const coverage=JSON.parse(await readFile(new URL('../api/coverage.json',import.meta.url),'utf8'));
+for(const id of ids){
   const example=JSON.parse(await readFile(new URL(`../examples/${id}.json`,import.meta.url),'utf8'));
-  const value=new Function(...Object.keys(bridge),example.javascript+'\nreturn value;')(...Object.values(bridge));
-  assert.deepEqual(value instanceof bridge.Decimal ? bridge.snapshot(value) : value,example.expected);value.free?.();
-});
+  const nativeOnly=!example.javascript.trim();
+  if(nativeOnly) assert.ok(example.api_ids.every(api=>coverage.find(row=>row.id===api)?.disposition==='rust-only'), `Missing JS for ${id}`);
+  test(`documentation example: ${id}`,{skip:nativeOnly?'Rust-only syntax; executed by native harness':false},()=>{
+    const value=new Function(...Object.keys(bridge),example.javascript+'\nreturn value;')(...Object.values(bridge));
+    assert.deepEqual(value instanceof bridge.Decimal || value instanceof bridge.NullDecimal ? bridge.snapshot(value) : value,example.expected);value.free?.();
+  });
+}

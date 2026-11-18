@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "type-nulldecimal-impl-clone",
+  "api_ids": [
+    "NullDecimal::impl Clone"
+  ],
+  "rust": "let mut input = NullDecimal::new(Decimal::new_from_string(\"12.00\")?);\ninput.valid = false;\nlet value = Clone::clone(&input);",
+  "javascript": "",
+  "expected": {
+    "valid": false,
+    "decimal": {
+      "coefficient": "1200",
+      "scale": "2",
+      "initialized": true
+    }
+  }
+}

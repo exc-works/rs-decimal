@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "type-reexport-decimal",
+  "api_ids": [
+    "reexport::Decimal"
+  ],
+  "rust": "use rs_decimal::Decimal;\nlet value = Decimal::new_from_string(\"12.00\")?;",
+  "javascript": "",
+  "expected": {
+    "coefficient": "1200",
+    "scale": "2",
+    "initialized": true,
+    "string": "12",
+    "string_with_trailing_zeros": "12.00"
+  }
+}

@@ -268,6 +268,13 @@ impl ByteBuffer {
     }
 }
 
+/// Original Go compatibility revision, not the web build commit.
+#[wasm_bindgen]
+pub fn compatibility_revision() -> Result<String, JsValue> {
+    tick()?;
+    Ok(rs_decimal::COMPATIBILITY_REVISION.to_owned())
+}
+
 /// Build metadata; commit is injected by the reproducible build script.
 #[wasm_bindgen]
 pub fn metadata() -> Result<String, JsValue> {

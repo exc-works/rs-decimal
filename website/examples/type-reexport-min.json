@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "type-reexport-min",
+  "api_ids": [
+    "reexport::min"
+  ],
+  "rust": "use rs_decimal::min;\nlet a = Decimal::new_from_string(\"12.00\")?;\nlet b = Decimal::new_from_string(\"12.0\")?;\nlet value = min(&a, &b);",
+  "javascript": "",
+  "expected": {
+    "coefficient": "1200",
+    "scale": "2",
+    "initialized": true,
+    "string": "12",
+    "string_with_trailing_zeros": "12.00"
+  }
+}
