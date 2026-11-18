@@ -118,6 +118,8 @@ self.onmessage = async ({ data, ports }) => {
       "RoundingMode",
       "snapshot",
       "print",
+      "show",
+      "assert",
       '"use strict";\n' + data.source,
     )(
       bridge.Decimal,
@@ -126,6 +128,13 @@ self.onmessage = async ({ data, ports }) => {
       bridge.RoundingMode,
       snapshot,
       print,
+      print,
+      (condition, message = "Assertion failed") => {
+        if (!condition)
+          throw Object.assign(new Error(String(message).slice(0, 8192)), {
+            category: "assertion",
+          });
+      },
     );
     send({ type: "done", runId });
   } catch (error) {
