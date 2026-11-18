@@ -66,7 +66,7 @@ bridge/resource guides are translated from en-US. The review follows the French
 glossary (échelle, décimales, chiffres significatifs, arrondi, initialisation),
 preserving sign/tie rules, state distinctions, borrowing/consumption, integer
 widths and error/resource boundaries. Shared examples and Rust identifiers are
-unchanged. Other French API groups remain pending and use explicit fallback.
+unchanged. Translation coverage is expanded by the groups recorded below.
 
 The French conversion/formatting/root/log-exp references (WEB-10a–b,
 WEB-11a–b; 47 additional entries) preserve exactness flags and IEEE edge cases,
@@ -81,3 +81,9 @@ French SQL scalar/error and validation/message references (WEB-13a-1–2;
 73 more entries) retain borrowed buffers, null state, multi-kind errors,
 constructed versus thrown errors, rule-specific initialization and literal
 message substitution. Rule tags, placeholders and runtime messages are unchanged.
+
+French config/Serde and native SQLx/trait references (WEB-13b-1–2; 72
+entries) complete all 355 methods. Review preserves borrowed input lifetime,
+exact raw JSON versus generic Serde behavior, integer bounds, initialization
+and validity, PostgreSQL representation and native execution requirements.
+The manifest uses `*` to cover future API groups as well.
