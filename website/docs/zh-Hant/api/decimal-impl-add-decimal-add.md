@@ -1,10 +1,31 @@
 ---
 locale: zh-Hant
+source_revision: 1971b01eebfee126fa34311f177b8627c3bfa706a598c61defac4fe50b57c54d
+translation_provenance: zh-Hans-terminology-reviewed
 api_id: "Decimal::impl Add < & Decimal >::add"
-translation_status: pending
 ---
 # Decimal::impl Add < & Decimal >::add
 
-本方法的繁體中文翻譯尚未完成。請參閱英文文件中的常規用法、參數、範例及注意事項。這個提示頁不計入翻譯完成度。
+使用借用式 Rust Add 語法。
 
-[英文參考文件](../../en-US/api/decimal-impl-add-decimal-add)
+```rust
+fn add (self , other : & Decimal) -> Decimal
+```
+
+## 常規用法與注意事項
+
+為 &Decimal 實現，運算元仍可使用。精確結果使用較大的運算元 scale，結果已初始化。關聯 Output 為 Decimal。允許負結果，不應用 safe_add/safe_sub 的非負結果要求。trait 委託同一核心具名方法。瀏覽器不多載 JavaScript 運算子，應呼叫 bridge 的 add/sub/neg。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="native-decimal-impl-add-decimal-add" locale="zh-Hant" />
+
+## 執行方式
+
+此條目是 Rust 原生 trait 語法，不提供同名 JavaScript 運算子或 SQLx 物件。 此範例由預設原生文件測試執行。
+
+## 相關方法
+
+[Decimal](./decimal) · [scan](./decimal-scan) · [new_from_string](./decimal-new-from-string)

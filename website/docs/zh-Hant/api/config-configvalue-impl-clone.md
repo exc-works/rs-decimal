@@ -1,10 +1,31 @@
 ---
 locale: zh-Hant
+source_revision: e777d7a0d2eada54e45b9094274df294b6fb9f6fd490746dfc2797aa8d3acb40
+translation_provenance: zh-Hans-terminology-reviewed
 api_id: "config::ConfigValue::impl Clone"
-translation_status: pending
 ---
 # config::ConfigValue::impl Clone
 
-本方法的繁體中文翻譯尚未完成。請參閱英文文件中的常規用法、參數、範例及注意事項。這個提示頁不計入翻譯完成度。
+使用原生 Clone 實現。
 
-[英文參考文件](../../en-US/api/config-configvalue-impl-clone)
+```rust
+impl Clone for config::ConfigValue
+```
+
+## 參數、回傳值及常規用法
+
+ConfigValue 是小型類型列舉。Clone/Copy 保留借用參照，不深拷貝參照目標。Debug 是診斷文字，不是穩定的傳輸格式。原生 Rust trait 語法單獨測試，不是瀏覽器方法。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="config-serde-config-configvalue-impl-clone" locale="zh-Hant" />
+
+## 瀏覽器邊界
+
+config 與 serde feature 已啟用。來源文字和位元組最多 8192 個 UTF-8 位元組；Rust 在解析前檢查小數文字和 JSON 解碼後的字串，因此跳脫不能繞過 [資源限制](../resource-policy)。128 位整數必須使用範圍內的 bigint。借用的 Decimal/NullDecimal 在解碼時必須仍有效，轉換生成獨立值，不消耗輸入。Serde 的通用 trait 語法由具體 JSON 適配器演示。
+
+## 相關方法
+
+[decode_decimal](./config-decode-decimal) · [decode_nullable](./config-decode-nullable) · [deserialize_json_decimal](./config-deserialize-json-decimal)
