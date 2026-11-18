@@ -1,0 +1,119 @@
+// Real engines, shipped response headers, shared Rust fixtures and production UI.
+import assert from 'node:assert/strict';
+import { createServer } from 'node:http';
+import { readFile, stat, mkdir, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import { resolve, extname, sep } from 'node:path';
+import { chromium, firefox, webkit } from 'playwright';
+
+const root = resolve(fileURLToPath(new URL('../', import.meta.url)));
+const manifest = JSON.parse(await readFile(resolve(root, 'runner-dist/manifest.json'), 'utf8'));
+const headers = JSON.parse(await readFile(resolve(root, 'runner-dist/headers.json'), 'utf8'));
+const probes = [];
+const servers = [];
+const report = [];
+const mime = {'.html':'text/html', '.js':'text/javascript', '.mjs':'text/javascript', '.json':'application/json', '.css':'text/css', '.wasm':'application/wasm', '.svg':'image/svg+xml', '.woff2':'font/woff2'};
+async function serve(port) {
+  const server = createServer(async (req, res) => {
+    try {
+      const path = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+      if (path.startsWith('/probe')) probes.push(port);
+      let directory = port === 4210 ? root : resolve(root, 'runner-dist');
+      let relative = path;
+      if (port === 4210 && path.startsWith('/rs-decimal/')) {
+        directory = resolve(root, 'docs/.vitepress/dist'); relative = path.slice('/rs-decimal'.length);
+      } else if (port === 4210 && path === '/runner-manifest.json') relative = '/runner-dist/manifest.json';
+      let file = resolve(directory, '.' + relative);
+      if (file !== directory && !file.startsWith(directory + sep)) throw Error('Invalid path');
+      if ((await stat(file)).isDirectory()) file = resolve(file, 'index.html');
+      const data = await readFile(file);
+      res.writeHead(200, {'Content-Type': mime[extname(file)] || 'application/octet-stream',
+        ...(port === 4211 ? {...headers['/*'], ...headers[path]} : {})});
+      res.end(data);
+    } catch { res.writeHead(404); res.end('Not found'); }
+  });
+  await new Promise((done, reject) => { server.once('error', reject); server.listen(port, '127.0.0.1', done); });
+  servers.push(server);
+}
+const origin = 'http://127.0.0.1:4210';
+try {
+  for (const port of [4210,4211,4212]) await serve(port);
+  for (const [name, engine] of Object.entries({chromium, firefox, webkit})) {
+    console.log(`${name}: launching browser`);
+    const browser = await engine.launch(name === 'chromium' ? {chromiumSandbox: process.platform !== 'linux'} : {});
+    const context = await browser.newContext({viewport: {width: 1440, height: 1000}});
+    const page = await context.newPage();
+    page.setDefaultTimeout(30000);
+    const failures = [];
+    page.on('pageerror', error => { failures.push(error.message); console.error(`${name}: ${error.message}`); });
+    try {
+      const firstProbe = probes.length;
+      const results = {};
+      for (const harness of ['runner', 'examples']) {
+        console.log(`${name}: opening ${harness} harness`);
+        const response = await page.goto(`${origin}/tests/${harness}-harness.html`);
+        assert.equal(response.status(), 200, `${harness} harness route`);
+        await page.waitForFunction(() => window.testResult, null, {timeout: 120000});
+        const result = await page.evaluate(() => window.testResult);
+        assert.equal(result.ok, true, JSON.stringify(result));
+        results[harness] = result.checks.length;
+        console.log(`${name}: ${harness} ${result.checks.length} checks passed`);
+      }
+      assert(!probes.slice(firstProbe).includes(4211), `${name}: protected runner received network probe`);
+      assert(probes.slice(firstProbe).includes(4212), `${name}: missing-header control was not exercised`);
+      for (const locale of ['en-US','en-GB','zh-Hans','zh-Hant','fr','ko','ja','de']) {
+        const response = await page.goto(`${origin}/rs-decimal/${locale}/api/decimal-new.html`);
+        assert.equal(response.status(), 200);
+        await page.locator('[data-parameter="0"]').waitFor();
+        assert.equal(await page.locator('html').getAttribute('lang'), locale);
+      }
+      await page.goto(`${origin}/rs-decimal/en-US/api/decimal-new.html`);
+      await page.locator('[data-parameter="0"]').fill('9007199254740993');
+      await page.locator('[data-action=open-example]').click();
+      const ready = () => page.waitForFunction(() => document.querySelector('.playground')?.dataset.editorReady === 'true');
+      const output = page.locator('.pg-output');
+      await ready();
+      assert.equal((await output.textContent()).trim(), '', 'handoff must not run');
+      await page.locator('[data-action=run]').click();
+      await page.waitForFunction(() => document.querySelector('.pg-output')?.textContent.includes('9007199254740993'));
+      await page.waitForFunction(() => document.querySelector('[data-action=stop]').disabled);
+      await page.locator('[data-action=share]').click();
+      const link = await page.locator('[data-share-link]').inputValue();
+      assert(link.includes('#share='));
+      await page.goto(link);
+      await ready();
+      assert.equal((await output.textContent()).trim(), '', 'share must not run');
+      assert.equal(new URL(page.url()).hash, '');
+      await page.locator('[data-action=run]').click();
+      await page.waitForFunction(() => document.querySelector('.pg-output')?.textContent.includes('9007199254740993'));
+      await page.waitForFunction(() => document.querySelector('[data-action=stop]').disabled);
+      const source = 'show("<img src=x onerror=alert(1)>");';
+      await page.locator('input[type=file]').setInputFiles({name:'input.js',mimeType:'text/javascript',buffer:Buffer.from(source)});
+      await page.waitForFunction(() => document.querySelector('.pg-status')?.textContent.includes('Ready'));
+      assert.equal((await output.textContent()).trim(), '');
+      await page.locator('[data-action=run]').click();
+      await page.waitForFunction(() => document.querySelector('.pg-output')?.textContent.includes('<img'));
+      assert.equal(await page.locator('.pg-output img').count(), 0);
+      await page.waitForFunction(() => document.querySelector('[data-action=stop]').disabled);
+      const downloadEvent = page.waitForEvent('download');
+      await page.locator('[data-action=export]').click();
+      const download = await downloadEvent;
+      assert.equal(await readFile(await download.path(), 'utf8'), source);
+      await page.reload(); await ready();
+      assert((await output.textContent()).includes('<img'), 'restore saved output without running');
+      await page.setViewportSize({width:390,height:844});
+      await page.waitForFunction(() => document.documentElement.scrollWidth <= innerWidth);
+      assert.deepEqual(failures, [], `${name}: uncaught page errors`);
+      report.push({commit: manifest.commit, engine: name, version: browser.version(), ...results, locales: 8,
+        editor: ['exact bigint form','no auto-run','share','import/export','escaped output','draft restoration','mobile']});
+      console.log(`${name}: eight locales and production editor passed`);
+    } finally { await context.close(); await browser.close(); }
+  }
+  await mkdir(resolve(root, '../.cache'), {recursive: true});
+  await writeFile(resolve(root, '../.cache/browser-engines.json'), JSON.stringify(report, null, 2) + '\n');
+} finally {
+  for (const server of servers) {
+    server.closeAllConnections();
+    await new Promise(done => server.close(done));
+  }
+}

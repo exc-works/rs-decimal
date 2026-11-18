@@ -1,13 +1,13 @@
 ---
 locale: en-GB
-source_revision: 9f376f88292b784405cd8c5e4e7a7f31d260a4f0846b5f7c8a8ff037b5c86e7e
+source_revision: 488c73aeed11f4d4204611d9ca618092887b313db91626b2511bfebe1bb48beb
 ---
 # Exact values. Explicit behaviour.
 
 rs-decimal preserves decimal coefficients, scale and initialisation state. Explore ordinary usage first, then inspect rounding, trailing zeros and error behaviour.
 
-::: info Documentation preview
-The multilingual website is under construction. The API catalogue shows planned and implemented coverage explicitly. A locale shell does not mean every method has been translated or made executable.
+::: info Explore the library
+All 355 API entries have documentation in eight languages. Method pages explain ordinary usage and caveats, with shared Rust examples. Browser-supported methods run through the Rust/Wasm bridge; native-only integrations are explicitly labelled.
 :::
 
 [Start with exact input](./guide) · [Browse Rust APIs](./api/) · [Read the glossary](./glossary)

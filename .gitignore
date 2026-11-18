@@ -9,3 +9,5 @@ __pycache__/
 /website/public/wasm/
 
 /website/runner-dist/
+
+/website/release-dist/

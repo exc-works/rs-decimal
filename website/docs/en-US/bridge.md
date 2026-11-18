@@ -1,3 +1,7 @@
+---
+locale: en-US
+source_revision: bc4fe0d7f63ebbaad6f009ea77ae93eee10d61514aa0fcf8907740ea4397dc70
+---
 # Calling Rust methods in the browser
 
 The playground runs JavaScript that calls the Rust library compiled to Wasm.

@@ -1,3 +1,7 @@
+---
+locale: zh-Hans
+source_revision: bc4fe0d7f63ebbaad6f009ea77ae93eee10d61514aa0fcf8907740ea4397dc70
+---
 # 在浏览器中调用 Rust 方法
 
 Playground 使用 JavaScript 调用编译为 Wasm 的 Rust 库。方法名、参数顺序、
