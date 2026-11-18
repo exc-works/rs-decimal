@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "validation-validation-validationmessages-new",
+  "api_ids": [
+    "validation::ValidationMessages::new"
+  ],
+  "rust": "use rs_decimal::validation::{ValidationRule, ValidationMessages};\nlet error = ValidationRule::parse(\"decimal_required\", \"\")?.validate(\"amount\", &Decimal::default()).unwrap_err();\nlet value = serde_json::json!({\"messages\": ValidationMessages::new(\"zh-Hant\").translate(&[error])});",
+  "javascript": "const errors = validation.validate_decimal(\"amount\", Decimal.default(), [validation.ValidationRule.parse(\"decimal_required\", \"\")]);\nconst value = { messages: validation.ValidationMessages.new(\"zh-Hant\").translate(errors) };",
+  "expected": {
+    "messages": [
+      "amount為必填項"
+    ]
+  }
+}

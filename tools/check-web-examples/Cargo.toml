@@ -6,7 +6,7 @@ rust-version = "1.85"
 publish = false
 
 [dependencies]
-rs-decimal = { path = "../..", default-features = false, features = ["bson", "json", "xml", "yaml"] }
+rs-decimal = { path = "../..", default-features = false, features = ["bson", "json", "validation", "xml", "yaml"] }
 serde_json = "=1.0.145"
 
 [build-dependencies]

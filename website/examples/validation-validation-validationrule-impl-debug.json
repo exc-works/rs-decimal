@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "validation-validation-validationrule-impl-debug",
+  "api_ids": [
+    "validation::ValidationRule::impl Debug"
+  ],
+  "rust": "use rs_decimal::validation::{ValidationRule};\nlet input = ValidationRule::parse(\"decimal_required\", \"\")?;\nlet value = serde_json::json!({\"value\": !format!(\"{input:?}\").is_empty()});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

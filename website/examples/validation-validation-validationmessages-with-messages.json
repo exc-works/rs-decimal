@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "validation-validation-validationmessages-with-messages",
+  "api_ids": [
+    "validation::ValidationMessages::with_messages"
+  ],
+  "rust": "use rs_decimal::validation::{ValidationRule, ValidationMessages};\nlet messages = ValidationMessages::with_messages(std::collections::BTreeMap::from([(\"decimal_required\".into(), \"Required: {0}\".into())]))?;\nlet error = ValidationRule::parse(\"decimal_required\", \"\")?.validate(\"amount{1}\", &Decimal::default()).unwrap_err();\nlet value = serde_json::json!({\"messages\": messages.translate(&[error])});",
+  "javascript": "const messages = validation.ValidationMessages.with_messages({ decimal_required: \"Required: {0}\" });\nconst errors = validation.validate_decimal(\"amount{1}\", Decimal.default(), [validation.ValidationRule.parse(\"decimal_required\", \"\")]);\nconst value = { messages: messages.translate(errors) };",
+  "expected": {
+    "messages": [
+      "Required: amount{1}"
+    ]
+  }
+}

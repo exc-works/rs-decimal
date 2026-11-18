@@ -5416,13 +5416,20 @@
   {
     "id": "reexport::validation::default_validation_messages",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "reexport-validation-default-validation-messages",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "validation-reexport-validation-default-validation-messages"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::zero",
@@ -5464,255 +5471,416 @@
   {
     "id": "validation",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "validation-validation"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationError",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationerror",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ValidationError: { field: string; tag: string; parameter: string }",
+    "examples": [
+      "validation-validation-validationerror"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationError.field",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationerror-field",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ValidationError.field",
+    "examples": [
+      "validation-validation-validationerror-field"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationError.parameter",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationerror-parameter",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ValidationError.parameter",
+    "examples": [
+      "validation-validation-validationerror-parameter"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationError.tag",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationerror-tag",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ValidationError.tag",
+    "examples": [
+      "validation-validation-validationerror-tag"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationError::impl Clone",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationerror-impl-clone",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "validation-validation-validationerror-impl-clone"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationError::impl Debug",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationerror-impl-debug",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "validation-validation-validationerror-impl-debug"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationError::impl Eq",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationerror-impl-eq",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "validation-validation-validationerror-impl-eq"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationError::impl PartialEq",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationerror-impl-partialeq",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "validation-validation-validationerror-impl-partialeq"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationMessages",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationmessages",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "validation.ValidationMessages",
+    "examples": [
+      "validation-validation-validationmessages"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationMessages::impl Clone",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationmessages-impl-clone",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "validation-validation-validationmessages-impl-clone"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationMessages::impl Debug",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationmessages-impl-debug",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "validation-validation-validationmessages-impl-debug"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationMessages::new",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationmessages-new",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "validation.ValidationMessages.new",
+    "examples": [
+      "validation-validation-validationmessages-new"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationMessages::translate",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationmessages-translate",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "validation.ValidationMessages.translate",
+    "examples": [
+      "validation-validation-validationmessages-translate"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationMessages::with_messages",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationmessages-with-messages",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "validation.ValidationMessages.with_messages(messages: Record<string,string>): ValidationMessages",
+    "examples": [
+      "validation-validation-validationmessages-with-messages"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationRule",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationrule",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "validation.ValidationRule",
+    "examples": [
+      "validation-validation-validationrule"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationRule::impl Clone",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationrule-impl-clone",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "validation-validation-validationrule-impl-clone"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationRule::impl Debug",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationrule-impl-debug",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "validation-validation-validationrule-impl-debug"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationRule::matches",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationrule-matches",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "validation.ValidationRule.matches",
+    "examples": [
+      "validation-validation-validationrule-matches"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationRule::parse",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationrule-parse",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "validation.ValidationRule.parse",
+    "examples": [
+      "validation-validation-validationrule-parse"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::ValidationRule::validate",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validationrule-validate",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "validation.ValidationRule.validate(field: string, value: Decimal): void",
+    "examples": [
+      "validation-validation-validationrule-validate"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::default_validation_messages",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-default-validation-messages",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "validation.default_validation_messages(locale: string): Record<string,string>",
+    "examples": [
+      "validation-validation-default-validation-messages"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "validation::validate_decimal",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-2",
     "doc_id": "validation-validate-decimal",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "validation.validate_decimal(field: string, value: Decimal, rules: ValidationRule[]): ValidationError[]",
+    "examples": [
+      "validation-validation-validate-decimal"
+    ],
+    "tests": [
+      "website/tests/validation.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "zero",

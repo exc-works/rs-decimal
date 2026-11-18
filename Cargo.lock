@@ -149,6 +149,7 @@ dependencies = [
  "js-sys",
  "quick-xml",
  "rs-decimal",
+ "serde",
  "serde_json",
  "wasm-bindgen",
  "wasm-bindgen-test",
