@@ -1,10 +1,29 @@
 ---
 locale: ko
+source_revision: 25b1ec5a4bb0557629fac6d66ca48c015418489e6280f42443d66425e8372440
+translation_provenance: en-US-korean-reviewed
 api_id: Decimal::impl PartialOrd
-translation_status: pending
 ---
 # Decimal::impl PartialOrd
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+Rust의 부분 순서로 소수를 비교합니다.
 
-[영어 참고 문서](../../en-US/api/decimal-impl-partialord)
+```rust
+impl PartialOrd for Decimal
+```
+
+## 일반적인 사용법과 의미
+
+모든 Decimal 값은 비교할 수 있으므로 partial_cmp는 Some(Ordering)을 반환합니다. 기본 0과 생성한 0도 비교할 수 있으며, 소수 자릿수가 달라도 None이 되지 않습니다.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-decimal-impl-partialord" locale="ko" />
+
+이 Rust 문법 예제는 네이티브 테스트에서 실행하며 브라우저의 트레이트 지원을 뜻하지 않습니다.
+
+## 관련 문서
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)

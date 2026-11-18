@@ -1,10 +1,33 @@
 ---
 locale: ko
+source_revision: aad24e4a42d458d995751545010904db4f3e9453abb0fa3c66514c8c59b55494
+translation_provenance: en-US-korean-reviewed
 api_id: Decimal::new_from_int
-translation_status: pending
 ---
 # Decimal::new_from_int
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+네이티브 너비의 부호 있는 정수로 초기화된 정수를 만듭니다.
 
-[영어 참고 문서](../../en-US/api/decimal-new-from-int)
+```rust
+fn new_from_int (value : isize) -> Self
+```
+
+## 매개변수와 반환값
+
+`value: isize` → 정수 JavaScript `number`. 결과의 소수 자릿수는 0입니다.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="constructor-new-from-int" locale="ko" />
+
+## 사용 시 주의점과 제한
+
+브라우저 대상은 wasm32이므로 네이티브 Rust가 64비트 환경에서 실행되어도 허용 범위는 -2147483648부터 2147483647까지입니다. 소수, NaN, 무한대는 매개변수 오류입니다.
+
+브라우저는 [리소스 정책](../resource-policy)도 적용합니다. JavaScript 입력은 Rust 호출 전에 검사합니다.
+
+## 관련 메서드
+
+[new_with_prec](./decimal-new-with-prec) · [new_with_append_prec](./decimal-new-with-append-prec) · [new_from_string](./decimal-new-from-string)

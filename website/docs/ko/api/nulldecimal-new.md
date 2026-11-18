@@ -1,10 +1,29 @@
 ---
 locale: ko
+source_revision: 6d83b155d9084cec9f42deea0ac618a5403b16dd0003e0789794c0428f3a019a
+translation_provenance: en-US-korean-reviewed
 api_id: NullDecimal::new
-translation_status: pending
 ---
 # NullDecimal::new
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+소수를 이동하여 값이 있는 nullable로 만듭니다.
 
-[영어 참고 문서](../../en-US/api/nulldecimal-new)
+```rust
+fn new (decimal : Decimal) -> Self
+```
+
+## 일반적인 사용법과 의미
+
+decimal: Decimal을 소비합니다. decimal이 미초기화 0이어도 결과는 항상 valid=true입니다. 이동된 JavaScript 입력은 더 이상 사용할 수 없습니다. 원본이 계속 필요하면 복제하세요.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-nulldecimal-new" locale="ko" />
+
+공유 예제는 네이티브 Rust와 브라우저에서 실행됩니다.
+
+## 관련 문서
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)

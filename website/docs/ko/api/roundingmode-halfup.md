@@ -1,10 +1,31 @@
 ---
 locale: ko
+source_revision: e0f36bf4a4b64a112b7758ba3b58ccfab48769ae252409c4b72638890e0e2a0e
+translation_provenance: en-US-korean-reviewed
 api_id: RoundingMode::HalfUp
-translation_status: pending
 ---
 # RoundingMode::HalfUp
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+가장 가까운 값으로 반올림하며 중간이면 0에서 멀어지는 쪽을 택합니다.
 
-[영어 참고 문서](../../en-US/api/roundingmode-halfup)
+```rust
+HalfUp = 3
+```
+
+## 매개변수, 반환값, 일반적인 사용법
+
+정수 판별값은 3입니다. 매직 넘버 대신 이름이 있는 값을 사용하세요. 규칙은 양수와 음수 모두에 적용됩니다. Down과 Up은 음/양의 무한대가 아니라 0을 기준으로 한 방향입니다. Half 방식은 정확한 중간값에서만 다릅니다. 별도의 Floor 열거값은 없으므로 해당 방향에는 floor_with_prec를 사용하세요.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="rounding-roundingmode-halfup" locale="ko" />
+
+## 브라우저 제한
+
+정수 매개변수는 wasm32 범위 안에 있어야 합니다. 브라우저는 목표 소수 자릿수, 계수 증가, 호출 횟수를 포함하는 [리소스 정책](../resource-policy)도 적용합니다. 리소스 오류와 수치 라이브러리 오류는 구분합니다. 빌림 메서드는 입력을 소비하지 않으며 Rust 전용 트레이트 문법은 네이티브에서 검사한다고 명시합니다.
+
+## 관련 메서드
+
+[RoundingMode](./roundingmode) · [rescale](./decimal-rescale) · [significant_figures](./decimal-significant-figures)

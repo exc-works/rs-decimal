@@ -1,10 +1,29 @@
 ---
 locale: ko
+source_revision: 9459cb9d77c7f6ad22b96853baef01b1a9461529cecff18a116b5d2dee9166d3
+translation_provenance: en-US-korean-reviewed
 api_id: Decimal
-translation_status: pending
 ---
 # Decimal
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+정확한 계수와 음수가 아닌 소수 자릿수를 저장합니다.
 
-[영어 참고 문서](../../en-US/api/decimal)
+```rust
+pub struct Decimal
+```
+
+## 일반적인 사용법과 의미
+
+수치는 계수 × 10^-scale입니다. scale은 소수 자릿수이며 유지된 후행 0도 포함합니다. 기본값은 미초기화 수치 0입니다. 생성자는 초기화된 값을 만들고, 빌림 메서드는 입력을 유지하며, 소비 메서드는 입력의 브라우저 래퍼를 무효화합니다. bridge에서는 이름이 있는 생성자를 사용하세요. new Decimal()은 공개 생성자가 아닙니다.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-decimal" locale="ko" />
+
+공유 예제는 네이티브 Rust와 브라우저에서 실행됩니다.
+
+## 관련 문서
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)
