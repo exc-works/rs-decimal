@@ -1,10 +1,31 @@
 ---
 locale: de
+source_revision: 4ba98590c5087494de7de79070360a5295cf980481866e0fbdd09d39a5d16846
+translation_provenance: en-US-german-reviewed
 api_id: RoundingMode::impl Eq
-translation_status: pending
 ---
 # RoundingMode::impl Eq
 
-Die deutsche Übersetzung dieser Methode steht noch aus. Die englische Referenz beschreibt die übliche Verwendung, Parameter, Beispiele und Besonderheiten. Diese Hinweisseite zählt nicht als abgeschlossene Übersetzung.
+Die Rust-Eq-Implementierung für Rundungsmodi verwenden.
 
-[Englische Referenz](../../en-US/api/roundingmode-impl-eq)
+```rust
+impl Eq for RoundingMode
+```
+
+## Parameter, Rückgabe und übliche Verwendung
+
+RoundingMode ist ein kleines Copy-Enum: Kopieren erhält die gewählte Regel. Gleichheit vergleicht Varianten, Debug gibt ihre Namen aus. Dieses Beispiel prüft native Rust-Trait-Syntax; Browsermodi sind unveränderliche Zahlenwerte.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="rounding-roundingmode-impl-eq" locale="de" />
+
+## Grenzen im Browser
+
+Ganzzahlparameter müssen in den wasm32-Bereich passen. Der Browser wendet zusätzlich die [Ressourcenrichtlinie](../resource-policy) für Zielskala, Koeffizientenwachstum und Aufrufzahl an. Ressourcenfehler bleiben von numerischen Bibliotheksfehlern getrennt. Ausleihende Methoden konsumieren keine Eingaben; reine Rust-Trait-Syntax ist ausdrücklich als nativ getestet gekennzeichnet.
+
+## Verwandte Methoden
+
+[RoundingMode](./roundingmode) · [rescale](./decimal-rescale) · [significant_figures](./decimal-significant-figures)

@@ -1,10 +1,31 @@
 ---
 locale: de
+source_revision: 0deb49519f3f009c2dba973109de20fc0fcdfe90b9617749c506123c4c387997
+translation_provenance: en-US-german-reviewed
 api_id: Decimal::rescale
-translation_status: pending
 ---
 # Decimal::rescale
 
-Die deutsche Übersetzung dieser Methode steht noch aus. Die englische Referenz beschreibt die übliche Verwendung, Parameter, Beispiele und Besonderheiten. Diese Hinweisseite zählt nicht als abgeschlossene Übersetzung.
+Nachkommastellen mit einem expliziten Rundungsmodus ändern.
 
-[Englische Referenz](../../en-US/api/decimal-rescale)
+```rust
+fn rescale (& self , prec : isize , mode : RoundingMode) -> Result < Self , DecimalError >
+```
+
+## Parameter, Rückgabe und übliche Verwendung
+
+prec zählt Nachkommastellen, nicht signifikante Ziffern; mode ist einer der sieben RoundingMode-Werte. Höhere Präzision hängt Nullen an. Bei niedrigerer Präzision beeinflussen nur verworfene Ziffern ungleich null die Rundung. Negative Präzision liefert InvalidPrecision; Unnecessary liefert RoundUnnecessary, wenn Rundung nötig ist. Ergebnisse initialisieren die Standardnull; ausgeliehene Eingaben bleiben unverändert.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="rounding-decimal-rescale" locale="de" />
+
+## Grenzen im Browser
+
+Ganzzahlparameter müssen in den wasm32-Bereich passen. Der Browser wendet zusätzlich die [Ressourcenrichtlinie](../resource-policy) für Zielskala, Koeffizientenwachstum und Aufrufzahl an. Ressourcenfehler bleiben von numerischen Bibliotheksfehlern getrennt. Ausleihende Methoden konsumieren keine Eingaben; reine Rust-Trait-Syntax ist ausdrücklich als nativ getestet gekennzeichnet.
+
+## Verwandte Methoden
+
+[RoundingMode](./roundingmode) · [rescale](./decimal-rescale) · [significant_figures](./decimal-significant-figures)
