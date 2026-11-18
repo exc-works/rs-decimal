@@ -1,6 +1,9 @@
 {
   "schema_version": 1,
   "source_locale": "en-US",
+  "method_locale_owners": {
+    "zh-Hant": ["WEB-07a", "WEB-07b", "WEB-07c", "WEB-07d", "WEB-08", "WEB-09a", "WEB-09b"]
+  },
   "units": [
     "index",
     "guide",

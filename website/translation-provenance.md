@@ -23,3 +23,18 @@ zh-Hans; this does not mark the remaining five method locales complete.
 Later regional wording changes must preserve the shared examples and document
 their source revision. A source update requires reviewing the affected en-GB
 page again; stale pages fail the check.
+
+## zh-Hant
+
+The core methods (WEB-07a–d, WEB-08 and WEB-09a–b; 130 entries) are based on the
+reviewed zh-Hans descriptions. Script conversion was followed by a terminology
+review of the distinct descriptions, caveats and supplemental bridge/resource
+pages. Terms follow the zh-Hant glossary: 係數, 捨入, 小數位數, 有效位數,
+已初始化, 有效性旗標 and 精確. Prose also uses 回傳, 預設, 物件, 字串,
+位元組, 記憶體 and 參照. Rust identifiers, numeric bounds, sign examples and
+ownership/error ordering remain unchanged. Each completed page records
+`translation_provenance: zh-Hans-terminology-reviewed` and the en-US revision.
+
+`method_locale_owners` records the completed API groups. Ordinary checks enforce
+their current source revisions; other groups retain their pending notices. The
+full release gate still requires every method in every requested locale.

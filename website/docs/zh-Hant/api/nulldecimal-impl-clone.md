@@ -1,10 +1,29 @@
 ---
 locale: zh-Hant
+source_revision: 056afbd5297b8421283bf4270ff73e28ea9129becd2598b31ff7a84ee04dacd5
+translation_provenance: zh-Hans-terminology-reviewed
 api_id: NullDecimal::impl Clone
-translation_status: pending
 ---
 # NullDecimal::impl Clone
 
-本方法的繁體中文翻譯尚未完成。請參閱英文文件中的常規用法、參數、範例及注意事項。這個提示頁不計入翻譯完成度。
+在 Rust 中同時複製有效性旗標及內部 Decimal。
 
-[英文參考文件](../../en-US/api/nulldecimal-impl-clone)
+```rust
+impl Clone for NullDecimal
+```
+
+## 常規用法及語義
+
+即使 valid 為 false，複製也保留內部值。這是原生 Rust trait，不是即時共享參照。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-nulldecimal-impl-clone" locale="zh-Hant" />
+
+此 Rust 語法範例由原生測試執行，不計作瀏覽器 trait 支持。
+
+## 相關文件
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)

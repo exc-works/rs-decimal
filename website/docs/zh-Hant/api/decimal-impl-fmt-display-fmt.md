@@ -1,10 +1,29 @@
 ---
 locale: zh-Hant
+source_revision: ed7eae766562aad92ba36a1a91ecd3051f3e73486fdc4f475516ea974adac927
+translation_provenance: zh-Hans-terminology-reviewed
 api_id: "Decimal::impl fmt :: Display::fmt"
-translation_status: pending
 ---
 # Decimal::impl fmt :: Display::fmt
 
-本方法的繁體中文翻譯尚未完成。請參閱英文文件中的常規用法、參數、範例及注意事項。這個提示頁不計入翻譯完成度。
+透過 Rust 格式化語法輸出 Decimal。
 
-[英文參考文件](../../en-US/api/decimal-impl-fmt-display-fmt)
+```rust
+fn fmt (& self , f : & mut fmt :: Formatter < '_ >) -> fmt :: Result
+```
+
+## 常規用法及語義
+
+使用 format!("{}", value)、println! 或 to_string()；fmt::Formatter 由格式化機制提供。預設格式會去掉小數末尾零。其他格式旗標由格式化分組說明；bridge 使用 string()/string_with_trailing_zeros()。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-decimal-impl-fmt-display-fmt" locale="zh-Hant" />
+
+此 Rust 語法範例由原生測試執行，不計作瀏覽器 trait 支持。
+
+## 相關文件
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)
