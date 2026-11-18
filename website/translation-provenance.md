@@ -47,3 +47,8 @@ rounding certification, domain/error precedence and resource budgets.
 The text/JSON, binary/BSON and YAML/XML groups (WEB-12a–c; 33 more entries)
 have been reviewed in zh-Hant, preserving each codec’s distinct null/empty
 behaviour, state transitions, wire format and atomic decode failures.
+
+SQL scalar/error and validation/message references (WEB-13a-1–2; 73 more
+entries) have been reviewed in zh-Hant. The review retains borrowed byte-buffer
+behaviour, error-kind membership, rule-specific missing-value handling, literal
+message substitution and separate validation/library/resource errors.
