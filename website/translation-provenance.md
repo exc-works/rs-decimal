@@ -106,3 +106,8 @@ Japanese text/JSON, binary/BSON and YAML/XML references (WEB-12a–c; 33
 more entries) retain each codec’s null/empty and initialization behavior,
 wire representations, exact numeric parsing and atomic failure guarantees.
 XML entity examples remain literal code rather than decoded Markdown entities.
+
+Japanese SQL scalar/error and validation/message references (WEB-13a-1–2;
+73 more entries) retain borrowed buffers, null state, category membership,
+constructed versus thrown errors, rule-specific missing-value behavior and
+literal message substitution. Tags, placeholders and runtime messages stay exact.

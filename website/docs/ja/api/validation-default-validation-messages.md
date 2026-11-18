@@ -1,10 +1,31 @@
 ---
 locale: ja
+source_revision: 9f6709052cffc0b28f6c72e94064cf76722563f48008476b3a2d47db292f5bda
+translation_provenance: en-US-japanese-reviewed
 api_id: "validation::default_validation_messages"
-translation_status: pending
 ---
 # validation::default_validation_messages
 
-このメソッドの日本語訳は準備中です。通常の使い方、引数、使用例、注意事項は英語のリファレンスを参照してください。この案内ページは翻訳済みとして扱いません。
+ロケールのテンプレートの新しいマップを取得します。
 
-[英語のリファレンス](../../en-US/api/validation-default-validation-messages)
+```rust
+fn default_validation_messages (locale : & str) -> BTreeMap < String , String >
+```
+
+## 引数、戻り値、通常の使い方
+
+locale: &str/string。12 種類すべての規則テンプレートを含む `BTreeMap<String,String>`/通常のオブジェクトを返します。不明なロケールは英語を使います。各呼び出しはマップを独立して所有し、編集しても後の呼び出しや他の ValidationMessages には影響しません。再エクスポートは同じ関数の公開モジュールインポートパスです。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="validation-validation-default-validation-messages" locale="ja" />
+
+## ブラウザーの制約
+
+validation 機能は有効です。各文字列は UTF-8 で 8192 バイト、規則／エラーのリストとメッセージマップは 64 項目、JSON 転送は 65536 バイトまでです。規則の小数引数は[リソースポリシー](../resource-policy)に従います。翻訳前に置換後テキストの保守的な合計上限 65536 バイトを検査し、実際にはちょうど収まる結果も拒否する場合があります。独自のタグとフィールドはデータであり、実行するコードではありません。検証失敗、設定エラー、bridge のリソースエラーは区別します。
+
+## 関連メソッド
+
+[parse](./validation-validationrule-parse) · [validate_decimal](./validation-validate-decimal) · [translate](./validation-validationmessages-translate)
