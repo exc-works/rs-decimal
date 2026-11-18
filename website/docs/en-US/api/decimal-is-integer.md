@@ -1,11 +1,11 @@
 ---
 locale: en-US
-source_revision: 46411f1a8f7889f0ec3654fae25da003c49b8d268105e0431ed703cb61c031fe
+source_revision: 6f40656db82d99e820bf25f176794a430859d18b708e5dfb0e4c5ad3ab2117e5
 api_id: Decimal::is_integer
 ---
 # Decimal::is_integer
 
-Test the numerical fractional component.
+Test whether the numerical value has no fractional component.
 
 ```rust
 fn is_integer (& self) -> bool

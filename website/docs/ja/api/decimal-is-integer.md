@@ -1,12 +1,12 @@
 ---
 locale: ja
-source_revision: 46411f1a8f7889f0ec3654fae25da003c49b8d268105e0431ed703cb61c031fe
+source_revision: 6f40656db82d99e820bf25f176794a430859d18b708e5dfb0e4c5ad3ab2117e5
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::is_integer
 ---
 # Decimal::is_integer
 
-数値に小数部分があるか調べます。
+数値に小数部分がないか（整数かどうか）調べます。
 
 ```rust
 fn is_integer (& self) -> bool
