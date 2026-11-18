@@ -93,7 +93,8 @@ try:
             navigate(f'{locale}/api/{pending["doc_id"]}.html')
             until(lambda: js('return !!document.querySelector(".vp-doc a[href*=en-US]")'))
             assert js('return document.querySelector(".vp-doc a[href*=en-US]").pathname') == f'/rs-decimal/en-US/api/{pending["doc_id"]}.html'
-    for locale in ['en-US', 'zh-Hans', 'en-GB', 'zh-Hant', 'fr']:
+    codec_locales = ['en-US', 'zh-Hans', 'en-GB'] + [locale for locale, owners in groups.items() if '*' in owners or 'WEB-12c' in owners]
+    for locale in codec_locales:
         navigate(f'{locale}/api/decimal-unmarshal-xml-attr.html')
         until(lambda: js('return document.querySelector(".vp-doc")?.textContent.includes("&#49;.23")'))
     navigate('en-US/api/decimal-impl-clone.html')

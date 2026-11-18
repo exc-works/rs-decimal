@@ -1,10 +1,31 @@
 ---
 locale: ja
+source_revision: 425ca68f655481c858e4668ea2e1df0ddc734454c90f72d356190ed7ac4eb22e
+translation_provenance: en-US-japanese-reviewed
 api_id: "NullDecimal::impl std :: fmt :: Display"
-translation_status: pending
 ---
 # NullDecimal::impl std :: fmt :: Display
 
-このメソッドの日本語訳は準備中です。通常の使い方、引数、使用例、注意事項は英語のリファレンスを参照してください。この案内ページは翻訳済みとして扱いません。
+Rust の Display で nullable 値を書式設定します。
 
-[英語のリファレンス](../../en-US/api/nulldecimal-impl-std-fmt-display)
+```rust
+impl std :: fmt :: Display for NullDecimal
+```
+
+## 引数、戻り値、通常の使い方
+
+Display は nullable の string() に委譲し、有効なら内部値の標準テキスト、無効なら null を使います。フォーマッターは JSON トークンやバイトバッファーではなくテキストを書き込みます。format! は Display::fmt を呼び出します。このトレイト構文はネイティブで実行し、ブラウザーのメソッドではありません。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="text-json-nulldecimal-impl-std-fmt-display" locale="ja" />
+
+## ブラウザーの制約
+
+デコーダー入力は 8192 バイトまでです。パラメーター文字列も Wasm へのコピー前に長さを確認します。Rust はテキストとデコード済み JSON 文字列に[小数のリソースポリシー](../resource-policy)を再適用するため、エスケープで指数やスケールの上限を回避できません。不正な UTF-8、JSON／小数構文の診断はコアが行います。入力エラーやリソースエラーでレシーバーが部分的に更新されることはありません。ムーブ済みのラッパーは読み取りも変更もできません。
+
+## 関連メソッド
+
+[unmarshal_json](./decimal-unmarshal-json) · [marshal_text](./decimal-marshal-text) · [NullDecimal](./nulldecimal)
