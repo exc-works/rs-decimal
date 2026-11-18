@@ -1,10 +1,31 @@
 ---
 locale: ko
+source_revision: b6885bfd89f5c1e43b9c4a8ab207ccde2aef139d913f8cd028eda20cd2081e75
+translation_provenance: en-US-korean-reviewed
 api_id: "NullDecimal::unmarshal_text"
-translation_status: pending
 ---
 # NullDecimal::unmarshal_text
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+text 입력을 기존 NullDecimal로 디코딩합니다.
 
-[영어 참고 문서](../../en-US/api/nulldecimal-unmarshal-text)
+```rust
+fn unmarshal_text (& mut self , text : & [u8]) -> Result < () , DecimalError >
+```
+
+## 매개변수, 반환값, 일반적인 사용법
+
+bytes: &[u8]/Uint8Array. 수신 객체를 바꾸고 Result<(), DecimalError>/undefined를 반환합니다. 앞뒤 공백 제거와 지수 문법을 포함한 소수 텍스트를 파싱합니다. 빈 입력은 유효성을 해제하고 내부 Decimal을 재설정합니다. 리터럴 null은 잘못된 소수 텍스트입니다. null이 아닌 입력을 성공적으로 파싱하면 소수를 초기화하고 0이 아닌 수치의 후행 자릿수를 유지하며 파싱한 0은 소수 자릿수 0으로 정규화합니다. valid=true로 설정합니다. 오류는 수신 객체의 전체 상태를 유지합니다. 라이브러리 디코딩 오류는 Unmarshal과 기저 오류 종류를 유지하며 리소스 실패도 변경 전에 발생합니다.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="text-json-nulldecimal-unmarshal-text" locale="ko" />
+
+## 브라우저 제한
+
+디코더 입력은 8192바이트까지이며 매개변수 문자열도 Wasm에 복사하기 전에 길이를 검사합니다. Rust는 텍스트와 디코딩된 JSON 문자열에 [소수 리소스 정책](../resource-policy)을 다시 적용하므로 이스케이프로 지수/자릿수 제한을 우회할 수 없습니다. 잘못된 UTF-8과 JSON/소수 문법 진단은 코어가 처리합니다. 입력과 리소스 오류는 수신 객체를 부분적으로 갱신하지 않으며 이동된 래퍼는 읽거나 바꿀 수 없습니다.
+
+## 관련 메서드
+
+[unmarshal_json](./decimal-unmarshal-json) · [marshal_text](./decimal-marshal-text) · [NullDecimal](./nulldecimal)

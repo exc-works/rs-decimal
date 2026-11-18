@@ -160,3 +160,8 @@ Korean conversion/formatting/root/log-exp references (WEB-10a–b and
 WEB-11a–b; 47 more entries) preserve exactness versus success, IEEE special
 values, Unicode scalar separators, rational conversion and certified half-even
 rounding. The corrected float64 source is used, with separate domain/resource errors.
+
+Korean text/JSON, binary/BSON and YAML/XML references (WEB-12a–c; 33
+more entries) preserve null/empty behavior, stored versus canonical scale,
+wire formats, exact parsing and atomic decode failures. XML entity literals
+remain code-formatted; all examples and runtime values stay shared.

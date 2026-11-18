@@ -1,10 +1,31 @@
 ---
 locale: ko
+source_revision: 73595bceae9a4435e67075be3cf3874619847ef2c8e049d0faeae85eae4feb26
+translation_provenance: en-US-korean-reviewed
 api_id: "PRECISION_FIXED_SIZE"
-translation_status: pending
 ---
 # PRECISION_FIXED_SIZE
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+바이너리 정밀도 접두부의 바이트 길이를 읽습니다.
 
-[영어 참고 문서](../../en-US/api/precision-fixed-size)
+```rust
+const PRECISION_FIXED_SIZE: usize = 4
+```
+
+## 매개변수, 반환값, 일반적인 사용법
+
+값이 4인 Rust usize 상수로, Go 호환 바이너리 전송 형식의 빅엔디언 소수 자릿수 접두부 바이트 길이입니다. 십진 숫자 개수나 정밀도 한계가 아닙니다. 브라우저는 Rust에서 가져온 읽기 전용 number를 공개합니다. 크레이트 루트 재내보내기는 Rust 가져오기 문법입니다.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="binary-bson-precision-fixed-size" locale="ko" />
+
+## 브라우저 제한
+
+입력은 Uint8Array, kind는 0–255 정수여야 합니다. Wasm 복사 전에 입력을 65536바이트로 제한합니다. Rust는 바이너리 소수 자릿수를 최대 1000, 실제 계수를 최대 16384비트로 검사합니다. BSON 문자열은 8192바이트 텍스트 제한을 따르며 Decimal128 지수 확장도 [리소스 검사](../resource-policy)를 받습니다. 네이티브 라이브러리보다 좁은 제한일 수 있습니다. 검사는 수신 객체 변경 전에 수행하고 코어 오류와 리소스 오류를 구분하며 이동된 핸들은 재사용할 수 없습니다.
+
+## 관련 메서드
+
+[marshal_binary](./decimal-marshal-binary) · [unmarshal_bson_value](./decimal-unmarshal-bson-value) · [unmarshal_json](./decimal-unmarshal-json)
