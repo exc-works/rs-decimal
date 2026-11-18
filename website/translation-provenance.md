@@ -125,3 +125,9 @@ scale versus significant figures, initialization versus numerical equality,
 rounding signs/ties, borrowing/consumption and exact integer/error boundaries.
 The corrected is_integer source is used explicitly. Shared fixtures and Rust
 identifiers stay unchanged; remaining method groups retain explicit fallback.
+
+German conversion/formatting/root/log-exp references (WEB-10a–b and
+WEB-11a–b; 47 more entries) preserve exactness/success flags, IEEE special
+values, Unicode scalar separators, rational input and certified half-even
+rounding. The corrected float64 source is used; f32 narrowing applies only
+to the float32 constructor. Domain and resource errors remain distinct.
