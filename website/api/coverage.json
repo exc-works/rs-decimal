@@ -74,13 +74,20 @@
   {
     "id": "Decimal::add_owned",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09b",
     "doc_id": "decimal-add-owned",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.add_owned(other: Decimal): Decimal",
+    "examples": [
+      "owned-decimal-add-owned"
+    ],
+    "tests": [
+      "website/tests/ownership.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::add_raw",
@@ -1128,24 +1135,38 @@
   {
     "id": "Decimal::into_coefficient",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09b",
     "doc_id": "decimal-into-coefficient",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.into_coefficient(): bigint",
+    "examples": [
+      "owned-decimal-into-coefficient"
+    ],
+    "tests": [
+      "website/tests/ownership.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::into_rescaled",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09b",
     "doc_id": "decimal-into-rescaled",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.into_rescaled(prec: number, mode: Rounding): Decimal",
+    "examples": [
+      "owned-decimal-into-rescaled"
+    ],
+    "tests": [
+      "website/tests/ownership.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::is_integer",
@@ -1455,13 +1476,20 @@
   {
     "id": "Decimal::max_ref",
     "disposition": "adapter",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09b",
     "doc_id": "decimal-max-ref",
     "reason": "Selects the original input wrapper; Rust borrow lifetimes are not represented.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.max_ref(other: Decimal): Decimal (original wrapper)",
+    "examples": [
+      "owned-decimal-max-ref"
+    ],
+    "tests": [
+      "website/tests/ownership.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::min",
@@ -1484,24 +1512,38 @@
   {
     "id": "Decimal::min_ref",
     "disposition": "adapter",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09b",
     "doc_id": "decimal-min-ref",
     "reason": "Selects the original input wrapper; Rust borrow lifetimes are not represented.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.min_ref(other: Decimal): Decimal (original wrapper)",
+    "examples": [
+      "owned-decimal-min-ref"
+    ],
+    "tests": [
+      "website/tests/ownership.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::modulo",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09b",
     "doc_id": "decimal-modulo",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.modulo(other: Decimal): Decimal",
+    "examples": [
+      "owned-decimal-modulo"
+    ],
+    "tests": [
+      "website/tests/ownership.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::mul",
@@ -1893,13 +1935,20 @@
   {
     "id": "Decimal::power",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09b",
     "doc_id": "decimal-power",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.power(power: bigint): Decimal",
+    "examples": [
+      "owned-decimal-power"
+    ],
+    "tests": [
+      "website/tests/ownership.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::precision",
@@ -1958,13 +2007,20 @@
   {
     "id": "Decimal::quo_rem",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09b",
     "doc_id": "decimal-quo-rem",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.quo_rem(other: Decimal): [Decimal, Decimal]",
+    "examples": [
+      "owned-decimal-quo-rem"
+    ],
+    "tests": [
+      "website/tests/ownership.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::quo_with_prec",
@@ -1987,24 +2043,38 @@
   {
     "id": "Decimal::r#mod",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09b",
     "doc_id": "decimal-r-mod",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.mod(other: Decimal): Decimal",
+    "examples": [
+      "owned-decimal-r-mod"
+    ],
+    "tests": [
+      "website/tests/ownership.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::remainder",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09b",
     "doc_id": "decimal-remainder",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.remainder(): [bigint, bigint]",
+    "examples": [
+      "owned-decimal-remainder"
+    ],
+    "tests": [
+      "website/tests/ownership.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::rescale",
@@ -2280,13 +2350,20 @@
   {
     "id": "Decimal::sub_owned",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09b",
     "doc_id": "decimal-sub-owned",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.sub_owned(other: Decimal): Decimal",
+    "examples": [
+      "owned-decimal-sub-owned"
+    ],
+    "tests": [
+      "website/tests/ownership.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::sub_raw",
@@ -2345,13 +2422,20 @@
   {
     "id": "Decimal::try_from_coefficient",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-09b",
     "doc_id": "decimal-try-from-coefficient",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.try_from_coefficient(coefficient: bigint, scale: number): Decimal",
+    "examples": [
+      "owned-decimal-try-from-coefficient"
+    ],
+    "tests": [
+      "website/tests/ownership.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::uint64",

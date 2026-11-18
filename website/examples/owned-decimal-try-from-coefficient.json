@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "owned-decimal-try-from-coefficient",
+  "api_ids": [
+    "Decimal::try_from_coefficient"
+  ],
+  "rust": "let value = Decimal::try_from_coefficient(BigInt::from(12300), 4)?;",
+  "javascript": "const value = Decimal.try_from_coefficient(12300n, 4);",
+  "expected": {
+    "coefficient": "12300",
+    "scale": "4",
+    "initialized": true,
+    "string": "1.23",
+    "string_with_trailing_zeros": "1.2300"
+  }
+}

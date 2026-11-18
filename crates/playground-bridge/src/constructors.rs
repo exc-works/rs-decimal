@@ -25,7 +25,7 @@ fn unsigned(value: &str) -> Result<u64, JsValue> {
         .parse()
         .map_err(|_| parameter_error("value must fit u64"))
 }
-fn big(value: &str) -> Result<BigInt, JsValue> {
+pub(super) fn big(value: &str) -> Result<BigInt, JsValue> {
     limits::input(value).map_err(resource_error)?;
     value
         .parse()

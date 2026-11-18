@@ -18,7 +18,11 @@ Input scale and positive exponent expansion are checked before Rust parsing.
 Exact products check the sum of scales; rounded products check the output scale.
 Both bound intermediate coefficient bits before multiplying. Addition/subtraction
 check scale-alignment growth and a carry; division checks numerator or denominator
-scaling before allocation. Negative precision and zero divisors retain their core
+scaling before allocation. Quotient/remainder checks alignment after zero-divisor
+validation. Powers bound normalized intermediate scale and coefficient growth,
+including reciprocal scaling; core zero/unit fast paths and pre-allocation
+Overflow remain intact. Owned arithmetic consumes its receiver even when this
+preflight fails. Negative precision and zero divisors retain their core
 errors when the core can reject them before allocation.
 Rescale checks the requested scale and a conservative growth estimate before
 allocating powers of ten. Precision-specific rounding uses the same checks.

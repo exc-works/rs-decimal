@@ -81,6 +81,7 @@ export function createBridge(raw) {
       resource(text.length <= 8192, 'playground input exceeds the input budget');
       return wrap(Decimal, raw.Decimal.must_from_string(text));
     }
+    static try_from_coefficient(coefficient, scale) { return wrap(Decimal, raw.Decimal.try_from_coefficient(bigText(coefficient), integer(scale, 'scale', 0, 4294967295))); }
     static new_from_int(value) { return wrap(Decimal, raw.Decimal.new_from_int(integer(value, 'value'))); }
     static new_from_decimal(value) { return wrap(Decimal, raw.Decimal.new_from_decimal(borrow(value, Decimal))); }
     static new_with_prec(value, prec) { return wrap(Decimal, raw.Decimal.new_with_prec(bigintText(value), integer(prec, 'prec'))); }
@@ -131,6 +132,24 @@ export function createBridge(raw) {
     is_integer() { return borrow(this, Decimal).is_integer(); }
     has_fraction() { return borrow(this, Decimal).has_fraction(); }
     must_non_negative() { return wrap(Decimal, borrow(this, Decimal).must_non_negative()); }
+    power(power) { return wrap(Decimal, borrow(this, Decimal).power(bigintText(power))); }
+    quo_rem(other) { return borrow(this, Decimal).quo_rem(borrow(other, Decimal)).map(value => wrap(Decimal, value)); }
+    modulo(other) { return wrap(Decimal, borrow(this, Decimal).modulo(borrow(other, Decimal))); }
+    mod(other) { return wrap(Decimal, borrow(this, Decimal).mod(borrow(other, Decimal))); }
+    remainder() { return borrow(this, Decimal).remainder_text().map(value => BigInt(value)); }
+    into_coefficient() { return BigInt(take(this, Decimal).into_coefficient_text()); }
+    max_ref(other) { return borrow(this, Decimal).max_ref_select_self(borrow(other, Decimal)) ? this : other; }
+    min_ref(other) { return borrow(this, Decimal).min_ref_select_self(borrow(other, Decimal)) ? this : other; }
+    add_owned(other) {
+      const right = borrow(other, Decimal); borrow(this, Decimal);
+      requireType(this !== other, 'cannot consume and borrow the same Decimal');
+      return wrap(Decimal, take(this, Decimal).add_owned(right));
+    }
+    sub_owned(other) {
+      const right = borrow(other, Decimal); borrow(this, Decimal);
+      requireType(this !== other, 'cannot consume and borrow the same Decimal');
+      return wrap(Decimal, take(this, Decimal).sub_owned(right));
+    }
     mul_exact(other) {
       return wrap(Decimal, borrow(this, Decimal).mul_exact(borrow(other, Decimal)));
     }

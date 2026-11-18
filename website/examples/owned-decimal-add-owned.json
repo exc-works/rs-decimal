@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "owned-decimal-add-owned",
+  "api_ids": [
+    "Decimal::add_owned"
+  ],
+  "rust": "let other = Decimal::new_with_prec(25, 2)?;\nlet value = Decimal::new(2).add_owned(&other);",
+  "javascript": "const other = Decimal.new_with_prec(25n, 2);\nconst value = Decimal.new(2n).add_owned(other);",
+  "expected": {
+    "coefficient": "225",
+    "scale": "2",
+    "initialized": true,
+    "string": "2.25",
+    "string_with_trailing_zeros": "2.25"
+  }
+}

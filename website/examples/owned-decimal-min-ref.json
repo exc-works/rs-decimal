@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "owned-decimal-min-ref",
+  "api_ids": [
+    "Decimal::min_ref"
+  ],
+  "rust": "let a = Decimal::new_from_string(\"1.00\")?;\nlet b = Decimal::new_from_string(\"1.0\")?;\nlet selected = a.min_ref(&b);\nlet value = serde_json::json!({\"same\": std::ptr::eq(selected, &a), \"text\": selected.string_with_trailing_zeros()});",
+  "javascript": "const a = Decimal.new_from_string(\"1.00\");\nconst b = Decimal.new_from_string(\"1.0\");\nconst selected = a.min_ref(b);\nconst value = { same: selected === a, text: selected.string_with_trailing_zeros() };",
+  "expected": {
+    "same": true,
+    "text": "1.00"
+  }
+}

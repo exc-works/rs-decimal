@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "owned-decimal-power",
+  "api_ids": [
+    "Decimal::power"
+  ],
+  "rust": "let value = Decimal::new_from_string(\"2.00\")?.power(-3)?;",
+  "javascript": "const value = Decimal.new_from_string(\"2.00\").power(-3n);",
+  "expected": {
+    "coefficient": "12",
+    "scale": "2",
+    "initialized": true,
+    "string": "0.12",
+    "string_with_trailing_zeros": "0.12"
+  }
+}

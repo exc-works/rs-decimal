@@ -43,6 +43,20 @@ export interface Decimal {
   has_fraction(): boolean;
   /** Panics on negative input; start a fresh run after a Wasm trap. */
   must_non_negative(): Decimal;
+  power(power: bigint): Decimal;
+  quo_rem(other: Decimal): [Decimal, Decimal];
+  modulo(other: Decimal): Decimal;
+  /** Rust r#mod; same signed remainder as modulo. */
+  mod(other: Decimal): Decimal;
+  remainder(): [bigint, bigint];
+  /** Consumes this wrapper, discarding scale and initialized state. */
+  into_coefficient(): bigint;
+  /** Returns an original wrapper; disposing or moving it affects that alias. */
+  max_ref(other: Decimal): Decimal;
+  min_ref(other: Decimal): Decimal;
+  /** Consumes this wrapper; rejects self-aliasing before the move. */
+  add_owned(other: Decimal): Decimal;
+  sub_owned(other: Decimal): Decimal;
   mul_exact(other: Decimal): Decimal;
   ceil(): Decimal;
   floor(): Decimal;
@@ -77,6 +91,7 @@ export interface Bridge {
     new_from_string(text: string): Decimal;
     /** Panics on invalid Rust input; in Wasm this traps and ends the run. */
     must_from_string(text: string): Decimal;
+    try_from_coefficient(coefficient: bigint, scale: number): Decimal;
     new_from_int(value: number): Decimal;
     new_from_decimal(value: Decimal): Decimal;
     new_with_prec(value: bigint, prec: number): Decimal;
