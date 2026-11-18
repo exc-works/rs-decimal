@@ -1,4 +1,4 @@
-let loadedLanguage: string | undefined;
+import { createEditorLoader } from "./load-once.mjs";
 const languages: Record<string, () => Promise<unknown>> = {
   "zh-Hans": () => import("monaco-editor/nls/lang/zh-cn"),
   "zh-Hant": () => import("monaco-editor/nls/lang/zh-tw"),
@@ -7,17 +7,8 @@ const languages: Record<string, () => Promise<unknown>> = {
   ja: () => import("monaco-editor/nls/lang/ja"),
   de: () => import("monaco-editor/nls/lang/de"),
 };
-export async function loadEditor(locale: string) {
-  const language = locale.startsWith("en-") ? "en" : locale;
-  if (loadedLanguage && loadedLanguage !== language) {
-    // Monaco captures some translated labels during module initialization.
-    // Draft/result state is saved before locale navigation; reload retains it.
-    location.reload();
-    return;
-  }
-  if (!loadedLanguage) {
-    loadedLanguage = language;
-    await languages[locale]?.();
-  }
-  return import("./monaco");
-}
+export const loadEditor = createEditorLoader(
+  languages,
+  () => import("./monaco"),
+  () => location.reload(),
+);

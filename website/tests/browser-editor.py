@@ -100,8 +100,16 @@ with tempfile.TemporaryDirectory(prefix='decimal-editor-') as temp:
 
         import_source('show(Decimal.new_from_string("9.00"));')
         click('run');until(lambda:'900' in output());until(finished)
+        # Hold only the draft debounce pending, then perform real editor input and refresh.
+        # This deterministically covers navigation before the 200 ms save fires.
+        js('const original = window.setTimeout; window.setTimeout = (fn, delay, ...args) => original(fn, delay === 200 ? 60000 : delay, ...args); (document.querySelector(".monaco-editor .native-edit-context")||document.querySelector(".monaco-editor textarea.inputarea")).focus()')
+        suffix=' 123'
+        call(f'/session/{session}/actions',{'actions':[{'type':'key','id':'keyboard','actions':[action for char in suffix for action in [{'type':'keyDown','value':char},{'type':'keyUp','value':char}]]}]})
+        call(f'/session/{session}/refresh',{})
+        until(ready)
         click('export');until(lambda:(Path(temp)/'decimal-playground.js').exists())
-        assert (Path(temp)/'decimal-playground.js').read_text()=='show(Decimal.new_from_string("9.00"));'
+        assert (Path(temp)/'decimal-playground.js').read_text()=='show(Decimal.new_from_string("9.00"));'+suffix,repr((Path(temp)/'decimal-playground.js').read_text())
+        print('Pending draft survives immediate browser refresh',flush=True)
         js('document.querySelector(".VPNavBarTranslations button").click();Array.from(document.querySelectorAll(".VPNavBarTranslations a")).find(x=>x.href.includes("/ja/")).click()')
         until(lambda:js('return document.documentElement.lang === "ja"') and ready())
         assert '900' in output(),'locale change preserves result'

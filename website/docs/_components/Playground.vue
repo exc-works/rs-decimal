@@ -40,6 +40,13 @@ function save() {
     sessionStorage.setItem(RESULT_KEY, encodeResult(session));
   } catch {}
 }
+function flush() {
+  clearTimeout(saveTimer);
+  save();
+}
+function visibilityChanged() {
+  if (document.visibilityState === "hidden") flush();
+}
 function changed() {
   session.source = editor.getValue();
   clearTimeout(saveTimer);
@@ -162,6 +169,8 @@ function pretty(text: string) {
   }
 }
 onMounted(async () => {
+  window.addEventListener("pagehide", flush);
+  document.addEventListener("visibilitychange", visibilityChanged);
   if (!session.initialized) {
     session.initialized = true;
     try {
@@ -197,6 +206,8 @@ onMounted(async () => {
 });
 watch(isDark, (value) => editor?.setTheme(value));
 onBeforeUnmount(() => {
+  window.removeEventListener("pagehide", flush);
+  document.removeEventListener("visibilitychange", visibilityChanged);
   disposed = true;
   ++generation;
   clearTimeout(saveTimer);
