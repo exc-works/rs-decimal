@@ -1594,35 +1594,56 @@
   {
     "id": "Decimal::marshal_xml",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12c",
     "doc_id": "decimal-marshal-xml",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.marshal_xml(): string",
+    "examples": [
+      "yaml-xml-decimal-marshal-xml"
+    ],
+    "tests": [
+      "website/tests/yaml-xml.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::marshal_xml_attr",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12c",
     "doc_id": "decimal-marshal-xml-attr",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.marshal_xml_attr(): string",
+    "examples": [
+      "yaml-xml-decimal-marshal-xml-attr"
+    ],
+    "tests": [
+      "website/tests/yaml-xml.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::marshal_yaml",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12c",
     "doc_id": "decimal-marshal-yaml",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.marshal_yaml(): string",
+    "examples": [
+      "yaml-xml-decimal-marshal-yaml"
+    ],
+    "tests": [
+      "website/tests/yaml-xml.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::max",
@@ -2773,35 +2794,56 @@
   {
     "id": "Decimal::unmarshal_xml",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12c",
     "doc_id": "decimal-unmarshal-xml",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.unmarshal_xml(source: string): void",
+    "examples": [
+      "yaml-xml-decimal-unmarshal-xml"
+    ],
+    "tests": [
+      "website/tests/yaml-xml.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::unmarshal_xml_attr",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12c",
     "doc_id": "decimal-unmarshal-xml-attr",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.unmarshal_xml_attr(value: string): void",
+    "examples": [
+      "yaml-xml-decimal-unmarshal-xml-attr"
+    ],
+    "tests": [
+      "website/tests/yaml-xml.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::unmarshal_yaml",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12c",
     "doc_id": "decimal-unmarshal-yaml",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.unmarshal_yaml(source: string): void",
+    "examples": [
+      "yaml-xml-decimal-unmarshal-yaml"
+    ],
+    "tests": [
+      "website/tests/yaml-xml.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::value",
@@ -3751,35 +3793,56 @@
   {
     "id": "NullDecimal::marshal_xml",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12c",
     "doc_id": "nulldecimal-marshal-xml",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.marshal_xml(): string",
+    "examples": [
+      "yaml-xml-nulldecimal-marshal-xml"
+    ],
+    "tests": [
+      "website/tests/yaml-xml.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::marshal_xml_attr",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12c",
     "doc_id": "nulldecimal-marshal-xml-attr",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.marshal_xml_attr(): string | null",
+    "examples": [
+      "yaml-xml-nulldecimal-marshal-xml-attr"
+    ],
+    "tests": [
+      "website/tests/yaml-xml.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::marshal_yaml",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12c",
     "doc_id": "nulldecimal-marshal-yaml",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.marshal_yaml(): string | null",
+    "examples": [
+      "yaml-xml-nulldecimal-marshal-yaml"
+    ],
+    "tests": [
+      "website/tests/yaml-xml.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::new",
@@ -3903,35 +3966,56 @@
   {
     "id": "NullDecimal::unmarshal_xml",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12c",
     "doc_id": "nulldecimal-unmarshal-xml",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.unmarshal_xml(source: string): void",
+    "examples": [
+      "yaml-xml-nulldecimal-unmarshal-xml"
+    ],
+    "tests": [
+      "website/tests/yaml-xml.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::unmarshal_xml_attr",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12c",
     "doc_id": "nulldecimal-unmarshal-xml-attr",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.unmarshal_xml_attr(value: string): void",
+    "examples": [
+      "yaml-xml-nulldecimal-unmarshal-xml-attr"
+    ],
+    "tests": [
+      "website/tests/yaml-xml.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::unmarshal_yaml",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12c",
     "doc_id": "nulldecimal-unmarshal-yaml",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.unmarshal_yaml(source: string): void",
+    "examples": [
+      "yaml-xml-nulldecimal-unmarshal-yaml"
+    ],
+    "tests": [
+      "website/tests/yaml-xml.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::value",

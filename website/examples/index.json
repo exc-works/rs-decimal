@@ -196,5 +196,17 @@
   "type-reexport-nulldecimal",
   "type-reexport-one",
   "type-reexport-ten",
-  "type-reexport-zero"
+  "type-reexport-zero",
+  "yaml-xml-decimal-marshal-xml",
+  "yaml-xml-decimal-marshal-xml-attr",
+  "yaml-xml-decimal-marshal-yaml",
+  "yaml-xml-decimal-unmarshal-xml",
+  "yaml-xml-decimal-unmarshal-xml-attr",
+  "yaml-xml-decimal-unmarshal-yaml",
+  "yaml-xml-nulldecimal-marshal-xml",
+  "yaml-xml-nulldecimal-marshal-xml-attr",
+  "yaml-xml-nulldecimal-marshal-yaml",
+  "yaml-xml-nulldecimal-unmarshal-xml",
+  "yaml-xml-nulldecimal-unmarshal-xml-attr",
+  "yaml-xml-nulldecimal-unmarshal-yaml"
 ]

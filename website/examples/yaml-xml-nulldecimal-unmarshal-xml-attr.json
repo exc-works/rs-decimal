@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "yaml-xml-nulldecimal-unmarshal-xml-attr",
+  "api_ids": [
+    "NullDecimal::unmarshal_xml_attr"
+  ],
+  "rust": "let mut value = NullDecimal::new(Decimal::new_from_string(\"1.2300\")?);\nvalue.unmarshal_xml_attr(\" 1.2300 \")?;",
+  "javascript": "const value = NullDecimal.new(Decimal.new_from_string(\"1.2300\"));\nvalue.unmarshal_xml_attr(\" 1.2300 \");",
+  "expected": {
+    "valid": true,
+    "decimal": {
+      "coefficient": "12300",
+      "scale": "4",
+      "initialized": true
+    }
+  }
+}
