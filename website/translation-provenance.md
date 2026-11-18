@@ -165,3 +165,8 @@ Korean text/JSON, binary/BSON and YAML/XML references (WEB-12a–c; 33
 more entries) preserve null/empty behavior, stored versus canonical scale,
 wire formats, exact parsing and atomic decode failures. XML entity literals
 remain code-formatted; all examples and runtime values stay shared.
+
+Korean SQL scalar/error and validation references (WEB-13a-1–2; 73 more
+entries) preserve borrowed buffers, initialization/null distinctions, error
+category membership, exact rule comparisons and single-pass placeholder
+substitution. Native traits remain explicitly separate from browser methods.

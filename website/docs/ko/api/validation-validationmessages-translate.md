@@ -1,10 +1,31 @@
 ---
 locale: ko
+source_revision: cba611f08bedeba221d0757fa2de9adc9759708b4a544bb24d89caed0ec075de
+translation_provenance: en-US-korean-reviewed
 api_id: "validation::ValidationMessages::translate"
-translation_status: pending
 ---
 # validation::ValidationMessages::translate
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+소유하는 템플릿으로 검증 실패를 번역합니다.
 
-[영어 참고 문서](../../en-US/api/validation-validationmessages-translate)
+```rust
+fn translate (& self , errors : & [ValidationError]) -> Vec < String >
+```
+
+## 매개변수, 반환값, 일반적인 사용법
+
+errors: &[ValidationError]/배열. 같은 순서의 문자열 배열을 반환합니다. 로캘 비교는 대소문자를 구분하지 않으며 하이픈/밑줄과 언어/지역 접미사를 허용합니다. zh-Hant/zh-TW는 번체 중국어를 선택합니다. en-US/en-GB는 영어를 사용하고 알 수 없는 로캘도 영어로 대체합니다. {0}은 필드, {1}은 원래 매개변수를 한 번만 삽입하며 삽입한 중괄호는 다시 확장하지 않습니다. 결과는 일반 텍스트이므로 HTML이 아니라 텍스트로 표시하세요.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="validation-validation-validationmessages-translate" locale="ko" />
+
+## 브라우저 제한
+
+validation 기능은 활성화되어 있습니다. 각 문자열은 UTF-8 8192바이트, 규칙/오류 목록과 메시지 맵은 64항목, JSON 전송은 65536바이트까지입니다. 규칙의 소수 매개변수는 [리소스 정책](../resource-policy)을 따릅니다. 번역 전에 치환 텍스트의 보수적인 총합 상한 65536바이트를 검사하므로 실제로는 딱 맞는 결과도 거부할 수 있습니다. 사용자 태그와 필드는 데이터이며 실행 코드가 아닙니다. 검증 실패, 설정 오류, bridge 리소스 오류는 구분합니다.
+
+## 관련 메서드
+
+[parse](./validation-validationrule-parse) · [validate_decimal](./validation-validate-decimal) · [translate](./validation-validationmessages-translate)
