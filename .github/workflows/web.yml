@@ -71,6 +71,7 @@ jobs:
         if: always()
         with:
           name: wasm-proof
+          include-hidden-files: true
           path: |
             website/public/wasm/
             website/runner-dist/
