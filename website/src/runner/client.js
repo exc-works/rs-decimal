@@ -2,15 +2,16 @@ import { SCHEMA, LIMITS, sourceValid, eventValid } from "./protocol.js";
 
 export class RunnerClient {
   constructor({ container, runnerUrl, commit, timeoutMs = LIMITS.timeoutMs }) {
-    const url = new URL(runnerUrl);
+    const url = new URL(runnerUrl, location.href);
     const local = ["127.0.0.1", "localhost", "[::1]"].includes(url.hostname);
     if (
-      url.origin === location.origin ||
+      url.origin !== location.origin ||
+      url.search || url.hash || !url.pathname.endsWith("/") ||
       url.username ||
       url.password ||
       (url.protocol !== "https:" && !(local && url.protocol === "http:"))
     )
-      throw new Error("Runner requires a separate trusted static origin");
+      throw new Error("Runner requires a same-origin static directory");
     if (
       !Number.isInteger(timeoutMs) ||
       timeoutMs < 1 ||
@@ -23,14 +24,15 @@ export class RunnerClient {
     this.timeoutMs = timeoutMs;
     this.frame = document.createElement("iframe");
     this.frame.hidden = true;
-    this.frame.setAttribute("sandbox", "allow-scripts allow-same-origin");
+    this.frame.setAttribute("sandbox", "allow-scripts");
     this.frame.referrerPolicy = "no-referrer";
     const channel = new MessageChannel();
     this.port = channel.port1;
+    this.controller = new AbortController();
     this.ready = new Promise((resolve, reject) => {
       this.rejectReady = reject;
       this.handshakeTimer = setTimeout(
-        () => reject(new Error("Runner handshake failed")),
+        () => { this.controller.abort(); reject(new Error("Runner handshake failed")); },
         8000,
       );
       this.port.onmessage = ({ data }) => {
@@ -62,17 +64,29 @@ export class RunnerClient {
           }
         } else this.finish(data);
       };
+    });
+    // Rejections remain observable by run(), even when bootstrap fails before Run.
+    this.ready.catch(() => {});
+    void (async () => {
+      const response = await fetch(new URL('sandbox.json', url), {
+        credentials: 'omit', cache: 'no-cache', redirect: 'error', signal: this.controller.signal,
+      });
+      if (!response.ok) throw Error('Runner package could not be loaded');
+      const packageText = await response.text();
+      if (packageText.length > 4 * 1024 * 1024) throw Error('Runner package is too large');
+      const bundle = JSON.parse(packageText);
+      if (bundle.schema !== 2 || bundle.commit !== commit || typeof bundle.html !== 'string')
+        throw Error('Runner handshake version mismatch');
+      if (this.disposed) return;
       this.frame.onload = () => {
         this.frame.onload = null;
         this.frame.contentWindow.postMessage(
-          { type: "connect", schema: SCHEMA, commit },
-          url.origin,
-          [channel.port2],
+          {type: 'connect', schema: SCHEMA, commit, runnerUrl: url.href}, '*', [channel.port2],
         );
       };
-    });
-    this.frame.src = url.href;
-    container.append(this.frame);
+      this.frame.srcdoc = bundle.html;
+      container.append(this.frame);
+    })().catch(error => { clearTimeout(this.handshakeTimer); this.rejectReady(error); });
   }
   async run(source, { onOutput = () => {} } = {}) {
     if (!sourceValid(source))
@@ -142,6 +156,7 @@ export class RunnerClient {
     this.disposed = true;
     clearTimeout(this.handshakeTimer);
     this.rejectReady(new Error("Runner disposed"));
+    this.controller.abort();
     this.port.close();
     this.frame.remove();
   }

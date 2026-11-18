@@ -178,23 +178,26 @@ These are playground restrictions, reported separately from core library errors.
 A Worker does not provide a hard process-memory quota; preflight bounds and
 termination reduce risk but must not be advertised as unlimited safe execution.
 
-Run user scripts on a separate static origin without application credentials,
-embedded through a constrained iframe that creates Workers. Use an explicit
-allowlist for parent/runner origins and a dedicated MessageChannel. Limit script
-execution/network access through the deployed CSP and runner configuration;
-do not claim that deleting fetch provides containment. Package dependencies
-locally. Only trusted initialization assets may be fetched; block user-script
-network access and arbitrary imports. WEB-04 must demonstrate an implementable
-bootstrap/CSP arrangement and browser tests for it before enabling shared code.
-No shared snippet auto-runs. Output renders as text/structured data, never HTML.
+The current deployment target is a single GitHub Pages project site. This replaces
+WEB-04b/WEB-16's initial separate-origin deployment following the user's explicit
+single-site requirement. The parent fetches a versioned trusted bootstrap bundle
+from the same site and creates an iframe with `sandbox="allow-scripts"` only.
+Its opaque origin isolates document and origin storage. User source crosses a
+private MessageChannel; it is never interpolated into srcdoc or evaluated in the
+parent/frame. A fresh Blob Worker embeds the bridge and Wasm for each run.
 
-Static hosting must support the runner's response headers and correct Wasm MIME
-type. This may require two static deployments; it does not require computation
-services. Keep hosting URLs configurable, do not create domains or purchase
-services as part of implementation. Verify deployment base paths, nested locale
-routes, worker URLs and hashed assets. Fail closed if runner isolation or version
-handshake fails. Deployment packaging must keep docs, declarations, examples and
-Wasm on the same commit and avoid stale cached combinations.
+The iframe uses a meta CSP denying network requests and external imports; Blob
+Workers inherit that policy. Worker/SharedWorker constructors are locked before
+user code so it cannot spawn descendants. Runtime probes fail closed when the
+network policy is absent. Three-engine tests cover opaque origin/storage behavior,
+network/import denial, constructor restrictions and a missing-policy control.
+No shared snippet auto-runs; output remains bounded text/structured data.
+
+All files deploy together through the GitHub Pages Actions workflow, including
+`runner/sandbox.json`. No separate static host, custom response headers or origin
+allowlist is required. Base paths remain configurable. Docs, bootstrap and Wasm
+must identify the same commit, and mismatches prevent execution until refreshed.
+See `website/DEPLOYMENT.md` for publishing and rollback checks.
 
 ## Documentation, localization and interaction
 

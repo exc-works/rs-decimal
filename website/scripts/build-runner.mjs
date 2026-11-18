@@ -1,93 +1,27 @@
-import { build } from "esbuild";
-import { readFile, mkdir, writeFile, copyFile, rm } from "node:fs/promises";
-import { execFileSync } from "node:child_process";
-import { fileURLToPath } from "node:url";
-const root = fileURLToPath(new URL("../", import.meta.url));
-const origins = JSON.parse(process.env.RUNNER_PARENT_ORIGINS || "[]");
-if (!Array.isArray(origins) || !origins.length)
-  throw Error("Set RUNNER_PARENT_ORIGINS to an explicit JSON origin allowlist");
-for (const origin of origins) {
-  const url = new URL(origin);
-  if (
-    origin !== url.origin ||
-    (url.protocol !== "https:" &&
-      !(
-        process.env.RUNNER_ALLOW_LOCALHOST === "1" &&
-        url.protocol === "http:" &&
-        ["127.0.0.1", "localhost", "[::1]"].includes(url.hostname)
-      ))
-  )
-    throw Error("Invalid parent origin");
-}
-const commit = execFileSync("git", ["rev-parse", "HEAD"], {
-  cwd: root,
-  encoding: "utf8",
-}).trim();
-const wasm = JSON.parse(
-  await readFile(new URL("../public/wasm/build.json", import.meta.url), "utf8"),
-);
+import { build } from 'esbuild';
+import { readFile, mkdir, writeFile, rm } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+const root = fileURLToPath(new URL('../', import.meta.url));
+const commit = execFileSync('git', ['rev-parse', 'HEAD'], {cwd: root, encoding: 'utf8'}).trim();
+const wasm = JSON.parse(await readFile(new URL('../public/wasm/build.json', import.meta.url), 'utf8'));
 if (wasm.commit !== commit || wasm.wasm_memory_limit_bytes !== 67108864)
-  throw Error(
-    "Rebuild bounded Wasm at the current commit before packaging runner",
-  );
-const config = { commit, parentOrigins: origins };
-const out = new URL("../runner-dist/", import.meta.url);
-await rm(out, { recursive: true, force: true });
-await mkdir(out, { recursive: true });
-await build({
-  absWorkingDir: root,
-  entryPoints: ["src/runner/frame.js", "src/runner/worker.js"],
-  outdir: fileURLToPath(out),
-  bundle: true,
-  format: "esm",
-  platform: "browser",
-  target: "es2022",
-  loader: { ".wasm": "binary" },
-  define: { __RUNNER_CONFIG__: JSON.stringify(config) },
-});
-await copyFile(
-  new URL("../runner/index.html", import.meta.url),
-  new URL("index.html", out),
-);
-await writeFile(new URL("probe.js", out), "export const probe = true;\n");
-await writeFile(new URL("probe-worker.js", out), 'postMessage("open");\n');
-const frameCsp = `default-src 'none'; script-src 'self'; worker-src 'self'; connect-src 'none'; frame-ancestors ${origins.join(" ")}; base-uri 'none'; form-action 'none'; object-src 'none'`;
-// CSP paths do not overlap: hosts that append duplicate headers must not apply
-// the frame's script-src to the worker's eval-enabled, network-disabled policy.
-const headers = {
-  "/*": {
-    "X-Content-Type-Options": "nosniff",
-    "Referrer-Policy": "no-referrer",
-    "Cache-Control": "no-store",
-  },
-  "/": { "Content-Security-Policy": frameCsp },
-  "/index.html": { "Content-Security-Policy": frameCsp },
-  "/worker.js": {
-    "Content-Security-Policy":
-      "default-src 'none'; script-src 'unsafe-eval'; connect-src 'none'; worker-src 'none'; base-uri 'none'; object-src 'none'",
-  },
-};
-await writeFile(
-  new URL("headers.json", out),
-  JSON.stringify(headers, null, 2) + "\n",
-);
-await writeFile(
-  new URL("_headers", out),
-  Object.entries(headers)
-    .map(
-      ([path, values]) =>
-        path +
-        "\n" +
-        Object.entries(values)
-          .map(([k, v]) => `  ${k}: ${v}`)
-          .join("\n"),
-    )
-    .join("\n") + "\n",
-);
-await writeFile(
-  new URL("manifest.json", out),
-  JSON.stringify({ schema: 1, ...config }, null, 2) + "\n",
-);
-console.log(
-  `Built isolated runner at ${commit}; deploy with response headers on a separate static origin.`,
-);
+  throw Error('Rebuild bounded Wasm at the current commit before packaging runner');
+const config = {commit};
+const bundle = async (entry, define = {}) => (await build({
+  absWorkingDir: root, entryPoints: [entry], bundle: true, write: false,
+  format: 'iife', platform: 'browser', target: 'es2022', loader: {'.wasm': 'binary'},
+  define: {'import.meta.url': JSON.stringify('about:blank'), __RUNNER_CONFIG__: JSON.stringify(config), ...define},
+})).outputFiles[0].text;
+const worker = await bundle('src/runner/worker.js');
+const frame = await bundle('src/runner/frame.js', {__WORKER_SOURCE__: JSON.stringify(worker)});
+// Only trusted build output enters srcdoc. User source is sent through a private
+// MessagePort after bootstrap; it never becomes HTML or a script element.
+const policy = "default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval'; worker-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'";
+const html = `<!doctype html><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="${policy}"><script>${frame.replace(/<\/script/gi, '<\\/script')}</script>`;
+const out = new URL('../public/runner/', import.meta.url);
+await rm(out, {recursive: true, force: true}); await mkdir(out, {recursive: true});
+await writeFile(new URL('sandbox.json', out), JSON.stringify({schema: 2, commit, html}));
+await writeFile(new URL('manifest.json', out), JSON.stringify({schema: 2, commit, isolation: 'opaque-iframe-blob-worker'}, null, 2)+'\n');
+await writeFile(new URL('probe.js', out), 'export const probe = true;\n');
+console.log(`Built single-site sandbox at ${commit}; no response headers or separate origin required.`);

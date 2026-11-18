@@ -14,7 +14,6 @@ import urllib.error
 import urllib.request
 
 ROOT=Path(__file__).resolve().parents[1]
-HEADERS=json.loads((ROOT/'runner-dist/headers.json').read_text())
 class Handler(SimpleHTTPRequestHandler):
     def log_message(self,*args):pass
     def do_GET(self):
@@ -24,10 +23,6 @@ class Handler(SimpleHTTPRequestHandler):
         if self.server.server_port==4210 and path.startswith('/rs-decimal/'):
             path=path[len('/rs-decimal'):]
         return super().translate_path(path)
-    def end_headers(self):
-        if self.server.server_port==4211:
-            for k,v in {**HEADERS['/*'],**HEADERS.get(self.path.split('?')[0],{})}.items():self.send_header(k,v)
-        super().end_headers()
 servers=[];driver=None;session=None
 base='http://127.0.0.1:9520'
 def call(path,payload=None,method=None):
@@ -48,7 +43,7 @@ def until(check):
 
 with tempfile.TemporaryDirectory(prefix='decimal-editor-') as temp:
     try:
-        for port,directory in [(4210,ROOT/'docs/.vitepress/dist'),(4211,ROOT/'runner-dist')]:
+        for port,directory in [(4210,ROOT/'docs/.vitepress/dist')]:
             server=ThreadingHTTPServer(('127.0.0.1',port),partial(Handler,directory=str(directory)));servers.append(server);threading.Thread(target=server.serve_forever,daemon=True).start()
         driver=subprocess.Popen([os.environ['CHROMEDRIVER'],'--port=9520'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
         for _ in range(100):

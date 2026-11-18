@@ -25,40 +25,19 @@ self.onmessage = async ({ data, ports }) => {
   let outputCount = 0,
     outputBytes = 0;
   try {
-    // These probes must be blocked by the response CSP before any user code runs.
-    // The static package supplies successful probe endpoints for missing-CSP tests.
+    // Blob workers inherit the opaque iframe's meta CSP on GitHub Pages.
+    // Keep the worker opaque and prevent descendants from creating extra workers.
+    // Network/import restrictions are enforced by CSP, not deleted fetch globals.
+    if (self.origin !== "null") throw Object.assign(new Error("Opaque sandbox is missing"), {category: "isolation"});
+    for (const name of ["Worker", "SharedWorker"]) {
+      Object.defineProperty(self, name, {value: undefined, writable: false, configurable: false});
+    }
     let networkOpen = false;
-    try {
-      await fetch(new URL("./probe.js", import.meta.url));
-      networkOpen = true;
-    } catch {}
+    try { await fetch(data.probeUrl, {mode: "no-cors", credentials: "omit"}); networkOpen = true; } catch {}
     let importsOpen = false;
-    try {
-      await import(
-        /* @vite-ignore */ new URL("./probe.js", import.meta.url).href
-      );
-      importsOpen = true;
-    } catch {}
-    const workersOpen = await new Promise((resolve) => {
-      try {
-        const probe = new Worker(new URL("./probe-worker.js", import.meta.url));
-        probe.onmessage = () => {
-          probe.terminate();
-          resolve(true);
-        };
-        probe.onerror = (event) => {
-          event.preventDefault();
-          probe.terminate();
-          resolve(false);
-        };
-      } catch {
-        resolve(false);
-      }
-    });
-    if (networkOpen || importsOpen || workersOpen)
-      throw Object.assign(new Error("Runner CSP isolation is missing"), {
-        category: "isolation",
-      });
+    try { await import(/* @vite-ignore */ data.probeUrl); importsOpen = true; } catch {}
+    if (networkOpen || importsOpen)
+      throw Object.assign(new Error("Runner CSP isolation is missing"), {category: "isolation"});
     await init({ module_or_path: wasmBytes });
     const bridge = createBridge(raw);
     if (bridge.metadata().commit !== config.commit)

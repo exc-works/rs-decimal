@@ -9,6 +9,6 @@ const dirty = !!git('status', '--porcelain');
 execFileSync(process.execPath, ['node_modules/vitepress/bin/vitepress.js', 'build', 'docs'], {cwd: root, stdio: 'inherit'});
 if (git('rev-parse', 'HEAD') !== commit) throw Error('Git HEAD changed during documentation build');
 await writeFile(new URL('../docs/.vitepress/dist/build.json', import.meta.url), JSON.stringify({
-  schema: 1, commit, dirty: dirty || !!git('status', '--porcelain'),
-  base: process.env.DOCS_BASE || '/', runnerUrl: process.env.DOCS_RUNNER_URL || '',
+  schema: 2, commit, dirty: dirty || !!git('status', '--porcelain'),
+  base: process.env.DOCS_BASE || '/', runnerUrl: (process.env.DOCS_BASE || '/') + 'runner/',
 }, null, 2) + '\n');

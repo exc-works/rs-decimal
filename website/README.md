@@ -4,7 +4,7 @@ This static VitePress site documents all 355 API entries in eight languages.
 The catalogue identifies browser-supported methods and native-only integrations;
 Rust/Wasm performs playground decimal operations. `npm run check:release` checks
 complete API coverage and current translations. See [DEPLOYMENT.md](DEPLOYMENT.md)
-for the two-origin static package, version checks, headers and release verification.
+for the single-site GitHub Pages workflow, version checks and release verification.
 
 Use Node 22 and `npm ci --ignore-scripts`, then `npm run dev` in this directory.
 `npm run check:i18n`, `node --test tests/i18n.test.mjs` and `npm run build` validate
@@ -60,13 +60,14 @@ do not load these chunks. Monaco 0.57.0 uses DOMPurify, overridden to 3.4.18 to
 include its security fixes. The previously documented build-only picomatch
 advisory remains; no clean audit claim is made.
 
-Set `DOCS_RUNNER_URL` to the trusted separate-origin runner deployment when
-building docs. Both packages must be built at the same Git commit. For a local
-check, build Wasm, package the runner with parent `http://127.0.0.1:4210`, then
-build docs with `DOCS_BASE=/rs-decimal/ DOCS_RUNNER_URL=http://127.0.0.1:4211/`.
-`tests/browser-editor.py` serves these packages and tests the actual UI. Without
-runner configuration, editing/import/export remain available and Run is visibly
-disabled. An editor route never runs a restored draft or imported file by itself.
+Build the complete single-site package with `DOCS_BASE=/rs-decimal/ npm run
+build:release` from a clean checkout. This builds bounded Rust/Wasm and a trusted
+bootstrap bundle at `runner/sandbox.json`; the production site loads it from the
+same origin. A sandboxed opaque iframe creates fresh Blob Workers with inherited
+meta CSP. No separate domain or configurable HTTP headers are required.
+`tests/browser-editor.py` serves the package and tests the actual UI. Editing,
+import/export and drafts remain local; restored or imported scripts never run
+without an explicit Run. A missing or mismatched runner reports an error.
 
 `show(value)`/`print(value)` snapshot values immediately; `assert(condition,
 message?)` reports a script assertion error. Output is rendered as escaped text;

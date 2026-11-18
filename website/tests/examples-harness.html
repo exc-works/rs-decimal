@@ -1,7 +1,7 @@
 <!doctype html><html><head><meta charset="utf-8"><title>Paired example browser checks</title></head><body><pre id="result">running</pre><script type="module">
 import { RunnerClient } from '../src/runner/client.js';
 const manifest=await (await fetch('/runner-manifest.json')).json();
-const client=new RunnerClient({container:document.body,runnerUrl:'http://127.0.0.1:4211/',commit:manifest.commit});
+const client=new RunnerClient({container:document.body,runnerUrl:new URL('/public/runner/',location.href).href,commit:manifest.commit});
 const checks=[],nativeOnly=[];
 const canonical=value=>JSON.stringify(value, (_,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.entries(v).sort()):v);
 try {

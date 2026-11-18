@@ -104,3 +104,12 @@ bridge PRs add meaningful boundary/state tests; runner PRs test lifecycle and
 isolation; release checks exercise Chromium, Firefox and WebKit. Record review
 outcome and CI URLs in each PR. Never claim a check passed when it was unavailable
 or when only the native equivalent ran.
+
+## WEB-17: single GitHub Pages deployment
+
+The user requested one GitHub Pages site after WEB-16. Replace the two-origin
+runner with an opaque sandboxed iframe and CSP-inheriting Blob Worker, preserve
+Rust APIs and editor behavior, and ship one static directory. Verify all three
+engines without response-header configuration, review with `@codex review`, then
+merge and publish using the Pages Actions workflow. This supersedes the original
+separate-origin hosting requirement; it does not remove execution limits.
