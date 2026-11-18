@@ -1522,24 +1522,38 @@
   {
     "id": "Decimal::marshal_binary",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12b",
     "doc_id": "decimal-marshal-binary",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.marshal_binary(): Uint8Array",
+    "examples": [
+      "binary-bson-decimal-marshal-binary"
+    ],
+    "tests": [
+      "website/tests/binary-bson.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::marshal_bson_value",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12b",
     "doc_id": "decimal-marshal-bson-value",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.marshal_bson_value(): [number, Uint8Array]",
+    "examples": [
+      "binary-bson-decimal-marshal-bson-value"
+    ],
+    "tests": [
+      "website/tests/binary-bson.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::marshal_json",
@@ -2669,24 +2683,38 @@
   {
     "id": "Decimal::unmarshal_binary",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12b",
     "doc_id": "decimal-unmarshal-binary",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.unmarshal_binary(bytes: Uint8Array): void",
+    "examples": [
+      "binary-bson-decimal-unmarshal-binary"
+    ],
+    "tests": [
+      "website/tests/binary-bson.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::unmarshal_bson_value",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12b",
     "doc_id": "decimal-unmarshal-bson-value",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.unmarshal_bson_value(kind: number, data: Uint8Array): void",
+    "examples": [
+      "binary-bson-decimal-unmarshal-bson-value"
+    ],
+    "tests": [
+      "website/tests/binary-bson.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::unmarshal_json",
@@ -3669,13 +3697,20 @@
   {
     "id": "NullDecimal::marshal_bson_value",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12b",
     "doc_id": "nulldecimal-marshal-bson-value",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.marshal_bson_value(): [number, Uint8Array]",
+    "examples": [
+      "binary-bson-nulldecimal-marshal-bson-value"
+    ],
+    "tests": [
+      "website/tests/binary-bson.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::marshal_json",
@@ -3796,13 +3831,20 @@
   {
     "id": "NullDecimal::unmarshal_bson_value",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12b",
     "doc_id": "nulldecimal-unmarshal-bson-value",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.unmarshal_bson_value(kind: number, data: Uint8Array): void",
+    "examples": [
+      "binary-bson-nulldecimal-unmarshal-bson-value"
+    ],
+    "tests": [
+      "website/tests/binary-bson.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::unmarshal_json",
@@ -3905,13 +3947,20 @@
   {
     "id": "PRECISION_FIXED_SIZE",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12b",
     "doc_id": "precision-fixed-size",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "PRECISION_FIXED_SIZE: number",
+    "examples": [
+      "binary-bson-precision-fixed-size"
+    ],
+    "tests": [
+      "website/tests/binary-bson.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "RoundingMode",
@@ -4767,13 +4816,20 @@
   {
     "id": "reexport::PRECISION_FIXED_SIZE",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12b",
     "doc_id": "reexport-precision-fixed-size",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "binary-bson-reexport-precision-fixed-size"
+    ],
+    "tests": [
+      "website/tests/binary-bson.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::RoundingMode",

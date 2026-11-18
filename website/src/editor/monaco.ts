@@ -49,6 +49,7 @@ declare global {
   const max: Bridge["max"];
   const between: Bridge["between"];
   const most_significant_bit: Bridge["most_significant_bit"];
+  const PRECISION_FIXED_SIZE: Bridge["PRECISION_FIXED_SIZE"];
   const COMPATIBILITY_REVISION: Bridge["COMPATIBILITY_REVISION"];
   function print(value: unknown): void;
   function show(value: unknown): void;

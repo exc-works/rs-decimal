@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "binary-bson-nulldecimal-unmarshal-bson-value",
+  "api_ids": [
+    "NullDecimal::unmarshal_bson_value"
+  ],
+  "rust": "let mut value = NullDecimal::new(Decimal::new_from_string(\"1.2300\")?);\nvalue.unmarshal_bson_value(10, &[])?;",
+  "javascript": "const value = NullDecimal.new(Decimal.new_from_string(\"1.2300\"));\nvalue.unmarshal_bson_value(10, new Uint8Array([]));",
+  "expected": {
+    "valid": false,
+    "decimal": {
+      "coefficient": "0",
+      "scale": "0",
+      "initialized": false
+    }
+  }
+}

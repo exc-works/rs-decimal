@@ -47,4 +47,4 @@ test('marshaled bytes are independent copies and moved wrappers are rejected',()
  const d=D.new(12n),out=d.marshal_text();out.fill(0);assert.equal(dec.decode(d.marshal_text()),'12');d.into_coefficient();assert.throws(()=>d.marshal_text(),{category:'moved'});assert.throws(()=>d.unmarshal_param('1'),{category:'moved'});
 });
 
-test('metadata reports the enabled JSON feature',()=>{assert.deepEqual(metadata().features,["json"]);});
+test('metadata reports the enabled JSON feature',()=>{assert.ok(metadata().features.includes("json"));});

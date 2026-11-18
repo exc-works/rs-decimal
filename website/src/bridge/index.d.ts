@@ -86,6 +86,10 @@ export interface Decimal {
   unmarshal_text(bytes: Uint8Array): void;
   unmarshal_json(bytes: Uint8Array): void;
   unmarshal_param(param: string): void;
+  marshal_binary(): Uint8Array;
+  unmarshal_binary(bytes: Uint8Array): void;
+  marshal_bson_value(): [number, Uint8Array];
+  unmarshal_bson_value(kind: number, data: Uint8Array): void;
   mul_exact(other: Decimal): Decimal;
   ceil(): Decimal;
   floor(): Decimal;
@@ -105,6 +109,8 @@ export interface Decimal {
   free(): void;
 }
 export interface NullDecimal {
+  marshal_bson_value(): [number, Uint8Array];
+  unmarshal_bson_value(kind: number, data: Uint8Array): void;
   string(): string;
   marshal_text(): Uint8Array;
   marshal_json(): Uint8Array;
@@ -121,6 +127,7 @@ export interface NullDecimal {
 }
 export interface ByteBuffer { to_uint8_array(): Uint8Array; free(): void; }
 export interface Bridge {
+  readonly PRECISION_FIXED_SIZE: number;
   readonly COMPATIBILITY_REVISION: string;
   Decimal: {
     "new": (value: bigint) => Decimal;

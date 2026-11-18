@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "binary-bson-reexport-precision-fixed-size",
+  "api_ids": [
+    "reexport::PRECISION_FIXED_SIZE"
+  ],
+  "rust": "let value = serde_json::json!({\"value\": rs_decimal::PRECISION_FIXED_SIZE});",
+  "javascript": "",
+  "expected": {
+    "value": 4
+  }
+}

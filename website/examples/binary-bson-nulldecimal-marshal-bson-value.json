@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "binary-bson-nulldecimal-marshal-bson-value",
+  "api_ids": [
+    "NullDecimal::marshal_bson_value"
+  ],
+  "rust": "let (kind, bytes) = NullDecimal::new(Decimal::new_from_string(\"1.2300\")?).marshal_bson_value()?;\nlet value = serde_json::json!({\"kind\": kind, \"bytes\": bytes});",
+  "javascript": "const [kind, bytes] = NullDecimal.new(Decimal.new_from_string(\"1.2300\")).marshal_bson_value();\nconst value = { kind, bytes: Array.from(bytes) };",
+  "expected": {
+    "kind": 2,
+    "bytes": [
+      5,
+      0,
+      0,
+      0,
+      49,
+      46,
+      50,
+      51,
+      0
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "binary-bson-decimal-unmarshal-binary",
+  "api_ids": [
+    "Decimal::unmarshal_binary"
+  ],
+  "rust": "let mut value = Decimal::new(9);\nvalue.unmarshal_binary(&[0,0,0,2,3,123])?;",
+  "javascript": "const value = Decimal.new(9n);\nvalue.unmarshal_binary(new Uint8Array([0,0,0,2,3,123]));",
+  "expected": {
+    "coefficient": "-123",
+    "scale": "2",
+    "initialized": true,
+    "string": "-1.23",
+    "string_with_trailing_zeros": "-1.23"
+  }
+}

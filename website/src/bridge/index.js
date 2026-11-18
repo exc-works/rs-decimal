@@ -39,6 +39,11 @@ function bigText(value) {
   return value.toString();
 }
 
+function wireBytes(bytes) {
+  requireType(bytes instanceof Uint8Array, 'bytes must be Uint8Array');
+  resource(bytes.byteLength <= 65536, 'playground wire input exceeds 65536 bytes');
+  return bytes;
+}
 function inputBytes(bytes) {
   requireType(bytes instanceof Uint8Array, 'bytes must be Uint8Array');
   resource(bytes.byteLength <= 8192, 'playground decoder input exceeds 8192 bytes');
@@ -220,6 +225,10 @@ export function createBridge(raw) {
     marshal_json() { return borrow(this, Decimal).marshal_json(); }
     unmarshal_json(bytes) { borrow(this, Decimal).unmarshal_json(inputBytes(bytes)); }
     unmarshal_param(param) { borrow(this, Decimal).unmarshal_param(inputText(param)); }
+    marshal_binary() { return borrow(this, Decimal).marshal_binary(); }
+    unmarshal_binary(bytes) { borrow(this, Decimal).unmarshal_binary(wireBytes(bytes)); }
+    marshal_bson_value() { return borrow(this, Decimal).marshal_bson_value(); }
+    unmarshal_bson_value(kind, data) { borrow(this, Decimal).unmarshal_bson_value(integer(kind, 'kind', 0, 255), wireBytes(data)); }
     mul_exact(other) {
       return wrap(Decimal, borrow(this, Decimal).mul_exact(borrow(other, Decimal)));
     }
@@ -255,6 +264,8 @@ export function createBridge(raw) {
     unmarshal_json(bytes) { borrow(this, NullDecimal).unmarshal_json(inputBytes(bytes)); }
     unmarshal_param(param) { borrow(this, NullDecimal).unmarshal_param(inputText(param)); }
     string() { return borrow(this, NullDecimal).string(); }
+    marshal_bson_value() { return borrow(this, NullDecimal).marshal_bson_value(); }
+    unmarshal_bson_value(kind, data) { borrow(this, NullDecimal).unmarshal_bson_value(integer(kind, 'kind', 0, 255), wireBytes(data)); }
     get valid() { return borrow(this, NullDecimal).valid; }
     set valid(value) {
       requireType(typeof value === 'boolean', 'valid must be boolean');
@@ -299,5 +310,5 @@ export function createBridge(raw) {
     most_significant_bit: value => raw.most_significant_bit(bigText(value)),
     between: (v, lower, upper) => raw.between(borrow(v, Decimal), borrow(lower, Decimal), borrow(upper, Decimal)),
   };
-  return Object.freeze({ Decimal, NullDecimal, ByteBuffer, GoFormat, RoundingMode: rounding, snapshot, ...helpers, get COMPATIBILITY_REVISION() { return raw.compatibility_revision(); }, metadata: () => JSON.parse(raw.metadata()) });
+  return Object.freeze({ Decimal, NullDecimal, ByteBuffer, GoFormat, RoundingMode: rounding, snapshot, ...helpers, get PRECISION_FIXED_SIZE() { return raw.precision_fixed_size(); }, get COMPATIBILITY_REVISION() { return raw.compatibility_revision(); }, metadata: () => JSON.parse(raw.metadata()) });
 }
