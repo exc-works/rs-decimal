@@ -1544,24 +1544,38 @@
   {
     "id": "Decimal::marshal_json",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12a",
     "doc_id": "decimal-marshal-json",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.marshal_json(): Uint8Array",
+    "examples": [
+      "text-json-decimal-marshal-json"
+    ],
+    "tests": [
+      "website/tests/text-json.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::marshal_text",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12a",
     "doc_id": "decimal-marshal-text",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.marshal_text(): Uint8Array",
+    "examples": [
+      "text-json-decimal-marshal-text"
+    ],
+    "tests": [
+      "website/tests/text-json.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::marshal_xml",
@@ -2677,35 +2691,56 @@
   {
     "id": "Decimal::unmarshal_json",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12a",
     "doc_id": "decimal-unmarshal-json",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.unmarshal_json(bytes: Uint8Array): void",
+    "examples": [
+      "text-json-decimal-unmarshal-json"
+    ],
+    "tests": [
+      "website/tests/text-json.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::unmarshal_param",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12a",
     "doc_id": "decimal-unmarshal-param",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.unmarshal_param(param: string): void",
+    "examples": [
+      "text-json-decimal-unmarshal-param"
+    ],
+    "tests": [
+      "website/tests/text-json.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::unmarshal_text",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12a",
     "doc_id": "decimal-unmarshal-text",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.unmarshal_text(bytes: Uint8Array): void",
+    "examples": [
+      "text-json-decimal-unmarshal-text"
+    ],
+    "tests": [
+      "website/tests/text-json.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::unmarshal_xml",
@@ -3598,24 +3633,38 @@
   {
     "id": "NullDecimal::impl std :: fmt :: Display",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12a",
     "doc_id": "nulldecimal-impl-std-fmt-display",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "text-json-nulldecimal-impl-std-fmt-display"
+    ],
+    "tests": [
+      "website/tests/text-json.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::impl std :: fmt :: Display::fmt",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12a",
     "doc_id": "nulldecimal-impl-std-fmt-display-fmt",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "text-json-nulldecimal-impl-std-fmt-display-fmt"
+    ],
+    "tests": [
+      "website/tests/text-json.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::marshal_bson_value",
@@ -3631,24 +3680,38 @@
   {
     "id": "NullDecimal::marshal_json",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12a",
     "doc_id": "nulldecimal-marshal-json",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.marshal_json(): Uint8Array",
+    "examples": [
+      "text-json-nulldecimal-marshal-json"
+    ],
+    "tests": [
+      "website/tests/text-json.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::marshal_text",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12a",
     "doc_id": "nulldecimal-marshal-text",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.marshal_text(): Uint8Array",
+    "examples": [
+      "text-json-nulldecimal-marshal-text"
+    ],
+    "tests": [
+      "website/tests/text-json.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::marshal_xml",
@@ -3715,13 +3778,20 @@
   {
     "id": "NullDecimal::string",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12a",
     "doc_id": "nulldecimal-string",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.string(): string",
+    "examples": [
+      "text-json-nulldecimal-string"
+    ],
+    "tests": [
+      "website/tests/text-json.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::unmarshal_bson_value",
@@ -3737,35 +3807,56 @@
   {
     "id": "NullDecimal::unmarshal_json",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12a",
     "doc_id": "nulldecimal-unmarshal-json",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.unmarshal_json(bytes: Uint8Array): void",
+    "examples": [
+      "text-json-nulldecimal-unmarshal-json"
+    ],
+    "tests": [
+      "website/tests/text-json.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::unmarshal_param",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12a",
     "doc_id": "nulldecimal-unmarshal-param",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.unmarshal_param(param: string): void",
+    "examples": [
+      "text-json-nulldecimal-unmarshal-param"
+    ],
+    "tests": [
+      "website/tests/text-json.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::unmarshal_text",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-12a",
     "doc_id": "nulldecimal-unmarshal-text",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.unmarshal_text(bytes: Uint8Array): void",
+    "examples": [
+      "text-json-nulldecimal-unmarshal-text"
+    ],
+    "tests": [
+      "website/tests/text-json.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::unmarshal_xml",

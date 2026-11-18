@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "text-json-decimal-unmarshal-text",
+  "api_ids": [
+    "Decimal::unmarshal_text"
+  ],
+  "rust": "let mut value = Decimal::new(9);\nvalue.unmarshal_text(b\"12.3400\")?;",
+  "javascript": "const value = Decimal.new(9n);\nvalue.unmarshal_text(new TextEncoder().encode(\"12.3400\"));",
+  "expected": {
+    "coefficient": "123400",
+    "scale": "4",
+    "initialized": true,
+    "string": "12.34",
+    "string_with_trailing_zeros": "12.3400"
+  }
+}

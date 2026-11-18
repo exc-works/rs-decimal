@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "text-json-nulldecimal-marshal-text",
+  "api_ids": [
+    "NullDecimal::marshal_text"
+  ],
+  "rust": "let input = NullDecimal::new(Decimal::new_from_string(\"12.3400\")?);\nlet value = serde_json::json!({\"bytes\": input.marshal_text()});",
+  "javascript": "const input = NullDecimal.new(Decimal.new_from_string(\"12.3400\"));\nconst value = { bytes: Array.from(input.marshal_text()) };",
+  "expected": {
+    "bytes": [
+      49,
+      50,
+      46,
+      51,
+      52
+    ]
+  }
+}

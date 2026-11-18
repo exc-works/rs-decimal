@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "text-json-nulldecimal-unmarshal-param",
+  "api_ids": [
+    "NullDecimal::unmarshal_param"
+  ],
+  "rust": "let mut value = NullDecimal::new(Decimal::new(9));\nvalue.unmarshal_param(\"-2.500\")?;",
+  "javascript": "const value = NullDecimal.new(Decimal.new(9n));\nvalue.unmarshal_param(\"-2.500\");",
+  "expected": {
+    "valid": true,
+    "decimal": {
+      "coefficient": "-2500",
+      "scale": "3",
+      "initialized": true
+    }
+  }
+}
