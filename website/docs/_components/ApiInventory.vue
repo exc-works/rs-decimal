@@ -4,7 +4,7 @@ import { useData, withBase } from 'vitepress';
 import { data } from '../api.data';
 const props = defineProps<{ labels: Record<string,string> }>();
 const { lang } = useData();
-const referenceLocale = computed(() => ['en-US','zh-Hans'].includes(lang.value) ? lang.value : 'en-US');
+const referenceLocale = (item: any) => item.locales.includes(lang.value) ? lang.value : 'en-US';
 const fallbackLabels: Record<string,string> = {
   'zh-Hant':'英文參考文件', 'en-GB':'English (US) reference', fr:'Référence en anglais',
   ko:'영어 참고 문서', ja:'英語のリファレンス', de:'Englische Referenz',
@@ -21,8 +21,8 @@ const filtered = computed(() => data.filter((item: any) => item.id.toLowerCase()
       <thead><tr><th>{{ labels.method }}</th><th>{{ labels.status }}</th><th>{{ labels.mapping }}</th></tr></thead>
       <tbody><tr v-for="item in filtered" :key="item.id">
         <td>
-          <a v-if="item.status === 'implemented'" :href="withBase(`/${referenceLocale}/api/${item.doc_id}.html`)">
-            <code>{{ item.id }}</code><span v-if="referenceLocale !== lang"> ({{ fallbackLabels[lang] }})</span>
+          <a v-if="item.status === 'implemented'" :href="withBase(`/${referenceLocale(item)}/api/${item.doc_id}.html`)">
+            <code>{{ item.id }}</code><span v-if="referenceLocale(item) !== lang"> ({{ fallbackLabels[lang] }})</span>
           </a>
           <code v-else>{{ item.id }}</code>
         </td>

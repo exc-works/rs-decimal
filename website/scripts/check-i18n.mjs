@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { locales } from '../locales.mjs';
+import { methodLocales } from '../method-locales.mjs';
 export const expectedLocales = ['zh-Hans','zh-Hant','en-US','en-GB','fr','ko','ja','de'];
 export async function checkTranslations(root = new URL('../', import.meta.url), labels = locales) {
   const manifest = JSON.parse(await readFile(new URL('translation-manifest.json', root), 'utf8'));
@@ -34,7 +35,7 @@ export async function checkMethodTranslations(root = new URL('../', import.meta.
     const source = await readFile(new URL(`docs/en-US/api/${entry.doc_id}.md`, root), 'utf8');
     const body = source.replace(/^---\n[\s\S]*?\n---\n/, '');
     const revision = createHash('sha256').update(body).digest('hex');
-    const required = new Set(['en-US', 'zh-Hans', 'en-GB', ...Object.keys(groups).filter(locale => groups[locale].includes('*') || groups[locale].includes(entry.owner))]);
+    const required = methodLocales(entry.owner, groups);
     for (const locale of release ? expectedLocales : required) {
       const page = await readFile(new URL(`docs/${locale}/api/${entry.doc_id}.md`, root), 'utf8');
       const header = page.match(/^---\n([\s\S]*?)\n---\n/)?.[1].split('\n');

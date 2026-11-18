@@ -58,11 +58,19 @@ try:
     def navigate(path):
         call(f'/session/{session}/url', {'url': SITE + path})
     count = len(json.loads((ROOT / 'api/rust-api.json').read_text()))
+    coverage = {entry['id']: entry for entry in json.loads((ROOT / 'api/coverage.json').read_text())}
+    groups = json.loads((ROOT / 'translation-manifest.json').read_text()).get('method_locale_owners', {})
     for locale in ['en-US', 'en-GB', 'zh-Hans', 'zh-Hant', 'fr', 'ko', 'ja', 'de']:
         print('Checking', locale, flush=True)
         navigate(f'{locale}/api/')
         until(lambda: js('return document.querySelectorAll("tbody tr").length') == count)
         assert js('return document.documentElement.lang') == locale
+        links = js('return [...document.querySelectorAll("tbody tr")].map(row=>[row.querySelector("code").textContent,row.querySelector("a")?.pathname])')
+        for api_id, href in links:
+            entry = coverage[api_id]
+            available = locale in ['en-US','zh-Hans','en-GB'] or '*' in groups.get(locale,[]) or entry['owner'] in groups.get(locale,[])
+            target = locale if available else 'en-US'
+            assert href == f'/rs-decimal/{target}/api/{entry["doc_id"]}.html', (locale, api_id, href)
         js('const el=document.querySelector("#api-query"); el.value="mul_exact"; el.dispatchEvent(new Event("input",{bubbles:true}));')
         until(lambda: 0 < js('return document.querySelectorAll("tbody tr").length') < count)
         assert js('return [...document.querySelectorAll("tbody tr")].every(x=>x.textContent.includes("mul_exact"))')

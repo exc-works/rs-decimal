@@ -52,3 +52,9 @@ SQL scalar/error and validation/message references (WEB-13a-1–2; 73 more
 entries) have been reviewed in zh-Hant. The review retains borrowed byte-buffer
 behaviour, error-kind membership, rule-specific missing-value handling, literal
 message substitution and separate validation/library/resource errors.
+
+The remaining config/Serde and native SQLx/trait groups (WEB-13b-1–2; 72
+entries) complete all 355 zh-Hant references. Review covers generic Serde versus
+raw JSON adapters, 128-bit input ranges, nullable state, native-only trait syntax,
+PostgreSQL OIDs/wire limits and the separate live-database fixture profile. The
+manifest now uses `*` so future API groups cannot bypass zh-Hant completeness.
