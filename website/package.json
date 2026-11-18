@@ -1,0 +1,16 @@
+{
+  "name": "rs-decimal-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs",
+    "check:i18n": "node scripts/check-i18n.mjs"
+  },
+  "devDependencies": {
+    "vitepress": "1.6.4",
+    "vue": "3.5.22",
+    "typescript": "5.9.3"
+  }
+}
