@@ -136,3 +136,8 @@ German text/JSON, binary/BSON and YAML/XML references (WEB-12a–c; 33
 more entries) preserve each codec’s null/empty semantics, stored versus
 canonical scale, wire formats and atomic decoding errors. XML entity literals
 remain code-formatted and exact numeric input does not pass through JS numbers.
+
+German SQL scalar/error and validation/message references (WEB-13a-1–2;
+73 more entries) retain borrowed inputs, null state, multi-kind error handling,
+constructed versus thrown error APIs, rule-specific initialization requirements
+and literal placeholder substitution. Runtime messages and tags remain unchanged.
