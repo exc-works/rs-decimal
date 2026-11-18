@@ -71,11 +71,14 @@ try {
         await page.locator('[data-parameter="0"]').waitFor();
         assert.equal(await page.locator('html').getAttribute('lang'), locale);
       }
+      await page.goto(`${origin}/rs-decimal/zh-Hans/`);
+      await page.locator('.ref-tasks').getByRole('link', {name:'舍入并保留两位小数'}).click();
+      await page.locator('h2#返回值').waitFor();
       await page.goto(`${origin}/rs-decimal/zh-Hans/api/`);
       await page.locator('.ref-types').getByRole('link', {name:'Decimal', exact:true}).click();
       await page.locator('.ref-jump a[href="#members-precision"]').click();
       await page.locator('#members-precision').getByRole('link', {name:'Decimal::round_with_prec', exact:true}).click();
-      await page.getByRole('heading', {name:'返回值', exact:true}).waitFor();
+      await page.locator('h2#返回值').waitFor();
       await page.getByRole('button', {name:'JavaScript', exact:true}).focus();
       await page.keyboard.press('Enter');
       assert.match(await page.locator('[data-example-code]').textContent(), /input\.round_with_prec/);

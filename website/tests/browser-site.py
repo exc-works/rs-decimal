@@ -71,6 +71,7 @@ try:
             available = locale in ['en-US','zh-Hans','en-GB'] or '*' in groups.get(locale,[]) or entry['owner'] in groups.get(locale,[])
             target = locale if available else 'en-US'
             assert href == f'/rs-decimal/{target}/api/{entry["doc_id"]}.html', (locale, api_id, href)
+        until(lambda: js('return !!document.querySelector("#api-query:enabled")'))
         js('const el=document.querySelector("#api-query"); el.value="mul_exact"; el.dispatchEvent(new Event("input",{bubbles:true}));')
         until(lambda: 0 < js('return document.querySelectorAll("tbody tr").length') < count)
         assert js('return [...document.querySelectorAll("tbody tr")].every(x=>x.textContent.includes("mul_exact"))')

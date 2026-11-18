@@ -55,6 +55,9 @@ const groups = computed(() => {
       </nav>
     </template>
     <template #doc-after>
+      <nav v-if="page.tasks" class="ref-tasks" :aria-label="locales[lang].guide">
+        <a v-for="task in page.tasks" :key="task.id" :href="withBase(task.href)">{{ task.title }}</a>
+      </nav>
       <section v-for="[group, items] in groups" :key="group" class="ref-group" :id="'members-' + group">
         <h2>{{ labels[group] }}</h2>
         <dl><template v-for="item in items" :key="item.id">
