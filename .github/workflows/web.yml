@@ -26,9 +26,6 @@ jobs:
         working-directory: website
       - run: npm run build:runner
         working-directory: website
-        env:
-          RUNNER_PARENT_ORIGINS: '["http://127.0.0.1:4210"]'
-          RUNNER_ALLOW_LOCALHOST: '1'
       - run: node --test website/tests/protocol.test.mjs
       - run: node --test website/tests/draft.test.mjs
       - run: node --test website/tests/transfer.test.mjs
@@ -40,7 +37,6 @@ jobs:
         working-directory: website
         env:
           DOCS_BASE: /rs-decimal/
-          DOCS_RUNNER_URL: http://127.0.0.1:4211/
       - run: python3 website/tests/browser-editor.py
         env:
           CHROMEDRIVER: ${{ steps.chrome.outputs.chromedriver-path }}
@@ -50,14 +46,11 @@ jobs:
         working-directory: website
       - run: npm run test:browsers
         working-directory: website
-      - name: Build the complete static package (localhost proof)
+      - name: Build the single-site static package
         run: npm run build:release
         working-directory: website
         env:
-          DOCS_ORIGIN: http://127.0.0.1:4210
           DOCS_BASE: /rs-decimal/
-          DOCS_RUNNER_URL: http://127.0.0.1:4211/
-          RELEASE_ALLOW_LOCALHOST: '1'
       - name: Select the matching browser binary
         run: python3 -c 'import json, os; open("webdriver.json", "w").write(json.dumps({"goog:chromeOptions":{"binary":os.environ["TEST_CHROME_BINARY"]}}))'
         env:
@@ -74,6 +67,6 @@ jobs:
           include-hidden-files: true
           path: |
             website/public/wasm/
-            website/runner-dist/
+            website/public/runner/
             website/release-dist/
             .cache/browser-engines.json

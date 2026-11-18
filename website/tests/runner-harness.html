@@ -14,7 +14,7 @@
       const manifest = await (await fetch("/runner-manifest.json")).json();
       const client = new RunnerClient({
         container: document.body,
-        runnerUrl: "http://127.0.0.1:4211/",
+        runnerUrl: new URL("/public/runner/", location.href).href,
         commit: manifest.commit,
         timeoutMs: 1500,
       });
@@ -32,6 +32,28 @@
           "real Rust execution",
         );
         checks.push("exact Rust result");
+        assert(client.frame.getAttribute('sandbox') === 'allow-scripts', 'no same-origin sandbox permission');
+        let parentAccess = false;
+        try { parentAccess = !!client.frame.contentWindow.document; } catch {}
+        assert(!parentAccess, 'frame must have an opaque origin');
+        out = [];
+        result = await client.run(`
+          assert(self.origin === 'null');
+          assert(typeof document === 'undefined' && typeof parent === 'undefined');
+          assert(typeof localStorage === 'undefined');
+          let blocked = false;
+          try { indexedDB.open('decimal-escape'); } catch { blocked = true; }
+          assert(blocked, 'opaque worker cannot access origin storage');
+          for (const name of ['Worker','SharedWorker']) {
+            assert(typeof self[name] === 'undefined');
+            assert(Object.getOwnPropertyDescriptor(self,name).configurable === false);
+            try { Object.defineProperty(self,name,{value:function(){}}); } catch {}
+            assert(typeof self[name] === 'undefined');
+          }
+          print('isolated');
+        `, {onOutput: x => out.push(JSON.parse(x))});
+        assert(result.type === 'done' && out[0] === 'isolated', 'opaque worker and locked child constructors');
+        checks.push('opaque iframe, storage separation and immutable worker restrictions');
         result = await client.run("while(true){}");
         assert(result.category === "timeout", "infinite-loop timeout");
         checks.push("owner timeout");
@@ -68,7 +90,7 @@
         checks.push("text output");
         out = [];
         result = await client.run(
-          'for (const test of [()=>fetch("http://127.0.0.1:4211/probe.js"),()=>import("http://127.0.0.1:4211/probe.js"),()=>import("data:text/javascript,export default 1")]) {try{await test();print("open");}catch{print("blocked");}}',
+          'for (const test of [()=>fetch("http://127.0.0.1:4210/public/runner/probe.js"),()=>import("http://127.0.0.1:4210/public/runner/probe.js"),()=>import("data:text/javascript,export default 1")]) {try{await test();print("open");}catch{print("blocked");}}',
           { onOutput: (x) => out.push(JSON.parse(x)) },
         );
         assert(
@@ -78,14 +100,14 @@
         checks.push("CSP blocks fetch and imports");
         out = [];
         result = await client.run(
-          'await new Promise(resolve=>{try{const w=new Worker("http://127.0.0.1:4211/probe.js");w.onerror=()=>{print("blocked");resolve();};w.onmessage=()=>{print("open");resolve();};}catch{print("blocked");resolve();}})',
+          'await new Promise(resolve=>{try{const w=new Worker("http://127.0.0.1:4210/public/runner/probe.js");w.onerror=()=>{print("blocked");resolve();};w.onmessage=()=>{print("open");resolve();};}catch{print("blocked");resolve();}})',
           { onOutput: (x) => out.push(JSON.parse(x)) },
         );
         assert(
           result.type === "done" && out[0] === "blocked",
           "nested worker CSP",
         );
-        checks.push("CSP blocks nested workers");
+        checks.push("nested worker constructors are unavailable");
         out = [];
         result = await client.run(
           'postMessage({type:"output",runId:1,text:"forged"});',
@@ -115,20 +137,20 @@
         try {
           new RunnerClient({
             container: document.body,
-            runnerUrl: location.origin,
+            runnerUrl: "https://other.invalid/",
             commit: manifest.commit,
           });
-          throw Error("same origin accepted");
+          throw Error("cross origin accepted");
         } catch (error) {
           assert(
-            error.message.includes("separate trusted"),
-            "same-origin rejection",
+            error.message.includes("same-origin static"),
+            "cross-origin rejection",
           );
         }
         checks.push("origin rejection");
         const open = new RunnerClient({
           container: document.body,
-          runnerUrl: "http://127.0.0.1:4212/",
+          runnerUrl: new URL("/insecure-runner/", location.href).href,
           commit: manifest.commit,
         });
         const insecure = await open.run('print("must not execute");');
@@ -137,7 +159,7 @@
         checks.push("missing CSP rejected");
         const wrong = new RunnerClient({
           container: document.body,
-          runnerUrl: "http://127.0.0.1:4211/",
+          runnerUrl: new URL("/public/runner/", location.href).href,
           commit: "wrong-commit",
         });
         let versionRejected = false;
@@ -161,7 +183,7 @@
         checks.push("library error categories preserved");
         const waiting = new RunnerClient({
           container: document.body,
-          runnerUrl: "http://127.0.0.1:4211/",
+          runnerUrl: new URL("/public/runner/", location.href).href,
           commit: "not-ready",
         });
         const beforeReady = waiting.run('print("must not run");');

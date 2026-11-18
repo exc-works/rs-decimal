@@ -1,68 +1,64 @@
-# Static documentation and playground deployment
+# Deploy to GitHub Pages
 
-The output is two static sites. Decimal execution happens in a fresh browser
-Worker running Rust/Wasm. No application server, database or user-code execution
-service is needed. Use a dedicated runner origin without account cookies,
-authenticated endpoints or unrelated content; preferably use a separate site.
+The docs, Monaco editor and Rust/Wasm playground are one static site. No second
+origin, custom response headers, server, login or database is required.
 
-## Build a package
+## Automatic publishing
 
-Use a clean committed checkout, Node 22+, Python 3, Rust with the
-`wasm32-unknown-unknown` target, and `wasm-bindgen-cli` exactly 0.2.105.
-From the repository root:
+In this repository's **Settings → Pages → Build and deployment**, select
+**GitHub Actions** as the source. `.github/workflows/pages.yml` builds and deploys
+on pushes to `main`, or through its manual workflow action. The build reads the
+Pages base path, checks all 355 API entries and eight current translations, and
+builds Wasm, runner and docs from one clean commit. The deployment job publishes
+only `website/release-dist/docs/` with the standard GitHub Pages actions.
+
+The project URL is `https://exc-works.github.io/rs-decimal/` unless the repository
+has a custom domain. No domain purchase is necessary. The workflow needs Pages
+publishing enabled and the `github-pages` environment must allow `main`.
+
+## Local build
+
+Install Node 22+, Python 3, Rust with `wasm32-unknown-unknown`, and
+`wasm-bindgen-cli` exactly 0.2.105. From a clean committed checkout:
 
 ```sh
 npm --prefix website ci --ignore-scripts
-DOCS_ORIGIN=https://docs.example.org \
-DOCS_BASE=/rs-decimal/ \
-DOCS_RUNNER_URL=https://runner.example.net/ \
-npm --prefix website run build:release
+DOCS_BASE=/rs-decimal/ npm --prefix website run build:release
 ```
 
-Replace the example origins with the actual hosting origins. The runner is served
-at its origin root. The docs base is `/` or a slash-terminated path. The script
-requires all 355 API entries and all eight translations, builds Wasm, runner and
-docs from one commit, validates their configuration and writes
-`website/release-dist/`. `release.json` contains the commit, origins, base path,
-Wasm measurements and SHA-256/size of every packaged file except itself.
-Store that manifest with the CI run and its review/check evidence.
+Use `DOCS_BASE=/` for an origin-root deployment. The package's `docs/` directory
+contains all published files, including `runner/sandbox.json`. `release.json`
+records the source commit, base path, Wasm measurements and each file's SHA-256.
+Old `DOCS_ORIGIN`, `DOCS_RUNNER_URL` and `RUNNER_PARENT_ORIGINS` settings are rejected
+by the release command; no hosting origins need to be configured.
 
-The package is a build artifact, not an automatic publishing operation or proof
-that a hosting provider applies its headers. GitHub CI validates the localhost
-configuration; run the command again with production origins before publishing.
-`RELEASE_ALLOW_LOCALHOST=1` permits explicit localhost proof builds, marked
-`local: true` in the manifest. Never publish that package as a production build.
+Preserve `.html` routes, directory `index.html`, and assets. Do not rewrite missing
+files to the homepage. GitHub Pages supplies ordinary static HTTP responses;
+no `_headers` file or server-side configuration is used.
 
-## Hosting contract
+## Browser execution
 
-- Upload `docs/` under `DOCS_BASE` on the docs origin. Preserve `.html` routes,
-  directory `index.html`, all assets and local search indexes. Do not rewrite
-  missing files to the home page. Serve JS as JavaScript and Wasm as
-  `application/wasm`; enable gzip/Brotli at the static host if available.
-- Upload `runner/` at the runner origin root. Apply `runner/headers.json` as
-  response headers, or use `_headers` on a host that supports that format.
-  Merely uploading either file does not configure other servers.
-- Apply `/*` headers to all runner responses and the exact path-specific headers
-  to `/`, `/index.html` and `/worker.js`. Do not apply the iframe's CSP to the
-  worker: CSP policies combine restrictively, and the worker intentionally needs
-  `unsafe-eval` while denying network, imports and nested workers. Preserve
-  `frame-ancestors` with the explicit docs origin. Do not substitute meta CSP.
-- The runner uses `Cache-Control: no-store`. Serve docs HTML and `build.json`
-  with revalidation; fingerprinted docs assets may use immutable caching.
-  Do not add a service worker that can retain a different release.
-- Replace each site's files atomically where supported. Deploy the matching
-  runner and docs packages together. During a cross-site rollout, a commit
-  mismatch intentionally prevents execution. Roll back both sites to a matching
-  package if verification fails; do not disable the version handshake.
+The parent page fetches a versioned trusted bootstrap package from its own site.
+It creates an iframe with only `sandbox="allow-scripts"`, giving it an opaque
+origin. User source is sent through a private MessagePort and never interpolated
+into HTML. The frame creates a fresh Blob Worker containing the bundled bridge
+and Wasm for each Run. The worker inherits the frame's meta CSP, which blocks
+network requests and external imports. Worker/SharedWorker constructors are
+irreversibly disabled before user code to prevent creating descendants.
 
-GitHub Pages can host docs. A runner host must support the required per-path
-HTTP response headers. No hosting account or deployment is created by this repo.
+The worker cannot access the document, parent DOM or the site's origin storage.
+Both frame and parent enforce execution deadlines; Stop terminates the active
+worker. Rust resource limits and bounded text output remain enabled. Shared
+examples never run automatically. These controls limit accidental and malicious
+scripts, but do not constitute a hard quota for arbitrary JavaScript heap usage.
 
-## Verify before publishing
+A runner/website commit mismatch disables execution rather than running stale
+code. Publish the whole directory as one artifact; an older open tab may need a
+reload after deployment. Rollback means redeploying the complete older package.
 
-Build a localhost package with docs origin `http://127.0.0.1:4210`, base
-`/rs-decimal/`, runner URL `http://127.0.0.1:4211/`, and
-`RELEASE_ALLOW_LOCALHOST=1`. Install the pinned Playwright browsers and run:
+## Verification
+
+After a local build, install and run the pinned browser engines:
 
 ```sh
 cd website
@@ -70,24 +66,14 @@ npx playwright install --with-deps chromium firefox webkit
 npm run test:browsers
 ```
 
-The test serves the generated files with their actual headers, executes the
-shared Rust examples in all three engines, verifies cancellation/error recovery,
-network/import isolation and the missing-header control, then exercises all
-locale method routes and the production editor. It writes
-`.cache/browser-engines.json` with engine versions and passed counts. The existing
-Chrome suites additionally cover search, completion, parameter hints and invalid
-share/draft boundaries. [Playwright browser installation](https://playwright.dev/docs/browsers)
-documents matching binaries and Linux system dependencies.
+Tests use a single localhost static origin without custom response headers. They
+exercise real Rust examples, opaque-origin/storage separation, network/import
+blocking, immutable child-worker restrictions, cancellation, recovery, eight
+locale routes and the production editor. Removing the meta CSP in a negative
+control must cause the runtime to refuse user code. `.cache/browser-engines.json`
+records tested build and browser versions. The Chrome suites additionally cover
+search, completion, parameter hints and invalid share/draft boundaries.
 
-The native checks are `cargo run --locked -p decimal-web-examples` and, with a
-dedicated test PostgreSQL database, `cargo run --locked -p decimal-web-examples
---features postgres-live`. The default run explicitly skips four live-database
-examples; it is not a substitute for the PostgreSQL CI job.
-
-After uploading, inspect response headers for `/`, `/index.html` and `/worker.js`
-on the actual runner origin. Open nested docs routes in every locale, run the
-default example, Stop a long loop, and open a shared example (which must await an
-explicit Run). Check that docs `build.json`, runner `manifest.json` and packaged
-Wasm metadata identify the same commit. Verify a worker `fetch` attempt is blocked
-and creates no request at the runner host. A local proof cannot detect hosting
-rewrites or stripped headers, so these are post-upload acceptance checks.
+After publishing, open a nested method page and Playground, explicitly Run an
+example, Stop a loop and check a shared link does not execute automatically.
+Check `build.json` and `runner/manifest.json` identify the same commit.

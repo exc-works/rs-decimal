@@ -2,10 +2,13 @@ import { SCHEMA, LIMITS, sourceValid, eventValid } from "./protocol.js";
 const config = __RUNNER_CONFIG__;
 let connected = false;
 window.addEventListener("message", (event) => {
+  let runnerOrigin;
+  try { runnerOrigin = new URL(event.data?.runnerUrl).origin; } catch { return; }
   if (
     connected ||
     event.source !== parent ||
-    !config.parentOrigins.includes(event.origin) ||
+    self.origin !== "null" ||
+    runnerOrigin !== event.origin ||
     event.data?.type !== "connect" ||
     event.data.schema !== SCHEMA ||
     event.data.commit !== config.commit ||
@@ -14,6 +17,8 @@ window.addEventListener("message", (event) => {
     return;
   connected = true;
   const port = event.ports[0];
+  const probeUrl = new URL("probe.js", event.data.runnerUrl).href;
+  const workerUrl = URL.createObjectURL(new Blob([__WORKER_SOURCE__], {type: "text/javascript"}));
   let active = null;
   function finish(type, extra = {}) {
     if (!active) return;
@@ -38,9 +43,7 @@ window.addEventListener("message", (event) => {
       return;
     if (active)
       finish("error", { category: "cancelled", message: "Run replaced" });
-    const worker = new Worker(new URL("./worker.js", import.meta.url), {
-      type: "module",
-    });
+    const worker = new Worker(workerUrl);
     const channel = new MessageChannel();
     const run = {
       id: data.runId,
@@ -89,7 +92,7 @@ window.addEventListener("message", (event) => {
             : {},
         );
     };
-    worker.postMessage({ source: data.source, runId: run.id }, [channel.port2]);
+    worker.postMessage({ source: data.source, runId: run.id, probeUrl }, [channel.port2]);
   };
   port.postMessage({ type: "ready", schema: SCHEMA, commit: config.commit });
 });

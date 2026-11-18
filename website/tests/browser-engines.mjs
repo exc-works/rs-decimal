@@ -7,8 +7,7 @@ import { resolve, extname, sep } from 'node:path';
 import { chromium, firefox, webkit } from 'playwright';
 
 const root = resolve(fileURLToPath(new URL('../', import.meta.url)));
-const manifest = JSON.parse(await readFile(resolve(root, 'runner-dist/manifest.json'), 'utf8'));
-const headers = JSON.parse(await readFile(resolve(root, 'runner-dist/headers.json'), 'utf8'));
+const manifest = JSON.parse(await readFile(resolve(root, 'public/runner/manifest.json'), 'utf8'));
 const probes = [];
 const servers = [];
 const report = [];
@@ -17,18 +16,23 @@ async function serve(port) {
   const server = createServer(async (req, res) => {
     try {
       const path = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
-      if (path.startsWith('/probe')) probes.push(port);
-      let directory = port === 4210 ? root : resolve(root, 'runner-dist');
+      if (path.endsWith('/probe.js')) probes.push(path);
+      if (path === '/insecure-runner/sandbox.json') {
+        const bundle = JSON.parse(await readFile(resolve(root, 'public/runner/sandbox.json'), 'utf8'));
+        bundle.html = bundle.html.replace(/<meta http-equiv="Content-Security-Policy"[^>]*>/, '');
+        res.writeHead(200, {'Content-Type': 'application/json'}); res.end(JSON.stringify(bundle)); return;
+      }
+      let directory = root;
       let relative = path;
       if (port === 4210 && path.startsWith('/rs-decimal/')) {
         directory = resolve(root, 'docs/.vitepress/dist'); relative = path.slice('/rs-decimal'.length);
-      } else if (port === 4210 && path === '/runner-manifest.json') relative = '/runner-dist/manifest.json';
+      } else if (port === 4210 && path === '/runner-manifest.json') relative = '/public/runner/manifest.json';
+      if (path === '/insecure-runner/probe.js') relative = '/public/runner/probe.js';
       let file = resolve(directory, '.' + relative);
       if (file !== directory && !file.startsWith(directory + sep)) throw Error('Invalid path');
       if ((await stat(file)).isDirectory()) file = resolve(file, 'index.html');
       const data = await readFile(file);
-      res.writeHead(200, {'Content-Type': mime[extname(file)] || 'application/octet-stream',
-        ...(port === 4211 ? {...headers['/*'], ...headers[path]} : {})});
+      res.writeHead(200, {'Content-Type': mime[extname(file)] || 'application/octet-stream'});
       res.end(data);
     } catch { res.writeHead(404); res.end('Not found'); }
   });
@@ -37,7 +41,7 @@ async function serve(port) {
 }
 const origin = 'http://127.0.0.1:4210';
 try {
-  for (const port of [4210,4211,4212]) await serve(port);
+  for (const port of [4210]) await serve(port);
   for (const [name, engine] of Object.entries({chromium, firefox, webkit})) {
     console.log(`${name}: launching browser`);
     const browser = await engine.launch(name === 'chromium' ? {chromiumSandbox: process.platform !== 'linux'} : {});
@@ -59,8 +63,8 @@ try {
         results[harness] = result.checks.length;
         console.log(`${name}: ${harness} ${result.checks.length} checks passed`);
       }
-      assert(!probes.slice(firstProbe).includes(4211), `${name}: protected runner received network probe`);
-      assert(probes.slice(firstProbe).includes(4212), `${name}: missing-header control was not exercised`);
+      assert(!probes.slice(firstProbe).includes('/public/runner/probe.js'), `${name}: protected runner received network probe`);
+      assert(probes.slice(firstProbe).includes('/insecure-runner/probe.js'), `${name}: missing-header control was not exercised`);
       for (const locale of ['en-US','en-GB','zh-Hans','zh-Hant','fr','ko','ja','de']) {
         const response = await page.goto(`${origin}/rs-decimal/${locale}/api/decimal-new.html`);
         assert.equal(response.status(), 200);

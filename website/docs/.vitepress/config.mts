@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { locales } from '../../locales.mjs';
 
@@ -8,7 +9,7 @@ export default defineConfig({
   base: process.env.DOCS_BASE || '/',
   cleanUrls: false,
   lastUpdated: true,
-  vite: { define: { __PLAYGROUND_CONFIG__: JSON.stringify({runnerUrl:process.env.DOCS_RUNNER_URL || '',commit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim()}) } },
+  vite: { publicDir: fileURLToPath(new URL('../../public', import.meta.url)), define: { __PLAYGROUND_CONFIG__: JSON.stringify({runnerUrl:(process.env.DOCS_BASE || '/') + 'runner/',commit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim()}) } },
   locales: Object.fromEntries(Object.entries(locales).map(([lang, text]) => [lang, {
     lang,
     label: text.label,

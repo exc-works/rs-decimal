@@ -1,4 +1,4 @@
-"""Serve static assets with their real CSP and exercise two-origin execution."""
+"""Serve one plain static origin and exercise the opaque browser sandbox."""
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
@@ -12,21 +12,21 @@ import urllib.request
 import urllib.error
 
 ROOT=Path(__file__).resolve().parents[1]
-HEADERS=json.loads((ROOT/'runner-dist/headers.json').read_text())
 PROBES=[]
 class Handler(SimpleHTTPRequestHandler):
     def log_message(self, *args): pass
     def do_GET(self):
         if self.path=='/runner-manifest.json':
-            data=(ROOT/'runner-dist/manifest.json').read_bytes()
+            data=(ROOT/'public/runner/manifest.json').read_bytes()
             self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(data);return
-        if self.path.startswith('/probe'):PROBES.append(self.server.server_port)
+        if self.path.endswith('/probe.js'):PROBES.append(self.path)
+        if self.path=='/insecure-runner/sandbox.json':
+            import re
+            bundle=json.loads((ROOT/'public/runner/sandbox.json').read_text())
+            bundle['html']=re.sub(r'<meta http-equiv="Content-Security-Policy"[^>]*>', '', bundle['html'])
+            data=json.dumps(bundle).encode();self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(data);return
+        if self.path=='/insecure-runner/probe.js':self.path='/public/runner/probe.js'
         super().do_GET()
-    def end_headers(self):
-        if self.server.server_port==4211:
-            values={**HEADERS['/*'],**HEADERS.get(self.path.split('?')[0],{})}
-            for key,value in values.items():self.send_header(key,value)
-        super().end_headers()
 servers=[]
 driver=None
 session=None
@@ -38,7 +38,7 @@ def call(path,payload=None,method=None):
     except urllib.error.HTTPError as error:
         raise RuntimeError(error.read().decode()) from error
 try:
-    for port,directory in [(4210,ROOT),(4211,ROOT/'runner-dist'),(4212,ROOT/'runner-dist')]:
+    for port,directory in [(4210,ROOT)]:
         server=ThreadingHTTPServer(('127.0.0.1',port),partial(Handler,directory=str(directory)));servers.append(server);threading.Thread(target=server.serve_forever,daemon=True).start()
     driver=subprocess.Popen([os.environ['CHROMEDRIVER'],'--port=9519'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     for _ in range(100):
@@ -59,9 +59,9 @@ try:
         time.sleep(.1)
     print(json.dumps(result,indent=2))
     assert result and result['ok'],result
-    assert 4211 not in PROBES,PROBES
-    assert 4212 in PROBES,'missing-CSP control did not reach the static server'
-    print('Protected origin received no probe requests; missing-CSP control was rejected.')
+    assert '/public/runner/probe.js' not in PROBES,PROBES
+    assert '/insecure-runner/probe.js' in PROBES,'missing-CSP control did not reach the static server'
+    print('Protected sandbox sent no probe requests; missing-CSP control was rejected.')
 finally:
     if session:
         try:call(f'/session/{session}',method='DELETE')
