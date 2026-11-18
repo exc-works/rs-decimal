@@ -1,10 +1,31 @@
 ---
 locale: ko
+source_revision: ce7339c2b8115fd42455e27eb624e03a51de3a069de71c01158ea752ddf6833a
+translation_provenance: en-US-korean-reviewed
 api_id: Decimal::bit_len
-translation_status: pending
 ---
 # Decimal::bit_len
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+스케일 적용 전 계수 절댓값의 비트 수를 셉니다.
 
-[영어 참고 문서](../../en-US/api/decimal-bit-len)
+```rust
+fn bit_len (& self) -> usize
+```
+
+## 매개변수, 반환값, 일반적인 사용법
+
+매개변수 없음. Rust는 usize, bridge는 number를 반환합니다. 소수 자릿수를 적용하지 않고 부호 비트도 세지 않습니다. -1.20의 계수는 -120이고 비트 길이는 7입니다. 기본 0을 포함한 0은 0을 반환합니다. 최상위 1비트의 위치가 아닙니다.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="conversion-decimal-bit-len" locale="ko" />
+
+## 브라우저 제한
+
+정수 전송은 손실이 있는 JS number를 거치지 않습니다. 변환 튜플은 Rust의 값/플래그 순서를 유지하며 false는 정확한 결과를 보장하지 않습니다. 빌린 입력은 바뀌지 않고 생성자는 결과를 초기화합니다. [리소스 정책](../resource-policy)은 라이브러리 오류와 별개로 정수 입력, 출력 자릿수, 유리수 계수 증가를 제한합니다. Rust 가져오기 문법은 네이티브에서 검사한다고 명시합니다.
+
+## 관련 메서드
+
+[float32](./decimal-float32) · [int64](./decimal-int64) · [big_rat](./decimal-big-rat) · [new_from_big_rat](./decimal-new-from-big-rat)
