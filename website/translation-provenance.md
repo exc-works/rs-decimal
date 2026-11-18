@@ -94,8 +94,8 @@ The 130 core references (WEB-07a–d, WEB-08 and WEB-09a–b) and bridge/resourc
 guides are translated from en-US against the Japanese glossary. Review preserves
 scale versus significant figures, initialization versus numeric equality, signed
 rounding, borrowing/consumption, exact integer input and error/resource boundaries.
-Rust identifiers and shared fixtures remain unchanged. Remaining method groups
-retain explicit pending status and English fallback links.
+Rust identifiers and shared fixtures remain unchanged. Coverage is expanded
+by the groups recorded below.
 
 Japanese conversion/formatting/root/log-exp references (WEB-10a–b and
 WEB-11a–b; 47 more entries) preserve conversion flags and IEEE special values,
@@ -111,3 +111,8 @@ Japanese SQL scalar/error and validation/message references (WEB-13a-1–2;
 73 more entries) retain borrowed buffers, null state, category membership,
 constructed versus thrown errors, rule-specific missing-value behavior and
 literal message substitution. Tags, placeholders and runtime messages stay exact.
+
+Japanese config/Serde and native SQLx/trait references (WEB-13b-1–2; 72
+entries) complete all 355 methods. Review covers borrowed input lifetime, raw
+JSON versus generic visitors, nullable state, integer bounds, native-only
+syntax and PostgreSQL wire/OID requirements. The locale manifest now uses `*`.
