@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "formatting-goformat-verb",
+  "api_ids": [
+    "GoFormat.verb"
+  ],
+  "rust": "let options = rs_decimal::GoFormat { verb: 'e', precision: Some(2), ..rs_decimal::GoFormat::default() };\nlet value = serde_json::json!({\"value\": Decimal::new_from_string(\"12.50\")?.format_go(options)?});",
+  "javascript": "const options = {verb: \"e\", precision: 2};\nconst value = { value: Decimal.new_from_string(\"12.50\").format_go(options) };",
+  "expected": {
+    "value": "1.25e+01"
+  }
+}

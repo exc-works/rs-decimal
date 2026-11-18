@@ -39,6 +39,24 @@ function bigText(value) {
   return value.toString();
 }
 
+function scalarText(value) {
+  requireType(typeof value === 'string' && (value.length === 1 || (value.length === 2 && value.codePointAt(0) > 0xffff)) && !(value.codePointAt(0) >= 0xd800 && value.codePointAt(0) <= 0xdfff), 'expected one Unicode scalar value');
+  return value;
+}
+const formatFields = new Set(['verb', 'width', 'precision', 'left', 'plus', 'space', 'zero', 'alternate']);
+function formatOptions(value) {
+  requireType(value !== null && typeof value === 'object' && !Array.isArray(value), 'format options must be an object');
+  const f = {};
+  for (const name of Reflect.ownKeys(value)) {
+    requireType(typeof name === 'string' && formatFields.has(name), 'unknown format option');
+    const field = value[name];
+    if (name === 'verb') f[name] = scalarText(field);
+    else if (name === 'width' || name === 'precision') f[name] = field === null ? null : integer(field, name, 0, 4294967295);
+    else { requireType(typeof field === 'boolean', `${name} must be boolean`); f[name] = field; }
+  }
+  return JSON.stringify(f);
+}
+
 function floatNumber(value) {
   requireType(typeof value === 'number', 'value must be a number');
   return value; // NaN/Infinity remain library InvalidFormat errors.
@@ -171,6 +189,10 @@ export function createBridge(raw) {
     uint64() { const [value, exact] = borrow(this, Decimal).uint64_text(); return [BigInt(value), exact]; }
     float32() { return borrow(this, Decimal).float32(); }
     float64() { return borrow(this, Decimal).float64(); }
+    format_with_separators(thousands, decimal) { return borrow(this, Decimal).format_with_separators(scalarText(thousands), scalarText(decimal)); }
+    format_go(f) { return borrow(this, Decimal).format_go(formatOptions(f)); }
+    append_text(dst) { borrow(this, Decimal).append_text(borrow(dst, ByteBuffer)); }
+    append_text_with_trailing_zeros(dst) { borrow(this, Decimal).append_text_with_trailing_zeros(borrow(dst, ByteBuffer)); }
     mul_exact(other) {
       return wrap(Decimal, borrow(this, Decimal).mul_exact(borrow(other, Decimal)));
     }
@@ -230,6 +252,7 @@ export function createBridge(raw) {
     }
     throw new BridgeError('parameter', 'snapshot expects a Decimal or NullDecimal from this run');
   }
+  const GoFormat = Object.freeze({default: () => JSON.parse(raw.go_format_default())});
   const rounding = Object.freeze({ ...RoundingMode,
     from_raw: value => raw.rounding_mode_from_raw(integer(value, 'value')),
   });
@@ -243,5 +266,5 @@ export function createBridge(raw) {
     most_significant_bit: value => raw.most_significant_bit(bigText(value)),
     between: (v, lower, upper) => raw.between(borrow(v, Decimal), borrow(lower, Decimal), borrow(upper, Decimal)),
   };
-  return Object.freeze({ Decimal, NullDecimal, ByteBuffer, RoundingMode: rounding, snapshot, ...helpers, get COMPATIBILITY_REVISION() { return raw.compatibility_revision(); }, metadata: () => JSON.parse(raw.metadata()) });
+  return Object.freeze({ Decimal, NullDecimal, ByteBuffer, GoFormat, RoundingMode: rounding, snapshot, ...helpers, get COMPATIBILITY_REVISION() { return raw.compatibility_revision(); }, metadata: () => JSON.parse(raw.metadata()) });
 }

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "formatting-decimal-append-text-with-trailing-zeros",
+  "api_ids": [
+    "Decimal::append_text_with_trailing_zeros"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"12.3400\")?;\nlet mut bytes = b\"value=\".to_vec();\ninput.append_text_with_trailing_zeros(&mut bytes);\nlet value = serde_json::json!({\"bytes\": bytes});",
+  "javascript": "const input = Decimal.new_from_string(\"12.3400\");\nconst bytes = ByteBuffer.new(new TextEncoder().encode(\"value=\"));\ninput.append_text_with_trailing_zeros(bytes);\nconst value = { bytes: Array.from(bytes.to_uint8_array()) };",
+  "expected": {
+    "bytes": [
+      118,
+      97,
+      108,
+      117,
+      101,
+      61,
+      49,
+      50,
+      46,
+      51,
+      52,
+      48,
+      48
+    ]
+  }
+}

@@ -1,3 +1,4 @@
+export interface GoFormatOptions { verb: string; width: number|null; precision: number|null; left: boolean; plus: boolean; space: boolean; zero: boolean; alternate: boolean; }
 export interface Rational { readonly numerator: bigint; readonly denominator: bigint; }
 export type Rounding = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 export const RoundingMode: Readonly<Record<'Down'|'Up'|'Ceiling'|'HalfUp'|'HalfDown'|'HalfEven'|'Unnecessary', Rounding>>;
@@ -64,6 +65,10 @@ export interface Decimal {
   uint64(): [bigint, boolean];
   float32(): [number, boolean];
   float64(): [number, boolean];
+  format_with_separators(thousands: string, decimal: string): string;
+  format_go(f: Partial<GoFormatOptions>): string;
+  append_text(dst: ByteBuffer): void;
+  append_text_with_trailing_zeros(dst: ByteBuffer): void;
   mul_exact(other: Decimal): Decimal;
   ceil(): Decimal;
   floor(): Decimal;
@@ -116,6 +121,7 @@ export interface Bridge {
   };
   NullDecimal: { "new": (decimal: Decimal) => NullDecimal; default(): NullDecimal };
   ByteBuffer: { "new": (bytes: Uint8Array) => ByteBuffer };
+  GoFormat: { default(): GoFormatOptions };
   RoundingMode: typeof RoundingMode & { from_raw(value: number): Rounding };
   snapshot(value: Decimal|NullDecimal): Readonly<Record<string, unknown>>;
   zero(): Decimal;

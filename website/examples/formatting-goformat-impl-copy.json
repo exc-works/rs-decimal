@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "formatting-goformat-impl-copy",
+  "api_ids": [
+    "GoFormat::impl Copy"
+  ],
+  "rust": "let options = rs_decimal::GoFormat::default();\nlet copied = options;\nlet input = Decimal::new_from_string(\"12.50\")?;\nlet value = serde_json::json!({\"original\": input.format_go(options)?, \"copy\": input.format_go(copied)?});",
+  "javascript": "",
+  "expected": {
+    "original": "12.5",
+    "copy": "12.5"
+  }
+}

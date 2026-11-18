@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "formatting-goformat-impl-default",
+  "api_ids": [
+    "GoFormat::impl Default"
+  ],
+  "rust": "let options = <rs_decimal::GoFormat as Default>::default();\nlet value = serde_json::json!({\"value\": Decimal::new_from_string(\"12.50\")?.format_go(options)?});",
+  "javascript": "",
+  "expected": {
+    "value": "12.5"
+  }
+}

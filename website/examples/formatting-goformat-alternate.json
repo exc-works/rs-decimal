@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "formatting-goformat-alternate",
+  "api_ids": [
+    "GoFormat.alternate"
+  ],
+  "rust": "let options = rs_decimal::GoFormat { verb: 'f', precision: Some(0), alternate: true, ..rs_decimal::GoFormat::default() };\nlet value = serde_json::json!({\"value\": Decimal::new_from_string(\"12.50\")?.format_go(options)?});",
+  "javascript": "const options = {verb: \"f\", precision: 0, alternate: true};\nconst value = { value: Decimal.new_from_string(\"12.50\").format_go(options) };",
+  "expected": {
+    "value": "12."
+  }
+}
