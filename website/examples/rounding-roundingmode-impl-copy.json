@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "rounding-roundingmode-impl-copy",
+  "api_ids": [
+    "RoundingMode::impl Copy"
+  ],
+  "rust": "let mode = RoundingMode::HalfEven;\nlet copied = mode;\nlet value = serde_json::json!({\"original\": mode as i32, \"copy\": copied as i32});",
+  "javascript": "",
+  "expected": {
+    "original": 5,
+    "copy": 5
+  }
+}

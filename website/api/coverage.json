@@ -173,24 +173,38 @@
   {
     "id": "Decimal::ceil",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "decimal-ceil",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.ceil(): Decimal",
+    "examples": [
+      "rounding-decimal-ceil"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::ceil_with_prec",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "decimal-ceil-with-prec",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.ceil_with_prec(prec: number): Decimal",
+    "examples": [
+      "rounding-decimal-ceil-with-prec"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::cmp",
@@ -293,24 +307,38 @@
   {
     "id": "Decimal::floor",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "decimal-floor",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.floor(): Decimal",
+    "examples": [
+      "rounding-decimal-floor"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::floor_with_prec",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "decimal-floor-with-prec",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.floor_with_prec(prec: number): Decimal",
+    "examples": [
+      "rounding-decimal-floor-with-prec"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::format_go",
@@ -1890,46 +1918,74 @@
   {
     "id": "Decimal::rescale",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "decimal-rescale",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.rescale(prec: number, mode: Rounding): Decimal",
+    "examples": [
+      "rounding-decimal-rescale"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::rescale_down",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "decimal-rescale-down",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.rescale_down(prec: number): Decimal",
+    "examples": [
+      "rounding-decimal-rescale-down"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::round",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "decimal-round",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.round(): Decimal",
+    "examples": [
+      "rounding-decimal-round"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::round_with_prec",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "decimal-round-with-prec",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.round_with_prec(prec: number): Decimal",
+    "examples": [
+      "rounding-decimal-round-with-prec"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::safe_add",
@@ -1985,13 +2041,20 @@
   {
     "id": "Decimal::shift",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "decimal-shift",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.shift(places: number): Decimal",
+    "examples": [
+      "rounding-decimal-shift"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::sign",
@@ -2014,13 +2077,20 @@
   {
     "id": "Decimal::significant_figures",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "decimal-significant-figures",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.significant_figures(figures: number, mode: Rounding): Decimal",
+    "examples": [
+      "rounding-decimal-significant-figures"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::sqrt",
@@ -2069,13 +2139,20 @@
   {
     "id": "Decimal::strip_trailing_zeros",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "decimal-strip-trailing-zeros",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.strip_trailing_zeros(): Decimal",
+    "examples": [
+      "rounding-decimal-strip-trailing-zeros"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::sub",
@@ -2113,24 +2190,38 @@
   {
     "id": "Decimal::truncate",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "decimal-truncate",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.truncate(): Decimal",
+    "examples": [
+      "rounding-decimal-truncate"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::truncate_with_prec",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "decimal-truncate-with-prec",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.truncate_with_prec(prec: number): Decimal",
+    "examples": [
+      "rounding-decimal-truncate-with-prec"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::try_from_coefficient",
@@ -3229,156 +3320,254 @@
   {
     "id": "RoundingMode",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "roundingmode",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "RoundingMode: named numeric constants and from_raw",
+    "examples": [
+      "rounding-roundingmode"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "RoundingMode::Ceiling",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "roundingmode-ceiling",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "RoundingMode.Ceiling: 2",
+    "examples": [
+      "rounding-roundingmode-ceiling"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "RoundingMode::Down",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "roundingmode-down",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "RoundingMode.Down: 0",
+    "examples": [
+      "rounding-roundingmode-down"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "RoundingMode::HalfDown",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "roundingmode-halfdown",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "RoundingMode.HalfDown: 4",
+    "examples": [
+      "rounding-roundingmode-halfdown"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "RoundingMode::HalfEven",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "roundingmode-halfeven",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "RoundingMode.HalfEven: 5",
+    "examples": [
+      "rounding-roundingmode-halfeven"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "RoundingMode::HalfUp",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "roundingmode-halfup",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "RoundingMode.HalfUp: 3",
+    "examples": [
+      "rounding-roundingmode-halfup"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "RoundingMode::Unnecessary",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "roundingmode-unnecessary",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "RoundingMode.Unnecessary: 6",
+    "examples": [
+      "rounding-roundingmode-unnecessary"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "RoundingMode::Up",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "roundingmode-up",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "RoundingMode.Up: 1",
+    "examples": [
+      "rounding-roundingmode-up"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "RoundingMode::from_raw",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "roundingmode-from-raw",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "RoundingMode.from_raw(value: number): Rounding",
+    "examples": [
+      "rounding-roundingmode-from-raw"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "RoundingMode::impl Clone",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "roundingmode-impl-clone",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "rounding-roundingmode-impl-clone"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "RoundingMode::impl Copy",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "roundingmode-impl-copy",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "rounding-roundingmode-impl-copy"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "RoundingMode::impl Debug",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "roundingmode-impl-debug",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "rounding-roundingmode-impl-debug"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "RoundingMode::impl Eq",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "roundingmode-impl-eq",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "rounding-roundingmode-impl-eq"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "RoundingMode::impl PartialEq",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "roundingmode-impl-partialeq",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "rounding-roundingmode-impl-partialeq"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "RoundingMode::impl TryFrom < i32 >",
@@ -3965,13 +4154,20 @@
   {
     "id": "reexport::RoundingMode",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-08",
     "doc_id": "reexport-roundingmode",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "rounding-reexport-roundingmode"
+    ],
+    "tests": [
+      "website/tests/rounding.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::ScanValue",

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "rounding-decimal-shift",
+  "api_ids": [
+    "Decimal::shift"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"12.340\")?;\nlet value = input.shift(2)?;",
+  "javascript": "const input = Decimal.new_from_string(\"12.340\");\nconst value = input.shift(2);",
+  "expected": {
+    "coefficient": "12340",
+    "scale": "1",
+    "initialized": true,
+    "string": "1234",
+    "string_with_trailing_zeros": "1234.0"
+  }
+}

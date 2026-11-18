@@ -17,7 +17,10 @@ results within these limits remain unchanged. The core crate is not modified.
 Input scale and positive exponent expansion are checked before Rust parsing.
 Products check the sum of scales and coefficient bit bounds before multiplying.
 Rescale checks the requested scale and a conservative growth estimate before
-allocating powers of ten. Consequently, a sequence of accepted operations cannot
+allocating powers of ten. Precision-specific rounding uses the same checks.
+Shift checks both the resulting scale and coefficient growth; significant-figure
+rounding reserves a possible carry. Core shift overflow is retained when Rust
+can return it before allocation. Consequently, a sequence of accepted operations cannot
 produce an unbounded coefficient or an unbounded formatted decimal string.
 Conservative preflight can reject an operation whose final value would be smaller
 (for example a product with a zero operand); the limit is not a core-library rule.
@@ -34,8 +37,7 @@ copies the arguments. Rust rechecks its incoming slice before core parsing or
 additional allocation. Direct raw ABI callers can allocate the temporary input
 copy before the Rust check, but cannot remove the built module's memory maximum.
 The runner must keep that raw ABI private. This is not a hard quota for JavaScript
-heap or browser process memory. Worker termination, source/output limits and
-network isolation are delivered in WEB-04b before user scripts are enabled.
+heap or browser process memory. The runner enforces Worker termination, source/output limits and network isolation.
 
 A local Node 26 run parsed/read a 4096-digit coefficient and formatted a value at
 scale 1000 in roughly 1.2 ms; this is an indicative development measurement, not a

@@ -1,4 +1,4 @@
-use rs_decimal::{BigInt, Decimal, NullDecimal};
+use rs_decimal::{BigInt, Decimal, NullDecimal, RoundingMode};
 trait ExampleState {
     fn state(&self) -> serde_json::Value;
 }

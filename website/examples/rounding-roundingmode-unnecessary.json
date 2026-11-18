@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "rounding-roundingmode-unnecessary",
+  "api_ids": [
+    "RoundingMode::Unnecessary"
+  ],
+  "rust": "let value = Decimal::new_from_string(\"1.20\")?.rescale(1, RoundingMode::Unnecessary)?;",
+  "javascript": "const value = Decimal.new_from_string(\"1.20\").rescale(1, RoundingMode.Unnecessary);",
+  "expected": {
+    "coefficient": "12",
+    "scale": "1",
+    "initialized": true,
+    "string": "1.2",
+    "string_with_trailing_zeros": "1.2"
+  }
+}

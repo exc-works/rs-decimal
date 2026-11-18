@@ -27,6 +27,18 @@ export interface Decimal {
   max(other: Decimal): Decimal;
   min(other: Decimal): Decimal;
   mul_exact(other: Decimal): Decimal;
+  ceil(): Decimal;
+  floor(): Decimal;
+  round(): Decimal;
+  truncate(): Decimal;
+  strip_trailing_zeros(): Decimal;
+  ceil_with_prec(prec: number): Decimal;
+  floor_with_prec(prec: number): Decimal;
+  round_with_prec(prec: number): Decimal;
+  truncate_with_prec(prec: number): Decimal;
+  rescale_down(prec: number): Decimal;
+  shift(places: number): Decimal;
+  significant_figures(figures: number, mode: Rounding): Decimal;
   rescale(prec: number, mode: Rounding): Decimal;
   /** Consumes this value, even if the Rust operation returns an error. */
   into_rescaled(prec: number, mode: Rounding): Decimal;
@@ -61,7 +73,7 @@ export interface Bridge {
   };
   NullDecimal: { "new": (decimal: Decimal) => NullDecimal; default(): NullDecimal };
   ByteBuffer: { "new": (bytes: Uint8Array) => ByteBuffer };
-  RoundingMode: typeof RoundingMode;
+  RoundingMode: typeof RoundingMode & { from_raw(value: number): Rounding };
   snapshot(value: Decimal|NullDecimal): Readonly<Record<string, unknown>>;
   zero(): Decimal;
   one(): Decimal;

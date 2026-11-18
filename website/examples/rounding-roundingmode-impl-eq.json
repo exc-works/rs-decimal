@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "rounding-roundingmode-impl-eq",
+  "api_ids": [
+    "RoundingMode::impl Eq"
+  ],
+  "rust": "fn require_eq<T: Eq>(_: &T) {}\nrequire_eq(&RoundingMode::HalfEven);\nlet value = serde_json::json!({\"value\": RoundingMode::from_raw(5)? == RoundingMode::HalfEven});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

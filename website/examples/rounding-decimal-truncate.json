@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "rounding-decimal-truncate",
+  "api_ids": [
+    "Decimal::truncate"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"-1.5\")?;\nlet value = input.truncate();",
+  "javascript": "const input = Decimal.new_from_string(\"-1.5\");\nconst value = input.truncate();",
+  "expected": {
+    "coefficient": "-1",
+    "scale": "0",
+    "initialized": true,
+    "string": "-1",
+    "string_with_trailing_zeros": "-1"
+  }
+}

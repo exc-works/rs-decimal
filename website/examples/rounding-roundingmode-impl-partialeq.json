@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "rounding-roundingmode-impl-partialeq",
+  "api_ids": [
+    "RoundingMode::impl PartialEq"
+  ],
+  "rust": "let value = serde_json::json!({\"value\": PartialEq::eq(&RoundingMode::HalfEven, &RoundingMode::HalfUp)});",
+  "javascript": "",
+  "expected": {
+    "value": false
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "rounding-decimal-strip-trailing-zeros",
+  "api_ids": [
+    "Decimal::strip_trailing_zeros"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"12.3400\")?;\nlet value = input.strip_trailing_zeros();",
+  "javascript": "const input = Decimal.new_from_string(\"12.3400\");\nconst value = input.strip_trailing_zeros();",
+  "expected": {
+    "coefficient": "1234",
+    "scale": "2",
+    "initialized": true,
+    "string": "12.34",
+    "string_with_trailing_zeros": "12.34"
+  }
+}

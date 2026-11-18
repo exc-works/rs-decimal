@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "rounding-decimal-rescale",
+  "api_ids": [
+    "Decimal::rescale"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"-1.235\")?;\nlet value = input.rescale(2, RoundingMode::HalfUp)?;",
+  "javascript": "const input = Decimal.new_from_string(\"-1.235\");\nconst value = input.rescale(2, RoundingMode.HalfUp);",
+  "expected": {
+    "coefficient": "-124",
+    "scale": "2",
+    "initialized": true,
+    "string": "-1.24",
+    "string_with_trailing_zeros": "-1.24"
+  }
+}
