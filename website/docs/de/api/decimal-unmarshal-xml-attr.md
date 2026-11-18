@@ -1,10 +1,31 @@
 ---
 locale: de
+source_revision: 8121a233cd958a145b10a44401309e0a697f7d8f9d3c70b88d07ca9cdb298e4f
+translation_provenance: en-US-german-reviewed
 api_id: "Decimal::unmarshal_xml_attr"
-translation_status: pending
 ---
 # Decimal::unmarshal_xml_attr
 
-Die deutsche Übersetzung dieser Methode steht noch aus. Die englische Referenz beschreibt die übliche Verwendung, Parameter, Beispiele und Besonderheiten. Diese Hinweisseite zählt nicht als abgeschlossene Übersetzung.
+xml_attr in einen vorhandenen Wert decodieren.
 
-[Englische Referenz](../../en-US/api/decimal-unmarshal-xml-attr)
+```rust
+fn unmarshal_xml_attr (& mut self , value : & str) -> Result < () , DecimalError >
+```
+
+## Parameter, Rückgabe und übliche Verwendung
+
+value: &str/string; ändert den Empfänger und liefert `Result<(), DecimalError>`/undefined. Rust benötigt xml. Übergeben Sie den Attributwert mit bereits aufgelösten Entitäten, kein XML-Attributfragment: "1.23" ist gültig, aber `"&#49;.23"` wird nicht erneut decodiert. Entfernt äußeren Leerraum und parst exakten Dezimaltext. Leerer Inhalt setzt den Empfänger auf nicht initialisierte Null zurück. Erfolgreiches Decodieren einer Eingabe außer null initialisiert die Dezimalzahl und erhält nachgestellte Skala bei Zahlenwerten ungleich null. Fehler erhalten alle Empfängerfelder und Bibliotheksfehlerarten einschließlich Unmarshal.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="yaml-xml-decimal-unmarshal-xml-attr" locale="de" />
+
+## Grenzen im Browser
+
+Die Quelle ist auf 8192 UTF-8-Bytes begrenzt. Vor dem numerischen Kernparser prüft Rust den decodierten ersten YAML-Skalar bzw. XML-Elementtext, einschließlich Escapes, CDATA, Unterstrichnormalisierung und Nulleinfügung bei YAML-Gleitkommazahlen. YAML-Skalare erlauben höchstens 4096 hexadezimale Ziffernzeichen zur Begrenzung basisabhängiger Ganzzahlallokation; konservative Prüfungen können nativ gültige Eingaben ablehnen. Skala, Koeffizient und Operationszahl folgen der [Ressourcenrichtlinie](../resource-policy). Verschobene Handles können weder gelesen noch verändert werden.
+
+## Verwandte Methoden
+
+[unmarshal_yaml](./decimal-unmarshal-yaml) · [unmarshal_xml](./decimal-unmarshal-xml) · [unmarshal_xml_attr](./decimal-unmarshal-xml-attr)
