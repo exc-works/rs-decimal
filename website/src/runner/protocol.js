@@ -24,6 +24,12 @@ export function eventValid(data, runId) {
       (typeof data.category === "string" &&
         data.category.length <= 32 &&
         typeof data.message === "string" &&
-        data.message.length <= 8192))
+        data.message.length <= 8192 &&
+        (data.kinds === undefined ||
+          (Array.isArray(data.kinds) &&
+            data.kinds.length <= 16 &&
+            data.kinds.every(
+              (kind) => typeof kind === "string" && kind.length <= 64,
+            )))))
   );
 }

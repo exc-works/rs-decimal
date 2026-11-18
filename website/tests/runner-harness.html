@@ -150,6 +150,15 @@
         }
         assert(versionRejected, "version handshake");
         checks.push("version mismatch rejected");
+        result = await client.run(
+          "Decimal.new(1n).rescale(-1, RoundingMode.HalfEven);",
+        );
+        assert(
+          result.category === "library" &&
+            result.kinds.includes("InvalidPrecision"),
+          "library error kinds",
+        );
+        checks.push("library error categories preserved");
         window.testResult = { ok: true, checks };
       } catch (error) {
         window.testResult = {

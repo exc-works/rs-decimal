@@ -81,7 +81,11 @@ window.addEventListener("message", (event) => {
         finish(
           message.type,
           message.type === "error"
-            ? { category: message.category, message: message.message }
+            ? {
+                category: message.category,
+                message: message.message,
+                kinds: message.kinds,
+              }
             : {},
         );
     };

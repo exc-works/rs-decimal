@@ -132,14 +132,19 @@ self.onmessage = async ({ data, ports }) => {
     // Diagnostics are bounded strings; no user HTML or thrown object crosses the port.
     let message = "Execution failed",
       category = "runtime";
+    let kinds = [];
     try {
       message = String(error?.message ?? error).slice(0, 8192);
       category = String(
         error?.category ??
           (error instanceof WebAssembly.RuntimeError ? "trap" : "runtime"),
       ).slice(0, 32);
+      if (isArray(error?.kinds))
+        kinds = error.kinds
+          .slice(0, 16)
+          .map((kind) => String(kind).slice(0, 64));
     } catch {}
-    send({ type: "error", runId, category, message });
+    send({ type: "error", runId, category, message, kinds });
   } finally {
     port.close();
     closeWorker();
