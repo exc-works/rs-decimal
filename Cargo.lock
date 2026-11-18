@@ -146,6 +146,7 @@ dependencies = [
 name = "decimal-playground-bridge"
 version = "0.0.0"
 dependencies = [
+ "js-sys",
  "rs-decimal",
  "serde_json",
  "wasm-bindgen",

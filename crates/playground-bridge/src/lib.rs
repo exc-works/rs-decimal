@@ -8,8 +8,38 @@ pub struct Decimal {
     inner: CoreDecimal,
 }
 
-fn library_error(error: DecimalError) -> JsError {
-    JsError::new(&error.to_string())
+fn exception(category: &str, message: &str, kinds: &[String]) -> JsValue {
+    let error = js_sys::Error::new(message);
+    error.set_name(if category == "library" {
+        "DecimalError"
+    } else {
+        "BridgeError"
+    });
+    js_sys::Reflect::set(
+        &error,
+        &JsValue::from_str("category"),
+        &JsValue::from_str(category),
+    )
+    .expect("fresh error object");
+    let values: js_sys::Array = kinds.iter().map(|v| JsValue::from_str(v)).collect();
+    js_sys::Reflect::set(&error, &JsValue::from_str("kinds"), &values).expect("fresh error object");
+    error.into()
+}
+
+fn library_error(error: DecimalError) -> JsValue {
+    exception(
+        "library",
+        &error.to_string(),
+        &error
+            .kinds()
+            .iter()
+            .map(|k| format!("{k:?}"))
+            .collect::<Vec<_>>(),
+    )
+}
+
+fn parameter_error(message: &str) -> JsValue {
+    exception("parameter", message, &[])
 }
 
 fn checked_i32(value: f64) -> Result<i32, &'static str> {
@@ -27,8 +57,53 @@ fn checked_i32(value: f64) -> Result<i32, &'static str> {
 #[wasm_bindgen]
 impl Decimal {
     /// Parses exact decimal text using the original Rust constructor.
-    pub fn new_from_string(text: &str) -> Result<Decimal, JsError> {
+    pub fn new_from_string(text: &str) -> Result<Decimal, JsValue> {
         CoreDecimal::new_from_string(text)
+            .map(|inner| Self { inner })
+            .map_err(library_error)
+    }
+
+    /// Internal exact signed-integer transport; the public JS facade accepts bigint.
+    #[wasm_bindgen(js_name = new_i64_text)]
+    pub fn new_i64_text(value: &str) -> Result<Decimal, JsValue> {
+        let value = value
+            .parse::<i64>()
+            .map_err(|_| parameter_error("value must fit i64"))?;
+        Ok(Self {
+            inner: CoreDecimal::new(value),
+        })
+    }
+
+    /// Clones representation and initialization state.
+    #[wasm_bindgen(js_name = clone)]
+    pub fn clone_value(&self) -> Decimal {
+        Self {
+            inner: self.inner.clone(),
+        }
+    }
+
+    /// Borrows the coefficient as an immutable JS bigint snapshot.
+    pub fn coefficient_text(&self) -> String {
+        self.inner.coefficient().to_string()
+    }
+
+    /// Reads the number of decimal places.
+    pub fn scale(&self) -> u32 {
+        self.inner.scale() as u32
+    }
+
+    /// Tests uninitialized state, independently of numerical equality.
+    pub fn is_nil(&self) -> bool {
+        self.inner.is_nil()
+    }
+
+    /// Consumes this wrapper, including when the library returns an error.
+    pub fn into_rescaled(self, prec: f64, mode: f64) -> Result<Decimal, JsValue> {
+        let p = checked_i32(prec).map_err(parameter_error)?;
+        let mode = RoundingMode::from_raw(checked_i32(mode).map_err(parameter_error)?)
+            .map_err(library_error)?;
+        self.inner
+            .into_rescaled(p as isize, mode)
             .map(|inner| Self { inner })
             .map_err(library_error)
     }
@@ -42,7 +117,7 @@ impl Decimal {
     }
 
     /// Computes the exact product without changing either operand.
-    pub fn mul_exact(&self, other: &Decimal) -> Result<Decimal, JsError> {
+    pub fn mul_exact(&self, other: &Decimal) -> Result<Decimal, JsValue> {
         self.inner
             .mul_exact(&other.inner)
             .map(|inner| Self { inner })
@@ -50,9 +125,9 @@ impl Decimal {
     }
 
     /// Rounds at a decimal-place precision after validating JS numeric arguments.
-    pub fn rescale(&self, prec: f64, mode: f64) -> Result<Decimal, JsError> {
-        let p = checked_i32(prec).map_err(JsError::new)?;
-        let mode = checked_i32(mode).map_err(JsError::new)?;
+    pub fn rescale(&self, prec: f64, mode: f64) -> Result<Decimal, JsValue> {
+        let p = checked_i32(prec).map_err(parameter_error)?;
+        let mode = checked_i32(mode).map_err(parameter_error)?;
         let mode = RoundingMode::from_raw(mode).map_err(library_error)?;
         self.inner
             .rescale(p as isize, mode)
@@ -81,6 +156,76 @@ impl Decimal {
     }
 }
 
+/// Nullable value with explicit cloned inner-value access.
+#[wasm_bindgen]
+pub struct NullDecimal {
+    inner: rs_decimal::NullDecimal,
+}
+
+#[wasm_bindgen]
+impl NullDecimal {
+    /// Moves a decimal into a present nullable value, including uninitialized zero.
+    pub fn new(decimal: Decimal) -> NullDecimal {
+        Self {
+            inner: rs_decimal::NullDecimal::new(decimal.inner),
+        }
+    }
+    /// Creates an absent nullable value.
+    #[wasm_bindgen(js_name = default)]
+    pub fn default_value() -> NullDecimal {
+        Self {
+            inner: rs_decimal::NullDecimal::default(),
+        }
+    }
+    /// Reads independent validity state.
+    #[wasm_bindgen(getter)]
+    pub fn valid(&self) -> bool {
+        self.inner.valid
+    }
+    /// Changes validity without clearing the stored decimal.
+    #[wasm_bindgen(setter)]
+    pub fn set_valid(&mut self, value: bool) {
+        self.inner.valid = value;
+    }
+    /// Explicit adapter: copies the inner value; not a live mutable reference.
+    pub fn get_decimal_clone(&self) -> Decimal {
+        Decimal {
+            inner: self.inner.decimal.clone(),
+        }
+    }
+    /// Explicit adapter: replaces the inner value by moving the argument.
+    pub fn set_decimal(&mut self, value: Decimal) {
+        self.inner.decimal = value.inner;
+    }
+    /// Complete state snapshot, including hidden value when invalid.
+    pub fn snapshot(&self) -> String {
+        serde_json::json!({"valid":self.inner.valid,"decimal":{
+            "coefficient":self.inner.decimal.coefficient().to_string(),
+            "scale":self.inner.decimal.scale().to_string(),"initialized":!self.inner.decimal.is_nil()
+        }}).to_string()
+    }
+}
+
+/// Mutable byte-buffer adapter for future append_text mappings.
+#[wasm_bindgen]
+pub struct ByteBuffer {
+    bytes: Vec<u8>,
+}
+
+#[wasm_bindgen]
+impl ByteBuffer {
+    /// Copies an input byte slice into an owned mutable buffer.
+    pub fn new(bytes: &[u8]) -> ByteBuffer {
+        Self {
+            bytes: bytes.to_vec(),
+        }
+    }
+    /// Copies bytes out without exposing a view invalidated by Wasm growth.
+    pub fn to_uint8_array(&self) -> Vec<u8> {
+        self.bytes.clone()
+    }
+}
+
 /// Build metadata; commit is injected by the reproducible build script.
 #[wasm_bindgen]
 pub fn metadata() -> String {
@@ -89,7 +234,7 @@ pub fn metadata() -> String {
         "commit": option_env!("DECIMAL_BUILD_COMMIT").unwrap_or("development"),
         "target": "wasm32-unknown-unknown",
         "features": [],
-        "stage": "WEB-02 feasibility only"
+        "stage": "WEB-03 bridge foundation"
     })
     .to_string()
 }
