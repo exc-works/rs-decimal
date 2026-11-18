@@ -1,10 +1,31 @@
 ---
 locale: de
+source_revision: d45d74416d2c87c80fb49aa3df1784d40da77b35f533ee0df8cdabe577cea67b
+translation_provenance: en-US-german-reviewed
 api_id: "Decimal::impl Sub < & Decimal >::sub"
-translation_status: pending
 ---
 # Decimal::impl Sub < & Decimal >::sub
 
-Die deutsche Übersetzung dieser Methode steht noch aus. Die englische Referenz beschreibt die übliche Verwendung, Parameter, Beispiele und Besonderheiten. Diese Hinweisseite zählt nicht als abgeschlossene Übersetzung.
+Ausleihende Rust-Sub-Syntax verwenden.
 
-[Englische Referenz](../../en-US/api/decimal-impl-sub-decimal-sub)
+```rust
+fn sub (self , other : & Decimal) -> Decimal
+```
+
+## Übliche Verwendung und Hinweise
+
+Für &Decimal implementiert, sodass Operanden nutzbar bleiben. Das exakte Ergebnis verwendet die größere Operandenskala und ist initialisiert. Der zugehörige Output-Typ ist Decimal. Negative Ergebnisse sind erlaubt; die Nichtnegativitätsanforderungen von safe_add/safe_sub gelten hier nicht. Der Trait delegiert an dieselbe benannte Kernmethode. JavaScript-Operatoren im Browser sind nicht überladen; verwenden Sie add/sub/neg der Bridge.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="native-decimal-impl-sub-decimal-sub" locale="de" />
+
+## Ausführung
+
+Dieses Element ist native Rust-Trait-Syntax; es stellt keinen gleichnamigen JavaScript-Operator und kein SQLx-Objekt bereit. Das native Standard-Dokumentationstestprogramm führt dieses Beispiel aus.
+
+## Verwandte Methoden
+
+[Decimal](./decimal) · [scan](./decimal-scan) · [new_from_string](./decimal-new-from-string)
