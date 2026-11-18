@@ -1,10 +1,31 @@
 ---
 locale: ja
+source_revision: eede40b6a84e8fed75b7b014beb0ed7d44fa48b5c63abef14a875a6d37524b2d
+translation_provenance: en-US-japanese-reviewed
 api_id: "ErrorKind::impl PartialEq"
-translation_status: pending
 ---
 # ErrorKind::impl PartialEq
 
-このメソッドの日本語訳は準備中です。通常の使い方、引数、使用例、注意事項は英語のリファレンスを参照してください。この案内ページは翻訳済みとして扱いません。
+Rust の PartialEq 実装を使います。
 
-[英語のリファレンス](../../en-US/api/errorkind-impl-partialeq)
+```rust
+impl PartialEq for ErrorKind
+```
+
+## 引数、戻り値、通常の使い方
+
+等価性はエラーメッセージと種類全体、または正確な列挙子を比較します。DecimalError の等価性は 1 種類への一致より厳密です。これはネイティブ Rust のトレイト構文で、ブラウザーはメソッドとして公開しません。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="scan-errors-errorkind-impl-partialeq" locale="ja" />
+
+## ブラウザーの制約
+
+SQL のテキスト／バイト入力とエラーメッセージは UTF-8 で 8192 バイトまでです。SQL テキストは外側の引用符を除去した後で[リソース検査](../resource-policy)を受けるため、引用符で指数上限を回避できません。借用呼び出しは入力を保持し、消費済みや解放済みのハンドルは再利用できません。Rust のトレイト／インポート例はネイティブテストで実行し、ブラウザーのメソッド対応を意味しません。
+
+## 関連メソッド
+
+[scan](./decimal-scan) · [ScanValue](./scanvalue) · [DecimalError](./decimalerror)
