@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "native-decimal-impl-type-postgres",
+  "api_ids": [
+    "Decimal::impl Type < Postgres >"
+  ],
+  "rust": "let numeric = <Decimal as sqlx::Type<sqlx::Postgres>>::type_info();\nlet float8 = sqlx::postgres::PgTypeInfo::with_oid(sqlx::postgres::types::Oid(701));\nlet value = serde_json::json!({\"oid\": numeric.oid().unwrap().0, \"numeric\": <Decimal as sqlx::Type<sqlx::Postgres>>::compatible(&numeric), \"float8\": <Decimal as sqlx::Type<sqlx::Postgres>>::compatible(&float8)});",
+  "javascript": "",
+  "expected": {
+    "oid": 1700,
+    "numeric": true,
+    "float8": false
+  }
+}

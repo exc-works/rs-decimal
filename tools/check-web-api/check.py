@@ -54,8 +54,11 @@ def check(root=ROOT, release=False):
                     raise ValueError(f'invalid example API IDs: {example_id}')
                 if data['id'] != example_id or row['id'] not in api_ids:
                     raise ValueError(f'example does not cover API: {example_id}')
-                if set(data) != {'id', 'api_ids', 'rust', 'javascript', 'expected', 'schema_version'} or data['schema_version'] != 1:
+                fields = {'id', 'api_ids', 'rust', 'javascript', 'expected', 'schema_version'}
+                if not fields <= set(data) or set(data) - fields - {'native_profile'} or data['schema_version'] != 1:
                     raise ValueError(f'invalid example envelope: {example_id}')
+                if 'native_profile' in data and (data['native_profile'] != 'postgres-live' or row['disposition'] != 'rust-only' or data['javascript'].strip()):
+                    raise ValueError(f'invalid native profile: {example_id}')
                 if not data['rust'].strip() or (row['disposition'] != 'rust-only' and not data['javascript'].strip()):
                     raise ValueError(f'missing paired example: {example_id}')
                 if not isinstance(data['expected'], dict) or not data['expected']:

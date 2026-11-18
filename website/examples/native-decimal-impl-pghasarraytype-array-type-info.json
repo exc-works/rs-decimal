@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "native-decimal-impl-pghasarraytype-array-type-info",
+  "api_ids": [
+    "Decimal::impl PgHasArrayType::array_type_info"
+  ],
+  "rust": "let info = <Decimal as sqlx::postgres::PgHasArrayType>::array_type_info();\nlet value = serde_json::json!({\"oid\": info.oid().unwrap().0});",
+  "javascript": "",
+  "expected": {
+    "oid": 1231
+  }
+}

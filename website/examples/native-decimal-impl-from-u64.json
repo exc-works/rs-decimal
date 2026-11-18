@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "native-decimal-impl-from-u64",
+  "api_ids": [
+    "Decimal::impl From < u64 >"
+  ],
+  "rust": "let input: u64 = 42;\nlet value = Decimal::from(input);",
+  "javascript": "",
+  "expected": {
+    "coefficient": "42",
+    "scale": "0",
+    "initialized": true,
+    "string": "42",
+    "string_with_trailing_zeros": "42"
+  }
+}

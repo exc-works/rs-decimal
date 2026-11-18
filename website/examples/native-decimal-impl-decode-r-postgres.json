@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "native-decimal-impl-decode-r-postgres",
+  "api_ids": [
+    "Decimal::impl Decode < 'r , Postgres >"
+  ],
+  "rust": "use sqlx::{Connection, Row};\nlet value = tokio::runtime::Builder::new_current_thread().enable_all().build()?.block_on(async {\n    let url = std::env::var(\"DATABASE_URL\")?;\n    let mut connection = sqlx::PgConnection::connect(&url).await?;\n    let row = sqlx::query(\"SELECT 1.2300::numeric AS amount\").fetch_one(&mut connection).await?;\n    let value = <Decimal as sqlx::Decode<'_, sqlx::Postgres>>::decode(row.try_get_raw(\"amount\")?)?;\n    connection.close().await?;\n    Ok::<Decimal, Box<dyn std::error::Error + Send + Sync>>(value)\n})?;",
+  "javascript": "",
+  "expected": {
+    "coefficient": "12300",
+    "scale": "4",
+    "initialized": true,
+    "string": "1.23",
+    "string_with_trailing_zeros": "1.2300"
+  },
+  "native_profile": "postgres-live"
+}

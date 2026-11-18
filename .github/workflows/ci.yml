@@ -193,3 +193,4 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo test --locked -p decimal-postgres-tests -- --ignored
+      - run: cargo run --locked -p decimal-web-examples --features postgres-live

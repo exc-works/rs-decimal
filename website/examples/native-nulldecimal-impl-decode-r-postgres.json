@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "native-nulldecimal-impl-decode-r-postgres",
+  "api_ids": [
+    "NullDecimal::impl Decode < 'r , Postgres >"
+  ],
+  "rust": "use sqlx::{Connection, Row};\nlet value = tokio::runtime::Builder::new_current_thread().enable_all().build()?.block_on(async {\n    let url = std::env::var(\"DATABASE_URL\")?;\n    let mut connection = sqlx::PgConnection::connect(&url).await?;\n    let row = sqlx::query(\"SELECT NULL::numeric AS amount\").fetch_one(&mut connection).await?;\n    let value = <NullDecimal as sqlx::Decode<'_, sqlx::Postgres>>::decode(row.try_get_raw(\"amount\")?)?;\n    connection.close().await?;\n    Ok::<NullDecimal, Box<dyn std::error::Error + Send + Sync>>(value)\n})?;",
+  "javascript": "",
+  "expected": {
+    "valid": false,
+    "decimal": {
+      "coefficient": "0",
+      "scale": "0",
+      "initialized": false
+    }
+  },
+  "native_profile": "postgres-live"
+}

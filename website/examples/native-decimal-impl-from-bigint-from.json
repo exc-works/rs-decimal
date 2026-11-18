@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "native-decimal-impl-from-bigint-from",
+  "api_ids": [
+    "Decimal::impl From < BigInt >::from"
+  ],
+  "rust": "let input = BigInt::from(-12345678901234567890i128);\nlet value = Decimal::from(input);",
+  "javascript": "",
+  "expected": {
+    "coefficient": "-12345678901234567890",
+    "scale": "0",
+    "initialized": true,
+    "string": "-12345678901234567890",
+    "string_with_trailing_zeros": "-12345678901234567890"
+  }
+}
