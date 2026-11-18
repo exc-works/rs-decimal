@@ -1,13 +1,15 @@
 ---
 locale: fr
-source_revision: 488c73aeed11f4d4204611d9ca618092887b313db91626b2511bfebe1bb48beb
+source_revision: d29c3aeda3724709819c046cd6261680419e70eea479d675983c407094c92b54
 ---
-# Valeurs exactes, comportement explicite
+# rs-decimal
 
-rs-decimal conserve le coefficient décimal, l’échelle et l’état d’initialisation. Commencez par les usages courants, puis examinez les arrondis, les zéros finaux et les erreurs.
+Calcul décimal exact avec échelle et arrondi explicites.
 
-::: info Explorer la bibliothèque
-Les 355 entrées API sont documentées en huit langues. Les pages expliquent les usages courants et les précautions, avec des exemples Rust partagés. Les méthodes compatibles avec le navigateur passent par le bridge Rust/Wasm ; les intégrations natives uniquement sont explicitement indiquées.
-:::
+<div class="ref-actions">
 
-[Commencer avec une entrée exacte](./guide) · [Parcourir les API Rust](./api/) · [Lire le glossaire](./glossary)
+[Bien démarrer](./guide) · [Catalogue des API](./api/) · [Bac à sable](./playground)
+
+</div>
+
+<<< ../../../examples/web_getting_started.rs

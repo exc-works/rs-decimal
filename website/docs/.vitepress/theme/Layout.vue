@@ -1,10 +1,25 @@
 <script setup>
 import DefaultTheme from 'vitepress/theme';
-import { computed } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import { useData, withBase } from 'vitepress';
 import { referenceLabels } from '../../../reference-labels.mjs';
 import { locales } from '../../../locales.mjs';
 const { page, lang } = useData();
+onMounted(() => {
+  const preference = 'rs-decimal:docs-language';
+  try {
+    if (page.value.relativePath === 'index.md' && !location.hash && !location.search) {
+      const saved = localStorage.getItem(preference);
+      if (saved && Object.hasOwn(locales, saved)) location.replace(withBase('/' + saved + '/'));
+    }
+  } catch { /* Storage is optional. */ }
+  watch(() => page.value.relativePath, path => {
+    const locale = path.split('/')[0];
+    if (Object.hasOwn(locales, locale)) {
+      try { localStorage.setItem(preference, locale); } catch { /* Storage is optional. */ }
+    }
+  }, { immediate: true });
+});
 const reference = computed(() => page.value.reference);
 const labels = computed(() => referenceLabels[lang.value]);
 const catalogue = computed(() => withBase('/' + lang.value + '/api/'));
@@ -40,6 +55,9 @@ const groups = computed(() => {
       </nav>
     </template>
     <template #doc-after>
+      <nav v-if="page.tasks" class="ref-tasks" :aria-label="locales[lang].guide">
+        <a v-for="task in page.tasks" :key="task.id" :href="withBase(task.href)">{{ task.title }}</a>
+      </nav>
       <section v-for="[group, items] in groups" :key="group" class="ref-group" :id="'members-' + group">
         <h2>{{ labels[group] }}</h2>
         <dl><template v-for="item in items" :key="item.id">

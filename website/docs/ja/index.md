@@ -1,13 +1,15 @@
 ---
 locale: ja
-source_revision: 488c73aeed11f4d4204611d9ca618092887b313db91626b2511bfebe1bb48beb
+source_revision: d29c3aeda3724709819c046cd6261680419e70eea479d675983c407094c92b54
 ---
-# 正確な値と明確な動作
+# rs-decimal
 
-rs-decimal は十進数の係数、小数点以下の桁数、初期化状態を保持します。通常の使い方から始めて、丸め、末尾のゼロ、エラーの動作を確認できます。
+小数点以下の桁数と丸めを明示する正確な十進演算。
 
-::: info ライブラリを調べる
-全355件のAPI項目に8言語のドキュメントを用意しています。メソッドのページでは通常の使い方と注意点を説明し、Rustの例を共有します。ブラウザー対応メソッドはRust/Wasm bridgeで実行し、ネイティブ専用の連携は明示します。
-:::
+<div class="ref-actions">
 
-[正確な入力から始める](./guide) · [Rust API を見る](./api/) · [用語集を読む](./glossary)
+[はじめに](./guide) · [API 一覧](./api/) · [プレイグラウンド](./playground)
+
+</div>
+
+<<< ../../../examples/web_getting_started.rs

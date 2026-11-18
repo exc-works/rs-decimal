@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useData, withBase } from 'vitepress';
+import { searchReference } from '../../scripts/reference-search.mjs';
 import { referenceLabels } from '../../reference-labels.mjs';
 const props = defineProps<{ labels: Record<string,string> }>();
 const { lang, page } = useData();
@@ -11,14 +12,14 @@ const localesSummary = { 'en-US':'Summary', 'en-GB':'Summary', 'zh-Hans':'用途
 const ready = ref(false);
 onMounted(() => { ready.value = true; });
 const query = ref('');
-const filtered = computed(() => data.value.filter((item: any) => item.id.toLowerCase().includes(query.value.toLowerCase())));
+const filtered = computed(() => searchReference(data.value, query.value, captions.value));
 </script>
 <template>
   <h2>{{ captions.types }}</h2>
   <div class="ref-types"><a v-for="item in types" :key="item.id" :href="withBase(item.href)">{{ item.id }}</a></div>
   <h2>{{ captions.all }}</h2>
-  <label :for="'api-query'">{{ labels.filter }}</label>
-  <input id="api-query" :disabled="!ready" v-model="query" class="api-search" type="search" :placeholder="labels.filter" />
+  <label :for="'api-query'">{{ labels.search }}</label>
+  <input id="api-query" :disabled="!ready" v-model="query" class="api-search" type="search" :placeholder="labels.search" />
   <p aria-live="polite">{{ filtered.length }} / {{ data.length }}</p>
   <div class="api-table-wrap">
     <table>
