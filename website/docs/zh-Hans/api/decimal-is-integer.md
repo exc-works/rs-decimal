@@ -1,11 +1,11 @@
 ---
 locale: zh-Hans
-source_revision: 46411f1a8f7889f0ec3654fae25da003c49b8d268105e0431ed703cb61c031fe
+source_revision: 6f40656db82d99e820bf25f176794a430859d18b708e5dfb0e4c5ad3ab2117e5
 api_id: Decimal::is_integer
 ---
 # Decimal::is_integer
 
-检查数值的小数部分。
+检查数值是否没有小数部分（是否为整数）。
 
 ```rust
 fn is_integer (& self) -> bool

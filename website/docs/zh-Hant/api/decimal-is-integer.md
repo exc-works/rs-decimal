@@ -1,12 +1,12 @@
 ---
 locale: zh-Hant
-source_revision: 46411f1a8f7889f0ec3654fae25da003c49b8d268105e0431ed703cb61c031fe
+source_revision: 6f40656db82d99e820bf25f176794a430859d18b708e5dfb0e4c5ad3ab2117e5
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::is_integer
 ---
 # Decimal::is_integer
 
-檢查數值的小數部分。
+檢查數值是否沒有小數部分（是否為整數）。
 
 ```rust
 fn is_integer (& self) -> bool
