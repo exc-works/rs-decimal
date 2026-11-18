@@ -78,14 +78,17 @@ try:
     core_locales = ['en-US', 'zh-Hans', 'en-GB'] + [locale for locale, owners in groups.items() if '*' in owners or 'WEB-07a' in owners]
     for locale in core_locales:
         navigate(f'{locale}/api/decimal-new-with-prec.html')
-        until(lambda: js('return document.querySelectorAll(".method-example > pre").length') == 3)
+        until(lambda: js('return !!document.querySelector(".method-example [data-example-code]")'))
         until(lambda: js('return !!document.querySelector(".method-form [data-parameter]")'))
+        assert 'Decimal::new_with_prec' in js('return document.querySelector("[data-example-code]").textContent')
+        js('document.querySelector(".languages button:last-child").click()')
+        until(lambda: js('return document.querySelector("[data-example-code]").textContent.includes("Decimal.new_with_prec")'))
         assert 'Decimal.new_with_prec(12n, 2)' in js('return document.querySelector(".method-example").textContent')
         if locale != 'ja':
             js('document.querySelector(".VPNavBarTranslations button").click()')
             js('Array.from(document.querySelectorAll(".VPNavBarTranslations a")).find(x=>x.href.includes("/ja/")).click()')
             until(lambda: js('return document.documentElement.lang') == 'ja')
-            until(lambda: js('return document.querySelectorAll(".method-example > pre").length') == 3)
+            until(lambda: js('return !!document.querySelector(".method-example [data-example-code]")'))
             assert js('return location.pathname') == '/rs-decimal/ja/api/decimal-new-with-prec.html'
     # Pending translations keep their explicit source link until that owner is complete.
     for locale in ['zh-Hant', 'fr', 'ko', 'ja', 'de']:
@@ -99,10 +102,10 @@ try:
         navigate(f'{locale}/api/decimal-unmarshal-xml-attr.html')
         until(lambda: js('return document.querySelector(".vp-doc")?.textContent.includes("&#49;.23")'))
     navigate('en-US/api/decimal-impl-clone.html')
-    until(lambda: js('return document.querySelectorAll(".method-example > pre").length') == 2)
+    until(lambda: js('return !!document.querySelector(".method-example [data-example-code]")'))
     assert 'native test harness' in js('return document.querySelector(".method-example").textContent')
     navigate('en-US/api/nulldecimal-valid.html')
-    until(lambda: js('return document.querySelectorAll(".method-example > pre").length') == 3)
+    until(lambda: js('return !!document.querySelector(".method-example [data-example-code]")'))
     assert '"valid": false' in js('return document.querySelector(".method-example").textContent')
     navigate('zh-Hans/guide.html')
     until(lambda: js('return !!document.querySelector(".VPNavBarTranslations button")'))

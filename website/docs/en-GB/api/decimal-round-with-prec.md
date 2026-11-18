@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 08a6704725cb461888907af8e46adcebe3aa92b6c462154ff5ba96f3a955340f
+source_revision: 9cb35d36232b48dfa841cf9ea23e2fcf6d9b36b6ef45c2f68538158901813e1b
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::round_with_prec
 ---
@@ -9,12 +9,22 @@ api_id: Decimal::round_with_prec
 Round to nearest with ties to even at a selected number of decimal places.
 
 ```rust
-fn round_with_prec (& self , prec : isize) -> Result < Self , DecimalError >
+fn round_with_prec(&self, prec: isize) -> Result<Self, DecimalError>
 ```
 
-## Parameters, return and normal usage
+## Parameter
 
-prec: isize/integer number; returns Result<Decimal, DecimalError> in Rust and Decimal or an exception in the bridge. Negative precision is InvalidPrecision. Half-even is the default here; this is not JavaScript Math.round tie behavior. Inputs are borrowed and unchanged. Results are initialized, including a default-zero input. Increasing precision appends zeros without changing the numerical value.
+`prec: isize` — Number of decimal places. The bridge accepts an integer JavaScript number.
+
+## Return value
+
+An initialized Decimal, including for a default-zero input. The input is borrowed. Increasing precision appends zeros.
+
+`2.345 → 2.34` · `2.355 → 2.36` (HalfEven). Use [`rescale`](./decimal-rescale) to choose a different rounding mode.
+
+## Errors
+
+A negative precision returns `InvalidPrecision`. The bridge throws the corresponding error.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

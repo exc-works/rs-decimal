@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 08a6704725cb461888907af8e46adcebe3aa92b6c462154ff5ba96f3a955340f
+source_revision: 9cb35d36232b48dfa841cf9ea23e2fcf6d9b36b6ef45c2f68538158901813e1b
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::round_with_prec
 ---
@@ -9,12 +9,22 @@ api_id: Decimal::round_with_prec
 指定した小数点以下の桁数で最近接偶数丸めを行います。
 
 ```rust
-fn round_with_prec (& self , prec : isize) -> Result < Self , DecimalError >
+fn round_with_prec(&self, prec: isize) -> Result<Self, DecimalError>
 ```
 
-## 引数、戻り値、通常の使い方
+## 引数
 
-prec: isize/整数 number。Rust は Result<Decimal, DecimalError>、bridge は Decimal または例外を返します。負の精度は InvalidPrecision です。ここでは最近接偶数丸めが既定です。JavaScript の Math.round の中間値処理とは異なります。入力は借用され、変更しません。既定のゼロが入力でも結果は初期化済みです。精度を上げると数値を変えずにゼロを追加します。
+`prec: isize` — 小数点以下の桁数。bridge は JavaScript の整数値を受け取ります。
+
+## 戻り値
+
+既定のゼロを渡した場合も初期化済みの Decimal を返します。入力を借用し、精度を上げると末尾にゼロを追加します。
+
+`2.345 → 2.34` · `2.355 → 2.36` (HalfEven). 別の丸めモードは [`rescale`](./decimal-rescale) で指定できます。
+
+## エラー
+
+負の精度で返すエラーは `InvalidPrecision`. bridge は対応する例外を送出します。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

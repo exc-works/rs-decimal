@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 08a6704725cb461888907af8e46adcebe3aa92b6c462154ff5ba96f3a955340f
+source_revision: 9cb35d36232b48dfa841cf9ea23e2fcf6d9b36b6ef45c2f68538158901813e1b
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::round_with_prec
 ---
@@ -9,12 +9,22 @@ api_id: Decimal::round_with_prec
 Arrondir au plus proche, au pair à mi-chemin, avec un nombre choisi de décimales.
 
 ```rust
-fn round_with_prec (& self , prec : isize) -> Result < Self , DecimalError >
+fn round_with_prec(&self, prec: isize) -> Result<Self, DecimalError>
 ```
 
-## Paramètres, résultat et utilisation courante
+## Paramètre
 
-prec : isize/number entier ; renvoie Result<Decimal, DecimalError> en Rust, et Decimal ou une exception dans le bridge. Une précision négative produit InvalidPrecision. Le mode par défaut est ici l’arrondi au pair, dont le traitement des valeurs à mi-chemin diffère de JavaScript Math.round. Les entrées sont empruntées et inchangées. Les résultats sont initialisés, même pour un zéro par défaut en entrée. Augmenter la précision ajoute des zéros sans changer la valeur numérique.
+`prec: isize` — Nombre de décimales. Le bridge accepte un nombre JavaScript entier.
+
+## Valeur de retour
+
+Un Decimal initialisé, même pour un zéro par défaut. La valeur est empruntée. Augmenter la précision ajoute des zéros.
+
+`2.345 → 2.34` · `2.355 → 2.36` (HalfEven). Utilisez [`rescale`](./decimal-rescale) pour choisir un autre mode d’arrondi.
+
+## Erreurs
+
+Une précision négative renvoie `InvalidPrecision`. Le bridge lève l’erreur correspondante.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";
