@@ -43,3 +43,7 @@ The conversion, formatting, root and log/exp groups (WEB-10a–b and WEB-11a–b
 47 more entries) have also been reviewed in zh-Hant. The review preserves exact
 conversion flags, negative-zero/overflow transport, Unicode scalar separators,
 rounding certification, domain/error precedence and resource budgets.
+
+The text/JSON, binary/BSON and YAML/XML groups (WEB-12a–c; 33 more entries)
+have been reviewed in zh-Hant, preserving each codec’s distinct null/empty
+behaviour, state transitions, wire format and atomic decode failures.

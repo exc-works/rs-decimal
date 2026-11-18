@@ -76,6 +76,9 @@ try:
         until(lambda: js('return document.documentElement.lang') == 'ja')
         until(lambda: js('return document.querySelector(".vp-doc")?.textContent.includes("準備中")'))
         assert js('return document.querySelector(".vp-doc a[href*=en-US]").pathname') == '/rs-decimal/en-US/api/decimal-new-with-prec.html'
+    for locale in ['en-US', 'zh-Hans', 'en-GB', 'zh-Hant']:
+        navigate(f'{locale}/api/decimal-unmarshal-xml-attr.html')
+        until(lambda: js('return document.querySelector(".vp-doc")?.textContent.includes("&#49;.23")'))
     navigate('en-US/api/decimal-impl-clone.html')
     until(lambda: js('return document.querySelectorAll(".method-example > pre").length') == 2)
     assert 'native test harness' in js('return document.querySelector(".method-example").textContent')
