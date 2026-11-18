@@ -1,10 +1,31 @@
 ---
 locale: ja
+source_revision: b6885bfd89f5c1e43b9c4a8ab207ccde2aef139d913f8cd028eda20cd2081e75
+translation_provenance: en-US-japanese-reviewed
 api_id: "NullDecimal::unmarshal_text"
-translation_status: pending
 ---
 # NullDecimal::unmarshal_text
 
-このメソッドの日本語訳は準備中です。通常の使い方、引数、使用例、注意事項は英語のリファレンスを参照してください。この案内ページは翻訳済みとして扱いません。
+text 入力を既存の NullDecimal へデコードします。
 
-[英語のリファレンス](../../en-US/api/nulldecimal-unmarshal-text)
+```rust
+fn unmarshal_text (& mut self , text : & [u8]) -> Result < () , DecimalError >
+```
+
+## 引数、戻り値、通常の使い方
+
+bytes: &[u8]/Uint8Array。レシーバーを変更し、Result<(), DecimalError>/undefined を返します。前後の空白除去と指数構文を含む小数テキストを解析します。空入力は有効性を解除し、内部 Decimal をリセットします。リテラル null は不正な小数テキストです。null 以外の入力の解析に成功すると小数を初期化し、ゼロ以外の数値の末尾のスケールを保持し、解析したゼロはスケール 0 に正規化します。valid=true にします。エラー時はレシーバーの全状態を保持します。ライブラリのデコードエラーは Unmarshal と基底の種類を保持し、リソースの失敗も変更前に起こります。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="text-json-nulldecimal-unmarshal-text" locale="ja" />
+
+## ブラウザーの制約
+
+デコーダー入力は 8192 バイトまでです。パラメーター文字列も Wasm へのコピー前に長さを確認します。Rust はテキストとデコード済み JSON 文字列に[小数のリソースポリシー](../resource-policy)を再適用するため、エスケープで指数やスケールの上限を回避できません。不正な UTF-8、JSON／小数構文の診断はコアが行います。入力エラーやリソースエラーでレシーバーが部分的に更新されることはありません。ムーブ済みのラッパーは読み取りも変更もできません。
+
+## 関連メソッド
+
+[unmarshal_json](./decimal-unmarshal-json) · [marshal_text](./decimal-marshal-text) · [NullDecimal](./nulldecimal)

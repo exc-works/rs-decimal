@@ -1,10 +1,31 @@
 ---
 locale: ja
+source_revision: ce7a1e6d51ea25aa6e22728a52c66d3bfd202ca324cd22c0d1d0545a351bced2
+translation_provenance: en-US-japanese-reviewed
 api_id: "Decimal::marshal_json"
-translation_status: pending
 ---
 # Decimal::marshal_json
 
-このメソッドの日本語訳は準備中です。通常の使い方、引数、使用例、注意事項は英語のリファレンスを参照してください。この案内ページは翻訳済みとして扱いません。
+Decimal を json バイト列へエンコードします。
 
-[英語のリファレンス](../../en-US/api/decimal-marshal-json)
+```rust
+fn marshal_json (& self) -> Vec < u8 >
+```
+
+## 引数、戻り値、通常の使い方
+
+引数なし。JSON バイト列を含む `Vec<u8>`/Uint8Array を返します。Rust は json 機能を必要とし、ブラウザービルドでは有効です。初期化済みの Decimal は引用符付きの標準文字列、既定の未初期化ゼロは JSON null になります。返されたバイト列は独立したコピーで、読み取りは状態を変更しません。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="text-json-decimal-marshal-json" locale="ja" />
+
+## ブラウザーの制約
+
+デコーダー入力は 8192 バイトまでです。パラメーター文字列も Wasm へのコピー前に長さを確認します。Rust はテキストとデコード済み JSON 文字列に[小数のリソースポリシー](../resource-policy)を再適用するため、エスケープで指数やスケールの上限を回避できません。不正な UTF-8、JSON／小数構文の診断はコアが行います。入力エラーやリソースエラーでレシーバーが部分的に更新されることはありません。ムーブ済みのラッパーは読み取りも変更もできません。
+
+## 関連メソッド
+
+[unmarshal_json](./decimal-unmarshal-json) · [marshal_text](./decimal-marshal-text) · [NullDecimal](./nulldecimal)

@@ -101,3 +101,8 @@ Japanese conversion/formatting/root/log-exp references (WEB-10a–b and
 WEB-11a–b; 47 more entries) preserve conversion flags and IEEE special values,
 Unicode scalar separators, exact rational input, certified half-even rounding,
 domain error precedence and separate browser resource limits.
+
+Japanese text/JSON, binary/BSON and YAML/XML references (WEB-12a–c; 33
+more entries) retain each codec’s null/empty and initialization behavior,
+wire representations, exact numeric parsing and atomic failure guarantees.
+XML entity examples remain literal code rather than decoded Markdown entities.
