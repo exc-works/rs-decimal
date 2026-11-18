@@ -47,9 +47,10 @@ merge, not permission to omit the requested review.
 | WEB-01 | Rust API inventory, dispositions, document/example schemas and checks | merged design | Every public entry point classified, including cfg/macro/trait cases; source drift detected |
 | WEB-02 | Minimal Wasm wrapper and reproducible build | 01 | Browser parse, mul_exact, rescale, state/error smoke tests; artifact measurements; core MSRV retained |
 | WEB-03 | Bridge types, strict conversion, errors, ownership and alias policy | 02 | Bigint/range checks, tuple/enum mapping, consumption and mutable/null semantics verified |
-| WEB-04 | Isolated runner, lifecycle, resource policy and message protocol | 03 | Stop/timeout/trap recovery, stale output rejection, bounded output, tested static CSP/bootstrap isolation |
+| WEB-04a | Rust resource preflight and per-instance operation budget | 03 | Expanded inputs, chained operations, owned failure and Wasm memory maximum verified |
+| WEB-04b | Isolated runner, lifecycle and message protocol | 04a | Stop/timeout/trap recovery, stale output rejection, bounded output, tested static CSP/bootstrap isolation |
 | WEB-05 | VitePress site, eight locale shells, glossary, navigation/search and translation checks | 01 | Static build, locale routes and fallback/status behavior; preview clearly labeled |
-| WEB-06 | Monaco editor and run controls | 03, 04, 05 | Completion, parameter help, snapshots, stop/reset, drafts and file import/export |
+| WEB-06 | Monaco editor and run controls | 03, 04b, 05 | Completion, parameter help, snapshots, stop/reset, drafts and file import/export |
 | WEB-07 | Constructors, representation, comparison and basic helpers | 03, 05 | State distinctions, input preservation, paired examples and reference-language documentation |
 | WEB-08 | Rounding and scale operations | 07 | Seven modes, signed ties, Unnecessary, precision and platform checks |
 | WEB-09a | Add/sub/mul/div, safe/raw variants | 08 | Result scale, zero divisors, errors and unchanged inputs match native |
