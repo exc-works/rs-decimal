@@ -1,10 +1,31 @@
 ---
 locale: de
+source_revision: c6cdb1fa94166fc30847c973c46d9437b8484555aa720145461df4786be10adf
+translation_provenance: en-US-german-reviewed
 api_id: reexport::BigRational
-translation_status: pending
 ---
 # reexport::BigRational
 
-Die deutsche Übersetzung dieser Methode steht noch aus. Die englische Referenz beschreibt die übliche Verwendung, Parameter, Beispiele und Besonderheiten. Diese Hinweisseite zählt nicht als abgeschlossene Übersetzung.
+BigRational aus der Crate-Wurzel importieren.
 
-[Englische Referenz](../../en-US/api/reexport-bigrational)
+```rust
+pub use num_rational::BigRational as BigRational
+```
+
+## Parameter, Rückgabe und übliche Verwendung
+
+Dies ist der öffentliche Rust-Reexport, kein neuer Typ und keine neue Implementierung. Die Importsyntax wird nativ getestet. Browserentsprechungen sind bigint, ein exaktes rationales Feldobjekt bzw. die globale Funktion most_significant_bit.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="conversion-reexport-bigrational" locale="de" />
+
+## Grenzen im Browser
+
+Ganzzahlen werden nicht über verlustbehaftete JS-Zahlen übertragen. Konvertierungstupel erhalten Rusts Reihenfolge Wert/Kennzeichen; false verspricht kein exaktes Ergebnis. Ausgeliehene Eingaben bleiben unverändert, Konstruktoren initialisieren Ergebnisse. Die [Ressourcenrichtlinie](../resource-policy) begrenzt Ganzzahleingaben, Ausgabeskala und rationales Koeffizientenwachstum getrennt von Bibliotheksfehlern. Rust-Importsyntax ist ausdrücklich als nativ getestet gekennzeichnet.
+
+## Verwandte Methoden
+
+[float32](./decimal-float32) · [int64](./decimal-int64) · [big_rat](./decimal-big-rat) · [new_from_big_rat](./decimal-new-from-big-rat)
