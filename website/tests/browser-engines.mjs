@@ -81,6 +81,13 @@ try {
       await page.locator('[data-action=run]').click();
       await page.waitForFunction(() => document.querySelector('.pg-output')?.textContent.includes('9007199254740993'));
       await page.waitForFunction(() => document.querySelector('[data-action=stop]').disabled);
+      const runnerFrame = page.locator('.playground iframe');
+      assert.equal(await runnerFrame.count(), 1, 'execution frame is mounted');
+      for (const dark of [false, true]) {
+        await page.evaluate(value => document.documentElement.classList.toggle('dark', value), dark);
+        assert.equal(await runnerFrame.isVisible(), false, 'execution frame must not appear in either theme');
+        assert.equal(await runnerFrame.evaluate(frame => frame.getClientRects().length), 0, 'execution frame must not occupy layout space');
+      }
       await page.locator('[data-action=share]').click();
       const link = await page.locator('[data-share-link]').inputValue();
       assert(link.includes('#share='));
