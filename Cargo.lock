@@ -147,10 +147,12 @@ name = "decimal-playground-bridge"
 version = "0.0.0"
 dependencies = [
  "js-sys",
+ "quick-xml",
  "rs-decimal",
  "serde_json",
  "wasm-bindgen",
  "wasm-bindgen-test",
+ "yaml-rust2",
 ]
 
 [[package]]

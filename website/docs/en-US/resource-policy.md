@@ -22,7 +22,11 @@ Text/parameter/JSON decoders cap source bytes at 8192 and check decoded decimal
 text before mutation, including JSON escapes. Original JSON numeric bytes stay
 exact; the browser never parses them through JavaScript numbers.
 Binary decoding bounds actual coefficient bits and encoded scale before BigInt
-allocation. BSON strings use the text limits; Decimal128 exponent expansion is
+allocation. YAML/XML source is capped at 8192 bytes; decoded scalar/element text
+is checked before core numeric parsing, including escapes, CDATA, YAML underscore
+normalization and float zero insertion. YAML scalar radix allocation is bounded
+by a conservative 4096 hexadecimal digit character limit.
+BSON strings use the text limits; Decimal128 exponent expansion is
 checked before core parsing. All decoder preflight failures preserve receiver state.
 Exact products check the sum of scales; rounded products check the output scale.
 Both bound intermediate coefficient bits before multiplying. Addition/subtraction

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "yaml-xml-decimal-unmarshal-xml",
+  "api_ids": [
+    "Decimal::unmarshal_xml"
+  ],
+  "rust": "let mut value = Decimal::new_from_string(\"1.2300\")?;\nvalue.unmarshal_xml(\"<amount>&#49;.<ignored>9</ignored><![CDATA[2300]]></amount>\")?;",
+  "javascript": "const value = Decimal.new_from_string(\"1.2300\");\nvalue.unmarshal_xml(\"<amount>&#49;.<ignored>9</ignored><![CDATA[2300]]></amount>\");",
+  "expected": {
+    "coefficient": "12300",
+    "scale": "4",
+    "initialized": true,
+    "string": "1.23",
+    "string_with_trailing_zeros": "1.2300"
+  }
+}

@@ -225,6 +225,12 @@ export function createBridge(raw) {
     marshal_json() { return borrow(this, Decimal).marshal_json(); }
     unmarshal_json(bytes) { borrow(this, Decimal).unmarshal_json(inputBytes(bytes)); }
     unmarshal_param(param) { borrow(this, Decimal).unmarshal_param(inputText(param)); }
+    marshal_yaml() { return borrow(this, Decimal).marshal_yaml(); }
+    marshal_xml() { return borrow(this, Decimal).marshal_xml(); }
+    marshal_xml_attr() { return borrow(this, Decimal).marshal_xml_attr(); }
+    unmarshal_yaml(source) { borrow(this, Decimal).unmarshal_yaml(inputText(source)); }
+    unmarshal_xml(source) { borrow(this, Decimal).unmarshal_xml(inputText(source)); }
+    unmarshal_xml_attr(value) { borrow(this, Decimal).unmarshal_xml_attr(inputText(value)); }
     marshal_binary() { return borrow(this, Decimal).marshal_binary(); }
     unmarshal_binary(bytes) { borrow(this, Decimal).unmarshal_binary(wireBytes(bytes)); }
     marshal_bson_value() { return borrow(this, Decimal).marshal_bson_value(); }
@@ -263,6 +269,12 @@ export function createBridge(raw) {
     marshal_json() { return borrow(this, NullDecimal).marshal_json(); }
     unmarshal_json(bytes) { borrow(this, NullDecimal).unmarshal_json(inputBytes(bytes)); }
     unmarshal_param(param) { borrow(this, NullDecimal).unmarshal_param(inputText(param)); }
+    marshal_yaml() { return borrow(this, NullDecimal).marshal_yaml() ?? null; }
+    marshal_xml() { return borrow(this, NullDecimal).marshal_xml(); }
+    marshal_xml_attr() { return borrow(this, NullDecimal).marshal_xml_attr() ?? null; }
+    unmarshal_yaml(source) { borrow(this, NullDecimal).unmarshal_yaml(inputText(source)); }
+    unmarshal_xml(source) { borrow(this, NullDecimal).unmarshal_xml(inputText(source)); }
+    unmarshal_xml_attr(value) { borrow(this, NullDecimal).unmarshal_xml_attr(inputText(value)); }
     string() { return borrow(this, NullDecimal).string(); }
     marshal_bson_value() { return borrow(this, NullDecimal).marshal_bson_value(); }
     unmarshal_bson_value(kind, data) { borrow(this, NullDecimal).unmarshal_bson_value(integer(kind, 'kind', 0, 255), wireBytes(data)); }

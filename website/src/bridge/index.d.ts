@@ -86,6 +86,12 @@ export interface Decimal {
   unmarshal_text(bytes: Uint8Array): void;
   unmarshal_json(bytes: Uint8Array): void;
   unmarshal_param(param: string): void;
+  marshal_yaml(): string;
+  marshal_xml(): string;
+  marshal_xml_attr(): string;
+  unmarshal_yaml(source: string): void;
+  unmarshal_xml(source: string): void;
+  unmarshal_xml_attr(value: string): void;
   marshal_binary(): Uint8Array;
   unmarshal_binary(bytes: Uint8Array): void;
   marshal_bson_value(): [number, Uint8Array];
@@ -117,6 +123,12 @@ export interface NullDecimal {
   unmarshal_text(bytes: Uint8Array): void;
   unmarshal_json(bytes: Uint8Array): void;
   unmarshal_param(param: string): void;
+  marshal_yaml(): string | null;
+  marshal_xml(): string;
+  marshal_xml_attr(): string | null;
+  unmarshal_yaml(source: string): void;
+  unmarshal_xml(source: string): void;
+  unmarshal_xml_attr(value: string): void;
 
   valid: boolean;
   /** Explicit copy, not a live reference to the nullable field. */

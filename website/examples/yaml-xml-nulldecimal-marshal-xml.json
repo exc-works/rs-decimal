@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "yaml-xml-nulldecimal-marshal-xml",
+  "api_ids": [
+    "NullDecimal::marshal_xml"
+  ],
+  "rust": "let value = serde_json::json!({\"value\": NullDecimal::new(Decimal::new_from_string(\"1.2300\")?).marshal_xml()});",
+  "javascript": "const value = { value: NullDecimal.new(Decimal.new_from_string(\"1.2300\")).marshal_xml() };",
+  "expected": {
+    "value": "1.23"
+  }
+}
