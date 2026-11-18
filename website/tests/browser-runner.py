@@ -5,9 +5,11 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 import threading
 import time
 import urllib.request
+import urllib.error
 
 ROOT=Path(__file__).resolve().parents[1]
 HEADERS=json.loads((ROOT/'runner-dist/headers.json').read_text())
@@ -31,7 +33,10 @@ session=None
 base='http://127.0.0.1:9519'
 def call(path,payload=None,method=None):
     req=urllib.request.Request(base+path,data=None if payload is None else json.dumps(payload).encode(),headers={'Content-Type':'application/json'},method=method)
-    with urllib.request.urlopen(req,timeout=20) as r:return json.load(r)['value']
+    try:
+        with urllib.request.urlopen(req,timeout=20) as r:return json.load(r)['value']
+    except urllib.error.HTTPError as error:
+        raise RuntimeError(error.read().decode()) from error
 try:
     for port,directory in [(4210,ROOT),(4211,ROOT/'runner-dist'),(4212,ROOT/'runner-dist')]:
         server=ThreadingHTTPServer(('127.0.0.1',port),partial(Handler,directory=str(directory)));servers.append(server);threading.Thread(target=server.serve_forever,daemon=True).start()
@@ -39,7 +44,7 @@ try:
     for _ in range(100):
         try:call('/status');break
         except OSError:time.sleep(.1)
-    session=call('/session',{'capabilities':{'alwaysMatch':{'browserName':'chrome','pageLoadStrategy':'eager','goog:chromeOptions':{'binary':os.environ['TEST_CHROME_BINARY'],'args':['--headless=new']}}}})['sessionId']
+    session=call('/session',{'capabilities':{'alwaysMatch':{'browserName':'chrome','pageLoadStrategy':'eager','goog:chromeOptions':{'binary':os.environ['TEST_CHROME_BINARY'],'args':['--headless=new'] + (['--no-sandbox'] if sys.platform.startswith('linux') else [])}}}})['sessionId']
     call(f'/session/{session}/url',{'url':'http://127.0.0.1:4210/tests/runner-harness.html'})
     for _ in range(200):
         result=call(f'/session/{session}/execute/sync',{'script':'return window.testResult || null','args':[]})
