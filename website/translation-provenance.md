@@ -38,3 +38,8 @@ ownership/error ordering remain unchanged. Each completed page records
 `method_locale_owners` records the completed API groups. Ordinary checks enforce
 their current source revisions; other groups retain their pending notices. The
 full release gate still requires every method in every requested locale.
+
+The conversion, formatting, root and log/exp groups (WEB-10a–b and WEB-11a–b;
+47 more entries) have also been reviewed in zh-Hant. The review preserves exact
+conversion flags, negative-zero/overflow transport, Unicode scalar separators,
+rounding certification, domain/error precedence and resource budgets.
