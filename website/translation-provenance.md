@@ -124,7 +124,7 @@ guides are translated from en-US against the German glossary. Review preserves
 scale versus significant figures, initialization versus numerical equality,
 rounding signs/ties, borrowing/consumption and exact integer/error boundaries.
 The corrected is_integer source is used explicitly. Shared fixtures and Rust
-identifiers stay unchanged; remaining method groups retain explicit fallback.
+identifiers stay unchanged; coverage expands through the groups below.
 
 German conversion/formatting/root/log-exp references (WEB-10a–b and
 WEB-11a–b; 47 more entries) preserve exactness/success flags, IEEE special
@@ -141,3 +141,8 @@ German SQL scalar/error and validation/message references (WEB-13a-1–2;
 73 more entries) retain borrowed inputs, null state, multi-kind error handling,
 constructed versus thrown error APIs, rule-specific initialization requirements
 and literal placeholder substitution. Runtime messages and tags remain unchanged.
+
+German config/Serde and native SQLx/trait references (WEB-13b-1–2; 72
+entries) complete all 355 methods. Review covers borrowed input lifetime,
+raw JSON versus generic visitors, integer bounds, nullable state, native trait
+syntax and PostgreSQL wire/OID constraints. The locale manifest now uses `*`.
