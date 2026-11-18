@@ -1,10 +1,31 @@
 ---
 locale: fr
+source_revision: 4d2afeddcd523e94b9e9276fe6f8c19193bfe95254c1ef9ded67b301a566152b
+translation_provenance: en-US-french-reviewed
 api_id: Decimal::min_ref
-translation_status: pending
 ---
 # Decimal::min_ref
 
-La traduction française de cette méthode est en cours. Consultez la référence anglaise pour les usages courants, les paramètres, les exemples et les précautions. Cette page ne constitue pas une traduction complète.
+Sélectionner un opérande d’origine par comparaison numérique.
 
-[Référence en anglais](../../en-US/api/decimal-min-ref)
+```rust
+fn min_ref < 'a > (& 'a self , other : & 'a Self) -> & 'a Self
+```
+
+## Paramètres, résultat et utilisation courante
+
+other : &Decimal ; Rust renvoie une référence partagée liée à la durée de vie de l’entrée. En cas d’égalité, self est choisi, avec son échelle et son initialisation. Le bridge renvoie l’objet enveloppe d’origine correspondant, pas une copie. Déplacer ou libérer cet objet invalide tous ses alias JavaScript ; JavaScript ne peut pas imposer les durées de vie des emprunts Rust. Utilisez max/min pour un résultat possédé indépendant.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="owned-decimal-min-ref" locale="fr" />
+
+## Limites du navigateur
+
+Respectez les règles de propriété ci-dessus. Un accès après déplacement renvoie une erreur moved ; free est idempotent. La vérification des types et des alias précède le déplacement, mais une erreur Rust ne restaure pas le récepteur consommé. La [politique de ressources](../resource-policy) est distincte des erreurs de la bibliothèque : les puissances contrôlent les valeurs intermédiaires et l’alignement contrôle la croissance des coefficients. Les contrôles conservateurs peuvent rejeter des calculs dont le résultat final est petit.
+
+## Méthodes associées
+
+[add_owned](./decimal-add-owned) · [quo_rem](./decimal-quo-rem) · [remainder](./decimal-remainder) · [power](./decimal-power)
