@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-decimalerror-impl-clone",
+  "api_ids": [
+    "DecimalError::impl Clone"
+  ],
+  "rust": "let error = rs_decimal::DecimalError::new(rs_decimal::ErrorKind::InvalidFormat, \"bad input\").with_kind(rs_decimal::ErrorKind::Unmarshal);\nlet copy = Clone::clone(&error);\nlet value = serde_json::json!({\"value\": format!(\"{copy:?}\") == format!(\"{error:?}\")});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

@@ -11,6 +11,7 @@ mod log_exp;
 mod ownership;
 mod roots;
 mod rounding;
+mod scan_errors;
 mod text_json;
 mod yaml_xml;
 use rs_decimal::{Decimal as CoreDecimal, DecimalError, RoundingMode};

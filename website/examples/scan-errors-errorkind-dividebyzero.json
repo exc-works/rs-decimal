@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-errorkind-dividebyzero",
+  "api_ids": [
+    "ErrorKind::DivideByZero"
+  ],
+  "rust": "let error = rs_decimal::DecimalError::new(rs_decimal::ErrorKind::DivideByZero, \"example\");\nlet value = serde_json::json!({\"matches\": error.matches(rs_decimal::ErrorKind::DivideByZero)});",
+  "javascript": "const error = DecimalError.new(ErrorKind.DivideByZero, \"example\");\nconst value = { matches: error.matches(ErrorKind.DivideByZero) };",
+  "expected": {
+    "matches": true
+  }
+}

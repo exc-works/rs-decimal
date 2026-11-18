@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-decimal-value",
+  "api_ids": [
+    "Decimal::value"
+  ],
+  "rust": "let value = serde_json::json!({\"value\": Decimal::default().value()});",
+  "javascript": "const value = { value: Decimal.default().value() };",
+  "expected": {
+    "value": "0"
+  }
+}

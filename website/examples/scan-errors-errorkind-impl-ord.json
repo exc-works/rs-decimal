@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-errorkind-impl-ord",
+  "api_ids": [
+    "ErrorKind::impl Ord"
+  ],
+  "rust": "let error = rs_decimal::ErrorKind::Unmarshal;\nlet value = serde_json::json!({\"value\": error > rs_decimal::ErrorKind::InvalidFormat});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

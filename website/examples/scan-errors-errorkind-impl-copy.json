@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-errorkind-impl-copy",
+  "api_ids": [
+    "ErrorKind::impl Copy"
+  ],
+  "rust": "let error = rs_decimal::ErrorKind::Unmarshal;\nfn copy_value<T: Copy>(v: T) -> (T,T) { (v,v) }\nlet (first, second) = copy_value(error);\nlet value = serde_json::json!({\"value\": format!(\"{first:?}\") == format!(\"{second:?}\")});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

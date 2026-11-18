@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-errorkind-invalidargument",
+  "api_ids": [
+    "ErrorKind::InvalidArgument"
+  ],
+  "rust": "let error = rs_decimal::DecimalError::new(rs_decimal::ErrorKind::InvalidArgument, \"example\");\nlet value = serde_json::json!({\"matches\": error.matches(rs_decimal::ErrorKind::InvalidArgument)});",
+  "javascript": "const error = DecimalError.new(ErrorKind.InvalidArgument, \"example\");\nconst value = { matches: error.matches(ErrorKind.InvalidArgument) };",
+  "expected": {
+    "matches": true
+  }
+}

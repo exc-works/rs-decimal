@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-decimalerror-impl-debug",
+  "api_ids": [
+    "DecimalError::impl Debug"
+  ],
+  "rust": "let error = rs_decimal::DecimalError::new(rs_decimal::ErrorKind::InvalidFormat, \"bad input\").with_kind(rs_decimal::ErrorKind::Unmarshal);\nlet value = serde_json::json!({\"value\": !format!(\"{error:?}\").is_empty()});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

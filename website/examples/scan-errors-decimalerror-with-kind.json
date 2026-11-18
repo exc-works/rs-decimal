@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-decimalerror-with-kind",
+  "api_ids": [
+    "DecimalError::with_kind"
+  ],
+  "rust": "let error = rs_decimal::DecimalError::new(rs_decimal::ErrorKind::InvalidFormat, \"bad input\").with_kind(rs_decimal::ErrorKind::Unmarshal);\nlet value = serde_json::json!({\"message\": error.to_string(), \"kinds\": error.kinds().iter().map(|k| format!(\"{k:?}\")).collect::<Vec<_>>(), \"matches\": error.matches(rs_decimal::ErrorKind::Unmarshal)});",
+  "javascript": "const error = DecimalError.new(ErrorKind.InvalidFormat, \"bad input\").with_kind(ErrorKind.Unmarshal);\nconst value = { message: error.message, kinds: error.kinds(), matches: error.matches(ErrorKind.Unmarshal) };",
+  "expected": {
+    "message": "bad input",
+    "kinds": [
+      "InvalidFormat",
+      "Unmarshal"
+    ],
+    "matches": true
+  }
+}

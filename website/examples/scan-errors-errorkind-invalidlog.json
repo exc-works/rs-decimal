@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-errorkind-invalidlog",
+  "api_ids": [
+    "ErrorKind::InvalidLog"
+  ],
+  "rust": "let error = rs_decimal::DecimalError::new(rs_decimal::ErrorKind::InvalidLog, \"example\");\nlet value = serde_json::json!({\"matches\": error.matches(rs_decimal::ErrorKind::InvalidLog)});",
+  "javascript": "const error = DecimalError.new(ErrorKind.InvalidLog, \"example\");\nconst value = { matches: error.matches(ErrorKind.InvalidLog) };",
+  "expected": {
+    "matches": true
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-reexport-decimalerror",
+  "api_ids": [
+    "reexport::DecimalError"
+  ],
+  "rust": "let error = rs_decimal::DecimalError::new(rs_decimal::ErrorKind::InvalidFormat, \"bad input\").with_kind(rs_decimal::ErrorKind::Unmarshal);\nlet value = serde_json::json!({\"message\": error.to_string(), \"kinds\": error.kinds().iter().map(|k| format!(\"{k:?}\")).collect::<Vec<_>>(), \"matches\": error.matches(rs_decimal::ErrorKind::Unmarshal)});",
+  "javascript": "",
+  "expected": {
+    "message": "bad input",
+    "kinds": [
+      "InvalidFormat",
+      "Unmarshal"
+    ],
+    "matches": true
+  }
+}

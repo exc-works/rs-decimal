@@ -109,6 +109,39 @@ export function createBridge(raw) {
       if (handle) { slots.delete(this); handle.free(); }
     }
   }
+  let cachedErrorKinds;
+  function errorKinds() { return cachedErrorKinds ??= Object.freeze(Object.fromEntries(JSON.parse(raw.error_kinds()).map(k => [k, k]))); }
+  function errorKind(value) { requireType(typeof value === 'string' && Object.hasOwn(errorKinds(), value), 'expected ErrorKind'); return value; }
+  class DecimalError extends Handle {
+    static new(kind, message) { return wrap(DecimalError, raw.ErrorValue.new(errorKind(kind), inputText(message))); }
+    matches(kind) { return borrow(this, DecimalError).matches(errorKind(kind)); }
+    kinds() { return JSON.parse(borrow(this, DecimalError).kinds()); }
+    with_kind(kind) { kind = errorKind(kind); return wrap(DecimalError, take(this, DecimalError).with_kind(kind)); }
+    get message() { return borrow(this, DecimalError).message(); }
+  }
+  const scanSlots = new WeakMap();
+  function scanValue(kind, value) {
+    const out = Object.freeze({kind});
+    scanSlots.set(out, {kind, value});
+    return out;
+  }
+  const ScanValue = Object.freeze({
+    Null: scanValue('Null'), Unsupported: scanValue('Unsupported'),
+    Float32: value => scanValue('Float32', floatNumber(value)),
+    Float64: value => scanValue('Float64', floatNumber(value)),
+    Int64: value => scanValue('Int64', bigintText(value)),
+    Text: value => scanValue('Text', inputText(value)),
+    Bytes: value => scanValue('Bytes', inputBytes(value)),
+  });
+  function scanArgs(value) {
+    const data = scanSlots.get(value);
+    requireType(data !== undefined, 'expected ScanValue from this run');
+    const {kind, value: input} = data;
+    // Bytes borrows the caller buffer through this call, like Rust ScanValue::Bytes.
+    return [kind, kind === 'Text' || kind === 'Int64' ? input : '',
+      kind === 'Float32' || kind === 'Float64' ? input : 0,
+      kind === 'Bytes' ? inputBytes(input) : new Uint8Array()];
+  }
   class Decimal extends Handle {
     static new(value) {
       requireType(typeof value === 'bigint', 'value must be bigint (for example 3n)');
@@ -225,6 +258,8 @@ export function createBridge(raw) {
     marshal_json() { return borrow(this, Decimal).marshal_json(); }
     unmarshal_json(bytes) { borrow(this, Decimal).unmarshal_json(inputBytes(bytes)); }
     unmarshal_param(param) { borrow(this, Decimal).unmarshal_param(inputText(param)); }
+    scan(value) { borrow(this, Decimal).scan(...scanArgs(value)); }
+    value() { return borrow(this, Decimal).value(); }
     marshal_yaml() { return borrow(this, Decimal).marshal_yaml(); }
     marshal_xml() { return borrow(this, Decimal).marshal_xml(); }
     marshal_xml_attr() { return borrow(this, Decimal).marshal_xml_attr(); }
@@ -269,6 +304,8 @@ export function createBridge(raw) {
     marshal_json() { return borrow(this, NullDecimal).marshal_json(); }
     unmarshal_json(bytes) { borrow(this, NullDecimal).unmarshal_json(inputBytes(bytes)); }
     unmarshal_param(param) { borrow(this, NullDecimal).unmarshal_param(inputText(param)); }
+    scan(value) { borrow(this, NullDecimal).scan(...scanArgs(value)); }
+    value() { return borrow(this, NullDecimal).value() ?? null; }
     marshal_yaml() { return borrow(this, NullDecimal).marshal_yaml() ?? null; }
     marshal_xml() { return borrow(this, NullDecimal).marshal_xml(); }
     marshal_xml_attr() { return borrow(this, NullDecimal).marshal_xml_attr() ?? null; }
@@ -322,5 +359,5 @@ export function createBridge(raw) {
     most_significant_bit: value => raw.most_significant_bit(bigText(value)),
     between: (v, lower, upper) => raw.between(borrow(v, Decimal), borrow(lower, Decimal), borrow(upper, Decimal)),
   };
-  return Object.freeze({ Decimal, NullDecimal, ByteBuffer, GoFormat, RoundingMode: rounding, snapshot, ...helpers, get PRECISION_FIXED_SIZE() { return raw.precision_fixed_size(); }, get COMPATIBILITY_REVISION() { return raw.compatibility_revision(); }, metadata: () => JSON.parse(raw.metadata()) });
+  return Object.freeze({ Decimal, NullDecimal, DecimalError, get ErrorKind() { return errorKinds(); }, ScanValue, ByteBuffer, GoFormat, RoundingMode: rounding, snapshot, ...helpers, get PRECISION_FIXED_SIZE() { return raw.precision_fixed_size(); }, get COMPATIBILITY_REVISION() { return raw.compatibility_revision(); }, metadata: () => JSON.parse(raw.metadata()) });
 }

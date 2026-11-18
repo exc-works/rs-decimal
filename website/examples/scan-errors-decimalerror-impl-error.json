@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-decimalerror-impl-error",
+  "api_ids": [
+    "DecimalError::impl Error"
+  ],
+  "rust": "let error = rs_decimal::DecimalError::new(rs_decimal::ErrorKind::InvalidFormat, \"bad input\").with_kind(rs_decimal::ErrorKind::Unmarshal);\nlet erased: &dyn std::error::Error = &error;\nlet value = serde_json::json!({\"value\": erased.source().is_none()});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

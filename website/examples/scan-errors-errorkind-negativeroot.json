@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-errorkind-negativeroot",
+  "api_ids": [
+    "ErrorKind::NegativeRoot"
+  ],
+  "rust": "let error = rs_decimal::DecimalError::new(rs_decimal::ErrorKind::NegativeRoot, \"example\");\nlet value = serde_json::json!({\"matches\": error.matches(rs_decimal::ErrorKind::NegativeRoot)});",
+  "javascript": "const error = DecimalError.new(ErrorKind.NegativeRoot, \"example\");\nconst value = { matches: error.matches(ErrorKind.NegativeRoot) };",
+  "expected": {
+    "matches": true
+  }
+}

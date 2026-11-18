@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-nulldecimal-scan",
+  "api_ids": [
+    "NullDecimal::scan"
+  ],
+  "rust": "let mut value = NullDecimal::new(Decimal::new(9));\nvalue.scan(rs_decimal::ScanValue::Text(\"1.2300\"))?;",
+  "javascript": "const value = NullDecimal.new(Decimal.new(9n));\nvalue.scan(ScanValue.Text(\"1.2300\"));",
+  "expected": {
+    "valid": true,
+    "decimal": {
+      "coefficient": "12300",
+      "scale": "4",
+      "initialized": true
+    }
+  }
+}

@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: '22'
       - run: cargo run --locked -p decimal-web-examples
-      - run: node --test website/tests/bridge.test.mjs website/tests/resources.test.mjs website/tests/constructors.test.mjs website/tests/comparison.test.mjs website/tests/helpers.test.mjs website/tests/types.test.mjs website/tests/rounding.test.mjs website/tests/arithmetic.test.mjs website/tests/ownership.test.mjs website/tests/conversion.test.mjs website/tests/formatting.test.mjs website/tests/roots.test.mjs website/tests/log-exp.test.mjs website/tests/text-json.test.mjs website/tests/binary-bson.test.mjs website/tests/yaml-xml.test.mjs website/tests/examples.test.mjs
+      - run: node --test website/tests/bridge.test.mjs website/tests/resources.test.mjs website/tests/constructors.test.mjs website/tests/comparison.test.mjs website/tests/helpers.test.mjs website/tests/types.test.mjs website/tests/rounding.test.mjs website/tests/arithmetic.test.mjs website/tests/ownership.test.mjs website/tests/conversion.test.mjs website/tests/formatting.test.mjs website/tests/roots.test.mjs website/tests/log-exp.test.mjs website/tests/text-json.test.mjs website/tests/binary-bson.test.mjs website/tests/yaml-xml.test.mjs website/tests/scan-errors.test.mjs website/tests/examples.test.mjs
       - run: npm ci --ignore-scripts
         working-directory: website
       - run: npm run build:runner

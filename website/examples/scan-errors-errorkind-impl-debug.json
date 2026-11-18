@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-errorkind-impl-debug",
+  "api_ids": [
+    "ErrorKind::impl Debug"
+  ],
+  "rust": "let error = rs_decimal::ErrorKind::Unmarshal;\nlet value = serde_json::json!({\"value\": !format!(\"{error:?}\").is_empty()});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}
