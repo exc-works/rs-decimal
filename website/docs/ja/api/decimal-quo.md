@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 4842619da75eb5fbcf11cdce1b3ca781ba18031962688508c5f82ef39efdcf01
+source_revision: dc01349bb451c857128d1cca5bf8b130f9b144b0e48f2d3acb755c072d9a7962
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::quo
 ---
@@ -14,7 +14,7 @@ fn quo (& self , other : & Self , mode : RoundingMode) -> Result < Self , Decima
 
 ## 引数、戻り値、通常の使い方
 
-other: &Decimal。Rust は Result<Decimal, DecimalError> を返します。出力スケールは両オペランドの大きい方です。そのため両入力が整数なら結果も整数となり、1 / 3 は 0 です。小数の出力には quo_with_prec を使います。除数がゼロなら DivideByZero を返します。mode が丸めを制御し、Unnecessary で不正確な結果になる場合は RoundUnnecessary を返します。
+other: &Decimal。Rust は Result<Decimal, DecimalError> を返します。出力スケールは両オペランドの大きい方です。そのため両入力が整数なら結果も整数となり、1 / 3 は Down では 0、Up では 1 です。小数の出力には quo_with_prec を使います。除数がゼロなら DivideByZero を返します。mode が丸めを制御し、Unnecessary で不正確な結果になる場合は RoundUnnecessary を返します。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

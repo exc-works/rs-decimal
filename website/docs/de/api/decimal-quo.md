@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 4842619da75eb5fbcf11cdce1b3ca781ba18031962688508c5f82ef39efdcf01
+source_revision: dc01349bb451c857128d1cca5bf8b130f9b144b0e48f2d3acb755c072d9a7962
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::quo
 ---
@@ -14,7 +14,7 @@ fn quo (& self , other : & Self , mode : RoundingMode) -> Result < Self , Decima
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-other: &Decimal; Rust liefert Result<Decimal, DecimalError>. Die Ausgabeskala ist die größere Operandenskala. Zwei Ganzzahleingaben ergeben daher eine Ganzzahl: 1 / 3 liefert 0. Verwenden Sie quo_with_prec für Nachkommastellen. Ein Nulldivisor liefert DivideByZero. mode steuert die Rundung; Unnecessary liefert bei unexaktem Ergebnis RoundUnnecessary.
+other: &Decimal; Rust liefert Result<Decimal, DecimalError>. Die Ausgabeskala ist die größere Operandenskala. Zwei Ganzzahleingaben ergeben daher eine Ganzzahl: 1 / 3 liefert mit Down den Wert 0, mit Up dagegen 1. Verwenden Sie quo_with_prec für Nachkommastellen. Ein Nulldivisor liefert DivideByZero. mode steuert die Rundung; Unnecessary liefert bei unexaktem Ergebnis RoundUnnecessary.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";
