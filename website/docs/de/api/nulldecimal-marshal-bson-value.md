@@ -1,10 +1,31 @@
 ---
 locale: de
+source_revision: b07552403b149d5a66b24c1aa4c0547e8259f4d124ac401ca1161c70929a6aa6
+translation_provenance: en-US-german-reviewed
 api_id: "NullDecimal::marshal_bson_value"
-translation_status: pending
 ---
 # NullDecimal::marshal_bson_value
 
-Die deutsche Übersetzung dieser Methode steht noch aus. Die englische Referenz beschreibt die übliche Verwendung, Parameter, Beispiele und Besonderheiten. Diese Hinweisseite zählt nicht als abgeschlossene Übersetzung.
+Ein BSON-Typbyte und eine Skalar-Payload codieren.
 
-[Englische Referenz](../../en-US/api/nulldecimal-marshal-bson-value)
+```rust
+fn marshal_bson_value (& self) -> Result < (u8 , Vec < u8 >) , DecimalError >
+```
+
+## Parameter, Rückgabe und übliche Verwendung
+
+Keine Parameter; liefert `Result<(u8, Vec<u8>), DecimalError>`/[number, Uint8Array]. Rust benötigt das im Browserbuild aktivierte Feature bson. Das Tupel enthält einen rohen BSON-Skalar, kein vollständiges BSON-Dokument. Gültige nullable-Werte werden als BSON-Zeichenfolgen codiert, auch bei innerer nicht initialisierter Null. Ungültige Werte werden Typ 10 mit leerer Payload. Die Zeichenfolgen-Payload enthält eine Little-Endian-i32-Bytelänge einschließlich abschließendem NUL, danach kanonischen Dezimaltext ohne nachgestellte Nachkommanullen. Die zurückgegebenen Payload-Bytes sind eine unabhängige Kopie; Codieren ändert weder Initialisierung noch Gültigkeit.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="binary-bson-nulldecimal-marshal-bson-value" locale="de" />
+
+## Grenzen im Browser
+
+Die Eingabe muss Uint8Array und kind eine Ganzzahl zwischen 0 und 255 sein. Eingaben sind vor dem Kopieren nach Wasm auf 65536 Bytes begrenzt. Rust prüft binäre Skalen bis 1000 und tatsächliche Koeffizientengrößen bis 16384 Bits. BSON-Zeichenfolgen folgen der Textgrenze von 8192 Bytes; Decimal128-Exponentenexpansion wird ebenfalls [auf Ressourcen geprüft](../resource-policy). Diese Grenzen können enger als die der nativen Bibliothek sein. Prüfungen erfolgen vor Empfängeränderungen; Kern- und Ressourcenfehler bleiben getrennt, verschobene Handles sind nicht wiederverwendbar.
+
+## Verwandte Methoden
+
+[marshal_binary](./decimal-marshal-binary) · [unmarshal_bson_value](./decimal-unmarshal-bson-value) · [unmarshal_json](./decimal-unmarshal-json)

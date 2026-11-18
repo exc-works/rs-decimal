@@ -131,3 +131,8 @@ WEB-11a–b; 47 more entries) preserve exactness/success flags, IEEE special
 values, Unicode scalar separators, rational input and certified half-even
 rounding. The corrected float64 source is used; f32 narrowing applies only
 to the float32 constructor. Domain and resource errors remain distinct.
+
+German text/JSON, binary/BSON and YAML/XML references (WEB-12a–c; 33
+more entries) preserve each codec’s null/empty semantics, stored versus
+canonical scale, wire formats and atomic decoding errors. XML entity literals
+remain code-formatted and exact numeric input does not pass through JS numbers.
