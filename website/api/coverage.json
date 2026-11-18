@@ -146,24 +146,38 @@
   {
     "id": "Decimal::approx_root",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-11a",
     "doc_id": "decimal-approx-root",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.approx_root(degree: bigint): Decimal",
+    "examples": [
+      "roots-decimal-approx-root"
+    ],
+    "tests": [
+      "website/tests/roots.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::approx_root_with_prec",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-11a",
     "doc_id": "decimal-approx-root-with-prec",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.approx_root_with_prec(degree: bigint, prec: number): Decimal",
+    "examples": [
+      "roots-decimal-approx-root-with-prec"
+    ],
+    "tests": [
+      "website/tests/roots.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::big_int",
@@ -2361,24 +2375,38 @@
   {
     "id": "Decimal::sqrt",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-11a",
     "doc_id": "decimal-sqrt",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.sqrt(): Decimal",
+    "examples": [
+      "roots-decimal-sqrt"
+    ],
+    "tests": [
+      "website/tests/roots.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::sqrt_with_prec",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-11a",
     "doc_id": "decimal-sqrt-with-prec",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.sqrt_with_prec(prec: number): Decimal",
+    "examples": [
+      "roots-decimal-sqrt-with-prec"
+    ],
+    "tests": [
+      "website/tests/roots.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::string",

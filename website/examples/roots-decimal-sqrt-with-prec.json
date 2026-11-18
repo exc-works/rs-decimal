@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "roots-decimal-sqrt-with-prec",
+  "api_ids": [
+    "Decimal::sqrt_with_prec"
+  ],
+  "rust": "let value = Decimal::new_from_string(\"2\")?.sqrt_with_prec(2)?;",
+  "javascript": "const value = Decimal.new_from_string(\"2\").sqrt_with_prec(2);",
+  "expected": {
+    "coefficient": "141",
+    "scale": "2",
+    "initialized": true,
+    "string": "1.41",
+    "string_with_trailing_zeros": "1.41"
+  }
+}

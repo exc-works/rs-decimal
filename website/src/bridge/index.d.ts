@@ -69,6 +69,10 @@ export interface Decimal {
   format_go(f: Partial<GoFormatOptions>): string;
   append_text(dst: ByteBuffer): void;
   append_text_with_trailing_zeros(dst: ByteBuffer): void;
+  sqrt(): Decimal;
+  sqrt_with_prec(prec: number): Decimal;
+  approx_root(degree: bigint): Decimal;
+  approx_root_with_prec(degree: bigint, prec: number): Decimal;
   mul_exact(other: Decimal): Decimal;
   ceil(): Decimal;
   floor(): Decimal;

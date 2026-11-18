@@ -7,6 +7,7 @@ mod formatting;
 mod helpers;
 mod limits;
 mod ownership;
+mod roots;
 mod rounding;
 use rs_decimal::{Decimal as CoreDecimal, DecimalError, RoundingMode};
 use wasm_bindgen::prelude::*;
