@@ -1,10 +1,31 @@
 ---
 locale: en-GB
+source_revision: 4d452c3c2c6d2bed5b36a82866f10106b5603e80ad3916a0ac4e55ced6bfc3f3
+translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::sub_raw
-translation_status: pending
 ---
 # Decimal::sub_raw
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Change the unscaled coefficient by an i64 integer.
 
-[English (US) reference](../../en-US/api/decimal-sub-raw)
+```rust
+fn sub_raw (& self , value : i64) -> Self
+```
+
+## Parameters, return and normal usage
+
+value: i64, represented by bigint in the bridge. Scale is preserved: at scale 2, adding/subtracting 1 changes the number by 0.01, not by 1. Rust returns a new Decimal. Numbers and out-of-i64 bigint values are rejected by the bridge.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="arithmetic-decimal-sub-raw" locale="en-GB" />
+
+## Browser boundaries
+
+Inputs are borrowed and remain usable after success or ordinary errors. Returned Decimals own independent data; arithmetic results are initialized. The browser checks the [resource policy](../resource-policy) before calling the core: alignment, intermediate products, division scaling and output precision. Conservative preflight may reject calculations with small final results. Resource errors remain distinct from numerical-library errors; a panic terminates the run.
+
+## Related methods
+
+[add](./decimal-add) · [mul_exact](./decimal-mul-exact) · [quo_with_prec](./decimal-quo-with-prec) · [RoundingMode](./roundingmode)

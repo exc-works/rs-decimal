@@ -1,10 +1,29 @@
 ---
 locale: en-GB
+source_revision: 25b1ec5a4bb0557629fac6d66ca48c015418489e6280f42443d66425e8372440
+translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::impl PartialOrd
-translation_status: pending
 ---
 # Decimal::impl PartialOrd
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Compare decimals using Rust partial ordering.
 
-[English (US) reference](../../en-US/api/decimal-impl-partialord)
+```rust
+impl PartialOrd for Decimal
+```
+
+## Normal usage and semantics
+
+All Decimal values are comparable, so partial_cmp returns Some(Ordering). Default zero is comparable to constructed zero; scale differences do not produce None.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-decimal-impl-partialord" locale="en-GB" />
+
+This Rust syntax example runs in native tests and does not claim browser trait support.
+
+## Related documentation
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)

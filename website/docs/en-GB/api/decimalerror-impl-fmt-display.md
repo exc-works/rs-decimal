@@ -1,10 +1,31 @@
 ---
 locale: en-GB
+source_revision: 313aa913e617945bd29e0e39f2ee0488ae3c0d32ae43ffdacbbf7badbfb3dbb1
+translation_provenance: en-US-reviewed-reuse
 api_id: "DecimalError::impl fmt :: Display"
-translation_status: pending
 ---
 # DecimalError::impl fmt :: Display
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Use the Rust fmt  implementation.
 
-[English (US) reference](../../en-US/api/decimalerror-impl-fmt-display)
+```rust
+impl fmt :: Display for DecimalError
+```
+
+## Parameters, return and normal usage
+
+Display writes only the message. Use format! or to_string(); inspect kinds separately for machine-readable handling. This is native Rust trait syntax; the browser does not expose it as a method.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="scan-errors-decimalerror-impl-fmt-display" locale="en-GB" />
+
+## Browser boundaries
+
+SQL text/byte input and error messages are capped at 8192 UTF-8 bytes. SQL text is [resource-checked](../resource-policy) after removing outer quotes, so quoting cannot bypass exponent limits. Borrowed calls preserve inputs; consumed or disposed handles cannot be reused. Rust trait/import examples run in native tests and do not claim browser method support.
+
+## Related methods
+
+[scan](./decimal-scan) · [ScanValue](./scanvalue) · [DecimalError](./decimalerror)

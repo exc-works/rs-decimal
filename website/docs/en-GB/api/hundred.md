@@ -1,10 +1,31 @@
 ---
 locale: en-GB
+source_revision: 075546f79884d636c4e552add1629511a5f2dca740186a5700262f084c5bd8a5
+translation_provenance: en-US-reviewed-reuse
 api_id: hundred
-translation_status: pending
 ---
 # hundred
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Construct the decimal integer one hundred.
 
-[English (US) reference](../../en-US/api/hundred)
+```rust
+fn hundred () -> Decimal
+```
+
+## Parameters, return and usage notes
+
+No parameters; returns a fresh initialized Decimal at scale zero. It is a value constructor, not a shared mutable constant.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="helper-hundred" locale="en-GB" />
+
+## Boundaries
+
+The bridge preserves Rust names and parameter order. Free functions are available directly in the playground. Borrowed inputs are not consumed or changed; the bridge rejects invalid or foreign-run handles. All operations follow the [resource policy](../resource-policy).
+
+## Related methods
+
+[new_from_string](./decimal-new-from-string) · [is_nil](./decimal-is-nil) · [equal](./decimal-equal)

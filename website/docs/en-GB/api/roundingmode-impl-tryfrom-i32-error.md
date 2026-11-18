@@ -1,10 +1,31 @@
 ---
 locale: en-GB
+source_revision: f397dc1220fc731959fe63aa3e5a1c46b0d68942bea1f3f5f567773d91995a1b
+translation_provenance: en-US-reviewed-reuse
 api_id: "RoundingMode::impl TryFrom < i32 >::Error"
-translation_status: pending
 ---
 # RoundingMode::impl TryFrom < i32 >::Error
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Validate a raw rounding discriminant with TryFrom.
 
-[English (US) reference](../../en-US/api/roundingmode-impl-tryfrom-i32-error)
+```rust
+type Error = DecimalError
+```
+
+## Normal usage and caveats
+
+value: i32; returns `Result<RoundingMode, DecimalError>`. Codes 0–6 use the pinned mode mapping, including 5=HalfEven. Unknown codes return InvalidArgument without panicking. The associated Error type is DecimalError. This delegates to from_raw; browser code uses RoundingMode.from_raw(number), with strict i32 parameter checks.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="native-roundingmode-impl-tryfrom-i32-error" locale="en-GB" />
+
+## Execution
+
+This item is native Rust trait syntax; it does not expose a same-named JavaScript operator or SQLx object. The default native documentation harness executes this example.
+
+## Related methods
+
+[Decimal](./decimal) · [scan](./decimal-scan) · [new_from_string](./decimal-new-from-string)

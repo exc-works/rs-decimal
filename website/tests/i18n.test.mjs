@@ -44,12 +44,12 @@ test('method revisions and API identities cannot silently drift', async () => {
   try {
     await mkdir(new URL('api/', root));
     await writeFile(new URL('api/coverage.json', root), JSON.stringify([{id:'Decimal::new', doc_id:'decimal-new',status:'implemented'}]));
-    for (const locale of ['en-US','zh-Hans']) {
+    for (const locale of ['en-US','zh-Hans','en-GB']) {
       await mkdir(new URL(`docs/${locale}/api/`, root), {recursive:true});
       await writeFile(new URL(`docs/${locale}/api/decimal-new.md`, root), `---\nlocale: ${locale}\nsource_revision: ${hash}\napi_id: Decimal::new\n---\n${body}`);
     }
     assert.equal(await checkMethodTranslations(root), 1);
-    for (const locale of ['en-US','zh-Hans']) {
+    for (const locale of ['en-US','zh-Hans','en-GB']) {
       await writeFile(new URL(`docs/${locale}/api/decimal-new.md`, root), `---\nlocale: ${locale}\nsource_revision: ${hash}\napi_id: "Decimal::new"\n---\n${body}`);
     }
     assert.equal(await checkMethodTranslations(root), 1);

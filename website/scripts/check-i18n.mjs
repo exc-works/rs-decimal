@@ -30,7 +30,7 @@ export async function checkMethodTranslations(root = new URL('../', import.meta.
     const source = await readFile(new URL(`docs/en-US/api/${entry.doc_id}.md`, root), 'utf8');
     const body = source.replace(/^---\n[\s\S]*?\n---\n/, '');
     const revision = createHash('sha256').update(body).digest('hex');
-    for (const locale of release ? expectedLocales : ['en-US', 'zh-Hans']) {
+    for (const locale of release ? expectedLocales : ['en-US', 'zh-Hans', 'en-GB']) {
       const page = await readFile(new URL(`docs/${locale}/api/${entry.doc_id}.md`, root), 'utf8');
       const header = page.match(/^---\n([\s\S]*?)\n---\n/)?.[1].split('\n');
       if (header?.includes('translation_status: pending') || !header?.includes(`locale: ${locale}`) || !header.includes(`source_revision: ${revision}`) || (!header.includes(`api_id: ${entry.id}`) && !header.includes(`api_id: ${JSON.stringify(entry.id)}`)) || !/^# .+/m.test(page)) throw Error(`Missing/stale method translation: ${locale}/${entry.doc_id}`);

@@ -1,10 +1,33 @@
 ---
 locale: en-GB
+source_revision: 37b6ebebec69abdf2809e71eb7e3cad7353a792a069c7217103a51f2eea16c7f
+translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::new_from_decimal
-translation_status: pending
 ---
 # Decimal::new_from_decimal
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Copy an existing Decimal, including its stored representation and initialization state.
 
-[English (US) reference](../../en-US/api/decimal-new-from-decimal)
+```rust
+fn new_from_decimal (value : & Self) -> Self
+```
+
+## Parameters and return
+
+`value: &Decimal` is borrowed. The returned Decimal is independent; the input remains usable.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="constructor-new-from-decimal" locale="en-GB" />
+
+## Usage notes and boundaries
+
+Copying `Decimal::default()` preserves uninitialized state; it does not turn it into initialized zero. In JavaScript, pass a live Decimal from the same run. This constructor does not consume it.
+
+The browser also applies the [resource policy](../resource-policy). JavaScript inputs are validated before calling Rust.
+
+## Related methods
+
+[new_with_prec](./decimal-new-with-prec) · [new_with_append_prec](./decimal-new-with-append-prec) · [new_from_string](./decimal-new-from-string)

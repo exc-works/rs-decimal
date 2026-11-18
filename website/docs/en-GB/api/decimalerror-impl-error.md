@@ -1,10 +1,31 @@
 ---
 locale: en-GB
+source_revision: d94c5a1a48ed0fbe522456d88bc4774ce805cace3b32e2a5428e2527dc3be2ce
+translation_provenance: en-US-reviewed-reuse
 api_id: "DecimalError::impl Error"
-translation_status: pending
 ---
 # DecimalError::impl Error
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Use the Rust Error implementation.
 
-[English (US) reference](../../en-US/api/decimalerror-impl-error)
+```rust
+impl Error for DecimalError
+```
+
+## Parameters, return and normal usage
+
+Use as a standard Rust Error, including boxed error propagation. Additional categories are not a chained source; source() is None. This is native Rust trait syntax; the browser does not expose it as a method.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="scan-errors-decimalerror-impl-error" locale="en-GB" />
+
+## Browser boundaries
+
+SQL text/byte input and error messages are capped at 8192 UTF-8 bytes. SQL text is [resource-checked](../resource-policy) after removing outer quotes, so quoting cannot bypass exponent limits. Borrowed calls preserve inputs; consumed or disposed handles cannot be reused. Rust trait/import examples run in native tests and do not claim browser method support.
+
+## Related methods
+
+[scan](./decimal-scan) · [ScanValue](./scanvalue) · [DecimalError](./decimalerror)

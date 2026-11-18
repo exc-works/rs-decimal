@@ -1,10 +1,31 @@
 ---
 locale: en-GB
+source_revision: f56da33c81a26f95ee4ac8cfce759062606ade6eed7055366c2fe672d142ca01
+translation_provenance: en-US-reviewed-reuse
 api_id: "NullDecimal::impl Type < Postgres >::type_info"
-translation_status: pending
 ---
 # NullDecimal::impl Type < Postgres >::type_info
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Use the native SQLx PostgreSQL NUMERIC integration.
 
-[English (US) reference](../../en-US/api/nulldecimal-impl-type-postgres-type-info)
+```rust
+fn type_info () -> PgTypeInfo
+```
+
+## Normal usage and caveats
+
+Requires the postgres feature and SQLx 0.8 PostgreSQL types. This implementation is native-only: the browser playground does not open database connections. type_info() returns NUMERIC OID 1700. compatible(ty) accepts that exact OID, not float8, integer or arbitrary textual types; no implicit float conversion is promised.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="native-nulldecimal-impl-type-postgres-type-info" locale="en-GB" />
+
+## Execution
+
+This item is native Rust trait syntax; it does not expose a same-named JavaScript operator or SQLx object. The default native documentation harness executes this example.
+
+## Related methods
+
+[Decimal](./decimal) · [scan](./decimal-scan) · [new_from_string](./decimal-new-from-string)
