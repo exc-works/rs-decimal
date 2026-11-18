@@ -74,16 +74,25 @@ try:
         js('const el=document.querySelector("#api-query"); el.value="mul_exact"; el.dispatchEvent(new Event("input",{bubbles:true}));')
         until(lambda: 0 < js('return document.querySelectorAll("tbody tr").length') < count)
         assert js('return [...document.querySelectorAll("tbody tr")].every(x=>x.textContent.includes("mul_exact"))')
-    for locale in ['en-US', 'zh-Hans', 'en-GB', 'zh-Hant', 'fr']:
+    core_locales = ['en-US', 'zh-Hans', 'en-GB'] + [locale for locale, owners in groups.items() if '*' in owners or 'WEB-07a' in owners]
+    for locale in core_locales:
         navigate(f'{locale}/api/decimal-new-with-prec.html')
         until(lambda: js('return document.querySelectorAll(".method-example > pre").length') == 3)
         until(lambda: js('return !!document.querySelector(".method-form [data-parameter]")'))
         assert 'Decimal.new_with_prec(12n, 2)' in js('return document.querySelector(".method-example").textContent')
-        js('document.querySelector(".VPNavBarTranslations button").click()')
-        js('Array.from(document.querySelectorAll(".VPNavBarTranslations a")).find(x=>x.href.includes("/ja/")).click()')
-        until(lambda: js('return document.documentElement.lang') == 'ja')
-        until(lambda: js('return document.querySelector(".vp-doc")?.textContent.includes("準備中")'))
-        assert js('return document.querySelector(".vp-doc a[href*=en-US]").pathname') == '/rs-decimal/en-US/api/decimal-new-with-prec.html'
+        if locale != 'ja':
+            js('document.querySelector(".VPNavBarTranslations button").click()')
+            js('Array.from(document.querySelectorAll(".VPNavBarTranslations a")).find(x=>x.href.includes("/ja/")).click()')
+            until(lambda: js('return document.documentElement.lang') == 'ja')
+            until(lambda: js('return document.querySelectorAll(".method-example > pre").length') == 3)
+            assert js('return location.pathname') == '/rs-decimal/ja/api/decimal-new-with-prec.html'
+    # Pending translations keep their explicit source link until that owner is complete.
+    for locale in ['zh-Hant', 'fr', 'ko', 'ja', 'de']:
+        pending = next((entry for entry in coverage.values() if '*' not in groups.get(locale, []) and entry['owner'] not in groups.get(locale, [])), None)
+        if pending:
+            navigate(f'{locale}/api/{pending["doc_id"]}.html')
+            until(lambda: js('return !!document.querySelector(".vp-doc a[href*=en-US]")'))
+            assert js('return document.querySelector(".vp-doc a[href*=en-US]").pathname') == f'/rs-decimal/en-US/api/{pending["doc_id"]}.html'
     for locale in ['en-US', 'zh-Hans', 'en-GB', 'zh-Hant', 'fr']:
         navigate(f'{locale}/api/decimal-unmarshal-xml-attr.html')
         until(lambda: js('return document.querySelector(".vp-doc")?.textContent.includes("&#49;.23")'))

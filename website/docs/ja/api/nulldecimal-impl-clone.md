@@ -1,10 +1,29 @@
 ---
 locale: ja
+source_revision: 056afbd5297b8421283bf4270ff73e28ea9129becd2598b31ff7a84ee04dacd5
+translation_provenance: en-US-japanese-reviewed
 api_id: NullDecimal::impl Clone
-translation_status: pending
 ---
 # NullDecimal::impl Clone
 
-このメソッドの日本語訳は準備中です。通常の使い方、引数、使用例、注意事項は英語のリファレンスを参照してください。この案内ページは翻訳済みとして扱いません。
+Rust で有効性と保存された小数の両方を複製します。
 
-[英語のリファレンス](../../en-US/api/nulldecimal-impl-clone)
+```rust
+impl Clone for NullDecimal
+```
+
+## 通常の使い方と意味
+
+valid が false でも、複製時には隠れた値を保持します。これはネイティブ Rust トレイトであり、変更を追跡する共有参照ではありません。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-nulldecimal-impl-clone" locale="ja" />
+
+この Rust 構文の例はネイティブテストで実行します。ブラウザーでのトレイト対応を意味しません。
+
+## 関連ドキュメント
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)
