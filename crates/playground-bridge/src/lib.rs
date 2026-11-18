@@ -1,4 +1,5 @@
 //! Bounded browser bridge. Execution isolation is supplied by the runner.
+mod arithmetic;
 mod comparison;
 mod constructors;
 mod helpers;

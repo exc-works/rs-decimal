@@ -26,6 +26,23 @@ export interface Decimal {
   neg(): Decimal;
   max(other: Decimal): Decimal;
   min(other: Decimal): Decimal;
+  add(other: Decimal): Decimal;
+  sub(other: Decimal): Decimal;
+  safe_add(other: Decimal): Decimal;
+  safe_sub(other: Decimal): Decimal;
+  mul_down(other: Decimal): Decimal;
+  quo_down(other: Decimal): Decimal;
+  add_raw(value: bigint): Decimal;
+  sub_raw(value: bigint): Decimal;
+  mul(other: Decimal, mode: Rounding): Decimal;
+  quo(other: Decimal, mode: Rounding): Decimal;
+  mul_with_prec(other: Decimal, prec: number, mode: Rounding): Decimal;
+  quo_with_prec(other: Decimal, prec: number, mode: Rounding): Decimal;
+  int_part(): bigint;
+  is_integer(): boolean;
+  has_fraction(): boolean;
+  /** Panics on negative input; start a fresh run after a Wasm trap. */
+  must_non_negative(): Decimal;
   mul_exact(other: Decimal): Decimal;
   ceil(): Decimal;
   floor(): Decimal;

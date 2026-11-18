@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "arithmetic-decimal-must-non-negative",
+  "api_ids": [
+    "Decimal::must_non_negative"
+  ],
+  "rust": "let value = Decimal::default().must_non_negative();",
+  "javascript": "const value = Decimal.default().must_non_negative();",
+  "expected": {
+    "coefficient": "0",
+    "scale": "0",
+    "initialized": true,
+    "string": "0",
+    "string_with_trailing_zeros": "0"
+  }
+}

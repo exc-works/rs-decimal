@@ -180,6 +180,11 @@
         result = await client.run('assert(between(one(), zero(), ten())); print(hundred());');
         assert(result.type === "done", "fresh run after a Rust panic");
         checks.push("Rust panic and fresh helper recovery");
+        result = await client.run('Decimal.new(-1n).must_non_negative();');
+        assert(result.category === "trap", "negative requirement must retain its panic");
+        result = await client.run('assert(Decimal.new(2n).add(Decimal.new(3n)).string() === "5");');
+        assert(result.type === "done", "fresh arithmetic run after panic");
+        checks.push("negative requirement panic and arithmetic recovery");
         window.testResult = { ok: true, checks };
       } catch (error) {
         window.testResult = {
