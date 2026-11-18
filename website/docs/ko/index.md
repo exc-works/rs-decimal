@@ -1,13 +1,15 @@
 ---
 locale: ko
-source_revision: 488c73aeed11f4d4204611d9ca618092887b313db91626b2511bfebe1bb48beb
+source_revision: d29c3aeda3724709819c046cd6261680419e70eea479d675983c407094c92b54
 ---
-# 정확한 값, 명확한 동작
+# rs-decimal
 
-rs-decimal은 십진 계수, 소수 자릿수와 초기화 상태를 보존합니다. 일반적인 사용법을 먼저 익히고 반올림, 뒤쪽 0과 오류 동작을 살펴보세요.
+소수 자릿수와 반올림 방식을 명시하는 정확한 십진 연산.
 
-::: info 라이브러리 살펴보기
-355개 API 항목 모두에 8개 언어 문서를 제공합니다. 메서드 페이지는 일반적인 사용법과 주의사항을 설명하며 Rust 예제를 공유합니다. 브라우저 지원 메서드는 Rust/Wasm bridge로 실행하고 네이티브 전용 연동은 명시적으로 표시합니다.
-:::
+<div class="ref-actions">
 
-[정확한 입력으로 시작](./guide) · [Rust API 보기](./api/) · [용어집 보기](./glossary)
+[시작하기](./guide) · [API 목록](./api/) · [플레이그라운드](./playground)
+
+</div>
+
+<<< ../../../examples/web_getting_started.rs

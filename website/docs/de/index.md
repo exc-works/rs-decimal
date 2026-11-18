@@ -1,13 +1,15 @@
 ---
 locale: de
-source_revision: 488c73aeed11f4d4204611d9ca618092887b313db91626b2511bfebe1bb48beb
+source_revision: d29c3aeda3724709819c046cd6261680419e70eea479d675983c407094c92b54
 ---
-# Exakte Werte, klares Verhalten
+# rs-decimal
 
-rs-decimal erhält Dezimalkoeffizienten, Skala und Initialisierungszustand. Beginnen Sie mit typischen Anwendungen und untersuchen Sie anschließend Rundung, nachgestellte Nullen und Fehler.
+Exakte Dezimalrechnung mit expliziter Skala und Rundung.
 
-::: info Die Bibliothek erkunden
-Alle 355 API-Einträge sind in acht Sprachen dokumentiert. Methodenseiten erklären die übliche Verwendung und Besonderheiten anhand gemeinsamer Rust-Beispiele. Browserfähige Methoden laufen über die Rust/Wasm-Bridge; rein native Integrationen sind ausdrücklich gekennzeichnet.
-:::
+<div class="ref-actions">
 
-[Mit exakten Eingaben beginnen](./guide) · [Rust-APIs durchsuchen](./api/) · [Glossar lesen](./glossary)
+[Erste Schritte](./guide) · [API-Katalog](./api/) · [Spielwiese](./playground)
+
+</div>
+
+<<< ../../../examples/web_getting_started.rs

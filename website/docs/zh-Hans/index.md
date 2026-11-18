@@ -1,13 +1,15 @@
 ---
 locale: zh-Hans
-source_revision: 488c73aeed11f4d4204611d9ca618092887b313db91626b2511bfebe1bb48beb
+source_revision: d29c3aeda3724709819c046cd6261680419e70eea479d675983c407094c92b54
 ---
-# 精确数值，明确行为
+# rs-decimal
 
-rs-decimal 保留十进制系数、小数位数和初始化状态。先了解常规用法，再检查舍入、尾零和错误行为。
+精确十进制运算，明确控制小数位数与舍入。
 
-::: info 探索库的行为
-全部 355 个 API 条目均提供八种语言的文档。方法页面说明常规用法和注意事项，并共享 Rust 示例。支持浏览器的方法通过 Rust/Wasm bridge 执行；仅限原生环境的集成会明确标注。
-:::
+<div class="ref-actions">
 
-[从精确输入开始](./guide) · [浏览 Rust API](./api/) · [查看术语表](./glossary)
+[快速开始](./guide) · [API 目录](./api/) · [Playground](./playground)
+
+</div>
+
+<<< ../../../examples/web_getting_started.rs

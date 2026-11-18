@@ -1,13 +1,15 @@
 ---
 locale: en-GB
-source_revision: 488c73aeed11f4d4204611d9ca618092887b313db91626b2511bfebe1bb48beb
+source_revision: d29c3aeda3724709819c046cd6261680419e70eea479d675983c407094c92b54
 ---
-# Exact values. Explicit behaviour.
+# rs-decimal
 
-rs-decimal preserves decimal coefficients, scale and initialisation state. Explore ordinary usage first, then inspect rounding, trailing zeros and error behaviour.
+Exact decimals with explicit scale and rounding.
 
-::: info Explore the library
-All 355 API entries have documentation in eight languages. Method pages explain ordinary usage and caveats, with shared Rust examples. Browser-supported methods run through the Rust/Wasm bridge; native-only integrations are explicitly labelled.
-:::
+<div class="ref-actions">
 
-[Start with exact input](./guide) · [Browse Rust APIs](./api/) · [Read the glossary](./glossary)
+[Getting started](./guide) · [API catalogue](./api/) · [Playground](./playground)
+
+</div>
+
+<<< ../../../examples/web_getting_started.rs

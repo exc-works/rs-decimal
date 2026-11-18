@@ -1,13 +1,15 @@
 ---
 locale: zh-Hant
-source_revision: 488c73aeed11f4d4204611d9ca618092887b313db91626b2511bfebe1bb48beb
+source_revision: d29c3aeda3724709819c046cd6261680419e70eea479d675983c407094c92b54
 ---
-# 精確數值，明確行為
+# rs-decimal
 
-rs-decimal 保留十進位係數、小數位數與初始化狀態。先了解一般用法，再檢視捨入、尾端零與錯誤行為。
+精確十進位運算，明確控制小數位數與捨入。
 
-::: info 探索函式庫的行為
-全部 355 個 API 項目均提供八種語言的文件。方法頁面說明一般用法與注意事項，並共用 Rust 範例。支援瀏覽器的方法透過 Rust/Wasm bridge 執行；僅限原生環境的整合會明確標示。
-:::
+<div class="ref-actions">
 
-[從精確輸入開始](./guide) · [瀏覽 Rust API](./api/) · [查看術語表](./glossary)
+[快速開始](./guide) · [API 目錄](./api/) · [Playground](./playground)
+
+</div>
+
+<<< ../../../examples/web_getting_started.rs

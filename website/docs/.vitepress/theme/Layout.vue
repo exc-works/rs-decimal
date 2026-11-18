@@ -1,10 +1,25 @@
 <script setup>
 import DefaultTheme from 'vitepress/theme';
-import { computed } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import { useData, withBase } from 'vitepress';
 import { referenceLabels } from '../../../reference-labels.mjs';
 import { locales } from '../../../locales.mjs';
 const { page, lang } = useData();
+onMounted(() => {
+  const preference = 'rs-decimal:docs-language';
+  try {
+    if (page.value.relativePath === 'index.md' && !location.hash && !location.search) {
+      const saved = localStorage.getItem(preference);
+      if (saved && Object.hasOwn(locales, saved)) location.replace(withBase('/' + saved + '/'));
+    }
+  } catch { /* Storage is optional. */ }
+  watch(() => page.value.relativePath, path => {
+    const locale = path.split('/')[0];
+    if (Object.hasOwn(locales, locale)) {
+      try { localStorage.setItem(preference, locale); } catch { /* Storage is optional. */ }
+    }
+  }, { immediate: true });
+});
 const reference = computed(() => page.value.reference);
 const labels = computed(() => referenceLabels[lang.value]);
 const catalogue = computed(() => withBase('/' + lang.value + '/api/'));
