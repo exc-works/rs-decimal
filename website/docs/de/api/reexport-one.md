@@ -1,10 +1,29 @@
 ---
 locale: de
+source_revision: f5ea64d7e7a6135acc2f55f3a40411c6d9222e20ac49981dab203cb401fa6651
+translation_provenance: en-US-german-reviewed
 api_id: reexport::one
-translation_status: pending
 ---
 # reexport::one
 
-Die deutsche Übersetzung dieser Methode steht noch aus. Die englische Referenz beschreibt die übliche Verwendung, Parameter, Beispiele und Besonderheiten. Diese Hinweisseite zählt nicht als abgeschlossene Übersetzung.
+one aus der rs_decimal-Crate-Wurzel importieren.
 
-[Englische Referenz](../../en-US/api/reexport-one)
+```rust
+pub use decimal::one as one
+```
+
+## Übliche Verwendung und Semantik
+
+Verwenden Sie rs_decimal::one; dies ist der öffentliche Importpfad desselben Elements, keine zusätzliche numerische Implementierung. JavaScript hat keine Rust-use-Syntax; siehe die entsprechende Bridge-Referenz.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-reexport-one" locale="de" />
+
+Dieses Rust-Syntaxbeispiel läuft in nativen Tests und behauptet keine Trait-Unterstützung im Browser.
+
+## Weiterführende Dokumentation
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)

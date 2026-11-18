@@ -116,3 +116,12 @@ Japanese config/Serde and native SQLx/trait references (WEB-13b-1–2; 72
 entries) complete all 355 methods. Review covers borrowed input lifetime, raw
 JSON versus generic visitors, nullable state, integer bounds, native-only
 syntax and PostgreSQL wire/OID requirements. The locale manifest now uses `*`.
+
+## de
+
+The 130 core references (WEB-07a–d, WEB-08 and WEB-09a–b) plus bridge/resource
+guides are translated from en-US against the German glossary. Review preserves
+scale versus significant figures, initialization versus numerical equality,
+rounding signs/ties, borrowing/consumption and exact integer/error boundaries.
+The corrected is_integer source is used explicitly. Shared fixtures and Rust
+identifiers stay unchanged; remaining method groups retain explicit fallback.
