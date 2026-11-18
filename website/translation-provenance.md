@@ -96,3 +96,8 @@ scale versus significant figures, initialization versus numeric equality, signed
 rounding, borrowing/consumption, exact integer input and error/resource boundaries.
 Rust identifiers and shared fixtures remain unchanged. Remaining method groups
 retain explicit pending status and English fallback links.
+
+Japanese conversion/formatting/root/log-exp references (WEB-10a–b and
+WEB-11a–b; 47 more entries) preserve conversion flags and IEEE special values,
+Unicode scalar separators, exact rational input, certified half-even rounding,
+domain error precedence and separate browser resource limits.
