@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "type-reexport-between",
+  "api_ids": [
+    "reexport::between"
+  ],
+  "rust": "use rs_decimal::between;\nlet a = Decimal::new_from_string(\"12.00\")?;\nlet b = Decimal::new_from_string(\"12.0\")?;\nlet value = serde_json::json!({\"value\": between(&a, &rs_decimal::zero(), &b)});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

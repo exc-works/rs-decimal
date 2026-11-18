@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "type-reexport-one",
+  "api_ids": [
+    "reexport::one"
+  ],
+  "rust": "use rs_decimal::one;\nlet value = one();",
+  "javascript": "",
+  "expected": {
+    "coefficient": "1",
+    "scale": "0",
+    "initialized": true,
+    "string": "1",
+    "string_with_trailing_zeros": "1"
+  }
+}

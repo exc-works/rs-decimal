@@ -2,15 +2,17 @@
 import { RunnerClient } from '../src/runner/client.js';
 const manifest=await (await fetch('/runner-manifest.json')).json();
 const client=new RunnerClient({container:document.body,runnerUrl:'http://127.0.0.1:4211/',commit:manifest.commit});
-const checks=[];
+const checks=[],nativeOnly=[];
+const canonical=value=>JSON.stringify(value, (_,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.entries(v).sort()):v);
 try {
   const ids=await (await fetch('../examples/index.json')).json();
   for(const id of ids){
     const example=await(await fetch(`../examples/${id}.json`)).json();const output=[];
+    if(!example.javascript.trim()){nativeOnly.push(id);continue;}
     const result=await client.run(example.javascript+'\nprint(value);',{onOutput:x=>output.push(JSON.parse(x))});
-    if(result.type!=='done'||output.length!==1||JSON.stringify(Object.entries(output[0]).sort())!==JSON.stringify(Object.entries(example.expected).sort()))throw Error(`${id}: ${JSON.stringify({result,output})}`);
+    if(result.type!=='done'||output.length!==1||canonical(output[0])!==canonical(example.expected))throw Error(`${id}: ${JSON.stringify({result,output})}`);
     checks.push(id);
   }
-  window.testResult={ok:true,checks};
+  window.testResult={ok:true,checks,nativeOnly};
 }catch(error){window.testResult={ok:false,checks,error:String(error.stack||error)};}finally{client.dispose();document.querySelector('#result').textContent=JSON.stringify(window.testResult,null,2);}
 </script></body></html>

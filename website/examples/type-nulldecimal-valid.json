@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "type-nulldecimal-valid",
+  "api_ids": [
+    "NullDecimal.valid"
+  ],
+  "rust": "let mut value = NullDecimal::new(Decimal::new_from_string(\"12.00\")?);\nvalue.valid = false;",
+  "javascript": "const value = NullDecimal.new(Decimal.new_from_string(\"12.00\"));\nvalue.valid = false;",
+  "expected": {
+    "valid": false,
+    "decimal": {
+      "coefficient": "1200",
+      "scale": "2",
+      "initialized": true
+    }
+  }
+}

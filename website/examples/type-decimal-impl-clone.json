@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "type-decimal-impl-clone",
+  "api_ids": [
+    "Decimal::impl Clone"
+  ],
+  "rust": "let input = Decimal::new_from_string(\"12.00\")?;\nlet value = Clone::clone(&input);",
+  "javascript": "",
+  "expected": {
+    "coefficient": "1200",
+    "scale": "2",
+    "initialized": true,
+    "string": "12",
+    "string_with_trailing_zeros": "12.00"
+  }
+}

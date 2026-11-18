@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "type-nulldecimal-impl-debug",
+  "api_ids": [
+    "NullDecimal::impl Debug"
+  ],
+  "rust": "let input = NullDecimal::default();\nlet value = serde_json::json!({\"type_label\": format!(\"{input:?}\").starts_with(\"NullDecimal {\")});",
+  "javascript": "",
+  "expected": {
+    "type_label": true
+  }
+}

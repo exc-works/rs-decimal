@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "type-decimal-impl-fromstr-err",
+  "api_ids": [
+    "Decimal::impl FromStr::Err"
+  ],
+  "rust": "let error: <Decimal as std::str::FromStr>::Err = Decimal::new_from_string(\"invalid\").unwrap_err();\nlet value = serde_json::json!({\"invalid_format\": error.kinds().contains(&rs_decimal::ErrorKind::InvalidFormat)});",
+  "javascript": "",
+  "expected": {
+    "invalid_format": true
+  }
+}

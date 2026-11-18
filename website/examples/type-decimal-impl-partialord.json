@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "type-decimal-impl-partialord",
+  "api_ids": [
+    "Decimal::impl PartialOrd"
+  ],
+  "rust": "let left = Decimal::default();\nlet right = Decimal::new(0);\nlet value = serde_json::json!({\"value\": PartialOrd::partial_cmp(&left, &right) == Some(std::cmp::Ordering::Equal)});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

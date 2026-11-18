@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "type-compatibility-revision",
+  "api_ids": [
+    "COMPATIBILITY_REVISION"
+  ],
+  "rust": "let value = serde_json::json!({\"value\": rs_decimal::COMPATIBILITY_REVISION});",
+  "javascript": "const value = { value: COMPATIBILITY_REVISION };",
+  "expected": {
+    "value": "a8791208e2d15483cf652cd2814b74b0c1a84187"
+  }
+}

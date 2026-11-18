@@ -42,6 +42,7 @@ export interface NullDecimal {
 }
 export interface ByteBuffer { to_uint8_array(): Uint8Array; free(): void; }
 export interface Bridge {
+  readonly COMPATIBILITY_REVISION: string;
   Decimal: {
     "new": (value: bigint) => Decimal;
     new_from_string(text: string): Decimal;

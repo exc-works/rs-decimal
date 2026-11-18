@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "type-reexport-nulldecimal",
+  "api_ids": [
+    "reexport::NullDecimal"
+  ],
+  "rust": "use rs_decimal::NullDecimal;\nlet value = NullDecimal::new(Decimal::default());",
+  "javascript": "",
+  "expected": {
+    "valid": true,
+    "decimal": {
+      "coefficient": "0",
+      "scale": "0",
+      "initialized": false
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "type-decimal-impl-ord",
+  "api_ids": [
+    "Decimal::impl Ord"
+  ],
+  "rust": "let left = Decimal::new(1);\nlet right = Decimal::new(2);\nlet value = serde_json::json!({\"value\": format!(\"{:?}\", Ord::cmp(&left, &right))});",
+  "javascript": "",
+  "expected": {
+    "value": "Less"
+  }
+}

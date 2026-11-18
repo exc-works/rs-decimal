@@ -35,6 +35,7 @@ def until(check):
         if result:
             return result
         time.sleep(.1)
+    if 'session' in globals(): print(js('return {url:location.href, title:document.title, text:document.querySelector(".vp-doc")?.textContent};'))
     raise AssertionError('Browser condition timed out')
 
 processes = []
@@ -74,6 +75,12 @@ try:
         until(lambda: js('return document.documentElement.lang') == 'ja')
         until(lambda: js('return document.querySelector(".vp-doc")?.textContent.includes("準備中")'))
         assert js('return document.querySelector(".vp-doc a[href*=en-US]").pathname') == '/rs-decimal/en-US/api/decimal-new-with-prec.html'
+    navigate('en-US/api/decimal-impl-clone.html')
+    until(lambda: js('return document.querySelectorAll(".method-example pre").length') == 2)
+    assert 'native test harness' in js('return document.querySelector(".method-example").textContent')
+    navigate('en-US/api/nulldecimal-valid.html')
+    until(lambda: js('return document.querySelectorAll(".method-example pre").length') == 3)
+    assert '"valid": false' in js('return document.querySelector(".method-example").textContent')
     navigate('zh-Hans/guide.html')
     until(lambda: js('return !!document.querySelector(".VPNavBarTranslations button")'))
     js('document.querySelector(".VPNavBarTranslations button").click()')

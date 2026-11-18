@@ -171,5 +171,5 @@ export function createBridge(raw) {
     max: (a, b) => wrap(Decimal, raw.max(borrow(a, Decimal), borrow(b, Decimal))),
     between: (v, lower, upper) => raw.between(borrow(v, Decimal), borrow(lower, Decimal), borrow(upper, Decimal)),
   };
-  return Object.freeze({ Decimal, NullDecimal, ByteBuffer, RoundingMode, snapshot, ...helpers, metadata: () => JSON.parse(raw.metadata()) });
+  return Object.freeze({ Decimal, NullDecimal, ByteBuffer, RoundingMode, snapshot, ...helpers, get COMPATIBILITY_REVISION() { return raw.compatibility_revision(); }, metadata: () => JSON.parse(raw.metadata()) });
 }
