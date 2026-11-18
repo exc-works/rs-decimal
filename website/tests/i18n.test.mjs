@@ -9,7 +9,7 @@ import { checkTranslations, expectedLocales } from '../scripts/check-i18n.mjs';
 import { locales } from '../locales.mjs';
 
 test('all published shared pages have current translations and interface labels', async () => {
-  assert.equal(await checkTranslations(), 4);
+  assert.equal(await checkTranslations(), 5);
 });
 test('source edits, missing locales and incomplete labels fail closed', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'decimal-i18n-'));

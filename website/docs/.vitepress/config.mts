@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import { execFileSync } from 'node:child_process';
 import { locales } from '../../locales.mjs';
 
 export default defineConfig({
@@ -7,6 +8,7 @@ export default defineConfig({
   base: process.env.DOCS_BASE || '/',
   cleanUrls: false,
   lastUpdated: true,
+  vite: { define: { __PLAYGROUND_CONFIG__: JSON.stringify({runnerUrl:process.env.DOCS_RUNNER_URL || '',commit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim()}) } },
   locales: Object.fromEntries(Object.entries(locales).map(([lang, text]) => [lang, {
     lang,
     label: text.label,
@@ -17,12 +19,14 @@ export default defineConfig({
         { text: text.guide, link: `/${lang}/guide` },
         { text: text.api, link: `/${lang}/api/` },
         { text: text.glossary, link: `/${lang}/glossary` },
+        { text: text.playground, link: `/${lang}/playground` },
       ],
       sidebar: [{ text: text.docs, items: [
         { text: text.home, link: `/${lang}/` },
         { text: text.guide, link: `/${lang}/guide` },
         { text: text.api, link: `/${lang}/api/` },
         { text: text.glossary, link: `/${lang}/glossary` },
+        { text: text.playground, link: `/${lang}/playground` },
       ] }],
       outline: { label: text.onThisPage },
       docFooter: { prev: text.previous, next: text.next },

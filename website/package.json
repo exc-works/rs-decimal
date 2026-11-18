@@ -12,12 +12,14 @@
     "build:runner": "node scripts/build-runner.mjs"
   },
   "devDependencies": {
-    "vitepress": "1.6.4",
-    "vue": "3.5.45",
+    "esbuild": "0.25.12",
+    "monaco-editor": "0.57.0",
     "typescript": "5.9.3",
-    "esbuild": "0.25.12"
+    "vitepress": "1.6.4",
+    "vue": "3.5.45"
   },
   "overrides": {
-    "vite": "6.4.6"
+    "vite": "6.4.6",
+    "dompurify": "3.4.18"
   }
 }

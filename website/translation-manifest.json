@@ -1,1 +1,11 @@
-{"schema_version":1,"source_locale":"en-US","units":["index","guide","glossary","api/index"]}
+{
+  "schema_version": 1,
+  "source_locale": "en-US",
+  "units": [
+    "index",
+    "guide",
+    "glossary",
+    "api/index",
+    "playground"
+  ]
+}
