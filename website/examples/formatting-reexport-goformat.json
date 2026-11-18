@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "formatting-reexport-goformat",
+  "api_ids": [
+    "reexport::GoFormat"
+  ],
+  "rust": "use rs_decimal::GoFormat;\nlet value = serde_json::json!({\"value\": Decimal::new(12).format_go(GoFormat::default())?});",
+  "javascript": "",
+  "expected": {
+    "value": "12"
+  }
+}

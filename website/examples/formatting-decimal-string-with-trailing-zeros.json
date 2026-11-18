@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "formatting-decimal-string-with-trailing-zeros",
+  "api_ids": [
+    "Decimal::string_with_trailing_zeros"
+  ],
+  "rust": "let value = serde_json::json!({\"value\": Decimal::new_from_string(\"12.3400\")?.string_with_trailing_zeros()});",
+  "javascript": "const value = { value: Decimal.new_from_string(\"12.3400\").string_with_trailing_zeros() };",
+  "expected": {
+    "value": "12.3400"
+  }
+}

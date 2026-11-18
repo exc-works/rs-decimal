@@ -25,6 +25,9 @@ Overflow remain intact. Owned arithmetic consumes its receiver even when this
 preflight fails. Exact rational conversion checks reduced denominator factors
 and coefficient growth; rounded rational conversion checks numerator scaling
 before multiplication. Nonzero-denominator validation precedes rational construction.
+Formatting bounds width (65536 bytes), precision (1000) and fixed-point coefficient
+growth. Append checks the existing buffer plus a conservative decimal text bound
+before mutation; even a just-fitting operation may be rejected.
 Negative precision and zero divisors retain their core
 errors when the core can reject them before allocation.
 Rescale checks the requested scale and a conservative growth estimate before

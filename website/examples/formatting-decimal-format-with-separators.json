@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "formatting-decimal-format-with-separators",
+  "api_ids": [
+    "Decimal::format_with_separators"
+  ],
+  "rust": "let value = serde_json::json!({\"value\": Decimal::new_from_string(\"-12345.6700\")?.format_with_separators('💠', ',')});",
+  "javascript": "const value = { value: Decimal.new_from_string(\"-12345.6700\").format_with_separators(\"💠\", \",\") };",
+  "expected": {
+    "value": "-12💠345,6700"
+  }
+}

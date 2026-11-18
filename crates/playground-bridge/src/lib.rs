@@ -3,6 +3,7 @@ mod arithmetic;
 mod comparison;
 mod constructors;
 mod conversion;
+mod formatting;
 mod helpers;
 mod limits;
 mod ownership;
@@ -249,7 +250,7 @@ impl NullDecimal {
     }
 }
 
-/// Mutable byte-buffer adapter for future append_text mappings.
+/// Mutable byte-buffer adapter for append_text mappings.
 #[wasm_bindgen]
 pub struct ByteBuffer {
     bytes: Vec<u8>,

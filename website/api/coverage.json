@@ -110,24 +110,38 @@
   {
     "id": "Decimal::append_text",
     "disposition": "adapter",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "decimal-append-text",
     "reason": "Uses an explicit mutable byte-buffer wrapper.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.append_text(dst: ByteBuffer): void",
+    "examples": [
+      "formatting-decimal-append-text"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::append_text_with_trailing_zeros",
     "disposition": "adapter",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "decimal-append-text-with-trailing-zeros",
     "reason": "Uses an explicit mutable byte-buffer wrapper.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.append_text_with_trailing_zeros(dst: ByteBuffer): void",
+    "examples": [
+      "formatting-decimal-append-text-with-trailing-zeros"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::approx_root",
@@ -392,24 +406,38 @@
   {
     "id": "Decimal::format_go",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "decimal-format-go",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.format_go(f: Partial<GoFormatOptions>): string",
+    "examples": [
+      "formatting-decimal-format-go"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::format_with_separators",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "decimal-format-with-separators",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.format_with_separators(thousands: string, decimal: string): string",
+    "examples": [
+      "formatting-decimal-format-with-separators"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::gt",
@@ -2355,24 +2383,38 @@
   {
     "id": "Decimal::string",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "decimal-string",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.string(): string",
+    "examples": [
+      "formatting-decimal-string"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::string_with_trailing_zeros",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "decimal-string-with-trailing-zeros",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.string_with_trailing_zeros(): string",
+    "examples": [
+      "formatting-decimal-string-with-trailing-zeros"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::strip_trailing_zeros",
@@ -2961,156 +3003,254 @@
   {
     "id": "GoFormat",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "goformat",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "GoFormat.default(): GoFormatOptions",
+    "examples": [
+      "formatting-goformat"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "GoFormat.alternate",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "goformat-alternate",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "GoFormatOptions.alternate",
+    "examples": [
+      "formatting-goformat-alternate"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "GoFormat.left",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "goformat-left",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "GoFormatOptions.left",
+    "examples": [
+      "formatting-goformat-left"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "GoFormat.plus",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "goformat-plus",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "GoFormatOptions.plus",
+    "examples": [
+      "formatting-goformat-plus"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "GoFormat.precision",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "goformat-precision",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "GoFormatOptions.precision",
+    "examples": [
+      "formatting-goformat-precision"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "GoFormat.space",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "goformat-space",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "GoFormatOptions.space",
+    "examples": [
+      "formatting-goformat-space"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "GoFormat.verb",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "goformat-verb",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "GoFormatOptions.verb",
+    "examples": [
+      "formatting-goformat-verb"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "GoFormat.width",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "goformat-width",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "GoFormatOptions.width",
+    "examples": [
+      "formatting-goformat-width"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "GoFormat.zero",
     "disposition": "direct",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "goformat-zero",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "GoFormatOptions.zero",
+    "examples": [
+      "formatting-goformat-zero"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "GoFormat::impl Clone",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "goformat-impl-clone",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "formatting-goformat-impl-clone"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "GoFormat::impl Copy",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "goformat-impl-copy",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "formatting-goformat-impl-copy"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "GoFormat::impl Debug",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "goformat-impl-debug",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "formatting-goformat-impl-debug"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "GoFormat::impl Default",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "goformat-impl-default",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "formatting-goformat-impl-default"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "GoFormat::impl Default::default",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "goformat-impl-default-default",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "formatting-goformat-impl-default-default"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal",
@@ -4408,13 +4548,20 @@
   {
     "id": "reexport::GoFormat",
     "disposition": "rust-only",
-    "status": "planned",
+    "status": "implemented",
     "owner": "WEB-10b",
     "doc_id": "reexport-goformat",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "formatting-reexport-goformat"
+    ],
+    "tests": [
+      "website/tests/formatting.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::NullDecimal",

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "formatting-goformat-impl-debug",
+  "api_ids": [
+    "GoFormat::impl Debug"
+  ],
+  "rust": "let text = format!(\"{:?}\", rs_decimal::GoFormat::default());\nlet value = serde_json::json!({\"value\": text});",
+  "javascript": "",
+  "expected": {
+    "value": "GoFormat { verb: 'v', width: None, precision: None, left: false, plus: false, space: false, zero: false, alternate: false }"
+  }
+}
