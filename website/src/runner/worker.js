@@ -128,6 +128,7 @@ self.onmessage = async ({ data, ports }) => {
       "between",
       "most_significant_bit",
       "COMPATIBILITY_REVISION",
+      "PRECISION_FIXED_SIZE",
       "print",
       "show",
       "assert",
@@ -148,6 +149,7 @@ self.onmessage = async ({ data, ports }) => {
       bridge.between,
       bridge.most_significant_bit,
       bridge.COMPATIBILITY_REVISION,
+      bridge.PRECISION_FIXED_SIZE,
       print,
       print,
       (condition, message = "Assertion failed") => {

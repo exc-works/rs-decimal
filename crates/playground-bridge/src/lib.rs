@@ -1,5 +1,6 @@
 //! Bounded browser bridge. Execution isolation is supplied by the runner.
 mod arithmetic;
+mod binary_bson;
 mod comparison;
 mod constructors;
 mod conversion;
@@ -291,7 +292,7 @@ pub fn metadata() -> Result<String, JsValue> {
         "bridge_schema": 1,
         "commit": option_env!("DECIMAL_BUILD_COMMIT").unwrap_or("development"),
         "target": "wasm32-unknown-unknown",
-        "features": ["json"],
+        "features": ["bson", "json"],
         "stage": "preview",
         "limits": {"input_bytes": limits::INPUT_BYTES,"input_digits": limits::INPUT_DIGITS,"coefficient_bits": limits::COEFFICIENT_BITS,"scale": limits::SCALE,"buffer_bytes": limits::BUFFER_BYTES,"operations": limits::OPERATIONS}
     })

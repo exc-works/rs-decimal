@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": "binary-bson-decimal-marshal-binary",
+  "api_ids": [
+    "Decimal::marshal_binary"
+  ],
+  "rust": "let value = serde_json::json!({\"bytes\": Decimal::new_from_string(\"1.2300\")?.marshal_binary()?});",
+  "javascript": "const value = { bytes: Array.from(Decimal.new_from_string(\"1.2300\").marshal_binary()) };",
+  "expected": {
+    "bytes": [
+      0,
+      0,
+      0,
+      2,
+      2,
+      123
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 use super::{Decimal, NullDecimal, library_error, limits, resource_error, tick};
 use wasm_bindgen::prelude::*;
-fn text_budget(bytes: &[u8]) -> Result<(), &'static str> {
+pub(super) fn text_budget(bytes: &[u8]) -> Result<(), &'static str> {
     if bytes.len() > limits::INPUT_BYTES {
         return Err("playground decoder input exceeds 8192 bytes");
     }

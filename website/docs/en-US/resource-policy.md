@@ -10,7 +10,7 @@ results within these limits remain unchanged. The core crate is not modified.
 | Decimal input | 8192 UTF-8 bytes, 4096 mantissa/expanded coefficient digits |
 | Stored scale and input scale magnitude | 1000 decimal places |
 | Estimated result coefficient | 16384 bits (at most 4933 decimal digits) |
-| ByteBuffer input | 65536 bytes |
+| Binary/BSON and ByteBuffer input | 65536 bytes |
 | Calls entering a Wasm instance | 10000, including getters, snapshots and metadata |
 | Nontrivial root degree | 128 |
 | Log/exp output precision, input scale, input coefficient | 128 places, 256 places, 4096 bits |
@@ -21,6 +21,9 @@ Input scale and positive exponent expansion are checked before Rust parsing.
 Text/parameter/JSON decoders cap source bytes at 8192 and check decoded decimal
 text before mutation, including JSON escapes. Original JSON numeric bytes stay
 exact; the browser never parses them through JavaScript numbers.
+Binary decoding bounds actual coefficient bits and encoded scale before BigInt
+allocation. BSON strings use the text limits; Decimal128 exponent expansion is
+checked before core parsing. All decoder preflight failures preserve receiver state.
 Exact products check the sum of scales; rounded products check the output scale.
 Both bound intermediate coefficient bits before multiplying. Addition/subtraction
 check scale-alignment growth and a carry; division checks numerator or denominator
