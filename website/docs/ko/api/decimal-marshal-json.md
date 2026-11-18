@@ -1,10 +1,31 @@
 ---
 locale: ko
+source_revision: ce7a1e6d51ea25aa6e22728a52c66d3bfd202ca324cd22c0d1d0545a351bced2
+translation_provenance: en-US-korean-reviewed
 api_id: "Decimal::marshal_json"
-translation_status: pending
 ---
 # Decimal::marshal_json
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+Decimal을 json 바이트로 인코딩합니다.
 
-[영어 참고 문서](../../en-US/api/decimal-marshal-json)
+```rust
+fn marshal_json (& self) -> Vec < u8 >
+```
+
+## 매개변수, 반환값, 일반적인 사용법
+
+매개변수 없음. JSON 바이트를 담은 `Vec<u8>`/Uint8Array를 반환합니다. Rust는 json 기능이 필요하며 브라우저 빌드에서 활성화합니다. 초기화된 Decimal은 따옴표로 감싼 정규 문자열, 기본 미초기화 0은 JSON null로 인코딩합니다. 반환된 바이트는 독립적인 복사본이며 읽기는 상태를 바꾸지 않습니다.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="text-json-decimal-marshal-json" locale="ko" />
+
+## 브라우저 제한
+
+디코더 입력은 8192바이트까지이며 매개변수 문자열도 Wasm에 복사하기 전에 길이를 검사합니다. Rust는 텍스트와 디코딩된 JSON 문자열에 [소수 리소스 정책](../resource-policy)을 다시 적용하므로 이스케이프로 지수/자릿수 제한을 우회할 수 없습니다. 잘못된 UTF-8과 JSON/소수 문법 진단은 코어가 처리합니다. 입력과 리소스 오류는 수신 객체를 부분적으로 갱신하지 않으며 이동된 래퍼는 읽거나 바꿀 수 없습니다.
+
+## 관련 메서드
+
+[unmarshal_json](./decimal-unmarshal-json) · [marshal_text](./decimal-marshal-text) · [NullDecimal](./nulldecimal)
