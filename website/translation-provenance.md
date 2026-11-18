@@ -170,3 +170,8 @@ Korean SQL scalar/error and validation references (WEB-13a-1–2; 73 more
 entries) preserve borrowed buffers, initialization/null distinctions, error
 category membership, exact rule comparisons and single-pass placeholder
 substitution. Native traits remain explicitly separate from browser methods.
+
+Korean config/Serde/native references (WEB-13b-1–2; 72 entries) complete all
+355 method pages. Review preserves borrowing, exact JSON tokens, null and
+initialization, integer widths, native-only trait syntax and PostgreSQL wire/OID
+constraints. The locale manifest now uses `*`; all eight method locales are complete.

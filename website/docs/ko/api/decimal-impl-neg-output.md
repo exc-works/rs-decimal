@@ -1,10 +1,31 @@
 ---
 locale: ko
+source_revision: d8d63d1c0e264a86d3f7608f1fd35c5b3c0175c1d05354d8cfc9826d8215e864
+translation_provenance: en-US-korean-reviewed
 api_id: "Decimal::impl Neg::Output"
-translation_status: pending
 ---
 # Decimal::impl Neg::Output
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+빌리는 Rust Neg 구문을 사용합니다.
 
-[영어 참고 문서](../../en-US/api/decimal-impl-neg-output)
+```rust
+type Output = Decimal
+```
+
+## 일반적인 사용법과 주의사항
+
+&Decimal에 구현되어 피연산자를 계속 사용할 수 있습니다. 단항 -는 소수 자릿수를 유지하고 기본 0을 포함한 결과를 초기화합니다. 트레이트는 같은 이름의 코어 메서드에 위임합니다. 브라우저 JS 연산자는 오버로드되지 않으므로 bridge의 add/sub/neg를 사용하세요.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="native-decimal-impl-neg-output" locale="ko" />
+
+## 실행
+
+이 항목은 네이티브 Rust 트레이트 구문이며 같은 이름의 JS 연산자나 SQLx 객체를 제공하지 않습니다. 기본 네이티브 문서 테스트 실행기가 이 예제를 실행합니다.
+
+## 관련 메서드
+
+[Decimal](./decimal) · [scan](./decimal-scan) · [new_from_string](./decimal-new-from-string)
