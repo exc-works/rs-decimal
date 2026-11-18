@@ -100,6 +100,16 @@ pub fn config_nullable_from_nullable(value: &NullDecimal) -> Result<NullDecimal,
         .map(|inner| NullDecimal { inner })
         .map_err(library_error)
 }
+fn complete_json_preflight(source: &str) -> Result<(), JsValue> {
+    if source.len() > limits::INPUT_BYTES {
+        return Err(resource_error("playground JSON input exceeds 8192 bytes"));
+    }
+    // RawValue validates the complete JSON document without invoking Decimal
+    // visitors. Otherwise a decoded first scalar could allocate before end()
+    // rejects trailing tokens and bypass the decoded-string budget.
+    let _: Box<serde_json::value::RawValue> = serde_json::from_str(source).map_err(serde_error)?;
+    text_json::json_budget(source.as_bytes()).map_err(resource_error)
+}
 fn serde_error(error: serde_json::Error) -> JsValue {
     exception("serde", &error.to_string(), &[])
 }
@@ -111,7 +121,7 @@ impl Decimal {
     }
     pub fn deserialize(source: &str) -> Result<Decimal, JsValue> {
         tick()?;
-        text_json::json_budget(source.as_bytes()).map_err(resource_error)?;
+        complete_json_preflight(source)?;
         serde_json::from_str(source)
             .map(|inner| Self { inner })
             .map_err(serde_error)
@@ -125,7 +135,7 @@ impl NullDecimal {
     }
     pub fn deserialize(source: &str) -> Result<NullDecimal, JsValue> {
         tick()?;
-        text_json::json_budget(source.as_bytes()).map_err(resource_error)?;
+        complete_json_preflight(source)?;
         serde_json::from_str(source)
             .map(|inner| Self { inner })
             .map_err(serde_error)
@@ -134,7 +144,7 @@ impl NullDecimal {
 #[wasm_bindgen]
 pub fn config_deserialize_json_decimal(source: &str) -> Result<Decimal, JsValue> {
     tick()?;
-    text_json::json_budget(source.as_bytes()).map_err(resource_error)?;
+    complete_json_preflight(source)?;
     let mut deserializer = serde_json::Deserializer::from_str(source);
     let inner = core::deserialize_json_decimal(&mut deserializer).map_err(serde_error)?;
     deserializer.end().map_err(serde_error)?;
@@ -143,7 +153,7 @@ pub fn config_deserialize_json_decimal(source: &str) -> Result<Decimal, JsValue>
 #[wasm_bindgen]
 pub fn config_deserialize_json_nullable(source: &str) -> Result<NullDecimal, JsValue> {
     tick()?;
-    text_json::json_budget(source.as_bytes()).map_err(resource_error)?;
+    complete_json_preflight(source)?;
     let mut deserializer = serde_json::Deserializer::from_str(source);
     let inner = core::deserialize_json_nullable(&mut deserializer).map_err(serde_error)?;
     deserializer.end().map_err(serde_error)?;

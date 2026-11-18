@@ -48,3 +48,15 @@ test('decoded JSON and raw ABI cannot evade config or Serde resource preflight',
  assert.throws(()=>raw.config_decode_decimal('Number','1e100000',0,new Uint8Array()),{category:'resource'});assert.throws(()=>raw.config_deserialize_json_decimal('"\\u0031e100000"'),{category:'resource'});
  assert.ok(bridge.metadata().features.includes('config'));assert.ok(bridge.metadata().features.includes('serde'));
 });
+
+test('complete JSON syntax is checked before any scalar visitor can expand a coefficient',()=>{
+ const sources=['"1e100000" 0','"\\u0031e100000" []','"1e10000000" 0','"1e-100000" false'];
+ for(const fn of [D.deserialize,N.deserialize,C.deserialize_json_decimal,C.deserialize_json_nullable]){
+  for(const source of sources)assert.throws(()=>fn(source),{category:'serde'});
+  assert.throws(()=>fn('"1e100000"'),{category:'resource'});
+ }
+ for(const fn of [raw.Decimal.deserialize,raw.NullDecimal.deserialize,raw.config_deserialize_json_decimal,raw.config_deserialize_json_nullable]){
+  assert.throws(()=>fn('"1e10000000" 0'),{category:'serde'});
+  assert.throws(()=>fn('"1e100000"'),{category:'resource'});
+ }
+});
