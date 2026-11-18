@@ -39,6 +39,17 @@ function bigText(value) {
   return value.toString();
 }
 
+function floatNumber(value) {
+  requireType(typeof value === 'number', 'value must be a number');
+  return value; // NaN/Infinity remain library InvalidFormat errors.
+}
+function rationalParts(value) {
+  requireType(value !== null && typeof value === 'object', 'value must have bigint numerator and denominator');
+  const numerator = bigText(value.numerator), denominator = bigText(value.denominator);
+  requireType(denominator !== '0', 'rational denominator must be nonzero');
+  return [numerator, denominator];
+}
+
 // A factory keeps wrapper identities tied to one Wasm instance/run.
 export function createBridge(raw) {
   const key = Symbol('bridge construction');
@@ -82,6 +93,10 @@ export function createBridge(raw) {
       return wrap(Decimal, raw.Decimal.must_from_string(text));
     }
     static try_from_coefficient(coefficient, scale) { return wrap(Decimal, raw.Decimal.try_from_coefficient(bigText(coefficient), integer(scale, 'scale', 0, 4294967295))); }
+    static new_from_float32(value) { return wrap(Decimal, raw.Decimal.new_from_float32(floatNumber(value))); }
+    static new_from_float64(value) { return wrap(Decimal, raw.Decimal.new_from_float64(floatNumber(value))); }
+    static new_from_big_rat(value) { return wrap(Decimal, raw.Decimal.new_from_big_rat(...rationalParts(value))); }
+    static new_from_big_rat_with_prec(value, prec, mode) { return wrap(Decimal, raw.Decimal.new_from_big_rat_with_prec(...rationalParts(value), integer(prec, 'prec'), integer(mode, 'mode'))); }
     static new_from_int(value) { return wrap(Decimal, raw.Decimal.new_from_int(integer(value, 'value'))); }
     static new_from_decimal(value) { return wrap(Decimal, raw.Decimal.new_from_decimal(borrow(value, Decimal))); }
     static new_with_prec(value, prec) { return wrap(Decimal, raw.Decimal.new_with_prec(bigintText(value), integer(prec, 'prec'))); }
@@ -150,6 +165,12 @@ export function createBridge(raw) {
       requireType(this !== other, 'cannot consume and borrow the same Decimal');
       return wrap(Decimal, take(this, Decimal).sub_owned(right));
     }
+    big_rat() { const [numerator, denominator] = borrow(this, Decimal).big_rat_text(); return Object.freeze({numerator: BigInt(numerator), denominator: BigInt(denominator)}); }
+    bit_len() { return borrow(this, Decimal).bit_len(); }
+    int64() { const [value, exact] = borrow(this, Decimal).int64_text(); return [BigInt(value), exact]; }
+    uint64() { const [value, exact] = borrow(this, Decimal).uint64_text(); return [BigInt(value), exact]; }
+    float32() { return borrow(this, Decimal).float32(); }
+    float64() { return borrow(this, Decimal).float64(); }
     mul_exact(other) {
       return wrap(Decimal, borrow(this, Decimal).mul_exact(borrow(other, Decimal)));
     }
@@ -219,6 +240,7 @@ export function createBridge(raw) {
     hundred: () => wrap(Decimal, raw.hundred()),
     min: (a, b) => wrap(Decimal, raw.min(borrow(a, Decimal), borrow(b, Decimal))),
     max: (a, b) => wrap(Decimal, raw.max(borrow(a, Decimal), borrow(b, Decimal))),
+    most_significant_bit: value => raw.most_significant_bit(bigText(value)),
     between: (v, lower, upper) => raw.between(borrow(v, Decimal), borrow(lower, Decimal), borrow(upper, Decimal)),
   };
   return Object.freeze({ Decimal, NullDecimal, ByteBuffer, RoundingMode: rounding, snapshot, ...helpers, get COMPATIBILITY_REVISION() { return raw.compatibility_revision(); }, metadata: () => JSON.parse(raw.metadata()) });

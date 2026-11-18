@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "conversion-reexport-most-significant-bit",
+  "api_ids": [
+    "reexport::most_significant_bit"
+  ],
+  "rust": "use rs_decimal::most_significant_bit;\nlet value = serde_json::json!({\"value\": most_significant_bit(&BigInt::from(120))?});",
+  "javascript": "",
+  "expected": {
+    "value": 6
+  }
+}

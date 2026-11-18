@@ -1,3 +1,4 @@
+export interface Rational { readonly numerator: bigint; readonly denominator: bigint; }
 export type Rounding = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 export const RoundingMode: Readonly<Record<'Down'|'Up'|'Ceiling'|'HalfUp'|'HalfDown'|'HalfEven'|'Unnecessary', Rounding>>;
 export class BridgeError extends Error { category: string; kinds: string[]; }
@@ -57,6 +58,12 @@ export interface Decimal {
   /** Consumes this wrapper; rejects self-aliasing before the move. */
   add_owned(other: Decimal): Decimal;
   sub_owned(other: Decimal): Decimal;
+  big_rat(): Rational;
+  bit_len(): number;
+  int64(): [bigint, boolean];
+  uint64(): [bigint, boolean];
+  float32(): [number, boolean];
+  float64(): [number, boolean];
   mul_exact(other: Decimal): Decimal;
   ceil(): Decimal;
   floor(): Decimal;
@@ -92,6 +99,10 @@ export interface Bridge {
     /** Panics on invalid Rust input; in Wasm this traps and ends the run. */
     must_from_string(text: string): Decimal;
     try_from_coefficient(coefficient: bigint, scale: number): Decimal;
+    new_from_float32(value: number): Decimal;
+    new_from_float64(value: number): Decimal;
+    new_from_big_rat(value: Rational): Decimal;
+    new_from_big_rat_with_prec(value: Rational, prec: number, mode: Rounding): Decimal;
     new_from_int(value: number): Decimal;
     new_from_decimal(value: Decimal): Decimal;
     new_with_prec(value: bigint, prec: number): Decimal;
@@ -113,6 +124,7 @@ export interface Bridge {
   hundred(): Decimal;
   min(a: Decimal, b: Decimal): Decimal;
   max(a: Decimal, b: Decimal): Decimal;
+  most_significant_bit(value: bigint): number;
   between(v: Decimal, lower: Decimal, upper: Decimal): boolean;
   metadata(): Record<string, unknown>;
 }

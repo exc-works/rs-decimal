@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "conversion-most-significant-bit",
+  "api_ids": [
+    "most_significant_bit"
+  ],
+  "rust": "let value = serde_json::json!({\"value\": rs_decimal::most_significant_bit(&BigInt::from(120))?});",
+  "javascript": "const value = { value: most_significant_bit(120n) };",
+  "expected": {
+    "value": 6
+  }
+}

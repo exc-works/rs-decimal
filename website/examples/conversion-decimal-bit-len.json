@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "conversion-decimal-bit-len",
+  "api_ids": [
+    "Decimal::bit_len"
+  ],
+  "rust": "let value = serde_json::json!({\"value\": Decimal::new_from_string(\"-1.20\")?.bit_len()});",
+  "javascript": "const value = { value: Decimal.new_from_string(\"-1.20\").bit_len() };",
+  "expected": {
+    "value": 7
+  }
+}

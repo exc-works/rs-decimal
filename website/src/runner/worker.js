@@ -1,6 +1,7 @@
 import init, * as raw from "../../public/wasm/decimal.js";
 import wasmBytes from "../../public/wasm/decimal_bg.wasm";
 import { createBridge } from "../bridge/index.js";
+import { numberSnapshot } from "./number-snapshot.js";
 import { LIMITS } from "./protocol.js";
 
 const config = __RUNNER_CONFIG__;
@@ -75,10 +76,10 @@ self.onmessage = async ({ data, ports }) => {
           return input.toString().slice(0, 8192) + "n";
         if (
           input === null ||
-          typeof input === "number" ||
           typeof input === "boolean"
         )
           return input;
+        if (typeof input === "number") return numberSnapshot(input);
         if (typeof input !== "object") return `[${typeof input}]`;
         if (seen.has(input)) return "[circular]";
         seen.add(input);
@@ -124,6 +125,7 @@ self.onmessage = async ({ data, ports }) => {
       "min",
       "max",
       "between",
+      "most_significant_bit",
       "COMPATIBILITY_REVISION",
       "print",
       "show",
@@ -142,6 +144,7 @@ self.onmessage = async ({ data, ports }) => {
       bridge.min,
       bridge.max,
       bridge.between,
+      bridge.most_significant_bit,
       bridge.COMPATIBILITY_REVISION,
       print,
       print,

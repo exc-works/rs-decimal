@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "conversion-decimal-uint64",
+  "api_ids": [
+    "Decimal::uint64"
+  ],
+  "rust": "let (integer, exact) = Decimal::new_from_string(\"18446744073709551615\")?.uint64();\nlet value = serde_json::json!({\"integer\": integer.to_string(), \"exact\": exact});",
+  "javascript": "const [integer, exact] = Decimal.new_from_string(\"18446744073709551615\").uint64();\nconst value = { integer: integer.toString(), exact };",
+  "expected": {
+    "integer": "18446744073709551615",
+    "exact": true
+  }
+}

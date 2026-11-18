@@ -2,6 +2,7 @@
 mod arithmetic;
 mod comparison;
 mod constructors;
+mod conversion;
 mod helpers;
 mod limits;
 mod ownership;
