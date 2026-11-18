@@ -1,10 +1,33 @@
 ---
 locale: en-GB
+source_revision: a35340d9c55b8a08723d8ff0cfa4529bad65cad374d1045d7ce321047fc2a260
+translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::new_from_uint64
-translation_status: pending
 ---
 # Decimal::new_from_uint64
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Create a decimal from an unsigned 64-bit coefficient. Use it for a nonnegative integral source whose decimal places are supplied separately.
 
-[English (US) reference](../../en-US/api/decimal-new-from-uint64)
+```rust
+fn new_from_uint64 (value : u64 , prec : isize) -> Result < Self , DecimalError >
+```
+
+## Parameters and return
+
+`value: u64` → nonnegative `bigint`; `prec: isize` → integer `number`. Returns `value × 10^-prec`.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="constructor-new-from-uint64" locale="en-GB" />
+
+## Usage notes and boundaries
+
+Negative values and values above u64::MAX are rejected before entering Rust. Negative precision is the library error `InvalidPrecision`. A JavaScript number cannot safely carry the full u64 range.
+
+The browser also applies the [resource policy](../resource-policy). JavaScript inputs are validated before calling Rust.
+
+## Related methods
+
+[new_with_prec](./decimal-new-with-prec) · [new_with_append_prec](./decimal-new-with-append-prec) · [new_from_string](./decimal-new-from-string)

@@ -1,10 +1,33 @@
 ---
 locale: en-GB
+source_revision: 3ef0ab66b1050d81978ffe9504c298d164d62d052b64bfd1ad02ddce4a039f36
+translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::new_from_string
-translation_status: pending
 ---
 # Decimal::new_from_string
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Parse exact decimal text without passing through binary floating point. This is the usual constructor for user-entered decimal amounts.
 
-[English (US) reference](../../en-US/api/decimal-new-from-string)
+```rust
+fn new_from_string (text : & str) -> Result < Self , DecimalError >
+```
+
+## Parameters and return
+
+`text: &str` → JavaScript `string`; Rust returns `Result<Decimal, DecimalError>`, while the bridge returns a Decimal or throws the same library categories.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="constructor-new-from-string" locale="en-GB" />
+
+## Usage notes and boundaries
+
+Input is trimmed and may contain a sign and exponent. Both sides of a decimal point require digits. The separator is always `.`, independent of UI language. Nonzero trailing zeros are retained, but `"0.00"` normalizes to initialized scale-zero zero. Invalid syntax is `InvalidFormat`; expanded inputs can hit the separate playground resource limit.
+
+The browser also applies the [resource policy](../resource-policy). JavaScript inputs are validated before calling Rust.
+
+## Related methods
+
+[new_with_prec](./decimal-new-with-prec) · [new_with_append_prec](./decimal-new-with-append-prec) · [new_from_string](./decimal-new-from-string)

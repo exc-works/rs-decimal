@@ -1,10 +1,31 @@
 ---
 locale: en-GB
+source_revision: 16b33be7c90300f9c4b236f60591e3b54c1078c3a213fb54df0f571ca8f60e09
+translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::neg
-translation_status: pending
 ---
 # Decimal::neg
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Create an independent decimal with the sign reversed.
 
-[English (US) reference](../../en-US/api/decimal-neg)
+```rust
+fn neg (& self) -> Self
+```
+
+## Parameters, return and usage notes
+
+Returns Decimal and preserves scale and trailing zeros. Zero stays numerically zero; the result is initialized even for a default input.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="basic-neg" locale="en-GB" />
+
+## Errors and boundaries
+
+These methods borrow inputs without consuming or changing them. The library operation does not return Result. The bridge rejects disposed, moved or foreign-run handles and applies the [resource policy](../resource-policy). Examples wrap scalar output in a `value` field; Decimal output uses its complete snapshot.
+
+## Related methods
+
+[is_nil](./decimal-is-nil) · [equal](./decimal-equal) · [new_from_string](./decimal-new-from-string)

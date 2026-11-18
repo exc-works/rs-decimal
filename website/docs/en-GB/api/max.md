@@ -1,10 +1,31 @@
 ---
 locale: en-GB
+source_revision: 0d4a74db932ab126e7566fb630352abba8c528142a3d37c615a2694b7fac9c0a
+translation_provenance: en-US-reviewed-reuse
 api_id: max
-translation_status: pending
 ---
 # max
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Copy the larger of two decimal values using a free function.
 
-[English (US) reference](../../en-US/api/max)
+```rust
+fn max (a : & Decimal , b : & Decimal) -> Decimal
+```
+
+## Parameters, return and usage notes
+
+Borrow a and b: &Decimal; return an independent Decimal. A numerical tie preserves a’s scale and initialization state. This calls the same library semantics as Decimal::max.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="helper-max" locale="en-GB" />
+
+## Boundaries
+
+The bridge preserves Rust names and parameter order. Free functions are available directly in the playground. Borrowed inputs are not consumed or changed; the bridge rejects invalid or foreign-run handles. All operations follow the [resource policy](../resource-policy).
+
+## Related methods
+
+[new_from_string](./decimal-new-from-string) · [is_nil](./decimal-is-nil) · [equal](./decimal-equal)

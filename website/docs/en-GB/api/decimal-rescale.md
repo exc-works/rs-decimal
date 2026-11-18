@@ -1,10 +1,31 @@
 ---
 locale: en-GB
+source_revision: 0deb49519f3f009c2dba973109de20fc0fcdfe90b9617749c506123c4c387997
+translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::rescale
-translation_status: pending
 ---
 # Decimal::rescale
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Change decimal places with an explicit rounding mode.
 
-[English (US) reference](../../en-US/api/decimal-rescale)
+```rust
+fn rescale (& self , prec : isize , mode : RoundingMode) -> Result < Self , DecimalError >
+```
+
+## Parameters, return and normal usage
+
+prec is decimal places, not significant digits; mode is one of the seven RoundingMode values. Increasing precision appends zeros. Decreasing precision rounds only discarded nonzero digits. Negative precision returns InvalidPrecision; Unnecessary returns RoundUnnecessary when rounding is required. Results initialize default zero; borrowed inputs remain unchanged.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="rounding-decimal-rescale" locale="en-GB" />
+
+## Browser boundaries
+
+Integer parameters must fit the wasm32 range. The browser additionally applies the [resource policy](../resource-policy), including target scale, coefficient growth and call count. Resource errors remain distinct from numerical-library errors. Borrowed methods do not consume inputs; Rust-only trait syntax is explicitly labeled as native-tested.
+
+## Related methods
+
+[RoundingMode](./roundingmode) · [rescale](./decimal-rescale) · [significant_figures](./decimal-significant-figures)

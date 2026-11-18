@@ -1,10 +1,31 @@
 ---
 locale: en-GB
+source_revision: 02d9f7c1451db386b5c6959aa8f2c1d403c00069d00df185eafd17eb7f7b188e
+translation_provenance: en-US-reviewed-reuse
 api_id: "Decimal::impl PgHasArrayType"
-translation_status: pending
 ---
 # Decimal::impl PgHasArrayType
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Use the native SQLx PostgreSQL NUMERIC integration.
 
-[English (US) reference](../../en-US/api/decimal-impl-pghasarraytype)
+```rust
+impl PgHasArrayType for Decimal
+```
+
+## Normal usage and caveats
+
+Requires the postgres feature and SQLx 0.8 PostgreSQL types. This implementation is native-only: the browser playground does not open database connections. array_type_info() returns NUMERIC[] OID 1231, enabling SQLx array bindings. NullDecimal array elements retain SQL NULL via validity; use native SQLx queries to encode/decode complete arrays.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="native-decimal-impl-pghasarraytype" locale="en-GB" />
+
+## Execution
+
+This item is native Rust trait syntax; it does not expose a same-named JavaScript operator or SQLx object. The default native documentation harness executes this example.
+
+## Related methods
+
+[Decimal](./decimal) · [scan](./decimal-scan) · [new_from_string](./decimal-new-from-string)

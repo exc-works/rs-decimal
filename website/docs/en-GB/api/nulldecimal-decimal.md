@@ -1,10 +1,29 @@
 ---
 locale: en-GB
+source_revision: 74688d1ee73b78a25c1792ba73a6a2e013084b0279376cef739a1b5c8cbed64f
+translation_provenance: en-US-reviewed-reuse
 api_id: NullDecimal.decimal
-translation_status: pending
 ---
 # NullDecimal.decimal
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Inspect or replace the stored decimal independently of validity.
 
-[English (US) reference](../../en-US/api/nulldecimal-decimal)
+```rust
+decimal: Decimal
+```
+
+## Normal usage and semantics
+
+Rust exposes a mutable Decimal field. The browser uses get_decimal_clone() for an independent copy and set_decimal(value) to consume a replacement. Neither adapter changes valid. These explicit adapters avoid promising a live Rust reference in JavaScript.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-nulldecimal-decimal" locale="en-GB" />
+
+The shared example runs in native Rust and the browser.
+
+## Related documentation
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)

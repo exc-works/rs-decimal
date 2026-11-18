@@ -1,10 +1,29 @@
 ---
 locale: en-GB
+source_revision: 317e1f4c19916312bb2823fc0a526f5311afada3dc44c8d3247bdd5fc0f08111
+translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::impl Ord::cmp
-translation_status: pending
 ---
 # Decimal::impl Ord::cmp
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Order decimals numerically with Rust Ord.
 
-[English (US) reference](../../en-US/api/decimal-impl-ord-cmp)
+```rust
+fn cmp (& self , other : & Self) -> Ordering
+```
+
+## Normal usage and semantics
+
+Ord::cmp returns Ordering, unlike Decimal::cmp which returns -1/0/1. Representation differences do not affect ordering.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-decimal-impl-ord-cmp" locale="en-GB" />
+
+This Rust syntax example runs in native tests and does not claim browser trait support.
+
+## Related documentation
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)

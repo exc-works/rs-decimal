@@ -1,10 +1,29 @@
 ---
 locale: en-GB
+source_revision: 37fcbc194399d8059373fc9c0c61833d997ffb41871435eb1c6867b7870d1acc
+translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::impl Clone
-translation_status: pending
 ---
 # Decimal::impl Clone
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Clone a decimal while preserving its complete representation.
 
-[English (US) reference](../../en-US/api/decimal-impl-clone)
+```rust
+impl Clone for Decimal
+```
+
+## Normal usage and semantics
+
+Clone copies coefficient, scale and initialization state; JavaScript uses the named clone() adapter rather than a Rust trait.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-decimal-impl-clone" locale="en-GB" />
+
+This Rust syntax example runs in native tests and does not claim browser trait support.
+
+## Related documentation
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)

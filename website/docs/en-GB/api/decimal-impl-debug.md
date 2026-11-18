@@ -1,10 +1,29 @@
 ---
 locale: en-GB
+source_revision: 150ae4511881de6cce3960793291dd735b00fc7aa5175f86d5957a93c70d0c13
+translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::impl Debug
-translation_status: pending
 ---
 # Decimal::impl Debug
 
-The British English version of this method reference is pending review. Consult the US English reference for normal usage, parameters, examples and caveats. This notice does not count as a completed translation.
+Inspect a decimal during Rust debugging.
 
-[English (US) reference](../../en-US/api/decimal-impl-debug)
+```rust
+impl Debug for Decimal
+```
+
+## Normal usage and semantics
+
+The derived diagnostic representation includes internal fields; it is not a stable serialization format. Browser output uses explicit snapshots instead.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-decimal-impl-debug" locale="en-GB" />
+
+This Rust syntax example runs in native tests and does not claim browser trait support.
+
+## Related documentation
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)
