@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: fd72fd2afaa0763f177af4f30747e9166deea4da1bb1ba841cbd829b6d791a9d
+source_revision: 52c061e67f4d78f9abff6cb38b422cdd828bc88de770dccac8c7ef157f4fde94
 api_id: Decimal::new_from_float64
 ---
 # Decimal::new_from_float64
@@ -13,7 +13,7 @@ fn new_from_float64 (value : f64) -> Result < Self , DecimalError >
 
 ## Parameters, return and normal usage
 
-value: f64, passed as a JS number. This does not recover decimal digits already lost to binary floating point. Use new_from_string for exact decimal input. NaN and either infinity return InvalidFormat; finite f64 that overflows during f32 narrowing also returns InvalidFormat. Negative zero becomes initialized Decimal zero without a sign.
+value: f64, passed as a JS number. This does not recover decimal digits already lost to binary floating point. Use new_from_string for exact decimal input. NaN and either infinity return InvalidFormat. Negative zero becomes initialized Decimal zero without a sign.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";
