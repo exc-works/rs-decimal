@@ -20,7 +20,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test website/tests/bridge.test.mjs
+      - run: node --test website/tests/bridge.test.mjs website/tests/resources.test.mjs
       - name: Select the matching browser binary
         run: python3 -c 'import json, os; open("webdriver.json", "w").write(json.dumps({"goog:chromeOptions":{"binary":os.environ["TEST_CHROME_BINARY"]}}))'
         env:

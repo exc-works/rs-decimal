@@ -4,6 +4,6 @@
   "type": "module",
   "scripts": {
     "build:wasm": "python3 ../tools/build-web-wasm.py",
-    "test:bridge": "node --test tests/bridge.test.mjs"
+    "test:bridge": "node --test tests/bridge.test.mjs tests/resources.test.mjs"
   }
 }

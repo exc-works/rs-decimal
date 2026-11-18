@@ -12,6 +12,10 @@ function requireType(condition, message) {
   if (!condition) throw new BridgeError('parameter', message);
 }
 
+function resource(condition, message) {
+  if (!condition) throw new BridgeError('resource', message);
+}
+
 function integer(value, name, min = -2147483648, max = 2147483647) {
   requireType(typeof value === 'number' && Number.isInteger(value) && value >= min && value <= max,
     `${name} must be an integer between ${min} and ${max}`);
@@ -56,6 +60,7 @@ export function createBridge(raw) {
     }
     static new_from_string(text) {
       requireType(typeof text === 'string', 'text must be a string');
+      resource(text.length <= 8192, 'playground input exceeds the input budget');
       return wrap(Decimal, raw.Decimal.new_from_string(text));
     }
     static default() { return wrap(Decimal, raw.Decimal.default()); }
@@ -96,6 +101,7 @@ export function createBridge(raw) {
   class ByteBuffer extends Handle {
     static new(bytes) {
       requireType(bytes instanceof Uint8Array, 'bytes must be Uint8Array');
+      resource(bytes.byteLength <= 65536, 'playground buffer exceeds 65536 bytes');
       return wrap(ByteBuffer, raw.ByteBuffer.new(bytes));
     }
     to_uint8_array() { return borrow(this, ByteBuffer).to_uint8_array(); }
