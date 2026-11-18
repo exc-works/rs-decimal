@@ -67,3 +67,7 @@ glossary (échelle, décimales, chiffres significatifs, arrondi, initialisation)
 preserving sign/tie rules, state distinctions, borrowing/consumption, integer
 widths and error/resource boundaries. Shared examples and Rust identifiers are
 unchanged. Other French API groups remain pending and use explicit fallback.
+
+The French conversion/formatting/root/log-exp references (WEB-10a–b,
+WEB-11a–b; 47 additional entries) preserve exactness flags and IEEE edge cases,
+Unicode scalar formatting, certified half-even results and resource/domain limits.
