@@ -7,3 +7,5 @@ __pycache__/
 /website/docs/.vitepress/cache/
 /website/docs/.vitepress/dist/
 /website/public/wasm/
+
+/website/runner-dist/
