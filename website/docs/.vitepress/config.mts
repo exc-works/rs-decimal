@@ -30,6 +30,8 @@ export default defineConfig({
       returnToTopLabel: text.top,
       sidebarMenuLabel: text.menu,
       darkModeSwitchLabel: text.theme,
+      darkModeSwitchTitle: text.darkTheme,
+      lightModeSwitchTitle: text.lightTheme,
       langMenuLabel: text.language,
       skipToContentLabel: text.skip,
     },

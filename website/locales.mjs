@@ -36,7 +36,9 @@ export const locales = {
     "planned": "Planned",
     "direct": "Direct bridge",
     "adapter": "Named adapter",
-    "rust-only": "Rust only"
+    "rust-only": "Rust only",
+    "darkTheme": "Switch to dark theme",
+    "lightTheme": "Switch to light theme"
   },
   "en-GB": {
     "label": "English (UK)",
@@ -75,7 +77,9 @@ export const locales = {
     "planned": "Planned",
     "direct": "Direct bridge",
     "adapter": "Named adapter",
-    "rust-only": "Rust only"
+    "rust-only": "Rust only",
+    "darkTheme": "Switch to dark theme",
+    "lightTheme": "Switch to light theme"
   },
   "zh-Hans": {
     "label": "简体中文",
@@ -114,7 +118,9 @@ export const locales = {
     "planned": "计划中",
     "direct": "直接 bridge",
     "adapter": "具名适配",
-    "rust-only": "仅 Rust"
+    "rust-only": "仅 Rust",
+    "darkTheme": "切换为深色主题",
+    "lightTheme": "切换为浅色主题"
   },
   "zh-Hant": {
     "label": "繁體中文",
@@ -153,7 +159,9 @@ export const locales = {
     "planned": "規劃中",
     "direct": "直接 bridge",
     "adapter": "具名轉接",
-    "rust-only": "僅 Rust"
+    "rust-only": "僅 Rust",
+    "darkTheme": "切換為深色主題",
+    "lightTheme": "切換為淺色主題"
   },
   "fr": {
     "label": "Français",
@@ -192,7 +200,9 @@ export const locales = {
     "planned": "Prévu",
     "direct": "Bridge direct",
     "adapter": "Adaptateur nommé",
-    "rust-only": "Rust uniquement"
+    "rust-only": "Rust uniquement",
+    "darkTheme": "Passer au thème sombre",
+    "lightTheme": "Passer au thème clair"
   },
   "ko": {
     "label": "한국어",
@@ -231,7 +241,9 @@ export const locales = {
     "planned": "예정",
     "direct": "직접 bridge",
     "adapter": "이름 있는 어댑터",
-    "rust-only": "Rust 전용"
+    "rust-only": "Rust 전용",
+    "darkTheme": "어두운 테마로 전환",
+    "lightTheme": "밝은 테마로 전환"
   },
   "ja": {
     "label": "日本語",
@@ -270,7 +282,9 @@ export const locales = {
     "planned": "予定",
     "direct": "直接 bridge",
     "adapter": "名前付きアダプター",
-    "rust-only": "Rust のみ"
+    "rust-only": "Rust のみ",
+    "darkTheme": "ダークテーマに切り替える",
+    "lightTheme": "ライトテーマに切り替える"
   },
   "de": {
     "label": "Deutsch",
@@ -309,6 +323,8 @@ export const locales = {
     "planned": "Geplant",
     "direct": "Direkte Bridge",
     "adapter": "Benannter Adapter",
-    "rust-only": "Nur Rust"
+    "rust-only": "Nur Rust",
+    "darkTheme": "Zum dunklen Design wechseln",
+    "lightTheme": "Zum hellen Design wechseln"
   }
 };
