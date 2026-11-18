@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-reexport-scanvalue",
+  "api_ids": [
+    "reexport::ScanValue"
+  ],
+  "rust": "let mut value = Decimal::default();\nvalue.scan(rs_decimal::ScanValue::Text(\"1.2300\"))?;",
+  "javascript": "",
+  "expected": {
+    "coefficient": "12300",
+    "scale": "4",
+    "initialized": true,
+    "string": "1.23",
+    "string_with_trailing_zeros": "1.2300"
+  }
+}

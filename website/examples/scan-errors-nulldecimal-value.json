@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-nulldecimal-value",
+  "api_ids": [
+    "NullDecimal::value"
+  ],
+  "rust": "let value = serde_json::json!({\"value\": NullDecimal::default().value()});",
+  "javascript": "const value = { value: NullDecimal.default().value() };",
+  "expected": {
+    "value": null
+  }
+}

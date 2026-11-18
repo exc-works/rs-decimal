@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-errorkind-invalidformat",
+  "api_ids": [
+    "ErrorKind::InvalidFormat"
+  ],
+  "rust": "let error = rs_decimal::DecimalError::new(rs_decimal::ErrorKind::InvalidFormat, \"example\");\nlet value = serde_json::json!({\"matches\": error.matches(rs_decimal::ErrorKind::InvalidFormat)});",
+  "javascript": "const error = DecimalError.new(ErrorKind.InvalidFormat, \"example\");\nconst value = { matches: error.matches(ErrorKind.InvalidFormat) };",
+  "expected": {
+    "matches": true
+  }
+}

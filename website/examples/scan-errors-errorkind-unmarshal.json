@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-errorkind-unmarshal",
+  "api_ids": [
+    "ErrorKind::Unmarshal"
+  ],
+  "rust": "let error = rs_decimal::DecimalError::new(rs_decimal::ErrorKind::Unmarshal, \"example\");\nlet value = serde_json::json!({\"matches\": error.matches(rs_decimal::ErrorKind::Unmarshal)});",
+  "javascript": "const error = DecimalError.new(ErrorKind.Unmarshal, \"example\");\nconst value = { matches: error.matches(ErrorKind.Unmarshal) };",
+  "expected": {
+    "matches": true
+  }
+}

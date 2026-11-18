@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-errorkind-invalidprecision",
+  "api_ids": [
+    "ErrorKind::InvalidPrecision"
+  ],
+  "rust": "let error = rs_decimal::DecimalError::new(rs_decimal::ErrorKind::InvalidPrecision, \"example\");\nlet value = serde_json::json!({\"matches\": error.matches(rs_decimal::ErrorKind::InvalidPrecision)});",
+  "javascript": "const error = DecimalError.new(ErrorKind.InvalidPrecision, \"example\");\nconst value = { matches: error.matches(ErrorKind.InvalidPrecision) };",
+  "expected": {
+    "matches": true
+  }
+}

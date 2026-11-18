@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-decimalerror-impl-eq",
+  "api_ids": [
+    "DecimalError::impl Eq"
+  ],
+  "rust": "let error = rs_decimal::DecimalError::new(rs_decimal::ErrorKind::InvalidFormat, \"bad input\").with_kind(rs_decimal::ErrorKind::Unmarshal);\nfn require_eq<T: Eq>(_: &T) {}\nrequire_eq(&error);\nlet other = error.clone();\nlet value = serde_json::json!({\"value\": PartialEq::eq(&error, &other)});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-scanvalue-impl-debug",
+  "api_ids": [
+    "ScanValue::impl Debug"
+  ],
+  "rust": "let error = rs_decimal::ScanValue::Text(\"1.23\");\nlet value = serde_json::json!({\"value\": !format!(\"{error:?}\").is_empty()});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

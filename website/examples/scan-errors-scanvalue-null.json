@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-scanvalue-null",
+  "api_ids": [
+    "ScanValue::Null"
+  ],
+  "rust": "let mut input = Decimal::new(9);\ninput.scan(rs_decimal::ScanValue::Null)?;\nlet value = serde_json::json!({\"value\": input.value(), \"initialized\": !input.is_nil()});",
+  "javascript": "const input = Decimal.new(9n);\ninput.scan(ScanValue.Null);\nconst value = { value: input.value(), initialized: !input.is_nil() };",
+  "expected": {
+    "value": "0",
+    "initialized": false
+  }
+}

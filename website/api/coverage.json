@@ -2423,13 +2423,20 @@
   {
     "id": "Decimal::scan",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "decimal-scan",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.scan(value: ScanValue): void",
+    "examples": [
+      "scan-errors-decimal-scan"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::shift",
@@ -2848,354 +2855,578 @@
   {
     "id": "Decimal::value",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "decimal-value",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.value(): string",
+    "examples": [
+      "scan-errors-decimal-value"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "DecimalError",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "decimalerror",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "DecimalError",
+    "examples": [
+      "scan-errors-decimalerror"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "DecimalError::impl Clone",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "decimalerror-impl-clone",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-decimalerror-impl-clone"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "DecimalError::impl Debug",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "decimalerror-impl-debug",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-decimalerror-impl-debug"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "DecimalError::impl Eq",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "decimalerror-impl-eq",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-decimalerror-impl-eq"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "DecimalError::impl Error",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "decimalerror-impl-error",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-decimalerror-impl-error"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "DecimalError::impl PartialEq",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "decimalerror-impl-partialeq",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-decimalerror-impl-partialeq"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "DecimalError::impl fmt :: Display",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "decimalerror-impl-fmt-display",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-decimalerror-impl-fmt-display"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "DecimalError::impl fmt :: Display::fmt",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "decimalerror-impl-fmt-display-fmt",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-decimalerror-impl-fmt-display-fmt"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "DecimalError::kinds",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "decimalerror-kinds",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "DecimalError.kinds",
+    "examples": [
+      "scan-errors-decimalerror-kinds"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "DecimalError::matches",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "decimalerror-matches",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "DecimalError.matches",
+    "examples": [
+      "scan-errors-decimalerror-matches"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "DecimalError::new",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "decimalerror-new",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "DecimalError.new",
+    "examples": [
+      "scan-errors-decimalerror-new"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "DecimalError::with_kind",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "decimalerror-with-kind",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "DecimalError.with_kind",
+    "examples": [
+      "scan-errors-decimalerror-with-kind"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ErrorKind",
+    "examples": [
+      "scan-errors-errorkind"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::DivideByZero",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-dividebyzero",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ErrorKind.DivideByZero",
+    "examples": [
+      "scan-errors-errorkind-dividebyzero"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::InvalidArgument",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-invalidargument",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ErrorKind.InvalidArgument",
+    "examples": [
+      "scan-errors-errorkind-invalidargument"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::InvalidFormat",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-invalidformat",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ErrorKind.InvalidFormat",
+    "examples": [
+      "scan-errors-errorkind-invalidformat"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::InvalidLog",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-invalidlog",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ErrorKind.InvalidLog",
+    "examples": [
+      "scan-errors-errorkind-invalidlog"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::InvalidPrecision",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-invalidprecision",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ErrorKind.InvalidPrecision",
+    "examples": [
+      "scan-errors-errorkind-invalidprecision"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::InvalidRoot",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-invalidroot",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ErrorKind.InvalidRoot",
+    "examples": [
+      "scan-errors-errorkind-invalidroot"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::NegativeRoot",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-negativeroot",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ErrorKind.NegativeRoot",
+    "examples": [
+      "scan-errors-errorkind-negativeroot"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::NoConvergence",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-noconvergence",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ErrorKind.NoConvergence",
+    "examples": [
+      "scan-errors-errorkind-noconvergence"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::Overflow",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-overflow",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ErrorKind.Overflow",
+    "examples": [
+      "scan-errors-errorkind-overflow"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::RoundUnnecessary",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-roundunnecessary",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ErrorKind.RoundUnnecessary",
+    "examples": [
+      "scan-errors-errorkind-roundunnecessary"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::Unmarshal",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-unmarshal",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ErrorKind.Unmarshal",
+    "examples": [
+      "scan-errors-errorkind-unmarshal"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::impl Clone",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-impl-clone",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-errorkind-impl-clone"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::impl Copy",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-impl-copy",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-errorkind-impl-copy"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::impl Debug",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-impl-debug",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-errorkind-impl-debug"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::impl Eq",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-impl-eq",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-errorkind-impl-eq"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::impl Ord",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-impl-ord",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-errorkind-impl-ord"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::impl PartialEq",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-impl-partialeq",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-errorkind-impl-partialeq"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ErrorKind::impl PartialOrd",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-03",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "errorkind-impl-partialord",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-errorkind-impl-partialord"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "GoFormat",
@@ -3865,13 +4096,20 @@
   {
     "id": "NullDecimal::scan",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "nulldecimal-scan",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.scan(value: ScanValue): void",
+    "examples": [
+      "scan-errors-nulldecimal-scan"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::string",
@@ -4020,13 +4258,20 @@
   {
     "id": "NullDecimal::value",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "nulldecimal-value",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.value(): string | null",
+    "examples": [
+      "scan-errors-nulldecimal-value"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "PRECISION_FIXED_SIZE",
@@ -4334,123 +4579,200 @@
   {
     "id": "ScanValue",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "scanvalue",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ScanValue: typed variant factories",
+    "examples": [
+      "scan-errors-scanvalue"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ScanValue::Bytes",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "scanvalue-bytes",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ScanValue.Bytes",
+    "examples": [
+      "scan-errors-scanvalue-bytes"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ScanValue::Float32",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "scanvalue-float32",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ScanValue.Float32",
+    "examples": [
+      "scan-errors-scanvalue-float32"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ScanValue::Float64",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "scanvalue-float64",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ScanValue.Float64",
+    "examples": [
+      "scan-errors-scanvalue-float64"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ScanValue::Int64",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "scanvalue-int64",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ScanValue.Int64",
+    "examples": [
+      "scan-errors-scanvalue-int64"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ScanValue::Null",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "scanvalue-null",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ScanValue.Null",
+    "examples": [
+      "scan-errors-scanvalue-null"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ScanValue::Text",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "scanvalue-text",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ScanValue.Text",
+    "examples": [
+      "scan-errors-scanvalue-text"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ScanValue::Unsupported",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "scanvalue-unsupported",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "ScanValue.Unsupported",
+    "examples": [
+      "scan-errors-scanvalue-unsupported"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ScanValue::impl Clone",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "scanvalue-impl-clone",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-scanvalue-impl-clone"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ScanValue::impl Copy",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "scanvalue-impl-copy",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-scanvalue-impl-copy"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "ScanValue::impl Debug",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "scanvalue-impl-debug",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-scanvalue-impl-debug"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "between",
@@ -4842,24 +5164,38 @@
   {
     "id": "reexport::DecimalError",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "reexport-decimalerror",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-reexport-decimalerror"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::ErrorKind",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "reexport-errorkind",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-reexport-errorkind"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::GoFormat",
@@ -4936,13 +5272,20 @@
   {
     "id": "reexport::ScanValue",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13a",
+    "status": "implemented",
+    "owner": "WEB-13a-1",
     "doc_id": "reexport-scanvalue",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "scan-errors-reexport-scanvalue"
+    ],
+    "tests": [
+      "website/tests/scan-errors.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "reexport::between",

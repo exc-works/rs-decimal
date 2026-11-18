@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-scanvalue-impl-clone",
+  "api_ids": [
+    "ScanValue::impl Clone"
+  ],
+  "rust": "let error = rs_decimal::ScanValue::Text(\"1.23\");\nfn clone_value<T: Clone>(value: &T) -> T { value.clone() }\nlet copy = clone_value(&error);\nlet value = serde_json::json!({\"value\": format!(\"{copy:?}\") == format!(\"{error:?}\")});",
+  "javascript": "",
+  "expected": {
+    "value": true
+  }
+}

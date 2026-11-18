@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-scanvalue-int64",
+  "api_ids": [
+    "ScanValue::Int64"
+  ],
+  "rust": "let mut input = Decimal::new(9);\ninput.scan(rs_decimal::ScanValue::Int64(9007199254740993))?;\nlet value = serde_json::json!({\"value\": input.value(), \"initialized\": !input.is_nil()});",
+  "javascript": "const input = Decimal.new(9n);\ninput.scan(ScanValue.Int64(9007199254740993n));\nconst value = { value: input.value(), initialized: !input.is_nil() };",
+  "expected": {
+    "value": "9007199254740993",
+    "initialized": true
+  }
+}

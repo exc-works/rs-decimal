@@ -1,3 +1,6 @@
+export type ErrorKindValue = 'DivideByZero'|'InvalidArgument'|'InvalidFormat'|'InvalidLog'|'InvalidPrecision'|'InvalidRoot'|'NegativeRoot'|'NoConvergence'|'Overflow'|'RoundUnnecessary'|'Unmarshal';
+export interface DecimalError { matches(kind: ErrorKindValue): boolean; kinds(): ErrorKindValue[]; with_kind(kind: ErrorKindValue): DecimalError; readonly message: string; free(): void; }
+export interface ScanValue { readonly kind: 'Null'|'Unsupported'|'Float32'|'Float64'|'Int64'|'Text'|'Bytes'; }
 export interface GoFormatOptions { verb: string; width: number|null; precision: number|null; left: boolean; plus: boolean; space: boolean; zero: boolean; alternate: boolean; }
 export interface Rational { readonly numerator: bigint; readonly denominator: bigint; }
 export type Rounding = 0 | 1 | 2 | 3 | 4 | 5 | 6;
@@ -86,6 +89,8 @@ export interface Decimal {
   unmarshal_text(bytes: Uint8Array): void;
   unmarshal_json(bytes: Uint8Array): void;
   unmarshal_param(param: string): void;
+  scan(value: ScanValue): void;
+  value(): string;
   marshal_yaml(): string;
   marshal_xml(): string;
   marshal_xml_attr(): string;
@@ -123,6 +128,8 @@ export interface NullDecimal {
   unmarshal_text(bytes: Uint8Array): void;
   unmarshal_json(bytes: Uint8Array): void;
   unmarshal_param(param: string): void;
+  scan(value: ScanValue): void;
+  value(): string | null;
   marshal_yaml(): string | null;
   marshal_xml(): string;
   marshal_xml_attr(): string | null;
@@ -139,6 +146,9 @@ export interface NullDecimal {
 }
 export interface ByteBuffer { to_uint8_array(): Uint8Array; free(): void; }
 export interface Bridge {
+  ErrorKind: Readonly<Record<ErrorKindValue, ErrorKindValue>>;
+  DecimalError: { "new": (kind: ErrorKindValue, message: string) => DecimalError };
+  ScanValue: { readonly Null: ScanValue; readonly Unsupported: ScanValue; Float32(value: number): ScanValue; Float64(value: number): ScanValue; Int64(value: bigint): ScanValue; Text(value: string): ScanValue; Bytes(value: Uint8Array): ScanValue };
   readonly PRECISION_FIXED_SIZE: number;
   readonly COMPATIBILITY_REVISION: string;
   Decimal: {

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-scanvalue-float64",
+  "api_ids": [
+    "ScanValue::Float64"
+  ],
+  "rust": "let mut input = Decimal::new(9);\ninput.scan(rs_decimal::ScanValue::Float64(1.25))?;\nlet value = serde_json::json!({\"value\": input.value(), \"initialized\": !input.is_nil()});",
+  "javascript": "const input = Decimal.new(9n);\ninput.scan(ScanValue.Float64(1.25));\nconst value = { value: input.value(), initialized: !input.is_nil() };",
+  "expected": {
+    "value": "1.25",
+    "initialized": true
+  }
+}

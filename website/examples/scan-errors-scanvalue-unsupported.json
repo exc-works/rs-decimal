@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-scanvalue-unsupported",
+  "api_ids": [
+    "ScanValue::Unsupported"
+  ],
+  "rust": "let mut input = Decimal::new(9);\nlet failed = input.scan(rs_decimal::ScanValue::Unsupported).unwrap_err().matches(rs_decimal::ErrorKind::Unmarshal);\nlet value = serde_json::json!({\"error\": failed, \"value\": input.value()});",
+  "javascript": "const input = Decimal.new(9n);\nlet failed = false;\ntry { input.scan(ScanValue.Unsupported); } catch (e) { failed = e.kinds.includes(ErrorKind.Unmarshal); }\nconst value = { error: failed, value: input.value() };",
+  "expected": {
+    "error": true,
+    "value": "9"
+  }
+}

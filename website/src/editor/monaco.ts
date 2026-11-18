@@ -39,6 +39,9 @@ declare global {
   const NullDecimal: Bridge["NullDecimal"];
   const ByteBuffer: Bridge["ByteBuffer"];
   const GoFormat: Bridge["GoFormat"];
+  const DecimalError: Bridge["DecimalError"];
+  const ErrorKind: Bridge["ErrorKind"];
+  const ScanValue: Bridge["ScanValue"];
   const RoundingMode: Bridge["RoundingMode"];
   const snapshot: Bridge["snapshot"];
   const zero: Bridge["zero"];

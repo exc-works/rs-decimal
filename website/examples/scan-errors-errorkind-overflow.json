@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "scan-errors-errorkind-overflow",
+  "api_ids": [
+    "ErrorKind::Overflow"
+  ],
+  "rust": "let error = rs_decimal::DecimalError::new(rs_decimal::ErrorKind::Overflow, \"example\");\nlet value = serde_json::json!({\"matches\": error.matches(rs_decimal::ErrorKind::Overflow)});",
+  "javascript": "const error = DecimalError.new(ErrorKind.Overflow, \"example\");\nconst value = { matches: error.matches(ErrorKind.Overflow) };",
+  "expected": {
+    "matches": true
+  }
+}

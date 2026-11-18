@@ -65,8 +65,9 @@ merge, not permission to omit the requested review.
 | WEB-12a | Text/Param/JSON and NullDecimal | 10b | Raw numeric token fidelity, null state transitions, failure atomicity |
 | WEB-12b | Binary and BSON | 12a | Golden byte round trips and receiver preservation |
 | WEB-12c | YAML and XML | 12a | Raw text/tag/empty-value rules and localized usage examples |
-| WEB-13a | Validation and driver-neutral Scan/Value | 12a | Rule errors, exact comparisons and nullable state |
-| WEB-13b | Config scenarios, Serde/SQLx/trait usage documentation | 13a | Concrete adapters executable; native-only examples tested and labeled |
+| WEB-13a-1 | Driver-neutral Scan/Value and error types | 12a | Exact typed scalar transport, atomic nullable state and error categories |
+| WEB-13a-2 | Validation rules and localized messages | 13a-1 | Exact comparisons, rule errors, field data and message translation |
+| WEB-13b | Config scenarios, Serde/SQLx/trait usage documentation | 13a-2 | Concrete adapters executable; native-only examples tested and labeled |
 | WEB-14 | Method forms, open-in-playground and versioned sharing | 06, 07, 08 | Forms use shared examples; switching locale retains state; version/size checks |
 | WEB-15-* | Remaining translations by language and method family | 05 and corresponding method PR | Glossary, current source hashes, links and shared examples validated |
 | WEB-16 | Deployment package and full release verification | all applicable above | Eight complete/current locales, full coverage, three browser engines, static headers/base paths and consistent versions |
