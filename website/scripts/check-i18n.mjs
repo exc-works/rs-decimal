@@ -23,7 +23,23 @@ export async function checkTranslations(root = new URL('../', import.meta.url), 
   }
   return manifest.units.length;
 }
+export async function checkMethodTranslations(root = new URL('../', import.meta.url), release = false) {
+  const entries = JSON.parse(await readFile(new URL('api/coverage.json', root), 'utf8'));
+  const implemented = entries.filter(x => x.status === 'implemented');
+  for (const entry of implemented) {
+    const source = await readFile(new URL(`docs/en-US/api/${entry.doc_id}.md`, root), 'utf8');
+    const body = source.replace(/^---\n[\s\S]*?\n---\n/, '');
+    const revision = createHash('sha256').update(body).digest('hex');
+    for (const locale of release ? expectedLocales : ['en-US', 'zh-Hans']) {
+      const page = await readFile(new URL(`docs/${locale}/api/${entry.doc_id}.md`, root), 'utf8');
+      const header = page.match(/^---\n([\s\S]*?)\n---\n/)?.[1].split('\n');
+      if (header?.includes('translation_status: pending') || !header?.includes(`locale: ${locale}`) || !header.includes(`source_revision: ${revision}`) || !header.includes(`api_id: ${entry.id}`) || !/^# .+/m.test(page)) throw Error(`Missing/stale method translation: ${locale}/${entry.doc_id}`);
+    }
+  }
+  return implemented.length;
+}
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const count = await checkTranslations();
-  console.log(`${expectedLocales.length} locales, ${count} current shared documentation units; API completeness remains a separate release gate.`);
+  const methods = await checkMethodTranslations(undefined, process.argv.includes('--release'));
+  console.log(`${methods} implemented methods have current reference translations. ${expectedLocales.length} locales, ${count} current shared documentation units; API completeness remains a separate release gate.`);
 }

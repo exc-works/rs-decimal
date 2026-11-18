@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "constructor-new-with-prec",
+  "api_ids": [
+    "Decimal::new_with_prec"
+  ],
+  "rust": "let value = Decimal::new_with_prec(12, 2)?;",
+  "javascript": "const value = Decimal.new_with_prec(12n, 2);",
+  "expected": {
+    "coefficient": "12",
+    "scale": "2",
+    "initialized": true,
+    "string": "0.12",
+    "string_with_trailing_zeros": "0.12"
+  }
+}

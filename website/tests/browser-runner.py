@@ -52,6 +52,13 @@ try:
         time.sleep(.1)
     print(json.dumps(result,indent=2))
     assert result and result['ok'],result
+    call(f'/session/{session}/url',{'url':'http://127.0.0.1:4210/tests/examples-harness.html'})
+    for _ in range(300):
+        result=call(f'/session/{session}/execute/sync',{'script':'return window.testResult || null','args':[]})
+        if result:break
+        time.sleep(.1)
+    print(json.dumps(result,indent=2))
+    assert result and result['ok'],result
     assert 4211 not in PROBES,PROBES
     assert 4212 in PROBES,'missing-CSP control did not reach the static server'
     print('Protected origin received no probe requests; missing-CSP control was rejected.')

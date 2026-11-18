@@ -1,0 +1,13 @@
+[package]
+name = "decimal-web-examples"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.85"
+publish = false
+
+[dependencies]
+rs-decimal = { path = "../..", default-features = false }
+serde_json = "=1.0.145"
+
+[build-dependencies]
+serde_json = "=1.0.145"

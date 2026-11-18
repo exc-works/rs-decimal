@@ -51,7 +51,8 @@ merge, not permission to omit the requested review.
 | WEB-04b | Isolated runner, lifecycle and message protocol | 04a | Stop/timeout/trap recovery, stale output rejection, bounded output, tested static CSP/bootstrap isolation |
 | WEB-05 | VitePress site, eight locale shells, glossary, navigation/search and translation checks | 01 | Static build, locale routes and fallback/status behavior; preview clearly labeled |
 | WEB-06 | Monaco editor and run controls | 03, 04b, 05 | Completion, parameter help, snapshots, stop/reset, drafts and file import/export |
-| WEB-07 | Constructors, representation, comparison and basic helpers | 03, 05 | State distinctions, input preservation, paired examples and reference-language documentation |
+| WEB-07a | Safe constructors and executable documentation examples | 03, 05 | Integer width, coefficient/append precision, input preservation and shared native/Wasm/browser examples |
+| WEB-07b | Representation, comparison, basic helpers and foundational trait/type documentation | 07a | State distinctions, comparison semantics, native-only trait examples and reference-language documentation |
 | WEB-08 | Rounding and scale operations | 07 | Seven modes, signed ties, Unnecessary, precision and platform checks |
 | WEB-09a | Add/sub/mul/div, safe/raw variants | 08 | Result scale, zero divisors, errors and unchanged inputs match native |
 | WEB-09b | Powers, remainders, quotient/remainder and consuming methods | 09a | Tuple results, limits, owned success/error consumption and alias handling |

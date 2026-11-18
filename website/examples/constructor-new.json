@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "constructor-new",
+  "api_ids": [
+    "Decimal::new"
+  ],
+  "rust": "let value = Decimal::new(12);",
+  "javascript": "const value = Decimal.new(12n);",
+  "expected": {
+    "coefficient": "12",
+    "scale": "0",
+    "initialized": true,
+    "string": "12",
+    "string_with_trailing_zeros": "12"
+  }
+}

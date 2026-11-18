@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Paired example browser checks</title></head><body><pre id="result">running</pre><script type="module">
+import { RunnerClient } from '../src/runner/client.js';
+const manifest=await (await fetch('/runner-manifest.json')).json();
+const client=new RunnerClient({container:document.body,runnerUrl:'http://127.0.0.1:4211/',commit:manifest.commit});
+const checks=[];
+try {
+  const ids=await (await fetch('../examples/index.json')).json();
+  for(const id of ids){
+    const example=await(await fetch(`../examples/${id}.json`)).json();const output=[];
+    const result=await client.run(example.javascript+'\nprint(snapshot(value));',{onOutput:x=>output.push(JSON.parse(x))});
+    if(result.type!=='done'||output.length!==1||JSON.stringify(Object.entries(output[0]).sort())!==JSON.stringify(Object.entries(example.expected).sort()))throw Error(`${id}: ${JSON.stringify({result,output})}`);
+    checks.push(id);
+  }
+  window.testResult={ok:true,checks};
+}catch(error){window.testResult={ok:false,checks,error:String(error.stack||error)};}finally{client.dispose();document.querySelector('#result').textContent=JSON.stringify(window.testResult,null,2);}
+</script></body></html>
