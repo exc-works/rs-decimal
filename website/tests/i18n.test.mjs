@@ -43,7 +43,8 @@ test('method revisions and API identities cannot silently drift', async () => {
   const hash = createHash('sha256').update(body).digest('hex');
   try {
     await mkdir(new URL('api/', root));
-    await writeFile(new URL('api/coverage.json', root), JSON.stringify([{id:'Decimal::new', doc_id:'decimal-new',status:'implemented'}]));
+    await writeFile(new URL('translation-manifest.json', root), JSON.stringify({method_locale_owners:{}}));
+    await writeFile(new URL('api/coverage.json', root), JSON.stringify([{id:'Decimal::new', doc_id:'decimal-new',status:'implemented',owner:'WEB-07a'}]));
     for (const locale of ['en-US','zh-Hans','en-GB']) {
       await mkdir(new URL(`docs/${locale}/api/`, root), {recursive:true});
       await writeFile(new URL(`docs/${locale}/api/decimal-new.md`, root), `---\nlocale: ${locale}\nsource_revision: ${hash}\napi_id: Decimal::new\n---\n${body}`);
@@ -54,6 +55,14 @@ test('method revisions and API identities cannot silently drift', async () => {
     }
     assert.equal(await checkMethodTranslations(root), 1);
     await assert.rejects(checkMethodTranslations(root, true), /ENOENT/);
+    await writeFile(new URL('translation-manifest.json', root), JSON.stringify({method_locale_owners:{'zh-Hant':['WEB-07a']}}));
+    await assert.rejects(checkMethodTranslations(root), /ENOENT/);
+    await mkdir(new URL('docs/zh-Hant/api/', root), {recursive:true});
+    await writeFile(new URL('docs/zh-Hant/api/decimal-new.md', root), `---\nlocale: zh-Hant\nsource_revision: ${hash}\napi_id: Decimal::new\n---\n${body}`);
+    assert.equal(await checkMethodTranslations(root), 1);
+    await writeFile(new URL('translation-manifest.json', root), JSON.stringify({method_locale_owners:{'zh-Hant':['UNKNOWN']}}));
+    await assert.rejects(checkMethodTranslations(root), /Invalid method translation groups/);
+    await writeFile(new URL('translation-manifest.json', root), JSON.stringify({method_locale_owners:{'zh-Hant':['WEB-07a']}}));
     await writeFile(new URL('docs/en-US/api/decimal-new.md', root), `---\nlocale: en-US\nsource_revision: ${hash}\napi_id: Decimal::new\n---\n${body}Changed meaning.\n`);
     await assert.rejects(checkMethodTranslations(root), /stale method translation/);
   } finally { await rm(dir, {recursive:true, force:true}); }

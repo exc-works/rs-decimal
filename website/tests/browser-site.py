@@ -66,7 +66,7 @@ try:
         js('const el=document.querySelector("#api-query"); el.value="mul_exact"; el.dispatchEvent(new Event("input",{bubbles:true}));')
         until(lambda: 0 < js('return document.querySelectorAll("tbody tr").length') < count)
         assert js('return [...document.querySelectorAll("tbody tr")].every(x=>x.textContent.includes("mul_exact"))')
-    for locale in ['en-US', 'zh-Hans', 'en-GB']:
+    for locale in ['en-US', 'zh-Hans', 'en-GB', 'zh-Hant']:
         navigate(f'{locale}/api/decimal-new-with-prec.html')
         until(lambda: js('return document.querySelectorAll(".method-example > pre").length') == 3)
         until(lambda: js('return !!document.querySelector(".method-form [data-parameter]")'))

@@ -1,10 +1,29 @@
 ---
 locale: zh-Hant
+source_revision: 37fcbc194399d8059373fc9c0c61833d997ffb41871435eb1c6867b7870d1acc
+translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::impl Clone
-translation_status: pending
 ---
 # Decimal::impl Clone
 
-本方法的繁體中文翻譯尚未完成。請參閱英文文件中的常規用法、參數、範例及注意事項。這個提示頁不計入翻譯完成度。
+複製 Decimal 並保留完整表示。
 
-[英文參考文件](../../en-US/api/decimal-impl-clone)
+```rust
+impl Clone for Decimal
+```
+
+## 常規用法及語義
+
+Clone 複製係數、小數位數及初始化狀態；JavaScript 使用具名 clone() 適配器，不提供 Rust trait 語法。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="type-decimal-impl-clone" locale="zh-Hant" />
+
+此 Rust 語法範例由原生測試執行，不計作瀏覽器 trait 支持。
+
+## 相關文件
+
+[Decimal](./decimal) · [NullDecimal](./nulldecimal) · [new_from_string](./decimal-new-from-string)

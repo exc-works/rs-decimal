@@ -2,8 +2,7 @@
 
 The playground runs JavaScript that calls the Rust library compiled to Wasm.
 Method names, argument order, rounding and decimal state follow Rust. JavaScript
-provides control flow; it does not calculate decimal results. This page describes
-the WEB-03 foundation; the full method catalogue and isolated editor are pending.
+provides control flow; it does not calculate decimal results. See the [method catalogue](./api/) for individual behaviour and [Playground](./playground) to run examples.
 
 ```javascript
 const price = Decimal.new_from_string('12.350');
@@ -44,10 +43,8 @@ value without changing validity. There is no misleading live `.decimal` getter.
 `coefficient()` similarly returns an immutable JS bigint snapshot. Rust borrow
 lifetimes and compile-time trait checks are not reproduced by JavaScript.
 `ByteBuffer.new(Uint8Array)` copies bytes into an owned buffer, and
-`to_uint8_array()` returns a copy that survives Wasm memory growth. Append methods
-are added with formatting support.
+`to_uint8_array()` returns a copy that survives Wasm memory growth. Append methods are documented in the [method catalogue](./api/).
 
 Bridge-level `snapshot(value)` captures exact state immediately, including the
 nullable's hidden value when invalid. It returns frozen data; later mutation does
-not change prior output. Bounded recursive output and execution limits belong to
-the runner; this foundation is not yet an untrusted-script sandbox.
+not change prior output. The isolated runner bounds recursive output and execution time; see the [resource policy](./resource-policy).

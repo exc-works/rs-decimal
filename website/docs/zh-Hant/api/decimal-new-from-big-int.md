@@ -1,10 +1,33 @@
 ---
 locale: zh-Hant
+source_revision: e8f2b09a741088cc99921865f54ef434d0d70ac376d4e29b7efc3c00a51c3956
+translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::new_from_big_int
-translation_status: pending
 ---
 # Decimal::new_from_big_int
 
-本方法的繁體中文翻譯尚未完成。請參閱英文文件中的常規用法、參數、範例及注意事項。這個提示頁不計入翻譯完成度。
+把任意精度整數複製為已初始化、scale 為零的 Decimal，不丟失數字。
 
-[英文參考文件](../../en-US/api/decimal-new-from-big-int)
+```rust
+fn new_from_big_int (value : & BigInt) -> Self
+```
+
+## 參數和回傳值
+
+Rust 借用 `&BigInt`；JavaScript 傳入不可變的 `bigint`。回傳值的係數獨立於來源。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="constructor-new-from-big-int" locale="zh-Hant" />
+
+## 用法注意事項和邊界
+
+不要先用 JavaScript number 丟失精度後再轉 bigint；應直接使用以 `n` 結尾的整數字面量或精確整數文字。Playground 最多接受 4096 位輸入數字；原生程式庫不受此 Playground 策略限制。
+
+瀏覽器還應用[資源限制](../resource-policy)。JavaScript 參數在呼叫 Rust 前進行類型及範圍檢查。
+
+## 相關方法
+
+[new_with_prec](./decimal-new-with-prec) · [new_with_append_prec](./decimal-new-with-append-prec) · [new_from_string](./decimal-new-from-string)

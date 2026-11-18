@@ -1,10 +1,31 @@
 ---
 locale: zh-Hant
+source_revision: 4f94d3a29039b5504e83148308232156a8a140f150fc1e38d0956e8fb963c92b
+translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::has_fraction
-translation_status: pending
 ---
 # Decimal::has_fraction
 
-本方法的繁體中文翻譯尚未完成。請參閱英文文件中的常規用法、參數、範例及注意事項。這個提示頁不計入翻譯完成度。
+檢查數值的小數部分。
 
-[英文參考文件](../../en-US/api/decimal-has-fraction)
+```rust
+fn has_fraction (& self) -> bool
+```
+
+## 參數、回傳值及常規用法
+
+無參數，回傳 bool/boolean。檢查數值而非 scale 是否為零：12.00 仍是整數。預設零也是整數，沒有小數部分。查詢不會初始化或修改輸入。
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="arithmetic-decimal-has-fraction" locale="zh-Hant" />
+
+## 瀏覽器邊界
+
+輸入均被借用，成功和普通錯誤都不會消耗輸入。回傳的 Decimal 獨立擁有資料，算術結果已初始化。瀏覽器在呼叫核心前檢查 [資源限制](../resource-policy)：對齊、乘積中間係數、除法縮放及輸出精度。保守的預檢查可能拒絕最終結果很小的運算。資源錯誤與數值程式庫錯誤分開報告；panic 會終止執行。
+
+## 相關方法
+
+[add](./decimal-add) · [mul_exact](./decimal-mul-exact) · [quo_with_prec](./decimal-quo-with-prec) · [RoundingMode](./roundingmode)
