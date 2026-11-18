@@ -100,7 +100,7 @@ with tempfile.TemporaryDirectory(prefix='decimal-editor-') as temp:
         call(f'/session/{session}/actions',{'actions':[{'type':'key','id':'keyboard','actions':keys}]})
         until(lambda:js('return document.querySelector(".suggest-widget")?.textContent.includes("most_significant_bit")'))
         print('Conversion helper completion passed',flush=True)
-        for prefix, expected in [('ScanValue.Int6','Int64'),('ErrorKind.Unm','Unmarshal'),('DecimalError.ne','new'),('validation.val','validate_decimal')]:
+        for prefix, expected in [('ScanValue.Int6','Int64'),('ErrorKind.Unm','Unmarshal'),('DecimalError.ne','new'),('validation.val','validate_decimal'),('config.deco','decode_decimal')]:
             import_source(prefix)
             js('(document.querySelector(".monaco-editor .native-edit-context")||document.querySelector(".monaco-editor textarea.inputarea")).focus()')
             call(f'/session/{session}/actions',{'actions':[{'type':'key','id':'keyboard','actions':keys}]})

@@ -10,7 +10,7 @@ pub(super) fn text_budget(bytes: &[u8]) -> Result<(), &'static str> {
     // Invalid UTF-8 cannot become a valid decimal; core owns its diagnostic.
     Ok(())
 }
-fn json_budget(bytes: &[u8]) -> Result<(), &'static str> {
+pub(super) fn json_budget(bytes: &[u8]) -> Result<(), &'static str> {
     if bytes.len() > limits::INPUT_BYTES {
         return Err("playground JSON input exceeds 8192 bytes");
     }

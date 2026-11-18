@@ -1,3 +1,4 @@
+export interface ConfigValue { readonly kind: 'Null'|'Text'|'Bytes'|'Number'|'Signed'|'Unsigned'|'Float32'|'Float64'|'Decimal'|'Nullable'|'Unsupported'; }
 export interface ValidationError { field: string; tag: string; parameter: string; }
 export interface ValidationRule { matches(value: Decimal): boolean; validate(field: string, value: Decimal): void; free(): void; }
 export interface ValidationMessages { translate(errors: ValidationError[]): string[]; free(): void; }
@@ -10,6 +11,7 @@ export type Rounding = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 export const RoundingMode: Readonly<Record<'Down'|'Up'|'Ceiling'|'HalfUp'|'HalfDown'|'HalfEven'|'Unnecessary', Rounding>>;
 export class BridgeError extends Error { category: string; kinds: string[]; }
 export interface Decimal {
+  serialize(): string;
   clone(): Decimal;
   coefficient(): bigint;
   scale(): number;
@@ -123,6 +125,7 @@ export interface Decimal {
   free(): void;
 }
 export interface NullDecimal {
+  serialize(): string;
   marshal_bson_value(): [number, Uint8Array];
   unmarshal_bson_value(kind: number, data: Uint8Array): void;
   string(): string;
@@ -149,6 +152,12 @@ export interface NullDecimal {
 }
 export interface ByteBuffer { to_uint8_array(): Uint8Array; free(): void; }
 export interface Bridge {
+  config: {
+    ConfigValue: { readonly Null: ConfigValue; readonly Unsupported: ConfigValue; Text(value: string): ConfigValue; Number(value: string): ConfigValue; Bytes(value: Uint8Array): ConfigValue; Signed(value: bigint): ConfigValue; Unsigned(value: bigint): ConfigValue; Float32(value: number): ConfigValue; Float64(value: number): ConfigValue; Decimal(value: Decimal): ConfigValue; Nullable(value: NullDecimal): ConfigValue };
+    decode_decimal(value: ConfigValue): Decimal; decode_nullable(value: ConfigValue): NullDecimal;
+    deserialize_json_decimal(source: string): Decimal; deserialize_json_nullable(source: string): NullDecimal;
+  };
+
   validation: {
     ValidationRule: { parse(tag: string, parameter: string): ValidationRule };
     ValidationMessages: { "new": (locale: string) => ValidationMessages; with_messages(messages: Record<string,string>): ValidationMessages };
@@ -162,6 +171,7 @@ export interface Bridge {
   readonly PRECISION_FIXED_SIZE: number;
   readonly COMPATIBILITY_REVISION: string;
   Decimal: {
+    deserialize(source: string): Decimal;
     "new": (value: bigint) => Decimal;
     new_from_string(text: string): Decimal;
     /** Panics on invalid Rust input; in Wasm this traps and ends the run. */
@@ -182,7 +192,7 @@ export interface Bridge {
     new_from_uint_with_append_prec(value: bigint, prec: number): Decimal;
     default(): Decimal;
   };
-  NullDecimal: { "new": (decimal: Decimal) => NullDecimal; default(): NullDecimal };
+  NullDecimal: { deserialize(source: string): NullDecimal; "new": (decimal: Decimal) => NullDecimal; default(): NullDecimal };
   ByteBuffer: { "new": (bytes: Uint8Array) => ByteBuffer };
   GoFormat: { default(): GoFormatOptions };
   RoundingMode: typeof RoundingMode & { from_raw(value: number): Rounding };

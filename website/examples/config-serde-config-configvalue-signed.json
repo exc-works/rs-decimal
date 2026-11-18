@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "config-serde-config-configvalue-signed",
+  "api_ids": [
+    "config::ConfigValue::Signed"
+  ],
+  "rust": "use rs_decimal::config::{self, ConfigValue};\nlet value = config::decode_decimal(ConfigValue::Signed(i128::MIN))?;",
+  "javascript": "const value = config.decode_decimal(config.ConfigValue.Signed(-(1n << 127n)));",
+  "expected": {
+    "coefficient": "-170141183460469231731687303715884105728",
+    "scale": "0",
+    "initialized": true,
+    "string": "-170141183460469231731687303715884105728",
+    "string_with_trailing_zeros": "-170141183460469231731687303715884105728"
+  }
+}

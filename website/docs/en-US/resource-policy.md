@@ -20,6 +20,9 @@ results within these limits remain unchanged. The core crate is not modified.
 | Built Wasm linear memory maximum | 64 MiB |
 
 Input scale and positive exponent expansion are checked before Rust parsing.
+Configuration conversions check original decimal text and decoded JSON strings;
+128-bit integer variants enforce exact signed/unsigned bounds before transport.
+Generic Serde adapters retain their own error surface and reject float visitors.
 SQL scanning checks text after core-compatible outer quote removal. Validation
 checks decimal rule parameters before construction and bounds repeated placeholder
 expansion before translation; fields and inserted parameters remain literal text.

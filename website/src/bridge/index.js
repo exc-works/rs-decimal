@@ -143,6 +143,8 @@ export function createBridge(raw) {
       kind === 'Bytes' ? inputBytes(input) : new Uint8Array()];
   }
   class Decimal extends Handle {
+    static deserialize(source) { return wrap(Decimal,raw.Decimal.deserialize(inputText(source))); }
+    serialize() { return borrow(this,Decimal).serialize(); }
     static new(value) {
       requireType(typeof value === 'bigint', 'value must be bigint (for example 3n)');
       requireType(value >= -(1n << 63n) && value < (1n << 63n), 'value must fit i64');
@@ -297,6 +299,8 @@ export function createBridge(raw) {
     }
   }
   class NullDecimal extends Handle {
+    static deserialize(source) { return wrap(NullDecimal,raw.NullDecimal.deserialize(inputText(source))); }
+    serialize() { return borrow(this,NullDecimal).serialize(); }
     static new(decimal) { return wrap(NullDecimal, raw.NullDecimal.new(take(decimal, Decimal))); }
     static default() { return wrap(NullDecimal, raw.NullDecimal.default()); }
     marshal_text() { return borrow(this, NullDecimal).marshal_text(); }
@@ -365,6 +369,42 @@ export function createBridge(raw) {
     },
     default_validation_messages: locale => JSON.parse(raw.default_validation_messages(inputText(locale))),
   });
+  const configSlots = new WeakMap();
+  function configValue(kind, value) { const out = Object.freeze({kind}); configSlots.set(out,{kind,value}); return out; }
+  function int128Text(value, unsigned) {
+    requireType(typeof value === 'bigint', 'value must be bigint');
+    requireType(unsigned ? value >= 0n && value < (1n << 128n) : value >= -(1n << 127n) && value < (1n << 127n), unsigned ? 'value must fit u128' : 'value must fit i128');
+    return value.toString();
+  }
+  const ConfigValue = Object.freeze({
+    Null: configValue('Null'), Unsupported: configValue('Unsupported'),
+    Text: value => configValue('Text',inputText(value)),
+    Number: value => configValue('Number',inputText(value)),
+    Bytes: value => configValue('Bytes',inputBytes(value)),
+    Signed: value => configValue('Signed',int128Text(value,false)),
+    Unsigned: value => configValue('Unsigned',int128Text(value,true)),
+    Float32: value => configValue('Float32',floatNumber(value)),
+    Float64: value => configValue('Float64',floatNumber(value)),
+    Decimal: value => { borrow(value,Decimal); return configValue('Decimal',value); },
+    Nullable: value => { borrow(value,NullDecimal); return configValue('Nullable',value); },
+  });
+  function decodeConfig(value, nullable) {
+    const data = configSlots.get(value); requireType(data !== undefined, 'expected ConfigValue from this run');
+    const {kind,value:input} = data, Type = nullable ? NullDecimal : Decimal;
+    if (kind === 'Decimal') return wrap(Type, (nullable ? raw.config_nullable_from_decimal : raw.config_decimal_from_decimal)(borrow(input,Decimal)));
+    if (kind === 'Nullable') return wrap(Type, (nullable ? raw.config_nullable_from_nullable : raw.config_decimal_from_nullable)(borrow(input,NullDecimal)));
+    return wrap(Type, (nullable ? raw.config_decode_nullable : raw.config_decode_decimal)(kind,
+      ['Text','Number','Signed','Unsigned'].includes(kind) ? input : '',
+      kind === 'Float32' || kind === 'Float64' ? input : 0,
+      kind === 'Bytes' ? inputBytes(input) : new Uint8Array()));
+  }
+  const config = Object.freeze({
+    ConfigValue,
+    decode_decimal: value => decodeConfig(value,false),
+    decode_nullable: value => decodeConfig(value,true),
+    deserialize_json_decimal: source => wrap(Decimal,raw.config_deserialize_json_decimal(inputText(source))),
+    deserialize_json_nullable: source => wrap(NullDecimal,raw.config_deserialize_json_nullable(inputText(source))),
+  });
   class ByteBuffer extends Handle {
     static new(bytes) {
       requireType(bytes instanceof Uint8Array, 'bytes must be Uint8Array');
@@ -398,5 +438,5 @@ export function createBridge(raw) {
     most_significant_bit: value => raw.most_significant_bit(bigText(value)),
     between: (v, lower, upper) => raw.between(borrow(v, Decimal), borrow(lower, Decimal), borrow(upper, Decimal)),
   };
-  return Object.freeze({ Decimal, NullDecimal, DecimalError, get ErrorKind() { return errorKinds(); }, ScanValue, validation, ByteBuffer, GoFormat, RoundingMode: rounding, snapshot, ...helpers, get PRECISION_FIXED_SIZE() { return raw.precision_fixed_size(); }, get COMPATIBILITY_REVISION() { return raw.compatibility_revision(); }, metadata: () => JSON.parse(raw.metadata()) });
+  return Object.freeze({ Decimal, NullDecimal, DecimalError, get ErrorKind() { return errorKinds(); }, ScanValue, validation, config, ByteBuffer, GoFormat, RoundingMode: rounding, snapshot, ...helpers, get PRECISION_FIXED_SIZE() { return raw.precision_fixed_size(); }, get COMPATIBILITY_REVISION() { return raw.compatibility_revision(); }, metadata: () => JSON.parse(raw.metadata()) });
 }

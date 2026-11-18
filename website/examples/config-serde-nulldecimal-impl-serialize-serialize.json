@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "config-serde-nulldecimal-impl-serialize-serialize",
+  "api_ids": [
+    "NullDecimal::impl Serialize::serialize"
+  ],
+  "rust": "let value = serde_json::json!({\"json\": serde_json::to_string(&NullDecimal::new(Decimal::new_from_string(\"1.2300\")?))?});",
+  "javascript": "const value = { json: NullDecimal.new(Decimal.new_from_string(\"1.2300\")).serialize() };",
+  "expected": {
+    "json": "\"1.23\""
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "config-serde-nulldecimal-impl-deserialize-de",
+  "api_ids": [
+    "NullDecimal::impl Deserialize < 'de >"
+  ],
+  "rust": "let value: NullDecimal = serde_json::from_str(\"\\\"1.2300\\\"\")?;",
+  "javascript": "const value = NullDecimal.deserialize(\"\\\"1.2300\\\"\");",
+  "expected": {
+    "valid": true,
+    "decimal": {
+      "coefficient": "12300",
+      "scale": "4",
+      "initialized": true
+    }
+  }
+}

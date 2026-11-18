@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "config-serde-config-configvalue-unsupported",
+  "api_ids": [
+    "config::ConfigValue::Unsupported"
+  ],
+  "rust": "use rs_decimal::config::{self, ConfigValue};\nlet error = config::decode_decimal(ConfigValue::Unsupported).unwrap_err();\nlet value = serde_json::json!({\"unmarshal\": error.matches(rs_decimal::ErrorKind::Unmarshal)});",
+  "javascript": "let failed = false;\ntry { config.decode_decimal(config.ConfigValue.Unsupported); } catch (e) { failed = e.kinds.includes(ErrorKind.Unmarshal); }\nconst value = { unmarshal: failed };",
+  "expected": {
+    "unmarshal": true
+  }
+}

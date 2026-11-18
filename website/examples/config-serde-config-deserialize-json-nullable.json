@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "config-serde-config-deserialize-json-nullable",
+  "api_ids": [
+    "config::deserialize_json_nullable"
+  ],
+  "rust": "#[derive(serde::Deserialize)]\nstruct Input {\n    #[serde(deserialize_with = \"rs_decimal::config::deserialize_json_nullable\")]\n    amount: NullDecimal,\n}\nlet input: Input = serde_json::from_str(\"{\\\"amount\\\":\\\"\\\"}\")?;\nlet value = input.amount;",
+  "javascript": "const value = config.deserialize_json_nullable(\"\\\"\\\"\");",
+  "expected": {
+    "valid": false,
+    "decimal": {
+      "coefficient": "0",
+      "scale": "0",
+      "initialized": false
+    }
+  }
+}

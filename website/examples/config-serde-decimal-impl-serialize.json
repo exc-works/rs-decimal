@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "config-serde-decimal-impl-serialize",
+  "api_ids": [
+    "Decimal::impl Serialize"
+  ],
+  "rust": "let value = serde_json::json!({\"json\": serde_json::to_string(&Decimal::new_from_string(\"1.2300\")?)?});",
+  "javascript": "const value = { json: Decimal.new_from_string(\"1.2300\").serialize() };",
+  "expected": {
+    "json": "\"1.23\""
+  }
+}

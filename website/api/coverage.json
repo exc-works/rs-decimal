@@ -635,24 +635,38 @@
   {
     "id": "Decimal::impl Deserialize < 'de >",
     "disposition": "adapter",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "decimal-impl-deserialize-de",
     "reason": "Generic Serde behavior is demonstrated through concrete, named Rust scenarios.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.deserialize(source: string): Decimal",
+    "examples": [
+      "config-serde-decimal-impl-deserialize-de"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl Deserialize < 'de >::deserialize",
     "disposition": "adapter",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "decimal-impl-deserialize-de-deserialize",
     "reason": "Generic Serde behavior is demonstrated through concrete, named Rust scenarios.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.deserialize(source: string): Decimal",
+    "examples": [
+      "config-serde-decimal-impl-deserialize-de-deserialize"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl Encode < '_ , Postgres >",
@@ -1068,24 +1082,38 @@
   {
     "id": "Decimal::impl Serialize",
     "disposition": "adapter",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "decimal-impl-serialize",
     "reason": "Generic Serde behavior is demonstrated through concrete, named Rust scenarios.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.serialize(): string",
+    "examples": [
+      "config-serde-decimal-impl-serialize"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl Serialize::serialize",
     "disposition": "adapter",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "decimal-impl-serialize-serialize",
     "reason": "Generic Serde behavior is demonstrated through concrete, named Rust scenarios.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "Decimal.serialize(): string",
+    "examples": [
+      "config-serde-decimal-impl-serialize-serialize"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "Decimal::impl Sub < & Decimal >",
@@ -3813,24 +3841,38 @@
   {
     "id": "NullDecimal::impl Deserialize < 'de >",
     "disposition": "adapter",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "nulldecimal-impl-deserialize-de",
     "reason": "Generic Serde behavior is demonstrated through concrete, named Rust scenarios.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.deserialize(source: string): NullDecimal",
+    "examples": [
+      "config-serde-nulldecimal-impl-deserialize-de"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::impl Deserialize < 'de >::deserialize",
     "disposition": "adapter",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "nulldecimal-impl-deserialize-de-deserialize",
     "reason": "Generic Serde behavior is demonstrated through concrete, named Rust scenarios.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.deserialize(source: string): NullDecimal",
+    "examples": [
+      "config-serde-nulldecimal-impl-deserialize-de-deserialize"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::impl Encode < '_ , Postgres >",
@@ -3879,24 +3921,38 @@
   {
     "id": "NullDecimal::impl Serialize",
     "disposition": "adapter",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "nulldecimal-impl-serialize",
     "reason": "Generic Serde behavior is demonstrated through concrete, named Rust scenarios.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.serialize(): string",
+    "examples": [
+      "config-serde-nulldecimal-impl-serialize"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::impl Serialize::serialize",
     "disposition": "adapter",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "nulldecimal-impl-serialize-serialize",
     "reason": "Generic Serde behavior is demonstrated through concrete, named Rust scenarios.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "NullDecimal.serialize(): string",
+    "examples": [
+      "config-serde-nulldecimal-impl-serialize-serialize"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "NullDecimal::impl Type < Postgres >",
@@ -4796,222 +4852,362 @@
   {
     "id": "config",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "config-serde-config"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::ConfigValue",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-configvalue",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.ConfigValue",
+    "examples": [
+      "config-serde-config-configvalue"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::ConfigValue::Bytes",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-configvalue-bytes",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.ConfigValue.Bytes",
+    "examples": [
+      "config-serde-config-configvalue-bytes"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::ConfigValue::Decimal",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-configvalue-decimal",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.ConfigValue.Decimal",
+    "examples": [
+      "config-serde-config-configvalue-decimal"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::ConfigValue::Float32",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-configvalue-float32",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.ConfigValue.Float32",
+    "examples": [
+      "config-serde-config-configvalue-float32"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::ConfigValue::Float64",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-configvalue-float64",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.ConfigValue.Float64",
+    "examples": [
+      "config-serde-config-configvalue-float64"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::ConfigValue::Null",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-configvalue-null",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.ConfigValue.Null",
+    "examples": [
+      "config-serde-config-configvalue-null"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::ConfigValue::Nullable",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-configvalue-nullable",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.ConfigValue.Nullable",
+    "examples": [
+      "config-serde-config-configvalue-nullable"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::ConfigValue::Number",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-configvalue-number",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.ConfigValue.Number",
+    "examples": [
+      "config-serde-config-configvalue-number"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::ConfigValue::Signed",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-configvalue-signed",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.ConfigValue.Signed",
+    "examples": [
+      "config-serde-config-configvalue-signed"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::ConfigValue::Text",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-configvalue-text",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.ConfigValue.Text",
+    "examples": [
+      "config-serde-config-configvalue-text"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::ConfigValue::Unsigned",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-configvalue-unsigned",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.ConfigValue.Unsigned",
+    "examples": [
+      "config-serde-config-configvalue-unsigned"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::ConfigValue::Unsupported",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-configvalue-unsupported",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.ConfigValue.Unsupported",
+    "examples": [
+      "config-serde-config-configvalue-unsupported"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::ConfigValue::impl Clone",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-configvalue-impl-clone",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "config-serde-config-configvalue-impl-clone"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::ConfigValue::impl Copy",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-configvalue-impl-copy",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "config-serde-config-configvalue-impl-copy"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::ConfigValue::impl Debug",
     "disposition": "rust-only",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-configvalue-impl-debug",
     "reason": "Rust trait/module/re-export semantics; see the corresponding Rust usage example. Third-party re-exports do not imply complete bridge coverage.",
     "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "examples": [
+      "config-serde-config-configvalue-impl-debug"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::decode_decimal",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-decode-decimal",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.decode_decimal",
+    "examples": [
+      "config-serde-config-decode-decimal"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::decode_nullable",
     "disposition": "direct",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-decode-nullable",
     "reason": "",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.decode_nullable(value: ConfigValue): NullDecimal",
+    "examples": [
+      "config-serde-config-decode-nullable"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::deserialize_json_decimal",
     "disposition": "adapter",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-deserialize-json-decimal",
     "reason": "Generic Serde behavior is demonstrated through concrete, named Rust scenarios.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.deserialize_json_decimal(source: string): Decimal",
+    "examples": [
+      "config-serde-config-deserialize-json-decimal"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "config::deserialize_json_nullable",
     "disposition": "adapter",
-    "status": "planned",
-    "owner": "WEB-13b",
+    "status": "implemented",
+    "owner": "WEB-13b-1",
     "doc_id": "config-deserialize-json-nullable",
     "reason": "Generic Serde behavior is demonstrated through concrete, named Rust scenarios.",
-    "bridge_signature": null,
-    "examples": [],
-    "tests": []
+    "bridge_signature": "config.deserialize_json_nullable(source: string): NullDecimal",
+    "examples": [
+      "config-serde-config-deserialize-json-nullable"
+    ],
+    "tests": [
+      "website/tests/config-serde.test.mjs",
+      "tools/check-web-examples/src/main.rs",
+      "website/tests/examples.test.mjs",
+      "website/tests/examples-harness.html"
+    ]
   },
   {
     "id": "hundred",

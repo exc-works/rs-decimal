@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "config-serde-config-configvalue-unsigned",
+  "api_ids": [
+    "config::ConfigValue::Unsigned"
+  ],
+  "rust": "use rs_decimal::config::{self, ConfigValue};\nlet value = config::decode_decimal(ConfigValue::Unsigned(u128::MAX))?;",
+  "javascript": "const value = config.decode_decimal(config.ConfigValue.Unsigned((1n << 128n) - 1n));",
+  "expected": {
+    "coefficient": "340282366920938463463374607431768211455",
+    "scale": "0",
+    "initialized": true,
+    "string": "340282366920938463463374607431768211455",
+    "string_with_trailing_zeros": "340282366920938463463374607431768211455"
+  }
+}

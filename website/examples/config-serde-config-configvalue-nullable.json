@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "config-serde-config-configvalue-nullable",
+  "api_ids": [
+    "config::ConfigValue::Nullable"
+  ],
+  "rust": "use rs_decimal::config::{self, ConfigValue};\nlet mut original = NullDecimal::new(Decimal::new_from_string(\"12.30\")?);\noriginal.valid = false;\nlet value = config::decode_nullable(ConfigValue::Nullable(&original))?;",
+  "javascript": "const original = NullDecimal.new(Decimal.new_from_string(\"12.30\"));\noriginal.valid = false;\nconst value = config.decode_nullable(config.ConfigValue.Nullable(original));",
+  "expected": {
+    "valid": false,
+    "decimal": {
+      "coefficient": "1230",
+      "scale": "2",
+      "initialized": true
+    }
+  }
+}

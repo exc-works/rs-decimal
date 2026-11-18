@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "config-serde-config-configvalue-bytes",
+  "api_ids": [
+    "config::ConfigValue::Bytes"
+  ],
+  "rust": "use rs_decimal::config::{self, ConfigValue};\nlet value = config::decode_decimal(ConfigValue::Bytes(b\"1.2300\"))?;",
+  "javascript": "const value = config.decode_decimal(config.ConfigValue.Bytes(new TextEncoder().encode(\"1.2300\")));",
+  "expected": {
+    "coefficient": "12300",
+    "scale": "4",
+    "initialized": true,
+    "string": "1.23",
+    "string_with_trailing_zeros": "1.2300"
+  }
+}

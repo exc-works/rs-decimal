@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "config-serde-decimal-impl-deserialize-de-deserialize",
+  "api_ids": [
+    "Decimal::impl Deserialize < 'de >::deserialize"
+  ],
+  "rust": "let value: Decimal = serde_json::from_str(\"\\\"1.2300\\\"\")?;",
+  "javascript": "const value = Decimal.deserialize(\"\\\"1.2300\\\"\");",
+  "expected": {
+    "coefficient": "12300",
+    "scale": "4",
+    "initialized": true,
+    "string": "1.23",
+    "string_with_trailing_zeros": "1.2300"
+  }
+}
