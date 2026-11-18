@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { data } from '../examples.data';
+import MethodForm from './MethodForm.vue';
 const props=defineProps<{id:string,locale:string}>();
 const example=computed(()=>data[props.id]);
 const labels:Record<string,string>={'en-US':'Expected state','en-GB':'Expected state','zh-Hans':'预期状态','zh-Hant':'預期狀態',fr:'État attendu',de:'Erwarteter Zustand',ja:'期待される状態',ko:'예상 상태'};
@@ -23,6 +24,7 @@ const liveLabels:Record<string,string>={
     <template v-if="example.javascript.trim()"><h3>JavaScript</h3><pre><code>{{ example.javascript }}</code></pre></template>
     <p v-else>{{ example.native_profile === "postgres-live" ? liveLabels[locale] : nativeLabels[locale] }}</p>
     <h3>{{ labels[locale] }}</h3><pre><code>{{ JSON.stringify(example.expected,null,2) }}</code></pre>
+    <MethodForm v-if="example.javascript.trim()" :key="example.id" :example="example" :locale="locale" />
   </section>
 </template>
 <style scoped>
