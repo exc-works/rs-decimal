@@ -47,3 +47,33 @@ through the build tooling or accept untrusted glob patterns.
 `tests/browser-site.py` starts a local preview and checks eight locale routes,
 API filtering, language-preserving navigation, local search and narrow-screen
 layout. Set `CHROMEDRIVER` and `TEST_CHROME_BINARY` to matching executables.
+
+## Editor and local execution
+
+The playground loads Monaco after client mounting and only on its own route.
+JavaScript completion and parameter help use the bridge declarations; unsupported
+methods are not advertised. The editor, TypeScript worker and locale bundles are
+local assets. The initial development build has roughly 3.2 MiB of editor code
+and a 6.7 MiB TypeScript worker before compression; ordinary documentation routes
+do not load these chunks. Monaco 0.57.0 uses DOMPurify, overridden to 3.4.18 to
+include its security fixes. The previously documented build-only picomatch
+advisory remains; no clean audit claim is made.
+
+Set `DOCS_RUNNER_URL` to the trusted separate-origin runner deployment when
+building docs. Both packages must be built at the same Git commit. For a local
+check, build Wasm, package the runner with parent `http://127.0.0.1:4210`, then
+build docs with `DOCS_BASE=/rs-decimal/ DOCS_RUNNER_URL=http://127.0.0.1:4211/`.
+`tests/browser-editor.py` serves these packages and tests the actual UI. Without
+runner configuration, editing/import/export remain available and Run is visibly
+disabled. An editor route never runs a restored draft or imported file by itself.
+
+`show(value)`/`print(value)` snapshot values immediately; `assert(condition,
+message?)` reports a script assertion error. Output is rendered as escaped text;
+bounded partial output survives a later error. Ctrl/Cmd+Enter runs the source.
+Stop terminates execution; Reset restores the initial example. Local storage
+holds a validated versioned source draft, and session storage holds bounded
+results. File import validates UTF-8 size before use; export preserves source.
+Locale changes preserve draft/results. Monaco's built-in labels load in the
+selected language; switching its language reloads the route after state saving
+because some labels are initialized once. Browser storage can be unavailable;
+the UI reports draft-save failure and still allows file export.
