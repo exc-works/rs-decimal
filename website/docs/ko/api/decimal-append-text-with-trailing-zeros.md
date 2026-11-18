@@ -1,10 +1,31 @@
 ---
 locale: ko
+source_revision: 9028fbd5554cd396883d5b8bb4b06efa13e22d1b025f5ba855a44ab02e548531
+translation_provenance: en-US-korean-reviewed
 api_id: Decimal::append_text_with_trailing_zeros
-translation_status: pending
 ---
 # Decimal::append_text_with_trailing_zeros
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+기존 가변 버퍼에 소수 ASCII 바이트를 추가합니다.
 
-[영어 참고 문서](../../en-US/api/decimal-append-text-with-trailing-zeros)
+```rust
+fn append_text_with_trailing_zeros (& self , dst : & mut Vec < u8 >)
+```
+
+## 매개변수, 반환값, 일반적인 사용법
+
+`dst: &mut Vec<u8>`를 ByteBuffer 래퍼로 나타냅니다. Rust는 (), JS는 undefined를 반환합니다. 기존 바이트를 유지하며 대상 버퍼를 제자리에서 바꿉니다. 저장된 소수 부분의 0을 모두 유지합니다. Decimal과 버퍼는 계속 사용할 수 있습니다. Uint8Array는 ByteBuffer.new로 복사하며 to_uint8_array는 Wasm 메모리 뷰가 아니라 복사본을 반환합니다. 리소스 실패는 변경 전에 발생하여 버퍼를 그대로 유지합니다.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="formatting-decimal-append-text-with-trailing-zeros" locale="ko" />
+
+## 브라우저 제한
+
+[리소스 정책](../resource-policy)은 서식 폭을 65536바이트, 정밀도를 1000으로 제한하며 고정소수점 서식은 계수 증가도 검사합니다. 버퍼는 65536바이트까지입니다. 추가 연산은 보수적인 크기 추정을 사용하므로 실제로는 딱 맞는 연산도 거부할 수 있습니다. 리소스 오류는 입력이나 버퍼를 바꾸지 않습니다. print는 긴 표시 텍스트를 별도로 자릅니다. 전체 결과를 확인하려면 길이를 검사하거나 작은 부분으로 나눠 출력하세요.
+
+## 관련 메서드
+
+[GoFormat](./goformat) · [format_go](./decimal-format-go) · [append_text](./decimal-append-text) · [string_with_trailing_zeros](./decimal-string-with-trailing-zeros)

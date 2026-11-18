@@ -1,10 +1,31 @@
 ---
 locale: ko
+source_revision: c07644d3e3d75d66141539a54d5f6c78026aea2ec5a96a31f2d985d0d9ec6fc0
+translation_provenance: en-US-korean-reviewed
 api_id: GoFormat::impl Copy
-translation_status: pending
 ---
 # GoFormat::impl Copy
 
-이 메서드의 한국어 번역은 아직 준비 중입니다. 일반적인 사용법, 매개변수, 예제 및 주의 사항은 영어 참고 문서를 확인하세요. 이 안내 페이지는 번역 완료로 집계되지 않습니다.
+Rust Copy 구현을 사용합니다.
 
-[영어 참고 문서](../../en-US/api/goformat-impl-copy)
+```rust
+impl Copy for GoFormat
+```
+
+## 매개변수, 반환값, 일반적인 사용법
+
+GoFormat은 작은 Copy 필드 구조체입니다. Clone/Copy는 옵션을 유지하고 Debug는 필드를 출력합니다. Default는 v, width/precision에 None, 모든 플래그에 false를 선택합니다. 이 Rust 문법은 네이티브에서 검사하며 bridge 객체는 일반 JS 필드 객체의 동작과 GoFormat.default()를 사용합니다.
+
+<script setup>
+import MethodExample from "../../_components/MethodExample.vue";
+</script>
+
+<MethodExample id="formatting-goformat-impl-copy" locale="ko" />
+
+## 브라우저 제한
+
+[리소스 정책](../resource-policy)은 서식 폭을 65536바이트, 정밀도를 1000으로 제한하며 고정소수점 서식은 계수 증가도 검사합니다. 버퍼는 65536바이트까지입니다. 추가 연산은 보수적인 크기 추정을 사용하므로 실제로는 딱 맞는 연산도 거부할 수 있습니다. 리소스 오류는 입력이나 버퍼를 바꾸지 않습니다. print는 긴 표시 텍스트를 별도로 자릅니다. 전체 결과를 확인하려면 길이를 검사하거나 작은 부분으로 나눠 출력하세요.
+
+## 관련 메서드
+
+[GoFormat](./goformat) · [format_go](./decimal-format-go) · [append_text](./decimal-append-text) · [string_with_trailing_zeros](./decimal-string-with-trailing-zeros)

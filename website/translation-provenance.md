@@ -155,3 +155,8 @@ scale versus significant figures, initialization versus numerical equality,
 signed/tie rounding, borrowing/consumption and exact integer/error boundaries.
 The corrected is_integer and mode-qualified quo sources are used. Shared
 fixtures remain unchanged; remaining method groups retain explicit fallback.
+
+Korean conversion/formatting/root/log-exp references (WEB-10a–b and
+WEB-11a–b; 47 more entries) preserve exactness versus success, IEEE special
+values, Unicode scalar separators, rational conversion and certified half-even
+rounding. The corrected float64 source is used, with separate domain/resource errors.
