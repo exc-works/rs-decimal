@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { useData } from "vitepress";
-import { RunnerClient } from "../../src/runner/client.js";
+import { RunnerClient, runnerErrorMessage } from "../../src/runner/client.js";
 import { sourceValid } from "../../src/runner/protocol.js";
 import { session } from "../../src/editor/state";
 import { HANDOFF_KEY, encodeShare, decodeShare, decodeTransfer } from '../../src/editor/transfer.mjs';
@@ -86,7 +86,7 @@ async function run() {
   } catch (error) {
     if (disposed || current !== generation) return;
     session.status = "error";
-    session.message = String(error instanceof Error ? error.message : error);
+    session.message = runnerErrorMessage(error, props.labels);
     client?.dispose();
     client = undefined;
   } finally {

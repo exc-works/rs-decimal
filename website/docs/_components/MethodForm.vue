@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRouter, withBase } from 'vitepress';
 import { RoundingMode } from '../../src/bridge/index.js';
-import { RunnerClient } from '../../src/runner/client.js';
+import { RunnerClient, runnerErrorMessage } from '../../src/runner/client.js';
 import { locales } from '../../locales.mjs';
 import { formSource } from '../../src/editor/method-form.mjs';
 import { encodeTransfer, HANDOFF_KEY } from '../../src/editor/transfer.mjs';
@@ -11,7 +11,7 @@ const router = useRouter();
 const labels = computed(() => locales[props.locale]);
 const emit = defineEmits<{edit: [values: string[]]}>();
 const fieldLabels = {mode:'fieldMode', prec:'fieldPrec', input:'fieldInput', value:'fieldValue', a:'fieldLeft', b:'fieldRight'};
-const debounceMs = 350;
+const debounceMs = 200;
 const draft = ref<string[]>(props.example.inputs.map(field => field.value));
 const mounted = ref(false), storageError = ref(false);
 const runnerHost = ref<HTMLElement>();
@@ -19,7 +19,8 @@ const busy = ref(false), invalid = ref(false);
 const output = ref<string[]>([]), error = ref('');
 let dirty = false;
 let timer: ReturnType<typeof setTimeout> | undefined;
-let active: RunnerClient | undefined;
+let client: RunnerClient | undefined;
+let generation = 0;
 const storageKey = () => `rs-decimal:method:${__PLAYGROUND_CONFIG__.commit}:${props.example.id}`;
 const scriptFor = (values: string[]) => formSource(props.example.javascript, props.example.inputs, values);
 
@@ -42,8 +43,8 @@ function persist() {
 
 function cancelWork() {
   clearTimeout(timer);
-  active?.dispose();
-  active = undefined;
+  generation++;
+  client?.stop();
 }
 
 function prepare() {
@@ -73,27 +74,24 @@ async function run() {
   const script = prepare();
   if (script === null || !runnerHost.value) return;
   busy.value = true;
-  let client: RunnerClient | undefined;
+  const current = generation;
   const lines: string[] = [];
   try {
-    client = new RunnerClient({ container: runnerHost.value, ...__PLAYGROUND_CONFIG__ });
-    active = client;
+    client ??= new RunnerClient({ container: runnerHost.value, ...__PLAYGROUND_CONFIG__ });
     const result = await client.run(script, { onOutput: (text: string) => lines.push(displayOutput(text)) });
-    if (active !== client) return;
+    if (generation !== current) return;
     output.value = lines;
     error.value = result.type === 'done' ? '' :
       [result.category, ...(result.kinds ?? []), result.message].filter(Boolean).join(' · ');
   } catch (cause) {
-    if (active === client) {
+    if (generation === current) {
       output.value = lines;
-      error.value = cause instanceof Error ? cause.message : String(cause);
+      error.value = runnerErrorMessage(cause, labels.value);
+      client?.dispose();
+      client = undefined;
     }
   } finally {
-    if (active === client) {
-      client?.dispose();
-      active = undefined;
-      busy.value = false;
-    }
+    if (generation === current) busy.value = false;
   }
 }
 
@@ -127,6 +125,7 @@ onMounted(() => {
 });
 onBeforeUnmount(() => {
   cancelWork();
+  client?.dispose();
   savePendingDraft();
   window.removeEventListener('pagehide', savePendingDraft);
 });
