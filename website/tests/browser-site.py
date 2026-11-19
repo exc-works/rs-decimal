@@ -57,6 +57,9 @@ try:
         return call(f'/session/{session}/execute/sync', {'script': script, 'args': []})
     def navigate(path):
         call(f'/session/{session}/url', {'url': SITE + path})
+    navigate('')
+    until(lambda: js('return location.pathname') == '/rs-decimal/en-US/')
+    assert '10.25' in js('return document.querySelector(".vp-doc").textContent')
     count = len(json.loads((ROOT / 'api/rust-api.json').read_text()))
     coverage = {entry['id']: entry for entry in json.loads((ROOT / 'api/coverage.json').read_text())}
     groups = json.loads((ROOT / 'translation-manifest.json').read_text()).get('method_locale_owners', {})
@@ -125,6 +128,9 @@ try:
     navigate('zh-Hans/guide.html')
     until(lambda: js('return !!document.querySelector("h1")'))
     assert js('return document.documentElement.scrollWidth <= innerWidth')
+    assert js('return document.querySelector(".VPNavBarTranslations button").getBoundingClientRect().width > 0')
+    navigate('')
+    until(lambda: js('return location.pathname') == '/rs-decimal/zh-Hans/')
     print('Eight locale routes, API filtering, language switching, locale search and mobile layout passed.')
 finally:
     if 'session' in globals():

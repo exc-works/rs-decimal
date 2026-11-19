@@ -1,15 +1,31 @@
 ---
 locale: zh-Hans
-source_revision: b0ab4b73c5319adf6d0f52ca8ad72391d3a1bf1d0a68f2ceac7763706868b54b
+source_revision: f513baf539375e2a99059b44ed14e0bbb75f211d5e47c68b2215892ab1d50f56
 ---
 # 快速开始
 
-输入需要保持精确时，请从字符串构造十进制数。`mul_exact` 将输入的小数位数相加；`string()` 省略尾零，`string_with_trailing_zeros()` 保留尾零。
+顾客买了两本笔记本，每本 4.50 元，运费 1.25 元。我们来算收银台该收多少钱，再把金额印到小票上。
 
-<<< ../../../examples/web_getting_started.rs
+## 算出应付金额
 
-precision 参数通常表示小数位数，不是有效数字位数。`HalfEven` 在中点时取保留末位为偶数的结果。`Down` 朝零截断，不是朝负无穷舍入。
+先照订单上的写法，用 `new_from_string("4.50")` 读入单价。用 `mul_exact` 乘以数量 2，商品小计是 9.00 元。再用 `add` 加上运费，应付就是 10.25 元。
 
-`Decimal::default()` 是未初始化的数值零。初始化零与它数值相等，但状态不同。`NullDecimal.valid` 独立决定值是否存在。
+<<< ../../../examples/web_getting_started.rs#calculate
 
-普通可失败方法返回 `Result`。请检查错误类别；只有显式命名的 `must_*` 方法会因预期输入错误而 panic。浏览器将通过 JavaScript bridge 调用相同的 Rust 方法，并说明类型与所有权映射。
+## 把金额印在小票上
+
+对商品小计调用 `string()` 会得到 "9"，调用 `string_with_trailing_zeros()` 会得到 "9.00"。两者是同一笔钱，后者保留了单价里的两位小数，适合印在小票上。
+
+<<< ../../../examples/web_getting_started.rs#print
+
+[在浏览器里改数量、看结果](./playground) — 试着把数量从 2 改成 3，再运行一次。商品小计应变成 13.50 元，应付金额应变成 14.75 元。
+
+## 在本机运行 Rust 示例
+
+安装 Rust 1.85 或更高版本后，运行以下命令下载仓库并执行示例。终端会打印 10.25。
+
+```sh
+git clone https://github.com/exc-works/rs-decimal.git
+cd rs-decimal
+cargo run --locked --example web_getting_started
+```

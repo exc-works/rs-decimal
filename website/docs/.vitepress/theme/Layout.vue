@@ -7,12 +7,18 @@ import { locales } from '../../../locales.mjs';
 const { page, lang } = useData();
 onMounted(() => {
   const preference = 'rs-decimal:docs-language';
-  try {
-    if (page.value.relativePath === 'index.md' && !location.hash && !location.search) {
-      const saved = localStorage.getItem(preference);
-      if (saved && Object.hasOwn(locales, saved)) location.replace(withBase('/' + saved + '/'));
-    }
-  } catch { /* Storage is optional. */ }
+  if (page.value.relativePath === 'index.md') {
+    let saved;
+    try { saved = localStorage.getItem(preference); } catch { /* Storage is optional. */ }
+    const preferred = navigator.languages.map(tag => {
+      const locale = new Intl.Locale(tag);
+      if (locale.language === 'zh') return 'zh-' + locale.maximize().script;
+      if (locale.language === 'en') return locale.region === 'GB' ? 'en-GB' : 'en-US';
+      return locale.language;
+    });
+    const target = [saved, ...preferred].find(id => Object.hasOwn(locales, id)) ?? 'en-US';
+    location.replace(withBase('/' + target + '/') + location.search + location.hash);
+  }
   watch(() => page.value.relativePath, path => {
     const locale = path.split('/')[0];
     if (Object.hasOwn(locales, locale)) {
