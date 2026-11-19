@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 72523519c8ccf1aad4c8baebb6ac1ef42e8070b9cc7f7f72b600ff77781eaf4e
+source_revision: 6b629a98b1d0cf789206ec80dbc9b0fea8fe635e292ac636b6d2f18cecfbcd39
 translation_provenance: en-US-german-reviewed
 api_id: "ErrorKind::InvalidFormat"
 ---
@@ -14,7 +14,7 @@ InvalidFormat
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-Die Eingabe ist keine unterstützte endliche Dezimaldarstellung. ErrorKind ist eine stabile Kategorie, keine Meldungszeichenfolge. Browser-Enumwerte sind Rust-Variantennamen; konstruierte Fehler verwenden matches(), abgefangene Bridge-Ausnahmen ein kinds-Array.
+Die Eingabe ist keine unterstützte endliche Dezimaldarstellung.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

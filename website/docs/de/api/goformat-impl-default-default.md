@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 873d615adf07acd5810e5a3d2447199c951d65cd40cb07c1afb47b23535aad17
+source_revision: 6a03ad3f2e6f0755e57eb89608d0891566bd0e9c4b875afd8935ad4e0e27dd6d
 translation_provenance: en-US-german-reviewed
 api_id: GoFormat::impl Default::default
 ---
@@ -14,7 +14,7 @@ fn default () -> Self
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-GoFormat ist ein kleines Copy-Struct mit Feldern. Clone/Copy erhalten Optionen; Debug gibt Felder aus. Default wählt v, None für width/precision und false für alle Flags. Diese Rust-Syntax wird nativ getestet; Bridge-Objekte verwenden gewöhnliche JS-Feldobjektsemantik und GoFormat.default().
+GoFormat ist ein kleines Copy-Struct mit Feldern. Clone/Copy erhalten Optionen; Debug gibt Felder aus. Default wählt v, None für width/precision und false für alle Flags. Diese Rust-Syntax wird nativ getestet; JavaScript-Objekte verwenden gewöhnliche JS-Feldobjektsemantik und GoFormat.default().
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

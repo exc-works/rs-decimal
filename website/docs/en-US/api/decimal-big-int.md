@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: dcbc410f5dabf4a62b4cb667b765d034201be05823aeeb413148caad325fb23f
+source_revision: f7f692709bde775f34d7f5feb756c59944ff77c763bae1798b2b4306d9770c41
 api_id: Decimal::big_int
 ---
 # Decimal::big_int
@@ -13,7 +13,7 @@ fn big_int (& self) -> BigInt
 
 ## Parameters, return and usage notes
 
-Rust returns an independent BigInt; the bridge returns bigint. This includes trailing zeros, unlike a truncating integer conversion. The example renders bigint as text for JSON.
+Rust returns an independent BigInt; JavaScript returns bigint. This includes trailing zeros, unlike a truncating integer conversion. The example renders bigint as text for JSON.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

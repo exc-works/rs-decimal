@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: dc7af33554badb1c95cd11064df3b51faeaca3112afc1b82cf2efcaf4ff1844d
+source_revision: 189b6d1ee3eb48467bf982330ec482f99ea7cd30e80f4f3c225f2808c0e03cc3
 translation_provenance: en-US-german-reviewed
 api_id: "ErrorKind::RoundUnnecessary"
 ---
@@ -14,7 +14,7 @@ RoundUnnecessary
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-Exakte Rundung wurde verlangt, aber Ziffern ungleich null müssten verworfen werden. ErrorKind ist eine stabile Kategorie, keine Meldungszeichenfolge. Browser-Enumwerte sind Rust-Variantennamen; konstruierte Fehler verwenden matches(), abgefangene Bridge-Ausnahmen ein kinds-Array.
+Exakte Rundung wurde verlangt, aber Ziffern ungleich null müssten verworfen werden.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

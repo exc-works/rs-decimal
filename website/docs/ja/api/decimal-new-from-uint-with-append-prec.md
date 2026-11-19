@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 1f2a665c28ead224f75ed902dd02b6b36626040f13db084f643088b5ff82188f
+source_revision: b1a9d67b6db859834f3ef9cd2d0fefcd4239bbf10472aedba8e0a86a95b51eeb
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::new_from_uint_with_append_prec
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 使い方の補足
 
-負の値や範囲外の値は bridge の引数エラーです。負の精度は `InvalidPrecision` です。末尾のゼロを保持する出力で追加された桁を確認できます。
+負の値や範囲外の値は JavaScript の引数エラーです。負の精度は `InvalidPrecision` です。末尾のゼロを保持する出力で追加された桁を確認できます。
 
 ## 関連メソッド
 

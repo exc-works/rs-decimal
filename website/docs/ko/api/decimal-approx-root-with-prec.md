@@ -1,12 +1,12 @@
 ---
 locale: ko
-source_revision: 8eec4d40194be2cd158d623391729d3b1e9d3b0532af669f3499b5168782b68c
+source_revision: b69b3ecae1736be1a46c2a27882fc070a83e2b04381bee4c592838ebb67cda61
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::approx_root_with_prec
 ---
 # Decimal::approx_root_with_prec
 
-양의 차수 근을 계산합니다. Rust는 Result<Decimal, DecimalError>를, bridge는 Decimal 또는 구조화된 예외를 반환합니다. degree: i64를 bigint로 전달합니다. 차수는 양수여야 하며 그렇지 않으면 InvalidRoot입니다. 홀수 차수는 음수 입력을 허용하고 음수의 짝수 차수 근은 NegativeRoot입니다. 차수 1은 최근접 짝수 반올림으로 자릿수를 바꿉니다. prec: isize를 정수 number로 전달하며 소수 자릿수를 선택합니다. 음수 정밀도는 정의역 검사 전에 InvalidPrecision을 반환합니다. 최근접 짝수 반올림을 사용합니다. 정밀도 0의 sqrt(6.25)처럼 정확히 중간인 근은 2로 반올림합니다. approx_root라는 이름이어도 Rust는 정수 비교로 반올림을 증명합니다. 코어 계산/반복 예산을 소진하면 NoConvergence를 반환합니다. 입력은 빌려 쓰며 바꾸지 않고 기본 0을 포함한 결과는 초기화됩니다.
+양의 차수 근을 계산합니다. degree: i64를 bigint로 전달합니다. 차수는 양수여야 하며 그렇지 않으면 InvalidRoot입니다. 홀수 차수는 음수 입력을 허용하고 음수의 짝수 차수 근은 NegativeRoot입니다. 차수 1은 최근접 짝수 반올림으로 자릿수를 바꿉니다. prec: isize를 정수 number로 전달하며 소수 자릿수를 선택합니다. 음수 정밀도는 정의역 검사 전에 InvalidPrecision을 반환합니다. 최근접 짝수 반올림을 사용합니다. 정밀도 0의 sqrt(6.25)처럼 정확히 중간인 근은 2로 반올림합니다. approx_root라는 이름이어도 Rust는 정수 비교로 반올림을 증명합니다. 코어 계산/반복 예산을 소진하면 NoConvergence를 반환합니다. 입력은 빌려 쓰며 바꾸지 않고 기본 0을 포함한 결과는 초기화됩니다.
 
 ```rust
 fn approx_root_with_prec (& self , degree : i64 , prec : isize) -> Result < Self , DecimalError >

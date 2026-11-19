@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 368adfaeea00a469d274e0e87fc3e84f66ca2848d32cfd8759858b2bac06fe99
+source_revision: bd62f5fbc640a37b2adf289a5796e4f02bc2e94ecde07c9c595d96aa3787e2b3
 translation_provenance: en-US-german-reviewed
 api_id: "ErrorKind::Overflow"
 ---
@@ -14,7 +14,7 @@ Overflow
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-Ein Koeffizient, eine Skala oder Operation überschreitet den unterstützten Kernbereich. ErrorKind ist eine stabile Kategorie, keine Meldungszeichenfolge. Browser-Enumwerte sind Rust-Variantennamen; konstruierte Fehler verwenden matches(), abgefangene Bridge-Ausnahmen ein kinds-Array.
+Ein Koeffizient, eine Skala oder Operation überschreitet den unterstützten Kernbereich.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

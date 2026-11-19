@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: c456812ef50493713a2bbd81d6c57db5a0f730099b5878e83b3d4f358245d822
+source_revision: b8e7e5961d02ab6085d9349678f9d56ff16e22199976302e7003a2d2b5639d01
 translation_provenance: en-US-german-reviewed
 api_id: "ErrorKind::InvalidLog"
 ---
@@ -14,7 +14,7 @@ InvalidLog
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-Eine Logarithmuseingabe ist nichtpositiv. ErrorKind ist eine stabile Kategorie, keine Meldungszeichenfolge. Browser-Enumwerte sind Rust-Variantennamen; konstruierte Fehler verwenden matches(), abgefangene Bridge-Ausnahmen ein kinds-Array.
+Eine Logarithmuseingabe ist nichtpositiv.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,12 +1,10 @@
 ---
 locale: zh-Hans
-source_revision: cd012116d4b52c3d753afdb334a916afcdf34239a5a89a6aa326b13a592ef135
+source_revision: 637474c992943a95b792c86f50bfa04821ba9ba29fe9dab7696d42ada69cbe84
 ---
 # Playground 资源限制
 
-浏览器 bridge 的允许范围小于 Rust 库。`BridgeError` 的 `category: "resource"`
-表示达到 Playground 配额，不是数值库错误。在限制内，方法名、参数顺序和计算
-结果保持 Rust 行为；核心库没有修改。
+计算超过下列限制时，Playground 会返回 `category: "resource"`。
 
 | 限制 | 当前值 |
 | --- | --- |

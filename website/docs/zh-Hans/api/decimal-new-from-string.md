@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: ade28fb6fdcde851797c02557b97ea1da6938690477fe011590975bc67fbbf2e
+source_revision: ea81b480a27af3babe08d7b00fe374cc7cd1626376f6bcd3383174c9fcd41789
 api_id: Decimal::new_from_string
 ---
 # Decimal::new_from_string
@@ -13,7 +13,7 @@ fn new_from_string (text : & str) -> Result < Self , DecimalError >
 
 ## 参数和返回值
 
-`text: &str` 对应 JavaScript `string`。Rust 返回 `Result<Decimal, DecimalError>`；bridge 返回 Decimal 或抛出保留库分类的错误。
+`text: &str` 对应 JavaScript `string`。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

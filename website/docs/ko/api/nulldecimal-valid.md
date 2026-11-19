@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: d57c1e8ddb07024ed3c5c002f095b2cee086c1a0719df70a0b4ba8761f29418d
+source_revision: 2a36a5c46f57052b68644728359c44f15465f6bfca2c60d1540e40c603cc8c5b
 translation_provenance: en-US-korean-reviewed
 api_id: NullDecimal.valid
 ---
@@ -14,7 +14,7 @@ valid: bool
 
 ## 일반적인 사용법과 의미
 
-이 공개 Rust bool 필드는 boolean getter/setter에 대응합니다. false로 설정해도 소수를 지우지 않으며 true로 설정해도 초기화하지 않습니다. bridge는 변경 전에 boolean이 아닌 값을 거부합니다.
+이 공개 Rust bool 필드는 boolean getter/setter에 대응합니다. false로 설정해도 소수를 지우지 않으며 true로 설정해도 초기화하지 않습니다. JavaScript는 변경 전에 boolean이 아닌 값을 거부합니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

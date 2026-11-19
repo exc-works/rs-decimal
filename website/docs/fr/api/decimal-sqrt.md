@@ -1,12 +1,12 @@
 ---
 locale: fr
-source_revision: 0bbd6c78da40405c6e9ad9c68a14878f98d98b4601eb8ff1296abba0bbf809ae
+source_revision: 7f9e2f6ed775898aae666efe4610ba891f54aadb6987e2a347de88c3c59500ea
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::sqrt
 ---
 # Decimal::sqrt
 
-Calculer une racine carrée. Renvoie Result<Decimal, DecimalError> en Rust, et Decimal ou une exception structurée dans le bridge. Pas de paramètre degree. Une entrée négative renvoie NegativeRoot. La précision par défaut est max(nombre de décimales de l’entrée, 20), pas 20 chiffres significatifs. L’arrondi est au pair ; une racine exactement à mi-chemin, comme sqrt(6.25) à la précision zéro, est arrondie à 2. Malgré le nom approx_root, Rust certifie l’arrondi par des comparaisons entières ; l’épuisement du budget de calcul ou d’itération du cœur renvoie NoConvergence. L’entrée est empruntée et inchangée ; les résultats, y compris pour le zéro par défaut, sont initialisés.
+Calculer une racine carrée. Pas de paramètre degree. Une entrée négative renvoie NegativeRoot. La précision par défaut est max(nombre de décimales de l’entrée, 20), pas 20 chiffres significatifs. L’arrondi est au pair ; une racine exactement à mi-chemin, comme sqrt(6.25) à la précision zéro, est arrondie à 2. Malgré le nom approx_root, Rust certifie l’arrondi par des comparaisons entières ; l’épuisement du budget de calcul ou d’itération du cœur renvoie NoConvergence. L’entrée est empruntée et inchangée ; les résultats, y compris pour le zéro par défaut, sont initialisés.
 
 ```rust
 fn sqrt (& self) -> Result < Self , DecimalError >

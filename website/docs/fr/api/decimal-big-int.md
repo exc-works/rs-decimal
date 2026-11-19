@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: dcbc410f5dabf4a62b4cb667b765d034201be05823aeeb413148caad325fb23f
+source_revision: f7f692709bde775f34d7f5feb756c59944ff77c763bae1798b2b4306d9770c41
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::big_int
 ---
@@ -14,7 +14,7 @@ fn big_int (& self) -> BigInt
 
 ## Paramètres, résultat et remarques
 
-Rust renvoie un BigInt indépendant ; le bridge renvoie bigint. Les zéros finaux sont inclus, contrairement à une conversion entière par troncature. L’exemple affiche bigint sous forme de texte pour JSON.
+Rust renvoie un BigInt indépendant ; l’API JavaScript renvoie bigint. Les zéros finaux sont inclus, contrairement à une conversion entière par troncature. L’exemple affiche bigint sous forme de texte pour JSON.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

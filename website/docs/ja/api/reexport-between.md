@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: a9093dcd1b9fe39261e7248debd207a7c4986a0a263f3e970359020a9ba293a8
+source_revision: 3300205234593fd9e0974d13d203dba364588cd233c7dd62f42452687449a8f7
 translation_provenance: en-US-japanese-reviewed
 api_id: reexport::between
 ---
@@ -14,7 +14,7 @@ pub use decimal::between as between
 
 ## 通常の使い方と意味
 
-rs_decimal::between を使います。同じ項目の公開インポートパスであり、別の数値実装ではありません。JavaScript には Rust の use 構文がないため、対応する bridge のリファレンスを参照してください。
+rs_decimal::between を使います。同じ項目の公開インポートパスであり、別の数値実装ではありません。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

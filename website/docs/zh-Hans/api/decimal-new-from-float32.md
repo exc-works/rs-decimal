@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 762606c51dd255e44f3c362ba14134e460bd14c0850c5cfb4f977a9c95e0eb98
+source_revision: c40a135ffb56f404451bd244cc0aedf0eee2b3b5503190541e81212c60c34237
 api_id: Decimal::new_from_float32
 ---
 # Decimal::new_from_float32
@@ -13,7 +13,7 @@ fn new_from_float32 (value : f32) -> Result < Self , DecimalError >
 
 ## 参数、返回值及常规用法
 
-value: f32，以 JS number 传入。bridge 先从 binary64 缩窄为 binary32，因此 16777217 变为 16777216。无法恢复之前因二进制浮点而丢失的十进制数字。精确十进制输入请使用 new_from_string。NaN 和正负无穷返回 InvalidFormat；有限 f64 缩窄为 f32 时溢出也返回 InvalidFormat。负零变成已初始化且不带符号的 Decimal 零。
+value: f32，以 JS number 传入。JavaScript 先从 binary64 缩窄为 binary32，因此 16777217 变为 16777216。无法恢复之前因二进制浮点而丢失的十进制数字。精确十进制输入请使用 new_from_string。NaN 和正负无穷返回 InvalidFormat；有限 f64 缩窄为 f32 时溢出也返回 InvalidFormat。负零变成已初始化且不带符号的 Decimal 零。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 76d9cb7e766229b955c894271a5c238caac503dc592850e7b5cbe4a6a3eb33d3
+source_revision: 7a73d9c8a38938796f2eacbe88712430716dafd16a136172a660bfe237d37db2
 translation_provenance: en-US-korean-reviewed
 api_id: reexport::ten
 ---
@@ -14,7 +14,7 @@ pub use decimal::ten as ten
 
 ## 일반적인 사용법과 의미
 
-rs_decimal::ten를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다. JavaScript에는 Rust use 문법이 없으므로 대응하는 bridge 참조 문서를 확인하세요.
+rs_decimal::ten를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

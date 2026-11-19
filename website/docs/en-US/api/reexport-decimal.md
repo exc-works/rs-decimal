@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 893ae85fdbe2ce4fb0a97cdee41fd9675ed135240e7df9b22b449b50279fb13c
+source_revision: 6976205af89f0a7bb675a6147933c2fe624e8c9d96703f7f354c0cb5ca52f755
 api_id: reexport::Decimal
 ---
 # reexport::Decimal
@@ -13,7 +13,7 @@ pub use decimal::Decimal as Decimal
 
 ## Normal usage and semantics
 
-Use rs_decimal::Decimal; this is the public import path for the same item, not an additional numerical implementation. JavaScript has no Rust use syntax; see the corresponding bridge reference.
+Use rs_decimal::Decimal; this is the public import path for the same item, not an additional numerical implementation.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

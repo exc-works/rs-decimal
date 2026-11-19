@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 1971b01eebfee126fa34311f177b8627c3bfa706a598c61defac4fe50b57c54d
+source_revision: 25c9cc1e70c5db48b15f2e6457931c51bc64818138c0422f347742831125e26b
 translation_provenance: en-US-korean-reviewed
 api_id: "Decimal::impl Add < & Decimal >::add"
 ---
@@ -14,7 +14,7 @@ fn add (self , other : & Decimal) -> Decimal
 
 ## 일반적인 사용법과 주의사항
 
-&Decimal에 구현되어 피연산자를 계속 사용할 수 있습니다. 정확한 결과는 피연산자 중 큰 소수 자릿수를 사용하며 초기화됩니다. 연관 Output 형식은 Decimal입니다. 음수 결과를 허용하며 safe_add/safe_sub의 비음수 조건은 적용하지 않습니다. 트레이트는 같은 이름의 코어 메서드에 위임합니다. 브라우저 JS 연산자는 오버로드되지 않으므로 bridge의 add/sub/neg를 사용하세요.
+&Decimal에 구현되어 피연산자를 계속 사용할 수 있습니다. 정확한 결과는 피연산자 중 큰 소수 자릿수를 사용하며 초기화됩니다. 연관 Output 형식은 Decimal입니다. 음수 결과를 허용하며 safe_add/safe_sub의 비음수 조건은 적용하지 않습니다. 트레이트는 같은 이름의 코어 메서드에 위임합니다. 브라우저 JS 연산자는 오버로드되지 않으므로 JavaScript의 add/sub/neg를 사용하세요.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

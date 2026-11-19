@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: c94998594bf6a8005b50df98354b3549d47447f21a6664735b824dda07443935
+source_revision: 97b85000fbf7a0fb6537eae68258f927a7739647e41e96de3c0f26f460f2d35a
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: "Decimal::impl fmt :: Display"
 ---
@@ -14,7 +14,7 @@ impl fmt :: Display for Decimal
 
 ## 常規用法及語義
 
-使用 format!("{}", value)、println! 或 to_string()；fmt::Formatter 由格式化機制提供。預設格式會去掉小數末尾零。其他格式旗標由格式化分組說明；bridge 使用 string()/string_with_trailing_zeros()。
+使用 format!("{}", value)、println! 或 to_string()；fmt::Formatter 由格式化機制提供。預設格式會去掉小數末尾零。其他格式旗標由格式化分組說明；JavaScript 使用 string()/string_with_trailing_zeros()。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

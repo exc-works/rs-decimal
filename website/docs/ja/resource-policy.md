@@ -1,11 +1,11 @@
 ---
 locale: ja
-source_revision: cd012116d4b52c3d753afdb334a916afcdf34239a5a89a6aa326b13a592ef135
+source_revision: 637474c992943a95b792c86f50bfa04821ba9ba29fe9dab7696d42ada69cbe84
 translation_provenance: en-US-japanese-reviewed
 ---
 # Playground のリソースポリシー
 
-ブラウザーの bridge は、Rust ライブラリよりも意図的に狭い範囲で動作します。`category: "resource"` の `BridgeError` は playground の上限に達したことを示し、数値ライブラリのエラーではありません。制限内での Rust メソッド名、引数の順序、結果は変わりません。コアクレートも変更しません。
+計算が以下の上限を超えると、Playground は `category: "resource"` を返します。
 
 | 制限対象 | 現在の値 |
 | --- | --- |

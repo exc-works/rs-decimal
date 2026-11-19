@@ -1,11 +1,11 @@
 ---
 locale: de
-source_revision: cd012116d4b52c3d753afdb334a916afcdf34239a5a89a6aa326b13a592ef135
+source_revision: 637474c992943a95b792c86f50bfa04821ba9ba29fe9dab7696d42ada69cbe84
 translation_provenance: en-US-german-reviewed
 ---
 # Ressourcenrichtlinie des Playgrounds
 
-Die Browser-Bridge unterstützt absichtlich einen kleineren Bereich als die Rust-Bibliothek. Ein `BridgeError` mit `category: "resource"` bedeutet, dass ein Playground-Budget erreicht wurde; es ist kein Fehler der numerischen Bibliothek. Rust-Methodennamen, Parameterreihenfolge und Ergebnisse innerhalb dieser Grenzen bleiben unverändert. Die Kern-Crate wird nicht verändert.
+Überschreitet eine Berechnung einen der folgenden Grenzwerte, meldet der Playground `category: "resource"`.
 
 | Grenze | Aktueller Wert |
 | --- | --- |

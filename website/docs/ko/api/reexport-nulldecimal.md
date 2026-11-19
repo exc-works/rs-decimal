@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 05a4d32c73f6c4d59c8e657272c093b1db00da738b0234c960526209d3e3196c
+source_revision: f04757565931a8e8fa648872ee9153875f735f45247f70875bf4fa04dbb2585d
 translation_provenance: en-US-korean-reviewed
 api_id: reexport::NullDecimal
 ---
@@ -14,7 +14,7 @@ pub use decimal::NullDecimal as NullDecimal
 
 ## 일반적인 사용법과 의미
 
-rs_decimal::NullDecimal를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다. JavaScript에는 Rust use 문법이 없으므로 대응하는 bridge 참조 문서를 확인하세요.
+rs_decimal::NullDecimal를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

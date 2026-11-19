@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 9ec084e5d70a80123e6b5391a460c2d09074b7e750d373283106219a5cde28ed
+source_revision: fae9d1b20487be5ea60841b603ab060b40d5b639bd9efc686e9fd8f0f555bd79
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::new_from_int64
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 使用說明
 
-value 是係數，不是已經帶有小數位的金額。負 precision 回傳 `InvalidPrecision`；超出 i64 範圍的值屬於 bridge 參數錯誤。
+value 是係數，不是已經帶有小數位的金額。負 precision 回傳 `InvalidPrecision`；超出 i64 範圍的值屬於 JavaScript 參數錯誤。
 
 ## 相關方法
 

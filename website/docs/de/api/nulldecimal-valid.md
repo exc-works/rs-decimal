@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: d57c1e8ddb07024ed3c5c002f095b2cee086c1a0719df70a0b4ba8761f29418d
+source_revision: 2a36a5c46f57052b68644728359c44f15465f6bfca2c60d1540e40c603cc8c5b
 translation_provenance: en-US-german-reviewed
 api_id: NullDecimal.valid
 ---
@@ -14,7 +14,7 @@ valid: bool
 
 ## Übliche Verwendung und Semantik
 
-Dieses öffentliche Rust-bool-Feld entspricht einem boolean-Getter/Setter. false löscht die Dezimalzahl nicht; true initialisiert sie nicht. Nichtboolesche Werte weist die Bridge vor einer Änderung ab.
+Dieses öffentliche Rust-bool-Feld entspricht einem boolean-Getter/Setter. false löscht die Dezimalzahl nicht; true initialisiert sie nicht. Nichtboolesche Werte weist die JavaScript-API vor einer Änderung ab.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

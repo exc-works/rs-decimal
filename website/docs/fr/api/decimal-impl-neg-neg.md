@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 4edb7e0a9fed4047c94ce74a3f224028a33e2b9c87f41b5e744d6d68a1abd2e7
+source_revision: ae30eee52b8243c53d2363e82db8a8847f306fed0233c1fadf3d83f102fe5452
 translation_provenance: en-US-french-reviewed
 api_id: "Decimal::impl Neg::neg"
 ---
@@ -14,7 +14,7 @@ fn neg (self) -> Decimal
 
 ## Utilisation courante et points à retenir
 
-Implémenté pour &Decimal, afin que les opérandes restent utilisables. Le - unaire conserve l’échelle et initialise le résultat, y compris le zéro par défaut. Le trait délègue à la méthode nommée correspondante du cœur. Les opérateurs JavaScript du navigateur ne sont pas surchargés ; utilisez add/sub/neg sur le bridge.
+Implémenté pour &Decimal, afin que les opérandes restent utilisables. Le - unaire conserve l’échelle et initialise le résultat, y compris le zéro par défaut. Le trait délègue à la méthode nommée correspondante du cœur. Les opérateurs JavaScript du navigateur ne sont pas surchargés ; utilisez add/sub/neg sur l’API JavaScript.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

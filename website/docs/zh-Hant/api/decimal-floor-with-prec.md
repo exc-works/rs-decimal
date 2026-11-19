@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 8fb2de8eaa72e1390b09fd949ca444ffb681b4ab0d4c0a3535431123d0666727
+source_revision: 6ba2cb4a20d5541fd7637c273e7892b620d22f9a54a85ae9d00d1d5387296c75
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::floor_with_prec
 ---
@@ -14,7 +14,7 @@ fn floor_with_prec (& self , prec : isize) -> Result < Self , DecimalError >
 
 ## 參數、回傳值及常規用法
 
-prec: isize/整數 number；Rust 回傳 Result<Decimal, DecimalError>，bridge 回傳 Decimal 或拋出錯誤。負精度回傳 InvalidPrecision。負數截斷與向下取整不同：-1.5 截斷為 -1，floor 為 -2。輸入僅被借用，保持不變。結果已初始化，包括預設零輸入。提高精度會追加零，不改變數值。
+prec: isize/整數 number。負精度回傳 InvalidPrecision。負數截斷與向下取整不同：-1.5 截斷為 -1，floor 為 -2。輸入僅被借用，保持不變。結果已初始化，包括預設零輸入。提高精度會追加零，不改變數值。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

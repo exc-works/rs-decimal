@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 76d9cb7e766229b955c894271a5c238caac503dc592850e7b5cbe4a6a3eb33d3
+source_revision: 7a73d9c8a38938796f2eacbe88712430716dafd16a136172a660bfe237d37db2
 translation_provenance: en-US-reviewed-reuse
 api_id: reexport::ten
 ---
@@ -14,7 +14,7 @@ pub use decimal::ten as ten
 
 ## Normal usage and semantics
 
-Use rs_decimal::ten; this is the public import path for the same item, not an additional numerical implementation. JavaScript has no Rust use syntax; see the corresponding bridge reference.
+Use rs_decimal::ten; this is the public import path for the same item, not an additional numerical implementation.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

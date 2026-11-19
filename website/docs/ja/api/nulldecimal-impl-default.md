@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 71bc56362fd9f1c25a96932ba1ffd795db889517f58a951726bcd78e58fe2bc7
+source_revision: c654c9726a283aeb3b59ec2a73dcd6f45d404c2677f244d97a60cf2ff73a642b
 translation_provenance: en-US-japanese-reviewed
 api_id: NullDecimal::impl Default
 ---
@@ -14,7 +14,7 @@ impl Default for NullDecimal
 
 ## 通常の使い方と意味
 
-有効性と内部の初期化状態はともに false です。bridge は NullDecimal.default() を提供します。
+有効性と内部の初期化状態はともに false です。JavaScript は NullDecimal.default() を提供します。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

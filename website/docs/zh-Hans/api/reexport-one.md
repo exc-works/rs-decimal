@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: f5ea64d7e7a6135acc2f55f3a40411c6d9222e20ac49981dab203cb401fa6651
+source_revision: 29e91f626fd685fb0b5987fc104c1ba0e2752897194773305e3d64dcc1b16f1a
 api_id: reexport::one
 ---
 # reexport::one
@@ -13,7 +13,7 @@ pub use decimal::one as one
 
 ## 常规用法及语义
 
-使用 rs_decimal::one；这是同一条目的公开导入路径，不是额外的数值实现。JavaScript 没有 Rust use 语法，对应行为见 bridge 文档。
+使用 rs_decimal::one；这是同一条目的公开导入路径，不是额外的数值实现。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

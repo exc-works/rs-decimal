@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 784a138fd9dfff6c4bbabb3b837f6e63c10c904c5578943fe043993afcf99a55
+source_revision: cc52467a55bcaa7e86e52d9cf523d5b8a22924e126619052d59e51cd0b6aab8b
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::into_coefficient
 ---
@@ -14,7 +14,7 @@ fn into_coefficient (self) -> BigInt
 
 ## Paramètres, résultat et utilisation courante
 
-Sans paramètre ; renvoie BigInt en Rust et bigint en JS. L’échelle et l’état d’initialisation sont supprimés : 1.2300 donne donc 12300. Le zéro par défaut donne 0. Le Decimal est consommé et ne peut plus être lu ; utilisez coefficient pour un instantané sans consommation dans le bridge.
+Sans paramètre ; renvoie BigInt en Rust et bigint en JS. L’échelle et l’état d’initialisation sont supprimés : 1.2300 donne donc 12300. Le zéro par défaut donne 0. Le Decimal est consommé et ne peut plus être lu ; utilisez coefficient pour un instantané sans consommation en JavaScript.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

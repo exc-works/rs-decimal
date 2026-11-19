@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: ade28fb6fdcde851797c02557b97ea1da6938690477fe011590975bc67fbbf2e
+source_revision: ea81b480a27af3babe08d7b00fe374cc7cd1626376f6bcd3383174c9fcd41789
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::new_from_string
 ---
@@ -14,7 +14,7 @@ fn new_from_string (text : & str) -> Result < Self , DecimalError >
 
 ## Parameters and return
 
-`text: &str` → JavaScript `string`; Rust returns `Result<Decimal, DecimalError>`, while the bridge returns a Decimal or throws the same library categories.
+`text: &str` → JavaScript `string`; Rust returns `Result<Decimal, DecimalError>`, while JavaScript returns a Decimal or throws the same library categories.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

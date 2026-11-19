@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 9459cb9d77c7f6ad22b96853baef01b1a9461529cecff18a116b5d2dee9166d3
+source_revision: 56094af9f622985dec933077af65cd0cc673023dc5a3a4be3553f2af47b621d4
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal
 ---
@@ -14,7 +14,7 @@ pub struct Decimal
 
 ## 通常の使い方と意味
 
-数値は係数 × 10^-scale です。スケールは小数点以下の桁数で、保持した末尾のゼロも含みます。既定値は未初期化の数値ゼロです。コンストラクターは初期化済みの値を作り、借用メソッドは入力を保持し、消費するメソッドは入力のブラウザーラッパーを無効にします。bridge では名前付きコンストラクターを使ってください。new Decimal() は公開コンストラクターではありません。
+数値は係数 × 10^-scale です。スケールは小数点以下の桁数で、保持した末尾のゼロも含みます。既定値は未初期化の数値ゼロです。コンストラクターは初期化済みの値を作り、借用メソッドは入力を保持し、消費するメソッドは入力のブラウザーラッパーを無効にします。JavaScript では名前付きコンストラクターを使ってください。new Decimal() は公開コンストラクターではありません。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

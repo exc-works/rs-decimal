@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: a9093dcd1b9fe39261e7248debd207a7c4986a0a263f3e970359020a9ba293a8
+source_revision: 3300205234593fd9e0974d13d203dba364588cd233c7dd62f42452687449a8f7
 api_id: reexport::between
 ---
 # reexport::between
@@ -13,7 +13,7 @@ pub use decimal::between as between
 
 ## 常规用法及语义
 
-使用 rs_decimal::between；这是同一条目的公开导入路径，不是额外的数值实现。JavaScript 没有 Rust use 语法，对应行为见 bridge 文档。
+使用 rs_decimal::between；这是同一条目的公开导入路径，不是额外的数值实现。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 1f2a665c28ead224f75ed902dd02b6b36626040f13db084f643088b5ff82188f
+source_revision: b1a9d67b6db859834f3ef9cd2d0fefcd4239bbf10472aedba8e0a86a95b51eeb
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::new_from_uint_with_append_prec
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 사용 시 참고 사항
 
-음수나 범위 밖의 값은 bridge 매개변수 오류입니다. 음수 정밀도는 `InvalidPrecision`입니다. 후행 0을 유지하는 출력으로 추가된 자릿수를 확인하세요.
+음수나 범위 밖의 값은 JavaScript 매개변수 오류입니다. 음수 정밀도는 `InvalidPrecision`입니다. 후행 0을 유지하는 출력으로 추가된 자릿수를 확인하세요.
 
 ## 관련 메서드
 

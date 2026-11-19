@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: c456812ef50493713a2bbd81d6c57db5a0f730099b5878e83b3d4f358245d822
+source_revision: b8e7e5961d02ab6085d9349678f9d56ff16e22199976302e7003a2d2b5639d01
 api_id: "ErrorKind::InvalidLog"
 ---
 # ErrorKind::InvalidLog
@@ -13,7 +13,7 @@ InvalidLog
 
 ## Parameters, return and normal usage
 
-A logarithm input is nonpositive. ErrorKind is a stable category rather than a message string. Browser enum values are Rust variant names; constructed errors use matches(), while caught bridge exceptions expose a kinds array.
+A logarithm input is nonpositive.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 0d0d53ee31abc5089791404b98708465e5ae1271ee54c709858dd761b9a5ca22
+source_revision: f747bad3502ad5af9ea13bde6cf07e23bd90f835c390a356a17c381617af16c5
 api_id: reexport::min
 ---
 # reexport::min
@@ -13,7 +13,7 @@ pub use decimal::min as min
 
 ## Normal usage and semantics
 
-Use rs_decimal::min; this is the public import path for the same item, not an additional numerical implementation. JavaScript has no Rust use syntax; see the corresponding bridge reference.
+Use rs_decimal::min; this is the public import path for the same item, not an additional numerical implementation.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

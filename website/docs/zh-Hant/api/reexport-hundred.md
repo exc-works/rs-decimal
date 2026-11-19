@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 8e2ccd4d5de92023ccad23e3b1ce732438fad5dab0ed6652057ad04ade8ca4a5
+source_revision: ef3aa99db04ca1bd7e821c4d4bf0be02f9db3337ae118e60dc96d5695ab892b9
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: reexport::hundred
 ---
@@ -14,7 +14,7 @@ pub use decimal::hundred as hundred
 
 ## 常規用法及語義
 
-使用 rs_decimal::hundred；這是同一條目的公開匯入路徑，不是額外的數值實現。JavaScript 沒有 Rust use 語法，對應行為見 bridge 文件。
+使用 rs_decimal::hundred；這是同一條目的公開匯入路徑，不是額外的數值實現。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

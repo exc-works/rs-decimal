@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 099c3533a52ede06adc92af14955d2d2a20dadf66c185c385b9eda728b52b6ba
+source_revision: d9e6c46654b05ae244bd56f7035b17e55d6f30ce2bee3665fad9be992491dd6d
 translation_provenance: en-US-korean-reviewed
 api_id: reexport::zero
 ---
@@ -14,7 +14,7 @@ pub use decimal::zero as zero
 
 ## 일반적인 사용법과 의미
 
-rs_decimal::zero를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다. JavaScript에는 Rust use 문법이 없으므로 대응하는 bridge 참조 문서를 확인하세요.
+rs_decimal::zero를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

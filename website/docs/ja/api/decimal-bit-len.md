@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 3cc2ce52c4d0ed0d111f2e4df3eea8f2b90cb54656fa97590458dae94eb7b967
+source_revision: cd78c2dcf4b67b04ef802fd73ba3ef0da02aad24d1bb17be5cc5df5d221df3cd
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::bit_len
 ---
@@ -14,7 +14,7 @@ fn bit_len (& self) -> usize
 
 ## 引数、戻り値、通常の使い方
 
-引数なし。Rust は usize、bridge は number を返します。スケールは適用せず、符号ビットは数えません。-1.20 の係数は -120 で、ビット長は 7 です。既定のゼロを含むゼロには 0 を返します。最上位の 1 ビットの位置ではありません。
+引数なし。Rust は usize、JavaScript は number を返します。スケールは適用せず、符号ビットは数えません。-1.20 の係数は -120 で、ビット長は 7 です。既定のゼロを含むゼロには 0 を返します。最上位の 1 ビットの位置ではありません。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

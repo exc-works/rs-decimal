@@ -1,11 +1,11 @@
 ---
 locale: ko
-source_revision: cd012116d4b52c3d753afdb334a916afcdf34239a5a89a6aa326b13a592ef135
+source_revision: 637474c992943a95b792c86f50bfa04821ba9ba29fe9dab7696d42ada69cbe84
 translation_provenance: en-US-korean-reviewed
 ---
 # Playground 리소스 정책
 
-브라우저 bridge는 Rust 라이브러리보다 의도적으로 좁은 범위에서 동작합니다. `category: "resource"`인 `BridgeError`는 playground 예산에 도달했음을 뜻하며 수치 라이브러리 오류가 아닙니다. 제한 안에서 Rust 메서드 이름, 매개변수 순서, 결과는 바뀌지 않습니다. 코어 크레이트도 수정하지 않습니다.
+계산이 아래 한도를 넘으면 Playground는 `category: "resource"`를 반환합니다.
 
 | 제한 대상 | 현재 값 |
 | --- | --- |

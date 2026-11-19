@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: b7ff1544694c51babb7af7cb99735ecc6687d86e9cd9a108af321bed93252beb
+source_revision: 0b7e4ede82a7865b24f3ea40debe791505bf9ac255c8e2f8790aa1271d0fdf3a
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::int_part
 ---
@@ -14,7 +14,7 @@ fn int_part (& self) -> BigInt
 
 ## 參數、回傳值及常規用法
 
-無參數，Rust 回傳 BigInt，bridge 回傳 bigint，不經過浮點轉換。-12.75 得到 -12，而非 floor(-12.75) 的 -13。預設零得到零。範例將整數序列化為字串，以在 JSON 中保留任意精度。
+無參數，Rust 回傳 BigInt，JavaScript 回傳 bigint，不經過浮點轉換。-12.75 得到 -12，而非 floor(-12.75) 的 -13。預設零得到零。範例將整數序列化為字串，以在 JSON 中保留任意精度。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

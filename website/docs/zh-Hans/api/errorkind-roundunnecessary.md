@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: dc7af33554badb1c95cd11064df3b51faeaca3112afc1b82cf2efcaf4ff1844d
+source_revision: 189b6d1ee3eb48467bf982330ec482f99ea7cd30e80f4f3c225f2808c0e03cc3
 api_id: "ErrorKind::RoundUnnecessary"
 ---
 # ErrorKind::RoundUnnecessary
@@ -13,7 +13,7 @@ RoundUnnecessary
 
 ## 参数、返回值及常规用法
 
-要求精确舍入，但会丢弃非零数字。ErrorKind 是稳定类别，不是错误消息文本。浏览器枚举值为 Rust 变体名；构造的错误使用 matches()，捕获的 bridge 异常提供 kinds 数组。
+要求精确舍入，但会丢弃非零数字。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

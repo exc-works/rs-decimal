@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 1e9f449a346e8641c2e3739002dd283333ecd696e411549249e2395dfdddd2f0
+source_revision: c991ff009b87a451c4d3a01a7e163c4b8e995107fc18ca0a0ef4ec120e3aee71
 api_id: Decimal::min_ref
 ---
 # Decimal::min_ref
@@ -13,7 +13,7 @@ fn min_ref < 'a > (& 'a self , other : & 'a Self) -> & 'a Self
 
 ## 参数、返回值及常规用法
 
-other: &Decimal；Rust 返回与输入生命周期关联的共享引用。数值相等时选择 self，保留精度和初始化状态。bridge 返回对应的原始对象，不复制。移动或释放此对象会使它的所有 JS 别名失效；JS 不能强制 Rust 借用生命周期。需要独立拥有的结果请使用 max/min。
+other: &Decimal；Rust 返回与输入生命周期关联的共享引用。数值相等时选择 self，保留精度和初始化状态。JavaScript 返回对应的原始对象，不复制。移动或释放此对象会使它的所有 JS 别名失效；JS 不能强制 Rust 借用生命周期。需要独立拥有的结果请使用 max/min。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: ade28fb6fdcde851797c02557b97ea1da6938690477fe011590975bc67fbbf2e
+source_revision: ea81b480a27af3babe08d7b00fe374cc7cd1626376f6bcd3383174c9fcd41789
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::new_from_string
 ---
@@ -14,7 +14,7 @@ fn new_from_string (text : & str) -> Result < Self , DecimalError >
 
 ## 매개변수와 반환값
 
-`text: &str` → JavaScript `string`. Rust는 `Result<Decimal, DecimalError>`를 반환하며 bridge는 Decimal을 반환하거나 같은 라이브러리 오류 종류를 던집니다.
+`text: &str` → JavaScript `string`. Rust는 `Result<Decimal, DecimalError>`를 반환하며 JavaScript는 Decimal을 반환하거나 같은 라이브러리 오류 종류를 던집니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

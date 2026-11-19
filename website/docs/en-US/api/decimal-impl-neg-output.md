@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: d8d63d1c0e264a86d3f7608f1fd35c5b3c0175c1d05354d8cfc9826d8215e864
+source_revision: 4de2b7f049c588d3fb290c5d299ab4e7f3436be10c0a26243bffab3f3e0229cf
 api_id: "Decimal::impl Neg::Output"
 ---
 # Decimal::impl Neg::Output
@@ -13,7 +13,7 @@ type Output = Decimal
 
 ## Normal usage and caveats
 
-Implemented for &Decimal, so operands remain usable. Unary - preserves scale and initializes the result, including default zero. The trait delegates to the same named core method. Browser JavaScript operators are not overloaded; use add/sub/neg on the bridge.
+Implemented for &Decimal, so operands remain usable. Unary - preserves scale and initializes the result, including default zero. The trait delegates to the same named core method. Browser JavaScript operators are not overloaded; use add/sub/neg in JavaScript.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

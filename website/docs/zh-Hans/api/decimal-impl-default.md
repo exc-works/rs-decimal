@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 9ab9d90f4fdbf97aeb5b036e4b2c138345a66dab28af2a920054edaddf0608dd
+source_revision: 23ce03e01f179e79048016168712d7a3101de4dd03467bd8aefb98f6fd47b269
 api_id: Decimal::impl Default
 ---
 # Decimal::impl Default
@@ -13,7 +13,7 @@ impl Default for Decimal
 
 ## 常规用法及语义
 
-默认值在数值上与构造的零相等，但 is_nil() 为 true。bridge 提供 Decimal.default()；此页描述的是 Rust trait 本身。
+默认值在数值上与构造的零相等，但 is_nil() 为 true。JavaScript 提供 Decimal.default()；此页描述的是 Rust trait 本身。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

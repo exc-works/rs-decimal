@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: d57c1e8ddb07024ed3c5c002f095b2cee086c1a0719df70a0b4ba8761f29418d
+source_revision: 2a36a5c46f57052b68644728359c44f15465f6bfca2c60d1540e40c603cc8c5b
 translation_provenance: en-US-reviewed-reuse
 api_id: NullDecimal.valid
 ---
@@ -14,7 +14,7 @@ valid: bool
 
 ## Normal usage and semantics
 
-This public Rust bool field maps to a boolean getter/setter. Setting false does not erase the decimal; setting true does not initialize it. The bridge rejects non-boolean values before mutation.
+This public Rust bool field maps to a boolean getter/setter. Setting false does not erase the decimal; setting true does not initialize it. The JavaScript API rejects non-boolean values before mutation.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

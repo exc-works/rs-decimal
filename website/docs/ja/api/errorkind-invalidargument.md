@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: e14d22e2fbe70e02eda750145ed5b1a70252e171e63aeaafcfc01281be24e818
+source_revision: 60b597f1227be3f07266a1dfff4c0523c2dc4417119eb6ee13c33512e626a58b
 translation_provenance: en-US-japanese-reviewed
 api_id: "ErrorKind::InvalidArgument"
 ---
@@ -14,7 +14,7 @@ InvalidArgument
 
 ## 引数、戻り値、通常の使い方
 
-引数、検証規則、メッセージテンプレートが不正です。ErrorKind はメッセージ文字列ではなく、安定した分類です。ブラウザーの列挙値は Rust のバリアント名です。構築したエラーでは matches() を使い、捕捉した bridge 例外では kinds 配列を使います。
+引数、検証規則、メッセージテンプレートが不正です。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

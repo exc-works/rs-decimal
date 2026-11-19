@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: ade28fb6fdcde851797c02557b97ea1da6938690477fe011590975bc67fbbf2e
+source_revision: ea81b480a27af3babe08d7b00fe374cc7cd1626376f6bcd3383174c9fcd41789
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::new_from_string
 ---
@@ -14,7 +14,7 @@ fn new_from_string (text : & str) -> Result < Self , DecimalError >
 
 ## 引数と戻り値
 
-`text: &str` → JavaScript の `string`。Rust は `Result<Decimal, DecimalError>` を返し、bridge は Decimal を返すか、同じライブラリのエラー種別を送出します。
+`text: &str` → JavaScript の `string`。Rust は `Result<Decimal, DecimalError>` を返し、JavaScript は Decimal を返すか、同じライブラリのエラー種別を送出します。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

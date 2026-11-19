@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 4edb7e0a9fed4047c94ce74a3f224028a33e2b9c87f41b5e744d6d68a1abd2e7
+source_revision: ae30eee52b8243c53d2363e82db8a8847f306fed0233c1fadf3d83f102fe5452
 translation_provenance: en-US-korean-reviewed
 api_id: "Decimal::impl Neg::neg"
 ---
@@ -14,7 +14,7 @@ fn neg (self) -> Decimal
 
 ## 일반적인 사용법과 주의사항
 
-&Decimal에 구현되어 피연산자를 계속 사용할 수 있습니다. 단항 -는 소수 자릿수를 유지하고 기본 0을 포함한 결과를 초기화합니다. 트레이트는 같은 이름의 코어 메서드에 위임합니다. 브라우저 JS 연산자는 오버로드되지 않으므로 bridge의 add/sub/neg를 사용하세요.
+&Decimal에 구현되어 피연산자를 계속 사용할 수 있습니다. 단항 -는 소수 자릿수를 유지하고 기본 0을 포함한 결과를 초기화합니다. 트레이트는 같은 이름의 코어 메서드에 위임합니다. 브라우저 JS 연산자는 오버로드되지 않으므로 JavaScript의 add/sub/neg를 사용하세요.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

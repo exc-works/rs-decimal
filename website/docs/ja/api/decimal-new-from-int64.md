@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 9ec084e5d70a80123e6b5391a460c2d09074b7e750d373283106219a5cde28ed
+source_revision: fae9d1b20487be5ea60841b603ab060b40d5b639bd9efc686e9fd8f0f555bd79
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::new_from_int64
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 使い方の補足
 
-値は係数であり、スケール適用済みの金額ではありません。負の精度は `InvalidPrecision`、i64 範囲外の値は bridge の引数エラーです。
+値は係数であり、スケール適用済みの金額ではありません。負の精度は `InvalidPrecision`、i64 範囲外の値は JavaScript の引数エラーです。
 
 ## 関連メソッド
 

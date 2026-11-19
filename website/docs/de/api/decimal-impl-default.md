@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 9ab9d90f4fdbf97aeb5b036e4b2c138345a66dab28af2a920054edaddf0608dd
+source_revision: 23ce03e01f179e79048016168712d7a3101de4dd03467bd8aefb98f6fd47b269
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::impl Default
 ---
@@ -14,7 +14,7 @@ impl Default for Decimal
 
 ## Übliche Verwendung und Semantik
 
-Default ist numerisch gleich einer konstruierten Null, aber is_nil() ist true. Die Bridge bietet Decimal.default(); diese Seite beschreibt den Rust-Trait selbst.
+Default ist numerisch gleich einer konstruierten Null, aber is_nil() ist true. Die JavaScript-API bietet Decimal.default(); diese Seite beschreibt den Rust-Trait selbst.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

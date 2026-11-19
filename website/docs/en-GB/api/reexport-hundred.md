@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 8e2ccd4d5de92023ccad23e3b1ce732438fad5dab0ed6652057ad04ade8ca4a5
+source_revision: ef3aa99db04ca1bd7e821c4d4bf0be02f9db3337ae118e60dc96d5695ab892b9
 translation_provenance: en-US-reviewed-reuse
 api_id: reexport::hundred
 ---
@@ -14,7 +14,7 @@ pub use decimal::hundred as hundred
 
 ## Normal usage and semantics
 
-Use rs_decimal::hundred; this is the public import path for the same item, not an additional numerical implementation. JavaScript has no Rust use syntax; see the corresponding bridge reference.
+Use rs_decimal::hundred; this is the public import path for the same item, not an additional numerical implementation.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

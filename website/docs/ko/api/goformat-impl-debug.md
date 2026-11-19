@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 4e5c7dfa4cd03b60430392b3a97363dc09a63cee40fa7c3bab57e19b48c4d145
+source_revision: 31f0a432b373e9f77b1c47a8c72a2cfedcd5df17aa590c851611115cc0270629
 translation_provenance: en-US-korean-reviewed
 api_id: GoFormat::impl Debug
 ---
@@ -14,7 +14,7 @@ impl Debug for GoFormat
 
 ## 매개변수, 반환값, 일반적인 사용법
 
-GoFormat은 작은 Copy 필드 구조체입니다. Clone/Copy는 옵션을 유지하고 Debug는 필드를 출력합니다. Default는 v, width/precision에 None, 모든 플래그에 false를 선택합니다. 이 Rust 문법은 네이티브에서 검사하며 bridge 객체는 일반 JS 필드 객체의 동작과 GoFormat.default()를 사용합니다.
+GoFormat은 작은 Copy 필드 구조체입니다. Clone/Copy는 옵션을 유지하고 Debug는 필드를 출력합니다. Default는 v, width/precision에 None, 모든 플래그에 false를 선택합니다. 이 Rust 문법은 네이티브에서 검사하며 JavaScript 객체는 일반 JS 필드 객체의 동작과 GoFormat.default()를 사용합니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 636d6e9ec2d1b0cb7be987deb57dc622bb8084f92601482a3b6418a00ec64c8b
+source_revision: d6f697a3d962962b5c45eb345607fbc6629bac0f2d7f0f5c403da5649a7d1d4a
 api_id: Decimal::round_with_prec
 ---
 # Decimal::round_with_prec
@@ -13,7 +13,7 @@ fn round_with_prec(&self, prec: isize) -> Result<Self, DecimalError>
 
 ## 参数
 
-`prec: isize` — 保留的小数位数。bridge 接受 JavaScript 整数 number。
+`prec: isize` — 保留的小数位数，取整数。
 
 ## 返回值
 
@@ -23,7 +23,7 @@ fn round_with_prec(&self, prec: isize) -> Result<Self, DecimalError>
 
 ## 错误
 
-负精度返回 `InvalidPrecision`. bridge 会抛出对应错误。
+负精度返回 `InvalidPrecision`。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 53d0bced8bfb282a55a5b5ecd0ca2b5866c74eb8bbf117b7537ea9c77cdf1b4d
+source_revision: 3d99b7dec25de936ed85161e3eb8cf4565f56b88649e6c879a6468d051308404
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::new_from_big_rat_with_prec
 ---
@@ -14,7 +14,7 @@ fn new_from_big_rat_with_prec (value : & BigRational , prec : isize , mode : Rou
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-value: &BigRational; prec: nichtnegatives isize; mode: RoundingMode. Die Bridge verwendet ein exaktes bigint-Objekt aus Zähler/Nenner. Anders als exakte Konvertierung sind nicht abbrechende Brüche wie 1/3 erlaubt. Negative Präzision liefert InvalidPrecision; nötige Rundung mit Unnecessary liefert RoundUnnecessary. Ein Nullnenner ist vor Rust ein ungültiger Bridge-Parameter; ein Nullzähler liefert initialisierte Null mit Skala prec.
+value: &BigRational; prec: nichtnegatives isize; mode: RoundingMode. Die JavaScript-API verwendet ein exaktes bigint-Objekt aus Zähler/Nenner. Anders als exakte Konvertierung sind nicht abbrechende Brüche wie 1/3 erlaubt. Negative Präzision liefert InvalidPrecision; nötige Rundung mit Unnecessary liefert RoundUnnecessary. Ein Nullnenner ist vor Rust ein ungültiger JavaScript-Parameter; ein Nullzähler liefert initialisierte Null mit Skala prec.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

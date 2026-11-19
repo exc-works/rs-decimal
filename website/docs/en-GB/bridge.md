@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: bc4fe0d7f63ebbaad6f009ea77ae93eee10d61514aa0fcf8907740ea4397dc70
+source_revision: bd473c0431492bbeed88af5f453e401cc80b45775529394fc98a50e453c639ca
 translation_provenance: en-US-reviewed-reuse
 ---
 # Calling Rust methods in the browser
@@ -35,7 +35,7 @@ including when Rust returns an error. Using a consumed/disposed value raises a
 do not consume the receiver. `clone()` preserves representation and initialization.
 `free()` releases live handles and is harmless after consumption. Each runner
 will discard its Wasm instance at completion, rather than relying on finalizers.
-Objects from a different bridge instance cannot be passed into a call.
+Objects from a different Playground session cannot be passed into a call.
 
 ## Nullable values and bytes
 
@@ -50,6 +50,6 @@ lifetimes and compile-time trait checks are not reproduced by JavaScript.
 `ByteBuffer.new(Uint8Array)` copies bytes into an owned buffer, and
 `to_uint8_array()` returns a copy that survives Wasm memory growth. Append methods are documented in the [method catalogue](./api/).
 
-Bridge-level `snapshot(value)` captures exact state immediately, including the
+`snapshot(value)` captures exact state immediately, including the
 nullable's hidden value when invalid. It returns frozen data; later mutation does
 not change prior output. The isolated runner bounds recursive output and execution time; see the [resource policy](./resource-policy).

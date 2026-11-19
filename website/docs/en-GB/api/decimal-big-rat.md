@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 3e67428ba1ea89053920f2f5796e826dd297f81c12e673f6f4e20f40216c28ff
+source_revision: 742bab219fea4dd88e3233aac7a28750ce01392539e76e100af497e171dcc4c9
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::big_rat
 ---
@@ -14,7 +14,7 @@ fn big_rat (& self) -> BigRational
 
 ## Parameters, return and normal usage
 
-No parameters; Rust returns BigRational. The bridge returns an immutable {numerator: bigint, denominator: bigint} snapshot, normalized with a positive denominator. Decimal scale and trailing zeros do not survive as rational metadata; zero becomes 0/1. The input is borrowed and unchanged.
+No parameters; Rust returns BigRational. The JavaScript API returns an immutable {numerator: bigint, denominator: bigint} snapshot, normalized with a positive denominator. Decimal scale and trailing zeros do not survive as rational metadata; zero becomes 0/1. The input is borrowed and unchanged.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

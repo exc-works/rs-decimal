@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 274359ec57012f0ef20672a2e83c98afd2d82df0c75391b519022c4925e09ca8
+source_revision: dfef28d1753fdda604c243e11a38c07cf72e87cf907f10c25cfd874f37f32cf0
 translation_provenance: en-US-german-reviewed
 api_id: "ErrorKind::Unmarshal"
 ---
@@ -14,7 +14,7 @@ Unmarshal
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-Decodierung fehlgeschlagen. Eine weitere Kategorie wie InvalidFormat kann die Ursache beschreiben; prüfen Sie Zugehörigkeit, statt nur eine Art anzunehmen. ErrorKind ist eine stabile Kategorie, keine Meldungszeichenfolge. Browser-Enumwerte sind Rust-Variantennamen; konstruierte Fehler verwenden matches(), abgefangene Bridge-Ausnahmen ein kinds-Array.
+Decodierung fehlgeschlagen.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 31042d691902e2dc4bdadd92d4688638c315fb08be40c79d11b031b854afc6bc
+source_revision: 3fdc16376a6b5df85a2ce7cc24f6688fcdf41771e793df75d13c0d1b90a448b1
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::sub_raw
 ---
@@ -14,7 +14,7 @@ fn sub_raw (& self , value : i64) -> Self
 
 ## 參數、回傳值及常規用法
 
-value: i64，在 bridge 中使用 bigint。保留小數位數：在 scale 為 2 時，加減 1 改變數值 0.01，而非 1。Rust 回傳新 Decimal。bridge 拒絕 number 及超出 i64 範圍的 bigint。
+value: i64，在 JavaScript 中使用 bigint。保留小數位數：在 scale 為 2 時，加減 1 改變數值 0.01，而非 1。Rust 回傳新 Decimal。JavaScript 拒絕 number 及超出 i64 範圍的 bigint。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

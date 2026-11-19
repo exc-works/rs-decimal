@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 9ec084e5d70a80123e6b5391a460c2d09074b7e750d373283106219a5cde28ed
+source_revision: fae9d1b20487be5ea60841b603ab060b40d5b639bd9efc686e9fd8f0f555bd79
 api_id: Decimal::new_from_int64
 ---
 # Decimal::new_from_int64
@@ -23,7 +23,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 使用说明
 
-value 是系数，不是已经带有小数位的金额。负 precision 返回 `InvalidPrecision`；超出 i64 范围的值属于 bridge 参数错误。
+value 是系数，不是已经带有小数位的金额。负 precision 返回 `InvalidPrecision`；超出 i64 范围的值属于 JavaScript 参数错误。
 
 ## 相关方法
 

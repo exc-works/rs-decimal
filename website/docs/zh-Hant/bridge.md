@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: bc4fe0d7f63ebbaad6f009ea77ae93eee10d61514aa0fcf8907740ea4397dc70
+source_revision: bd473c0431492bbeed88af5f453e401cc80b45775529394fc98a50e453c639ca
 translation_provenance: zh-Hans-terminology-reviewed
 ---
 # 在瀏覽器中呼叫 Rust 方法
@@ -34,7 +34,7 @@ JS 類型或範圍錯誤使用 `BridgeError` 和 `category: 'parameter'`，
 不合法的 JS 參數類型在呼叫前被拒絕，因此不會消耗接收者。
 `clone()` 保留表示和初始化狀態。`free()` 釋放仍存活的控制代碼，已消耗後呼叫
 也安全。執行器完成後將銷毀整個 Wasm 實例，不依賴垃圾回收終結器釋放資源。
-不同 bridge 實例的物件不能混用。
+不同 JavaScript 實例的物件不能混用。
 
 ## 可空值與位元組
 
@@ -48,6 +48,6 @@ JS 類型或範圍錯誤使用 `BridgeError` 和 `category: 'parameter'`，
 借用生命週期和編譯期 trait 檢查。`ByteBuffer.new(Uint8Array)` 複製輸入位元組，
 `to_uint8_array()` 回傳副本，不受 Wasm 記憶體增長影響。追加文字方法見[方法目錄](./api/)。
 
-bridge 的 `snapshot(value)` 立即捕獲精確狀態，包括無效 NullDecimal 中
+JavaScript 的 `snapshot(value)` 立即捕獲精確狀態，包括無效 NullDecimal 中
 保留的內部值。回傳的資料被凍結，後續修改物件不會改變舊輸出。
 隔離執行器限制遞迴輸出和執行時間，詳見[資源限制](./resource-policy)。

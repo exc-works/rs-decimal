@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 53d0bced8bfb282a55a5b5ecd0ca2b5866c74eb8bbf117b7537ea9c77cdf1b4d
+source_revision: 3d99b7dec25de936ed85161e3eb8cf4565f56b88649e6c879a6468d051308404
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::new_from_big_rat_with_prec
 ---
@@ -14,7 +14,7 @@ fn new_from_big_rat_with_prec (value : & BigRational , prec : isize , mode : Rou
 
 ## Parameters, return and normal usage
 
-value: &BigRational; prec: nonnegative isize; mode: RoundingMode. The bridge uses an exact numerator/denominator bigint object. Unlike exact conversion, nonterminating fractions such as 1/3 are allowed. Negative precision returns InvalidPrecision; required Unnecessary rounding returns RoundUnnecessary. Zero denominator is invalid bridge input before calling Rust; zero numerator returns initialized zero at prec.
+value: &BigRational; prec: nonnegative isize; mode: RoundingMode. The JavaScript API uses an exact numerator/denominator bigint object. Unlike exact conversion, nonterminating fractions such as 1/3 are allowed. Negative precision returns InvalidPrecision; required Unnecessary rounding returns RoundUnnecessary. Zero denominator is invalid input before calling Rust; zero numerator returns initialized zero at prec.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

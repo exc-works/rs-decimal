@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: c456812ef50493713a2bbd81d6c57db5a0f730099b5878e83b3d4f358245d822
+source_revision: b8e7e5961d02ab6085d9349678f9d56ff16e22199976302e7003a2d2b5639d01
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: "ErrorKind::InvalidLog"
 ---
@@ -14,7 +14,7 @@ InvalidLog
 
 ## 參數、回傳值及常規用法
 
-對數輸入不是正數。ErrorKind 是穩定類別，不是錯誤訊息文字。瀏覽器列舉值為 Rust 變體名；建構的錯誤使用 matches()，捕獲的 bridge 異常提供 kinds 陣列。
+對數輸入不是正數。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

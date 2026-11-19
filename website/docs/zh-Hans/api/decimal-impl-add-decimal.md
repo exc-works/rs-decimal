@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 37cc4be0db267eeddae241a5b2cd03b92e50197f5cac7b3019d106b1e9e0c179
+source_revision: ea8ced6433945eb5bf565e52805d90ed9b2cd05d626678d4f8db01d933c5fdd2
 api_id: "Decimal::impl Add < & Decimal >"
 ---
 # Decimal::impl Add < & Decimal >
@@ -8,12 +8,12 @@ api_id: "Decimal::impl Add < & Decimal >"
 使用借用式 Rust Add 语法。
 
 ```rust
-impl Add < & Decimal > for & Decimal 
+impl Add < & Decimal > for & Decimal
 ```
 
 ## 常规用法与注意事项
 
-为 &Decimal 实现，操作数仍可使用。精确结果使用较大的操作数 scale，结果已初始化。关联 Output 为 Decimal。允许负结果，不应用 safe_add/safe_sub 的非负结果要求。trait 委托同一核心具名方法。浏览器不重载 JavaScript 运算符，应调用 bridge 的 add/sub/neg。
+为 &Decimal 实现，操作数仍可使用。精确结果使用较大的操作数 scale，结果已初始化。关联 Output 为 Decimal。允许负结果，不应用 safe_add/safe_sub 的非负结果要求。trait 委托同一核心具名方法。浏览器不重载 JavaScript 运算符，应调用 add/sub/neg。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

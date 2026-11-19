@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 05a4d32c73f6c4d59c8e657272c093b1db00da738b0234c960526209d3e3196c
+source_revision: f04757565931a8e8fa648872ee9153875f735f45247f70875bf4fa04dbb2585d
 translation_provenance: en-US-french-reviewed
 api_id: reexport::NullDecimal
 ---
@@ -14,7 +14,7 @@ pub use decimal::NullDecimal as NullDecimal
 
 ## Utilisation courante et sémantique
 
-Utilisez rs_decimal::NullDecimal ; c’est le chemin d’import public du même élément, pas une implémentation numérique supplémentaire. JavaScript ne possède pas la syntaxe use de Rust ; consultez la référence du bridge correspondante.
+Utilisez rs_decimal::NullDecimal ; c’est le chemin d’import public du même élément, pas une implémentation numérique supplémentaire.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

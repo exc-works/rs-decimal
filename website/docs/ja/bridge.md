@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: bc4fe0d7f63ebbaad6f009ea77ae93eee10d61514aa0fcf8907740ea4397dc70
+source_revision: bd473c0431492bbeed88af5f453e401cc80b45775529394fc98a50e453c639ca
 translation_provenance: en-US-japanese-reviewed
 ---
 # ブラウザーから Rust メソッドを呼び出す
@@ -21,7 +21,7 @@ total.string_with_trailing_zeros(); // '37.050'
 
 Rust が返すエラーは、`name: 'DecimalError'`、`category: 'library'`、元の `message`、文字列配列 `kinds` を持つ Error として送出されます。デコーダーのエラーは複数の種類に一致する場合があるため、配列全体を保持してください。JS の型や範囲の失敗は `name: 'BridgeError'`、`category: 'parameter'` であり、Rust の算術エラーではありません。不正な数値の丸め判別値は Rust の検証に渡されます。
 
-借用メソッドの呼び出し後もオブジェクトは使用できます。`into_rescaled` は Rust がエラーを返す場合もレシーバーを消費します。消費済みまたは解放済みの値を使うと `moved` BridgeError になります。不正な JS 引数の型は呼び出し前に拒否され、レシーバーを消費しません。`clone()` は表現と初期化状態を保持します。`free()` は使用中のハンドルを解放し、消費後に呼んでも問題ありません。runner はファイナライザーに依存せず、完了時に Wasm インスタンスを破棄します。別の bridge インスタンスのオブジェクトを呼び出しに渡すことはできません。
+借用メソッドの呼び出し後もオブジェクトは使用できます。`into_rescaled` は Rust がエラーを返す場合もレシーバーを消費します。消費済みまたは解放済みの値を使うと `moved` BridgeError になります。不正な JS 引数の型は呼び出し前に拒否され、レシーバーを消費しません。`clone()` は表現と初期化状態を保持します。`free()` は使用中のハンドルを解放し、消費後に呼んでも問題ありません。runner はファイナライザーに依存せず、完了時に Wasm インスタンスを破棄します。別の JavaScript インスタンスのオブジェクトを呼び出しに渡すことはできません。
 
 ## Nullable 値とバイト列
 
@@ -29,4 +29,4 @@ Rust が返すエラーは、`name: 'DecimalError'`、`category: 'library'`、�
 
 同様に `coefficient()` は不変の JS bigint スナップショットを返します。JavaScript は Rust の借用ライフタイムやコンパイル時のトレイト検査を再現しません。`ByteBuffer.new(Uint8Array)` はバイト列を所有するバッファーへコピーし、`to_uint8_array()` は Wasm メモリーが拡張されても有効なコピーを返します。追記メソッドは[メソッド一覧](./api/)で説明します。
 
-bridge の `snapshot(value)` は状態を即座に正確に取得し、無効な nullable の隠れた値も含みます。返すデータは凍結されているため、後の変更が過去の出力を変えることはありません。隔離された runner は再帰的な出力と実行時間を制限します。[リソースポリシー](./resource-policy)を参照してください。
+JavaScript の `snapshot(value)` は状態を即座に正確に取得し、無効な nullable の隠れた値も含みます。返すデータは凍結されているため、後の変更が過去の出力を変えることはありません。隔離された runner は再帰的な出力と実行時間を制限します。[リソースポリシー](./resource-policy)を参照してください。

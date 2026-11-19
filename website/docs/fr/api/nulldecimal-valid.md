@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: d57c1e8ddb07024ed3c5c002f095b2cee086c1a0719df70a0b4ba8761f29418d
+source_revision: 2a36a5c46f57052b68644728359c44f15465f6bfca2c60d1540e40c603cc8c5b
 translation_provenance: en-US-french-reviewed
 api_id: NullDecimal.valid
 ---
@@ -14,7 +14,7 @@ valid: bool
 
 ## Utilisation courante et sémantique
 
-Ce champ bool public de Rust correspond à un accesseur et un mutateur boolean. Le passer à false n’efface pas le décimal ; le passer à true ne l’initialise pas. Le bridge rejette les valeurs non booléennes avant toute modification.
+Ce champ bool public de Rust correspond à un accesseur et un mutateur boolean. Le passer à false n’efface pas le décimal ; le passer à true ne l’initialise pas. L’API JavaScript rejette les valeurs non booléennes avant toute modification.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

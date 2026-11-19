@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 636d6e9ec2d1b0cb7be987deb57dc622bb8084f92601482a3b6418a00ec64c8b
+source_revision: d6f697a3d962962b5c45eb345607fbc6629bac0f2d7f0f5c403da5649a7d1d4a
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::round_with_prec
 ---
@@ -14,7 +14,7 @@ fn round_with_prec(&self, prec: isize) -> Result<Self, DecimalError>
 
 ## Parameter
 
-`prec: isize` — Number of decimal places. The bridge accepts an integer JavaScript number.
+`prec: isize` — Number of decimal places (integer).
 
 ## Return value
 
@@ -24,7 +24,7 @@ An initialized Decimal, including for a default-zero input. The input is borrowe
 
 ## Errors
 
-A negative precision returns `InvalidPrecision`. The bridge throws the corresponding error.
+A negative precision returns `InvalidPrecision`.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

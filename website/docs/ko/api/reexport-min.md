@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 0d0d53ee31abc5089791404b98708465e5ae1271ee54c709858dd761b9a5ca22
+source_revision: f747bad3502ad5af9ea13bde6cf07e23bd90f835c390a356a17c381617af16c5
 translation_provenance: en-US-korean-reviewed
 api_id: reexport::min
 ---
@@ -14,7 +14,7 @@ pub use decimal::min as min
 
 ## 일반적인 사용법과 의미
 
-rs_decimal::min를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다. JavaScript에는 Rust use 문법이 없으므로 대응하는 bridge 참조 문서를 확인하세요.
+rs_decimal::min를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 4bf7e8c6e0220b3e67f098890dd5d1be11f132b0691a01226108ed80b15e64dd
+source_revision: c96f97d1831472af0c5d9cbfe01f313b01533a770c9ed531016eff9474a327fd
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: "Decimal::impl Sub < & Decimal >::Output"
 ---
@@ -14,7 +14,7 @@ type Output = Decimal
 
 ## 常規用法與注意事項
 
-為 &Decimal 實現，運算元仍可使用。精確結果使用較大的運算元 scale，結果已初始化。關聯 Output 為 Decimal。允許負結果，不應用 safe_add/safe_sub 的非負結果要求。trait 委託同一核心具名方法。瀏覽器不多載 JavaScript 運算子，應呼叫 bridge 的 add/sub/neg。
+為 &Decimal 實現，運算元仍可使用。精確結果使用較大的運算元 scale，結果已初始化。關聯 Output 為 Decimal。允許負結果，不應用 safe_add/safe_sub 的非負結果要求。trait 委託同一核心具名方法。瀏覽器不多載 JavaScript 運算子，應呼叫 add/sub/neg。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 72523519c8ccf1aad4c8baebb6ac1ef42e8070b9cc7f7f72b600ff77781eaf4e
+source_revision: 6b629a98b1d0cf789206ec80dbc9b0fea8fe635e292ac636b6d2f18cecfbcd39
 translation_provenance: en-US-reviewed-reuse
 api_id: "ErrorKind::InvalidFormat"
 ---
@@ -14,7 +14,7 @@ InvalidFormat
 
 ## Parameters, return and normal usage
 
-Input is not a supported finite decimal representation. ErrorKind is a stable category rather than a message string. Browser enum values are Rust variant names; constructed errors use matches(), while caught bridge exceptions expose a kinds array.
+Input is not a supported finite decimal representation.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

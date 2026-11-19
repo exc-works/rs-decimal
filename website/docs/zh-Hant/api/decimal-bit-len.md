@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 3cc2ce52c4d0ed0d111f2e4df3eea8f2b90cb54656fa97590458dae94eb7b967
+source_revision: cd78c2dcf4b67b04ef802fd73ba3ef0da02aad24d1bb17be5cc5df5d221df3cd
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::bit_len
 ---
@@ -14,7 +14,7 @@ fn bit_len (& self) -> usize
 
 ## 參數、回傳值及常規用法
 
-無參數，Rust 回傳 usize，bridge 回傳 number。不應用 scale，也不計符號位：-1.20 的係數為 -120，位數為 7。零（包括預設零）回傳 0。這不是最高置位的索引。
+無參數，Rust 回傳 usize，JavaScript 回傳 number。不應用 scale，也不計符號位：-1.20 的係數為 -120，位數為 7。零（包括預設零）回傳 0。這不是最高置位的索引。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

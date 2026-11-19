@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: b7ff1544694c51babb7af7cb99735ecc6687d86e9cd9a108af321bed93252beb
+source_revision: 0b7e4ede82a7865b24f3ea40debe791505bf9ac255c8e2f8790aa1271d0fdf3a
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::int_part
 ---
@@ -14,7 +14,7 @@ fn int_part (& self) -> BigInt
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-Keine Parameter; Rust liefert BigInt, die Bridge bigint, ohne Gleitkommakonvertierung. -12.75 ergibt -12, nicht floor(-12.75) = -13. Die Standardnull ergibt null. Das Beispiel serialisiert die Ganzzahl als Zeichenfolge, um beliebige Genauigkeit in JSON zu erhalten.
+Keine Parameter; Rust liefert BigInt, die JavaScript-API bigint, ohne Gleitkommakonvertierung. -12.75 ergibt -12, nicht floor(-12.75) = -13. Die Standardnull ergibt null. Das Beispiel serialisiert die Ganzzahl als Zeichenfolge, um beliebige Genauigkeit in JSON zu erhalten.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

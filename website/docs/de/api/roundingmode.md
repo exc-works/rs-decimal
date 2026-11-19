@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: ac4a10a855b39a59f0636e888eaecef62de05250e4c407dbf6ae0398e83f87d9
+source_revision: 536ad1418de3fbdb10070d55eda3a68aef79b3b4a2bc3507ce307a0421f5b595
 translation_provenance: en-US-german-reviewed
 api_id: RoundingMode
 ---
@@ -14,7 +14,7 @@ pub enum RoundingMode
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-Verwenden Sie benannte Enumvarianten in Rust und RoundingMode-Felder in der Bridge. Rust-Diskriminanten 0–6 entsprechen den Browserzahlen. Down bedeutet Richtung null, Up von null weg, Ceiling Richtung positive Unendlichkeit. HalfUp/HalfDown/HalfEven entscheiden exakte Gleichstände von null weg/Richtung null/zur geraden Ziffer. Unnecessary verlangt Exaktheit. Es gibt keine implizite globale Rundungseinstellung.
+Verwenden Sie benannte Enumvarianten in Rust und RoundingMode-Felder in JavaScript. Rust-Diskriminanten 0–6 entsprechen den Browserzahlen. Down bedeutet Richtung null, Up von null weg, Ceiling Richtung positive Unendlichkeit. HalfUp/HalfDown/HalfEven entscheiden exakte Gleichstände von null weg/Richtung null/zur geraden Ziffer. Unnecessary verlangt Exaktheit. Es gibt keine implizite globale Rundungseinstellung.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

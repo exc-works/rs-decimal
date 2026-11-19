@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 9ab9d90f4fdbf97aeb5b036e4b2c138345a66dab28af2a920054edaddf0608dd
+source_revision: 23ce03e01f179e79048016168712d7a3101de4dd03467bd8aefb98f6fd47b269
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::impl Default
 ---
@@ -14,7 +14,7 @@ impl Default for Decimal
 
 ## 通常の使い方と意味
 
-Default は構築したゼロと数値として等しいものの、is_nil() は true です。bridge は Decimal.default() を提供します。このページは Rust トレイト自体を説明します。
+Default は構築したゼロと数値として等しいものの、is_nil() は true です。JavaScript は Decimal.default() を提供します。このページは Rust トレイト自体を説明します。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: ed7eae766562aad92ba36a1a91ecd3051f3e73486fdc4f475516ea974adac927
+source_revision: 53c6a8acf9ea21b47dcf7e64e91f78d378746d55bbda43af84954ef21da2900f
 translation_provenance: en-US-german-reviewed
 api_id: "Decimal::impl fmt :: Display::fmt"
 ---
@@ -14,7 +14,7 @@ fn fmt (& self , f : & mut fmt :: Formatter < '_ >) -> fmt :: Result
 
 ## Übliche Verwendung und Semantik
 
-Verwenden Sie format!("{}", value), println! oder to_string(); fmt::Formatter wird vom Formatierungsmechanismus bereitgestellt. Die Standardformatierung entfernt nachgestellte Nachkommanullen. Weitere Formatierungsflags behandelt die Formatierungsgruppe; die Bridge bietet string()/string_with_trailing_zeros().
+Verwenden Sie format!("{}", value), println! oder to_string(); fmt::Formatter wird vom Formatierungsmechanismus bereitgestellt. Die Standardformatierung entfernt nachgestellte Nachkommanullen. Weitere Formatierungsflags behandelt die Formatierungsgruppe; die JavaScript-API bietet string()/string_with_trailing_zeros().
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

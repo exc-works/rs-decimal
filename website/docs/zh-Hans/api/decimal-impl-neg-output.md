@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: d8d63d1c0e264a86d3f7608f1fd35c5b3c0175c1d05354d8cfc9826d8215e864
+source_revision: 4de2b7f049c588d3fb290c5d299ab4e7f3436be10c0a26243bffab3f3e0229cf
 api_id: "Decimal::impl Neg::Output"
 ---
 # Decimal::impl Neg::Output
@@ -13,7 +13,7 @@ type Output = Decimal
 
 ## 常规用法与注意事项
 
-为 &Decimal 实现，操作数仍可使用。一元 - 保留 scale 并初始化结果，包括默认零。trait 委托同一核心具名方法。浏览器不重载 JavaScript 运算符，应调用 bridge 的 add/sub/neg。
+为 &Decimal 实现，操作数仍可使用。一元 - 保留 scale 并初始化结果，包括默认零。trait 委托同一核心具名方法。浏览器不重载 JavaScript 运算符，应调用 add/sub/neg。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

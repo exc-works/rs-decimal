@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: f5ea64d7e7a6135acc2f55f3a40411c6d9222e20ac49981dab203cb401fa6651
+source_revision: 29e91f626fd685fb0b5987fc104c1ba0e2752897194773305e3d64dcc1b16f1a
 translation_provenance: en-US-korean-reviewed
 api_id: reexport::one
 ---
@@ -14,7 +14,7 @@ pub use decimal::one as one
 
 ## 일반적인 사용법과 의미
 
-rs_decimal::one를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다. JavaScript에는 Rust use 문법이 없으므로 대응하는 bridge 참조 문서를 확인하세요.
+rs_decimal::one를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

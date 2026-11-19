@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 9ec084e5d70a80123e6b5391a460c2d09074b7e750d373283106219a5cde28ed
+source_revision: fae9d1b20487be5ea60841b603ab060b40d5b639bd9efc686e9fd8f0f555bd79
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::new_from_int64
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## Usage notes
 
-The value is a coefficient, not an already-scaled amount. Negative precision is `InvalidPrecision`; out-of-range i64 values are bridge parameter errors.
+The value is a coefficient, not an already-scaled amount. Negative precision is `InvalidPrecision`; out-of-range i64 values are invalid arguments.
 
 ## Related methods
 

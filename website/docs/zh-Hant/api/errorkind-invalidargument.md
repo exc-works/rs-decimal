@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: e14d22e2fbe70e02eda750145ed5b1a70252e171e63aeaafcfc01281be24e818
+source_revision: 60b597f1227be3f07266a1dfff4c0523c2dc4417119eb6ee13c33512e626a58b
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: "ErrorKind::InvalidArgument"
 ---
@@ -14,7 +14,7 @@ InvalidArgument
 
 ## 參數、回傳值及常規用法
 
-參數、驗證規則或訊息模板無效。ErrorKind 是穩定類別，不是錯誤訊息文字。瀏覽器列舉值為 Rust 變體名；建構的錯誤使用 matches()，捕獲的 bridge 異常提供 kinds 陣列。
+參數、驗證規則或訊息模板無效。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

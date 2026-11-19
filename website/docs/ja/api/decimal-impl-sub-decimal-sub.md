@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: d45d74416d2c87c80fb49aa3df1784d40da77b35f533ee0df8cdabe577cea67b
+source_revision: c4a0a7eefa609b0c57e86546936b34ea64a5ece51d5f57a28f19151facde5f69
 translation_provenance: en-US-japanese-reviewed
 api_id: "Decimal::impl Sub < & Decimal >::sub"
 ---
@@ -14,7 +14,7 @@ fn sub (self , other : & Decimal) -> Decimal
 
 ## 通常の使い方と注意点
 
-&Decimal に実装されているため、オペランドは引き続き使用できます。正確な結果は両オペランドの大きい方のスケールを使い、初期化済みです。関連型 Output は Decimal です。負の結果も許可し、safe_add/safe_sub の非負結果の要件は適用しません。トレイトはコアの同じ名前のメソッドに委譲します。ブラウザーの JavaScript 演算子はオーバーロードされないため、bridge の add/sub/neg を使います。
+&Decimal に実装されているため、オペランドは引き続き使用できます。正確な結果は両オペランドの大きい方のスケールを使い、初期化済みです。関連型 Output は Decimal です。負の結果も許可し、safe_add/safe_sub の非負結果の要件は適用しません。トレイトはコアの同じ名前のメソッドに委譲します。ブラウザーの JavaScript 演算子はオーバーロードされないため、JavaScript の add/sub/neg を使います。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

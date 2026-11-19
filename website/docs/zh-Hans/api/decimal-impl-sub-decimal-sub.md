@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: d45d74416d2c87c80fb49aa3df1784d40da77b35f533ee0df8cdabe577cea67b
+source_revision: c4a0a7eefa609b0c57e86546936b34ea64a5ece51d5f57a28f19151facde5f69
 api_id: "Decimal::impl Sub < & Decimal >::sub"
 ---
 # Decimal::impl Sub < & Decimal >::sub
@@ -13,7 +13,7 @@ fn sub (self , other : & Decimal) -> Decimal
 
 ## 常规用法与注意事项
 
-为 &Decimal 实现，操作数仍可使用。精确结果使用较大的操作数 scale，结果已初始化。关联 Output 为 Decimal。允许负结果，不应用 safe_add/safe_sub 的非负结果要求。trait 委托同一核心具名方法。浏览器不重载 JavaScript 运算符，应调用 bridge 的 add/sub/neg。
+为 &Decimal 实现，操作数仍可使用。精确结果使用较大的操作数 scale，结果已初始化。关联 Output 为 Decimal。允许负结果，不应用 safe_add/safe_sub 的非负结果要求。trait 委托同一核心具名方法。浏览器不重载 JavaScript 运算符，应调用 add/sub/neg。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

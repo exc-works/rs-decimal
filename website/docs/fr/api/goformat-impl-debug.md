@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 4e5c7dfa4cd03b60430392b3a97363dc09a63cee40fa7c3bab57e19b48c4d145
+source_revision: 31f0a432b373e9f77b1c47a8c72a2cfedcd5df17aa590c851611115cc0270629
 translation_provenance: en-US-french-reviewed
 api_id: GoFormat::impl Debug
 ---
@@ -14,7 +14,7 @@ impl Debug for GoFormat
 
 ## Paramètres, résultat et utilisation courante
 
-GoFormat est une petite structure de champs Copy. Clone/Copy conservent les options ; Debug affiche les champs. Default choisit v, None pour width/precision et false pour tous les indicateurs. Cette syntaxe Rust est testée nativement ; les objets du bridge suivent la sémantique ordinaire des objets de champs JavaScript et de GoFormat.default().
+GoFormat est une petite structure de champs Copy. Clone/Copy conservent les options ; Debug affiche les champs. Default choisit v, None pour width/precision et false pour tous les indicateurs. Cette syntaxe Rust est testée nativement ; les objets de l’API JavaScript suivent la sémantique ordinaire des objets de champs JavaScript et de GoFormat.default().
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

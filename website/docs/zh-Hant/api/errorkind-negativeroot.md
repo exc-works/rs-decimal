@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: e2bc3815435c7e993973dc27c3f32515fd48346d012f56633ed09feff4f0aa99
+source_revision: 5f9f5b98ed8859c985ee6b90bb4024a386c6fbdd6f1c7574c75a2557b8522f16
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: "ErrorKind::NegativeRoot"
 ---
@@ -14,7 +14,7 @@ NegativeRoot
 
 ## 參數、回傳值及常規用法
 
-對負數請求偶次根。ErrorKind 是穩定類別，不是錯誤訊息文字。瀏覽器列舉值為 Rust 變體名；建構的錯誤使用 matches()，捕獲的 bridge 異常提供 kinds 陣列。
+對負數請求偶次根。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

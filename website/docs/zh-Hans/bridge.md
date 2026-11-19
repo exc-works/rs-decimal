@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: bc4fe0d7f63ebbaad6f009ea77ae93eee10d61514aa0fcf8907740ea4397dc70
+source_revision: bd473c0431492bbeed88af5f453e401cc80b45775529394fc98a50e453c639ca
 ---
 # 在浏览器中调用 Rust 方法
 
@@ -33,7 +33,7 @@ JS 类型或范围错误使用 `BridgeError` 和 `category: 'parameter'`，
 不合法的 JS 参数类型在调用前被拒绝，因此不会消耗接收者。
 `clone()` 保留表示和初始化状态。`free()` 释放仍存活的句柄，已消耗后调用
 也安全。运行器完成后将销毁整个 Wasm 实例，不依赖垃圾回收终结器释放资源。
-不同 bridge 实例的对象不能混用。
+不同 JavaScript 实例的对象不能混用。
 
 ## 可空值与字节
 
@@ -47,6 +47,6 @@ JS 类型或范围错误使用 `BridgeError` 和 `category: 'parameter'`，
 借用生命周期和编译期 trait 检查。`ByteBuffer.new(Uint8Array)` 复制输入字节，
 `to_uint8_array()` 返回副本，不受 Wasm 内存增长影响。追加文本方法见[方法目录](./api/)。
 
-bridge 的 `snapshot(value)` 立即捕获精确状态，包括无效 NullDecimal 中
+JavaScript 的 `snapshot(value)` 立即捕获精确状态，包括无效 NullDecimal 中
 保留的内部值。返回的数据被冻结，后续修改对象不会改变旧输出。
 隔离运行器限制递归输出和执行时间，详见[资源限制](./resource-policy)。

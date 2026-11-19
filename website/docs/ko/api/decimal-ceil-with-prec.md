@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 2d051b010383c0adad95eaeacec22cce35ee5a02d1fddebba48aa1d5a1f4d4ae
+source_revision: 11b8aa485f155a658e5960045fe97e0878f07fd6eb371a471f1440f29be38903
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::ceil_with_prec
 ---
@@ -14,7 +14,7 @@ fn ceil_with_prec (& self , prec : isize) -> Result < Self , DecimalError >
 
 ## 매개변수, 반환값, 일반적인 사용법
 
-prec: isize/정수 number. Rust는 Result<Decimal, DecimalError>를, bridge는 Decimal 또는 예외를 반환합니다. 음수 정밀도는 InvalidPrecision입니다. 입력은 빌려 사용하며 변경하지 않습니다. 기본 0이 입력이어도 결과는 초기화됩니다. 정밀도를 높이면 수치를 바꾸지 않고 0을 추가합니다.
+prec: isize/정수 number. 음수 정밀도는 InvalidPrecision입니다. 입력은 빌려 사용하며 변경하지 않습니다. 기본 0이 입력이어도 결과는 초기화됩니다. 정밀도를 높이면 수치를 바꾸지 않고 0을 추가합니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

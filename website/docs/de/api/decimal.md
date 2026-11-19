@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 9459cb9d77c7f6ad22b96853baef01b1a9461529cecff18a116b5d2dee9166d3
+source_revision: 56094af9f622985dec933077af65cd0cc673023dc5a3a4be3553f2af47b621d4
 translation_provenance: en-US-german-reviewed
 api_id: Decimal
 ---
@@ -14,7 +14,7 @@ pub struct Decimal
 
 ## Übliche Verwendung und Semantik
 
-Der Wert ist Koeffizient × 10^-scale. Die Skala zählt Nachkommastellen einschließlich erhaltener nachgestellter Nullen. Default ist eine nicht initialisierte numerische Null. Konstruktoren erzeugen initialisierte Werte; ausleihende Methoden erhalten Eingaben, konsumierende Methoden machen deren Browserwrapper ungültig. Verwenden Sie benannte Konstruktoren der Bridge; new Decimal() ist kein öffentlicher Konstruktor.
+Der Wert ist Koeffizient × 10^-scale. Die Skala zählt Nachkommastellen einschließlich erhaltener nachgestellter Nullen. Default ist eine nicht initialisierte numerische Null. Konstruktoren erzeugen initialisierte Werte; ausleihende Methoden erhalten Eingaben, konsumierende Methoden machen deren Browserwrapper ungültig. Verwenden Sie benannte Konstruktoren der JavaScript-API; new Decimal() ist kein öffentlicher Konstruktor.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

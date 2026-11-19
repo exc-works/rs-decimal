@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: d57c1e8ddb07024ed3c5c002f095b2cee086c1a0719df70a0b4ba8761f29418d
+source_revision: 2a36a5c46f57052b68644728359c44f15465f6bfca2c60d1540e40c603cc8c5b
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: NullDecimal.valid
 ---
@@ -14,7 +14,7 @@ valid: bool
 
 ## 常規用法及語義
 
-Rust 公開的 bool 欄位映射為 boolean getter/setter。設定 false 不會清除 decimal，設定 true 也不會將其初始化。bridge 會在修改前拒絕非 boolean 輸入。
+Rust 公開的 bool 欄位映射為 boolean getter/setter。設定 false 不會清除 decimal，設定 true 也不會將其初始化。JavaScript 會在修改前拒絕非 boolean 輸入。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

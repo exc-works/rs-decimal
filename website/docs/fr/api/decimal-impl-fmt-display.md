@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: c94998594bf6a8005b50df98354b3549d47447f21a6664735b824dda07443935
+source_revision: 97b85000fbf7a0fb6537eae68258f927a7739647e41e96de3c0f26f460f2d35a
 translation_provenance: en-US-french-reviewed
 api_id: "Decimal::impl fmt :: Display"
 ---
@@ -14,7 +14,7 @@ impl fmt :: Display for Decimal
 
 ## Utilisation courante et sémantique
 
-Utilisez format!("{}", value), println! ou to_string() ; le mécanisme de formatage fournit fmt::Formatter. Le format par défaut supprime les zéros fractionnaires finaux. Les options supplémentaires sont décrites dans le groupe de formatage ; utilisez string()/string_with_trailing_zeros() dans le bridge.
+Utilisez format!("{}", value), println! ou to_string() ; le mécanisme de formatage fournit fmt::Formatter. Le format par défaut supprime les zéros fractionnaires finaux. Les options supplémentaires sont décrites dans le groupe de formatage ; utilisez string()/string_with_trailing_zeros() en JavaScript.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 0db8fa19358a4f2f8842ab2f8da65e8e108f7914cbdecf8f41f654ca5171b70c
+source_revision: 24d7fa4a2221c5f03dbc4893af4fe9b8c3b42496692a1b9ed6c8a03465745caf
 translation_provenance: en-US-korean-reviewed
 api_id: reexport::max
 ---
@@ -14,7 +14,7 @@ pub use decimal::max as max
 
 ## 일반적인 사용법과 의미
 
-rs_decimal::max를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다. JavaScript에는 Rust use 문법이 없으므로 대응하는 bridge 참조 문서를 확인하세요.
+rs_decimal::max를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

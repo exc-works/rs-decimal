@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 783c16e5cc4d9d8fc3c2d8c291b8f90a43746731baaf29ac25b9f64402f2b5c9
+source_revision: 42bb4c692d19b0113bb004bfa29bdbc283b0bb157f90295cf679a7adf7e3388f
 api_id: "Decimal::impl Neg"
 ---
 # Decimal::impl Neg
@@ -8,12 +8,12 @@ api_id: "Decimal::impl Neg"
 使用借用式 Rust Neg 语法。
 
 ```rust
-impl Neg for & Decimal 
+impl Neg for & Decimal
 ```
 
 ## 常规用法与注意事项
 
-为 &Decimal 实现，操作数仍可使用。一元 - 保留 scale 并初始化结果，包括默认零。trait 委托同一核心具名方法。浏览器不重载 JavaScript 运算符，应调用 bridge 的 add/sub/neg。
+为 &Decimal 实现，操作数仍可使用。一元 - 保留 scale 并初始化结果，包括默认零。trait 委托同一核心具名方法。浏览器不重载 JavaScript 运算符，应调用 add/sub/neg。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

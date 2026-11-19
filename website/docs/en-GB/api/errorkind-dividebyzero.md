@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: c5bc8b97bab18c557c0918fb7ad15cabc2fd824c618c469b8f007d1f6299272b
+source_revision: d5c1f534ca8b330824c58556da76c1a087af48c4167345fd17aa17a747039e3a
 translation_provenance: en-US-reviewed-reuse
 api_id: "ErrorKind::DivideByZero"
 ---
@@ -14,7 +14,7 @@ DivideByZero
 
 ## Parameters, return and normal usage
 
-A divisor is zero. ErrorKind is a stable category rather than a message string. Browser enum values are Rust variant names; constructed errors use matches(), while caught bridge exceptions expose a kinds array.
+A divisor is zero.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

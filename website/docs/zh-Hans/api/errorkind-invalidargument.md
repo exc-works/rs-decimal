@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: e14d22e2fbe70e02eda750145ed5b1a70252e171e63aeaafcfc01281be24e818
+source_revision: 60b597f1227be3f07266a1dfff4c0523c2dc4417119eb6ee13c33512e626a58b
 api_id: "ErrorKind::InvalidArgument"
 ---
 # ErrorKind::InvalidArgument
@@ -13,7 +13,7 @@ InvalidArgument
 
 ## 参数、返回值及常规用法
 
-参数、验证规则或消息模板无效。ErrorKind 是稳定类别，不是错误消息文本。浏览器枚举值为 Rust 变体名；构造的错误使用 matches()，捕获的 bridge 异常提供 kinds 数组。
+参数、验证规则或消息模板无效。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";
