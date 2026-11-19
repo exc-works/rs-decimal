@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: bd473c0431492bbeed88af5f453e401cc80b45775529394fc98a50e453c639ca
+source_revision: 967fc6e56bfb3ade48f0faf10b0c1e0de7e21a4d9ec093d537fb469385460f6f
 translation_provenance: en-US-reviewed-reuse
 ---
 # Calling Rust methods in the browser
@@ -23,19 +23,9 @@ precision reaches Rust and returns its original InvalidPrecision error.
 
 ## Errors and ownership
 
-Rust returned errors throw an Error with `name: 'DecimalError'`, `category:
-'library'`, the original `message`, and a `kinds` string array. Keep the full array:
-a decoder error can match more than one kind. JS shape/range failures instead have
-`name: 'BridgeError'` and `category: 'parameter'`; they are not Rust arithmetic
-errors. Numeric invalid rounding discriminants reach Rust's validation.
+Use the error’s `kinds` array to identify a library error such as `InvalidPrecision`. An argument with the wrong type or range is reported with `category: "parameter"`.
 
-Borrowed methods leave objects usable. `into_rescaled` consumes its receiver,
-including when Rust returns an error. Using a consumed/disposed value raises a
-`moved` BridgeError. Invalid JS argument shapes are rejected before the call and
-do not consume the receiver. `clone()` preserves representation and initialization.
-`free()` releases live handles and is harmless after consumption. Each runner
-will discard its Wasm instance at completion, rather than relying on finalizers.
-Objects from a different Playground session cannot be passed into a call.
+A method such as `rescale` leaves the input available for another calculation. `into_rescaled` consumes it even if rounding fails. Call `clone` first if you need to keep the original.
 
 ## Nullable values and bytes
 

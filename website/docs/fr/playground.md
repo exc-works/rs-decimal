@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 60b71a4e750d3835abdec3e2e546f11a77759013f3f84ad31d530c433bd67b11
+source_revision: 284f92d20227e82946bbbcda123bebd9143e64512e1a7f0633cf17755157f389
 ---
 # Playground
 
@@ -16,7 +16,7 @@ import { locales } from "../../locales.mjs";
 <Playground locale="fr" :labels="locales['fr']" />
 
 ::: details Exemples de méthodes et partage
-Vous pouvez modifier les arguments et exécuter l’exemple sur la page de la méthode. Ouvrez-le dans le Playground pour modifier le script ou le partager.
+Modifiez un argument sur la page de la méthode pour actualiser le code et le résultat. Ouvrez le Playground pour modifier ou partager le script entier.
 
 Le partage place au maximum 4 Kio de code UTF-8 et le commit du build de la bibliothèque dans le fragment de l’URL. Le code n’est pas envoyé à un serveur. Un lien partagé nécessite le même build, charge le code sans l’exécuter et efface les résultats précédents. Un lien incorrect conserve votre brouillon actuel. Vérifiez le code, puis cliquez sur Exécuter. Exportez les scripts plus longs dans un fichier ; l’éditeur accepte jusqu’à 64 Kio. Les liens contiennent le texte du script : vérifiez-le avant de le partager.
 :::

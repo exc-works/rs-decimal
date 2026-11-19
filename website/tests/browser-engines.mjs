@@ -100,6 +100,9 @@ try {
       await page.locator('[data-action=run]:enabled').click();
       await page.waitForFunction(() => document.querySelector('.pg-output')?.textContent.includes('-1.24'));
 
+      await page.goto(`${origin}/rs-decimal/en-US/api/nulldecimal-valid.html`);
+      await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent.includes('"valid": false'));
+
       await page.goto(`${origin}/rs-decimal/zh-Hans/api/decimal-rescale.html`);
       await page.locator('.vp-doc p a[href$="/roundingmode.html"]').first().waitFor();
       assert.ok(await page.locator('.vp-doc p a[href$="/errorkind-invalidprecision.html"]').count());

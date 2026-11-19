@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: bd473c0431492bbeed88af5f453e401cc80b45775529394fc98a50e453c639ca
+source_revision: 967fc6e56bfb3ade48f0faf10b0c1e0de7e21a4d9ec093d537fb469385460f6f
 translation_provenance: zh-Hans-terminology-reviewed
 ---
 # 在瀏覽器中呼叫 Rust 方法
@@ -23,18 +23,9 @@ precision 使用 wasm32 有符號整數範圍內的 JS 整數；小數、非有�
 
 ## 錯誤與所有權
 
-Rust 回傳錯誤時拋出 Error，包含 `name: 'DecimalError'`、
-`category: 'library'`、原始 `message` 和完整的 `kinds` 字串陣列。
-不要只讀取一個類別：解碼錯誤可能同時屬於多個類別。
-JS 類型或範圍錯誤使用 `BridgeError` 和 `category: 'parameter'`，
-不偽裝成 Rust 算術錯誤。數值形式的無效捨入模式由 Rust 檢查。
+用例外的 `kinds` 陣列判斷是否發生了 `InvalidPrecision` 等錯誤。參數型別或範圍錯誤時，類別為 `parameter`。
 
-借用方法呼叫後物件仍可使用。`into_rescaled` 會消耗接收者，即使 Rust
-回傳錯誤也一樣；再次使用已消耗或釋放的物件會得到 `moved` BridgeError。
-不合法的 JS 參數類型在呼叫前被拒絕，因此不會消耗接收者。
-`clone()` 保留表示和初始化狀態。`free()` 釋放仍存活的控制代碼，已消耗後呼叫
-也安全。執行器完成後將銷毀整個 Wasm 實例，不依賴垃圾回收終結器釋放資源。
-不同 JavaScript 實例的物件不能混用。
+呼叫 `rescale` 後，原值仍可參與其他計算。`into_rescaled` 會消耗原值，即使捨入失敗也是如此。需要保留原值時，請先呼叫 `clone`。
 
 ## 可空值與位元組
 

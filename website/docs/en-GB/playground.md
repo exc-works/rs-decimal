@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 60b71a4e750d3835abdec3e2e546f11a77759013f3f84ad31d530c433bd67b11
+source_revision: 284f92d20227e82946bbbcda123bebd9143e64512e1a7f0633cf17755157f389
 ---
 # Playground
 
@@ -16,7 +16,7 @@ import { locales } from "../../locales.mjs";
 <Playground locale="en-GB" :labels="locales['en-GB']" />
 
 ::: details Method examples and sharing
-Run examples on the method page to try different arguments. Open one in Playground to change the script or share it.
+Edit an argument on a method page to update the example and its result. Open it in Playground to edit or share the full script.
 
 Share creates a URL fragment containing up to 4 KiB of UTF-8 code and the library build commit. The code is not uploaded to a server. A shared link requires the same build, loads without running, and clears previous results. Invalid links leave your current draft intact. Review the code and click Run. Export larger scripts as files; the editor accepts up to 64 KiB. Links can contain any text in your script, so inspect the code before sharing.
 :::

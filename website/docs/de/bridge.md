@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: bd473c0431492bbeed88af5f453e401cc80b45775529394fc98a50e453c639ca
+source_revision: 967fc6e56bfb3ade48f0faf10b0c1e0de7e21a4d9ec093d537fb469385460f6f
 translation_provenance: en-US-german-reviewed
 ---
 # Rust-Methoden im Browser aufrufen
@@ -17,9 +17,9 @@ Verwenden Sie exakte Zeichenfolgen für Dezimaleingaben und `bigint` für i64-Ar
 
 ## Fehler und Besitz
 
-Von Rust zurückgegebene Fehler werfen einen Error mit `name: 'DecimalError'`, `category: 'library'`, der ursprünglichen `message` und einem Zeichenfolgenarray `kinds`. Erhalten Sie das vollständige Array: Ein Decoderfehler kann mehreren Arten entsprechen. Fehler der JS-Typ- oder Bereichsprüfung haben dagegen `name: 'BridgeError'` und `category: 'parameter'`; sie sind keine Rust-Rechenfehler. Ungültige numerische Rundungsdiskriminanten erreichen Rusts Validierung.
+Das Array `kinds` kennzeichnet Rechenfehler wie `InvalidPrecision`. Hat ein Argument den falschen Typ oder liegt es außerhalb des gültigen Bereichs, lautet die Fehlerkategorie `parameter`.
 
-Ausleihende Methoden lassen Objekte nutzbar. `into_rescaled` konsumiert seinen Empfänger auch dann, wenn Rust einen Fehler liefert. Nutzung eines konsumierten oder freigegebenen Werts löst einen BridgeError mit `moved` aus. Ungültige JS-Argumenttypen werden vor dem Aufruf abgewiesen und konsumieren den Empfänger nicht. `clone()` erhält Darstellung und Initialisierung. `free()` gibt aktive Handles frei und ist nach Konsumierung harmlos. Jeder Runner verwirft seine Wasm-Instanz bei Abschluss, ohne auf Finalizer zu vertrauen. Objekte einer anderen JavaScript-Instanz können nicht übergeben werden.
+Nach `rescale` ist der Ausgangswert weiter verwendbar. `into_rescaled` verbraucht ihn auch bei einem Rundungsfehler. Verwenden Sie vorher `clone`, um das Original zu behalten.
 
 ## Nullable-Werte und Bytes
 

@@ -5,7 +5,7 @@ rs-decimal is a Rust port that preserves the numerical and state contract of exc
 ## API documentation and Playground
 
 - [API reference](https://exc-works.github.io/rs-decimal/en-US/api/) · [简体中文](https://exc-works.github.io/rs-decimal/zh-Hans/api/) — Browse by Rust type or search by method name to find signatures, usage examples, and rounding or error behavior. Use the language menu to switch between eight languages.
-- [Playground](https://exc-works.github.io/rs-decimal/en-US/playground.html) · [简体中文](https://exc-works.github.io/rs-decimal/zh-Hans/playground.html) — Run the Rust library in your browser through its JavaScript/Wasm bridge. On a supported method’s page, edit the arguments and select **Run** to see the result there. Choose **Open in Playground** to edit or share the full script.
+- [Playground](https://exc-works.github.io/rs-decimal/en-US/playground.html) · [简体中文](https://exc-works.github.io/rs-decimal/zh-Hans/playground.html) — Try the library directly in your browser. Edit an argument on a supported method’s page to see the code and result update. Choose **Open in Playground** to edit or share the full script.
 
 ## Development
 
