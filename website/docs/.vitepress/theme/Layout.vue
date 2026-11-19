@@ -41,7 +41,7 @@ const groups = computed(() => {
 
 <template>
   <DefaultTheme.Layout>
-    <template #nav-bar-content-after>
+    <template #nav-bar-content-before>
       <a class="playground-nav" :href="withBase('/' + lang + '/playground.html')"
          :aria-current="page.relativePath === lang + '/playground.md' ? 'page' : undefined">Playground</a>
     </template>
