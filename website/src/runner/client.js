@@ -1,5 +1,43 @@
 import { SCHEMA, LIMITS, sourceValid, eventValid } from "./protocol.js";
 
+class StartupError extends Error {
+  constructor(label, message) {
+    super(message);
+    this.label = label;
+  }
+}
+
+export function runnerErrorMessage(error, labels) {
+  if (error instanceof StartupError) return labels[error.label];
+  return error instanceof Error ? error.message : String(error);
+}
+
+// Cache only the verified build, never failed or aborted downloads.
+let cachedPackage;
+async function loadPackage(url, commit, controller) {
+  if (cachedPackage?.url === url.href && cachedPackage.commit === commit)
+    return cachedPackage.html;
+  const timeout = setTimeout(() => controller.abort(), 60000);
+  try {
+    const response = await fetch(new URL('sandbox.json', url), {
+      credentials: 'omit', cache: 'no-cache', redirect: 'error', signal: controller.signal,
+    });
+    if (!response.ok) throw Error('Runner package could not be loaded');
+    const text = await response.text();
+    if (text.length > 4 * 1024 * 1024) throw Error('Runner package is too large');
+    const bundle = JSON.parse(text);
+    if (bundle.schema !== 2 || bundle.commit !== commit || typeof bundle.html !== 'string')
+      throw new StartupError('pgRunnerVersion', 'Runner handshake version mismatch');
+    cachedPackage = {url: url.href, commit, html: bundle.html};
+    return bundle.html;
+  } catch (error) {
+    if (error instanceof StartupError) throw error;
+    throw new StartupError('pgRunnerDownload', 'Runner package download failed');
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 export class RunnerClient {
   constructor({ container, runnerUrl, commit, timeoutMs = LIMITS.timeoutMs }) {
     const url = new URL(runnerUrl, location.href);
@@ -33,10 +71,6 @@ export class RunnerClient {
     this.controller = new AbortController();
     this.ready = new Promise((resolve, reject) => {
       this.rejectReady = reject;
-      this.handshakeTimer = setTimeout(
-        () => { this.controller.abort(); reject(new Error("Runner handshake failed")); },
-        8000,
-      );
       this.port.onmessage = ({ data }) => {
         if (this.disposed) return;
         if (
@@ -70,23 +104,19 @@ export class RunnerClient {
     // Rejections remain observable by run(), even when bootstrap fails before Run.
     this.ready.catch(() => {});
     void (async () => {
-      const response = await fetch(new URL('sandbox.json', url), {
-        credentials: 'omit', cache: 'no-cache', redirect: 'error', signal: this.controller.signal,
-      });
-      if (!response.ok) throw Error('Runner package could not be loaded');
-      const packageText = await response.text();
-      if (packageText.length > 4 * 1024 * 1024) throw Error('Runner package is too large');
-      const bundle = JSON.parse(packageText);
-      if (bundle.schema !== 2 || bundle.commit !== commit || typeof bundle.html !== 'string')
-        throw Error('Runner handshake version mismatch');
+      const html = await loadPackage(url, commit, this.controller);
       if (this.disposed) return;
+      this.handshakeTimer = setTimeout(
+        () => this.rejectReady(new StartupError('pgRunnerStart', 'Runner frame did not start')),
+        8000,
+      );
       this.frame.onload = () => {
         this.frame.onload = null;
         this.frame.contentWindow.postMessage(
           {type: 'connect', schema: SCHEMA, commit, runnerUrl: url.href}, '*', [channel.port2],
         );
       };
-      this.frame.srcdoc = bundle.html;
+      this.frame.srcdoc = html;
       container.append(this.frame);
     })().catch(error => { clearTimeout(this.handshakeTimer); this.rejectReady(error); });
   }

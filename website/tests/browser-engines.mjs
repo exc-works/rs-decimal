@@ -65,6 +65,23 @@ try {
       }
       assert(!probes.slice(firstProbe).includes('/public/runner/probe.js'), `${name}: protected runner received network probe`);
       assert(probes.slice(firstProbe).includes('/insecure-runner/probe.js'), `${name}: missing-header control was not exercised`);
+      if (name === 'chromium') {
+        let requests = 0;
+        const downloading = page.waitForRequest('**/runner/sandbox.json');
+        await page.route('**/runner/sandbox.json', async route => {
+          requests++;
+          await new Promise(resolve => setTimeout(resolve, 8500));
+          await route.continue();
+        });
+        await page.goto(`${origin}/rs-decimal/en-US/api/decimal-new.html`);
+        await downloading;
+        await page.locator('[data-parameter="0"]').fill('21');
+        await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent === '21');
+        await page.locator('[data-parameter="0"]').fill('22');
+        await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent === '22');
+        assert.equal(requests, 1, 'edits share a slow initial download');
+        await page.unroute('**/runner/sandbox.json');
+      }
       for (const locale of ['en-US','en-GB','zh-Hans','zh-Hant','fr','ko','ja','de']) {
         const response = await page.goto(`${origin}/rs-decimal/${locale}/api/decimal-new.html`);
         assert.equal(response.status(), 200);
@@ -97,12 +114,14 @@ try {
       const pending = await places.evaluate(async input => {
         const code = document.querySelector('[data-example-code]');
         const original = code.textContent;
-        window.methodFrames = 0;
-        new MutationObserver(records => {
-          for (const record of records) {
-            for (const node of record.addedNodes) if (node.nodeName === 'IFRAME') window.methodFrames++;
-          }
-        }).observe(document.querySelector('.method-form'), {childList:true, subtree:true});
+        const originalPost = MessagePort.prototype.postMessage;
+        window.methodRuns = 0;
+        MessagePort.prototype.postMessage = function(...args) {
+          if (args[0]?.type === 'run') window.methodRuns++;
+          return originalPost.apply(this, args);
+        };
+        window.restoreMethodPort = () => { MessagePort.prototype.postMessage = originalPost; };
+        window.methodFrame = document.querySelector('.method-form iframe');
         for (const value of ['', '3', '1']) {
           input.value = value;
           input.dispatchEvent(new Event('input', {bubbles: true}));
@@ -113,7 +132,11 @@ try {
       });
       assert.equal(pending, '-1.24', 'retain the settled result during the debounce');
       await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent === '-1.2');
-      assert.equal(await page.evaluate(() => window.methodFrames), 1, 'one run for the typing burst');
+      assert.equal(await page.evaluate(() => {
+        window.restoreMethodPort();
+        return window.methodRuns;
+      }), 1, 'one run for the typing burst');
+      assert.ok(await page.evaluate(() => window.methodFrame && window.methodFrame === document.querySelector('.method-form iframe')), 'reuse the ready frame');
       assert.equal(await layout(), initialLayout);
       assert.equal(page.url(), methodUrl);
       await places.fill('-1');
