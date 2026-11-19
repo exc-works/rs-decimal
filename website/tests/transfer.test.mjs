@@ -23,10 +23,11 @@ test('sharing and local handoffs enforce separate UTF-8 byte limits before large
 test('form changes keep strings as data, exact bigint values, signs and argument order', () => {
   const source = 'const value = Decimal.new_from_string("1.20").rescale(-1, RoundingMode.HalfEven);';
   const fields = methodInputs(source);
-  assert.deepEqual(fields.map(x => x.type), ['string', 'number']);
+  assert.deepEqual(fields.map(x => x.type), ['string', 'number', 'rounding']);
   const injected = '"); throw Error("injected"); // 😀\n';
   let received;
-  new Function('Decimal','RoundingMode','show',formSource(source, fields, [injected, '2']))({new_from_string(text) { received = text; return {rescale(n) { assert.equal(n, 2); return null; }}; }}, {HalfEven: 1}, () => {});
+  new Function('Decimal','RoundingMode','show',formSource(source, fields, [injected, '2','Down']))({new_from_string(text) { received = text; return {rescale(n, mode) { assert.equal(n, 2); assert.equal(mode, 0); return null; }}; }}, {Down: 0}, () => {});
+  assert.throws(() => formSource(source, fields, [injected, '2', 'constructor']));
   assert.equal(received, injected);
   const bigSource = 'const value = Decimal.new(-12n);';
   const result = formSource(bigSource, methodInputs(bigSource), ['9007199254740993']);

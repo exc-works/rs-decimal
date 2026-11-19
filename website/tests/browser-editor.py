@@ -135,7 +135,7 @@ with tempfile.TemporaryDirectory(prefix='decimal-editor-') as temp:
         call(f'/session/{session}/url',{'url':'http://127.0.0.1:4210/rs-decimal/en-US/api/decimal-new.html'})
         until(lambda:js('return !!document.querySelector("[data-parameter=\\"0\\"]")'))
         js('const input=document.querySelector("[data-parameter=\\"0\\"]");input.value="9007199254740993";input.dispatchEvent(new Event("input",{bubbles:true}))')
-        until(lambda:js('return document.querySelector(".method-form pre").textContent.includes("9007199254740993n")'))
+        until(lambda:js('return document.querySelector("[data-example-code] mark")?.textContent.includes("9007199254740993")'))
         js('document.querySelector(".VPNavBarTranslations button").click();Array.from(document.querySelectorAll(".VPNavBarTranslations a")).find(x=>x.href.includes("/zh-Hans/")).click()')
         until(lambda:js('return document.documentElement.lang === "zh-Hans" && document.querySelector("[data-parameter=\\"0\\"]")?.value === "9007199254740993"'))
         click('open-example');until(ready)

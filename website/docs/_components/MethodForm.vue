@@ -1,39 +1,38 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRouter, withBase } from 'vitepress';
-import ExampleCode from './ExampleCode.vue';
+import { RoundingMode } from '../../src/bridge/index.js';
 import { RunnerClient } from '../../src/runner/client.js';
 import { locales } from '../../locales.mjs';
 import { formSource } from '../../src/editor/method-form.mjs';
 import { encodeTransfer, HANDOFF_KEY } from '../../src/editor/transfer.mjs';
-const props = defineProps<{ example: any; locale: string }>();
+const props = defineProps<{ example: any; locale: string; values: string[]; source: string | null }>();
 const router = useRouter();
 const labels = computed(() => locales[props.locale]);
-const values = ref<string[]>([]), storageError = ref(false), mounted = ref(false);
+const emit = defineEmits<{edit: [values: string[]]}>();
+const fieldLabels = {mode:'fieldMode', prec:'fieldPrec', input:'fieldInput', value:'fieldValue', a:'fieldLeft', b:'fieldRight'};
+const storageError = ref(false), mounted = ref(false);
 const storageKey = () => `rs-decimal:method:${__PLAYGROUND_CONFIG__.commit}:${props.example.id}`;
 function restore() {
-  values.value = props.example.inputs.map((field: any) => field.value);
   storageError.value = false;
   try {
     const text = sessionStorage.getItem(storageKey());
     if (text !== null && text.length <= 65536 * 6 + 1024) {
       const saved = JSON.parse(text);
       formSource(props.example.javascript, props.example.inputs, saved);
-      values.value = saved;
+      emit('edit', saved);
     }
   } catch {}
 }
-const source = computed(() => {
-  try { return formSource(props.example.javascript, props.example.inputs, values.value); }
-  catch { return null; }
-});
 const runnerHost = ref<HTMLElement>();
 const running = ref(false);
 const output = ref<string[]>([]);
 const error = ref('');
 let active: RunnerClient | undefined;
+let timer: ReturnType<typeof setTimeout> | undefined;
 
 function clearRun() {
+  clearTimeout(timer);
   active?.dispose();
   active = undefined;
   running.value = false;
@@ -48,7 +47,7 @@ function displayOutput(text: string) {
 }
 
 async function run() {
-  const script = source.value;
+  const script = props.source;
   if (script === null || running.value || !runnerHost.value) return;
   clearRun();
   running.value = true;
@@ -75,18 +74,25 @@ async function run() {
   }
 }
 
-watch(source, clearRun, { flush: 'sync' });
+watch([mounted, () => props.source], () => {
+  clearRun();
+  if (mounted.value && props.source !== null) timer = setTimeout(run, 250);
+}, { flush: 'sync' });
 onBeforeUnmount(clearRun);
 
-function save() {
-  if (source.value === null) return;
-  try { sessionStorage.setItem(storageKey(), JSON.stringify(values.value)); }
+function update(index: number, event: Event) {
+  const next = props.values.slice();
+  next[index] = (event.target as HTMLInputElement).value;
+  emit('edit', next);
+  try { formSource(props.example.javascript, props.example.inputs, next); }
+  catch { return; }
+  try { sessionStorage.setItem(storageKey(), JSON.stringify(next)); }
   catch { storageError.value = true; }
 }
 async function open() {
-  if (source.value === null) return;
+  if (props.source === null) return;
   try {
-    sessionStorage.setItem(HANDOFF_KEY, encodeTransfer(source.value, __PLAYGROUND_CONFIG__.commit));
+    sessionStorage.setItem(HANDOFF_KEY, encodeTransfer(props.source, __PLAYGROUND_CONFIG__.commit));
     await router.go(withBase(`/${props.locale}/playground`));
   } catch { storageError.value = true; }
 }
@@ -96,33 +102,26 @@ watch(() => props.example.id, () => { if (mounted.value) restore(); });
 <template>
   <section v-if="mounted" class="method-form" :aria-label="labels.methodTry">
     <h3>{{ labels.methodTry }}</h3>
-    <p>{{ labels.methodHelp }}</p>
+    <p v-if="example.inputs.length">{{ labels.methodHelp }}</p>
     <div v-for="(field, index) in example.inputs" :key="index" class="method-field">
       <label>
-        <code>{{ field.label }}</code> · {{ field.type }}
-        <select v-if="field.type === 'boolean'" v-model="values[index]" :data-parameter="index" @change="save">
-          <option>true</option><option>false</option>
+        {{ labels[fieldLabels[field.label]] ?? field.label }}
+        <select v-if="field.type === 'rounding' || field.type === 'boolean'" :value="values[index]" :data-parameter="index" @change="update(index, $event)">
+          <option v-for="choice in field.type === 'rounding' ? Object.keys(RoundingMode) : ['true','false']" :key="choice">{{ choice }}</option>
         </select>
-        <textarea v-else v-model="values[index]" :data-parameter="index" rows="1" spellcheck="false" @input="save"></textarea>
+        <textarea v-else :value="values[index]" :data-parameter="index" rows="1" spellcheck="false" @input="update(index, $event)"></textarea>
       </label>
     </div>
     <p v-if="source === null" role="alert">{{ labels.methodInvalid }}</p>
-    <details v-else>
-      <summary>JavaScript</summary>
-      <ExampleCode :source="source" language="javascript" />
-    </details>
-    <div class="method-actions">
-      <button data-action="run-example" :disabled="source === null || running" @click="run">
-        {{ running ? labels.pgRunning : labels.pgRun }}
-      </button>
-      <button data-action="open-example" :disabled="source === null" @click="open">{{ labels.methodOpen }}</button>
-    </div>
     <div aria-live="polite">
-      <template v-if="output.length">
-        <h4>{{ labels.pgOutput }}</h4>
-        <pre v-for="(line, i) in output" :key="i" data-example-output>{{ line }}</pre>
-      </template>
+      <h4>{{ labels.expectedResult }}</h4>
+      <pre v-for="(line, i) in output" :key="i" data-example-output>{{ line }}</pre>
       <p v-if="error" role="alert">{{ labels.pgError }} · {{ error }}</p>
+      <p v-else-if="source !== null && !output.length">{{ labels.pgRunning }}</p>
+    </div>
+    <div class="method-actions">
+      <button v-if="error" data-action="run-example" :disabled="source === null || running" @click="run">{{ labels.pgRun }}</button>
+      <button data-action="open-example" :disabled="source === null" @click="open">{{ labels.methodOpen }}</button>
     </div>
     <div ref="runnerHost"></div>
     <p v-if="storageError" role="alert">{{ labels.pgStorage }}</p>

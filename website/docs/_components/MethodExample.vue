@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
+import { locales } from '../../locales.mjs';
+import { formSource, previewParts } from '../../src/editor/method-form.mjs';
 import { referenceLabels } from '../../reference-labels.mjs';
 import { data } from '../examples.data';
 import MethodForm from './MethodForm.vue';
@@ -7,13 +9,33 @@ import ExampleCode from './ExampleCode.vue';
 const props=defineProps<{id:string,locale:string}>();
 const example=computed(()=>data[props.id]);
 const language = ref('Rust');
-watch(() => props.id, () => { language.value = 'Rust'; });
+const values = ref<string[]>([]);
+watch(example, current => {
+  values.value = current?.inputs.map(field => field.value) ?? [];
+  language.value = 'Rust';
+}, { immediate: true });
+const changed = computed(() => example.value?.inputs.some((field, i) => field.value !== values.value[i]));
+function edit(next: string[]) {
+  values.value = next;
+  if (changed.value && !example.value.rustInputs) language.value = 'JavaScript';
+}
+const script = computed(() => {
+  if (!example.value) return null;
+  try { return formSource(example.value.javascript, example.value.inputs, values.value); }
+  catch { return null; }
+});
+const parts = computed(() => {
+  const current = example.value;
+  if (!current || script.value === null) return [];
+  if (language.value === 'JavaScript') return previewParts(current.javascript, current.inputs, values.value, 'javascript');
+  return current.rustInputs ? previewParts(current.rust, current.rustInputs, values.value, 'rust') : [{ text: current.rust }];
+});
+const labels = computed(() => locales[props.locale]);
 const result = computed(() => {
   const value = example.value?.expected;
   if (value == null || typeof value !== 'object') return JSON.stringify(value);
   return value.string_with_trailing_zeros ?? value.string;
 });
-const labels:Record<string,string>={'en-US':'Expected state','en-GB':'Expected state','zh-Hans':'预期状态','zh-Hant':'預期狀態',fr:'État attendu',de:'Erwarteter Zustand',ja:'期待される状態',ko:'예상 상태'};
 const nativeLabels:Record<string,string>={
   'en-US':'This Rust example runs in the native test harness.', 'en-GB':'This Rust example runs in the native test harness.',
   'zh-Hans':'此 Rust 示例由原生测试执行。', 'zh-Hant':'此 Rust 範例由原生測試執行。',
@@ -32,13 +54,13 @@ const liveLabels:Record<string,string>={
     <h3>{{ referenceLabels[locale].example }}</h3>
     <div v-if="example.javascript.trim()" class="languages" role="group" :aria-label="referenceLabels[locale].example">
       <button v-for="name in ['Rust', 'JavaScript']" :key="name" type="button"
-              :aria-pressed="language === name" @click="language = name">{{ name }}</button>
+              :aria-pressed="language === name" @click="language = name">{{ name === 'Rust' && changed && !example.rustInputs ? labels.rustOriginal : name }}</button>
     </div>
-    <ExampleCode data-example-code :source="language === 'Rust' ? example.rust : example.javascript"
+    <ExampleCode v-if="script !== null" data-example-code :source="parts.map(part => part.text).join('')" :parts="parts"
                  :language="language === 'Rust' ? 'rust' : 'javascript'" />
     <p v-if="!example.javascript.trim()">{{ example.native_profile === "postgres-live" ? liveLabels[locale] : nativeLabels[locale] }}</p>
-    <details><summary>{{ labels[locale] }} <code v-if="result !== undefined">{{ result }}</code></summary><pre><code>{{ JSON.stringify(example.expected,null,2) }}</code></pre></details>
-    <MethodForm v-if="example.javascript.trim()" :key="example.id" :example="example" :locale="locale" />
+    <details v-if="!example.javascript.trim()"><summary>{{ labels.expectedResult }} <code v-if="result !== undefined">{{ result }}</code></summary><pre><code>{{ JSON.stringify(example.expected,null,2) }}</code></pre></details>
+    <MethodForm v-if="example.javascript.trim()" :key="example.id" :example="example" :locale="locale" :values="values" :source="script" @edit="edit" />
   </section>
 </template>
 <style scoped>
