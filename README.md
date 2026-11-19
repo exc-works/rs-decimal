@@ -2,6 +2,11 @@
 
 rs-decimal is a Rust port that preserves the numerical and state contract of exc-works/decimal, with recoverable Rust errors for ordinary fallible APIs. It implements the numerical core, formatting, Text/Param, JSON/Serde, Go binary, YAML/XML/BSON, Scan/Value, PostgreSQL SQLx, exact validation, and configuration decoding. All 166 baseline APIs have an implementation or an explicit platform mapping; the crate has not yet been published.
 
+## API documentation and Playground
+
+- [API reference](https://exc-works.github.io/rs-decimal/en-US/api/) · [简体中文](https://exc-works.github.io/rs-decimal/zh-Hans/api/) — Browse by Rust type or search by method name to find signatures, usage examples, and rounding or error behavior. Use the language menu to switch between eight languages.
+- [Playground](https://exc-works.github.io/rs-decimal/en-US/playground.html) · [简体中文](https://exc-works.github.io/rs-decimal/zh-Hans/playground.html) — Run the Rust library in your browser through its JavaScript/Wasm bridge. On a supported method’s page, choose **Open in Playground**, edit the example, and select **Run** to inspect the result.
+
 ## Development
 
 The MSRV is Rust 1.85 (edition 2024); CI checks both MSRV and stable. Core dependencies are pinned versions of num-bigint, num-integer, num-traits, num-rational, and ryu. There are currently no default features.
@@ -21,12 +26,12 @@ The [API compatibility matrix](docs/api-compatibility.md) records the implementa
 - [Implementation plan](docs/implementation-plan.md): goals, scope, milestones, risks, and completion criteria.
 - [Technical design](docs/technical-design.md): types, algorithms, errors, conversions, codecs, and validation protocols.
 - [PR plan](docs/pr-plan.md): dependency order, deliverables, and acceptance criteria for each PR.
-- [Web documentation and playground design](docs/web-playground-design.md): eight-language usage documentation and a browser-only Rust/Wasm bridge (planned).
+- [Web documentation and playground design](docs/web-playground-design.md): eight-language usage documentation and a browser-only Rust/Wasm bridge.
 - [Web delivery plan](docs/web-playground-pr-plan.md): stacked PR scopes, review requirements, and release gates.
 
 The plan is based on Go repository commit `a8791208e2d15483cf652cd2814b74b0c1a84187` and its v0.8.0 numerical contract. The repository is named `rs-decimal`; publication under the same name on crates.io still needs to be verified.
 
-For user-facing API documentation, run `cargo doc --all-features --open`. See the [release process](docs/releasing.md) for release checks and the [CHANGELOG](CHANGELOG.md) for version changes.
+To build the Rust API reference locally, run `cargo doc --all-features --open`. See the [release process](docs/releasing.md) for release checks and the [CHANGELOG](CHANGELOG.md) for version changes.
 
 See the [Rust API guide](docs/rust-api.md) for integer `From` conversions, borrowed operators, coefficient borrowing/moving, and consuming arithmetic/rescaling methods. Numerical and state contracts are retained; fallible entry points now return errors as described in the migration guide.
 
