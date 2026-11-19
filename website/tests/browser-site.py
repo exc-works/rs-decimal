@@ -78,6 +78,13 @@ try:
         js('const el=document.querySelector("#api-query"); el.value="mul_exact"; el.dispatchEvent(new Event("input",{bubbles:true}));')
         until(lambda: 0 < js('return document.querySelectorAll("tbody tr").length') < count)
         assert js('return [...document.querySelectorAll("tbody tr")].every(x=>x.textContent.includes("mul_exact"))')
+    navigate('zh-Hans/api/')
+    js('Array.from(document.querySelectorAll(".operation-group summary")).find(x=>x.textContent==="加法").click()')
+    links = js('return Array.from(document.querySelectorAll(".operation-group[open] a")).map(a=>a.textContent)')
+    assert links == ['add', 'safe_add', 'add_raw', 'add_owned'], links
+    js('document.querySelector(".operation-group[open] a").click()')
+    until(lambda: js('return location.pathname') == '/rs-decimal/zh-Hans/api/decimal-add.html')
+    assert js('return !!document.querySelector(".VPSidebar a[href$=\"/decimal-safe-add.html\"]")')
     core_locales = ['en-US', 'zh-Hans', 'en-GB'] + [locale for locale, owners in groups.items() if '*' in owners or 'WEB-07a' in owners]
     for locale in core_locales:
         navigate(f'{locale}/api/decimal-new-with-prec.html')

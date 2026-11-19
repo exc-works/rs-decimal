@@ -32,3 +32,20 @@ test('task and symbol searches lead to the corresponding localized reference', (
   }
   assert.equal(symbols.find(symbol => symbol.id === 'Decimal::round_with_prec').group, 'precision');
 });
+
+test('readers can browse and search Decimal methods by operation in every locale', () => {
+  for (const locale of Object.keys(locales)) {
+    const page = { relativePath: locale + '/api/index.md', frontmatter: {} };
+    referencePage(page);
+    const groups = page.reference.operations;
+    const listed = groups.flatMap(group => group.items.map(item => item.id));
+    const methods = symbols.filter(item => item.parent === 'Decimal' && item.kind === 'method');
+    assert.deepEqual(listed.slice().sort(), methods.map(item => item.id).sort());
+    for (const group of groups) {
+      assert.ok(referenceLabels[locale][group.key]);
+      for (const item of group.items) assert.ok(item.href.startsWith('/' + locale + '/api/'));
+    }
+    const hits = searchReference(page.reference.directory, referenceLabels[locale].addition, referenceLabels[locale]);
+    assert.ok(['add', 'safe_add', 'add_raw', 'add_owned'].every(name => hits.some(item => item.id === 'Decimal::' + name)));
+  }
+});

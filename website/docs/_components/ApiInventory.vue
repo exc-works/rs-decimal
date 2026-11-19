@@ -15,11 +15,23 @@ const query = ref('');
 const filtered = computed(() => searchReference(data.value, query.value, captions.value));
 </script>
 <template>
-  <h2>{{ captions.types }}</h2>
-  <div class="ref-types"><a v-for="item in types" :key="item.id" :href="withBase(item.href)">{{ item.id }}</a></div>
-  <h2>{{ captions.all }}</h2>
   <label :for="'api-query'">{{ labels.search }}</label>
   <input id="api-query" :disabled="!ready" v-model="query" class="api-search" type="search" :placeholder="labels.search" />
+  <template v-if="!query.trim()">
+    <h2>{{ captions.operations }}</h2>
+    <details v-for="group in page.reference.operations" :key="group.key" class="operation-group">
+      <summary>{{ captions[group.key] }}</summary>
+      <dl>
+        <template v-for="item in group.items" :key="item.id">
+          <dt><a :href="withBase(item.href)"><code>{{ item.id.slice('Decimal::'.length) }}</code></a></dt>
+          <dd>{{ item.summary }}</dd>
+        </template>
+      </dl>
+    </details>
+  <h2>{{ captions.types }}</h2>
+  <div class="ref-types"><a v-for="item in types" :key="item.id" :href="withBase(item.href)">{{ item.id }}</a></div>
+  </template>
+  <h2>{{ captions.all }}</h2>
   <p aria-live="polite">{{ filtered.length }} / {{ data.length }}</p>
   <div class="api-table-wrap">
     <table>
