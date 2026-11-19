@@ -157,6 +157,8 @@ try:
     js('Array.from(document.querySelectorAll(".VPNavBarTranslations a")).find(x=>x.href.includes("/ja/")).click()')
     until(lambda: js('return document.documentElement.lang') == 'ja')
     assert js('return location.pathname') == '/rs-decimal/ja/guide.html'
+    # The translated HTML can appear before the client attaches the search handler.
+    until(lambda: js('return localStorage.getItem("rs-decimal:docs-language")') == 'ja')
     js('document.querySelector(".DocSearch-Button").click()')
     until(lambda: js('return !!document.querySelector("#localsearch-input")'))
     js('const el=document.querySelector("#localsearch-input"); el.value="HalfEven"; el.dispatchEvent(new Event("input",{bubbles:true}));')
