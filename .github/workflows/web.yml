@@ -1,5 +1,14 @@
 name: Web bridge
-on: [push, pull_request]
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+  push:
+    branches: [main]
+    tags: ['**']
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 permissions:
   contents: read
 jobs:
@@ -16,15 +25,20 @@ jobs:
           chrome-version: '157.0.8103.78'
           install-chromedriver: true
       - run: cargo install wasm-bindgen-cli --version 0.2.105 --locked
-      - run: python3 tools/build-web-wasm.py
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: cargo run --locked -p decimal-web-examples
-      - run: node --test website/tests/bridge.test.mjs website/tests/resources.test.mjs website/tests/constructors.test.mjs website/tests/comparison.test.mjs website/tests/helpers.test.mjs website/tests/types.test.mjs website/tests/rounding.test.mjs website/tests/arithmetic.test.mjs website/tests/ownership.test.mjs website/tests/conversion.test.mjs website/tests/formatting.test.mjs website/tests/roots.test.mjs website/tests/log-exp.test.mjs website/tests/text-json.test.mjs website/tests/binary-bson.test.mjs website/tests/yaml-xml.test.mjs website/tests/scan-errors.test.mjs website/tests/validation.test.mjs website/tests/config-serde.test.mjs website/tests/examples.test.mjs
+          cache: npm
+          cache-dependency-path: website/package-lock.json
       - run: npm ci --ignore-scripts
         working-directory: website
-      - run: npm run build:runner
+      - name: Build the single-site static package
+        run: npm run build:release
+        working-directory: website
+        env:
+          DOCS_BASE: /rs-decimal/
+      - run: cargo run --locked -p decimal-web-examples
+      - run: npm run test:bridge
         working-directory: website
       - run: node --test website/tests/protocol.test.mjs
       - run: node --test website/tests/draft.test.mjs
@@ -33,24 +47,28 @@ jobs:
         env:
           CHROMEDRIVER: ${{ steps.chrome.outputs.chromedriver-path }}
           TEST_CHROME_BINARY: ${{ steps.chrome.outputs.chrome-path }}
-      - run: npm run build
-        working-directory: website
-        env:
-          DOCS_BASE: /rs-decimal/
       - run: python3 website/tests/browser-editor.py
         env:
           CHROMEDRIVER: ${{ steps.chrome.outputs.chromedriver-path }}
           TEST_CHROME_BINARY: ${{ steps.chrome.outputs.chrome-path }}
-      - name: Install three browser engines
-        run: npx playwright install --with-deps chromium firefox webkit
+      - name: Pull matching Playwright browsers and system libraries
+        id: browsers
+        timeout-minutes: 10
         working-directory: website
-      - run: npm run test:browsers
-        working-directory: website
-      - name: Build the single-site static package
-        run: npm run build:release
+        run: |
+          version=$(node -p "require('playwright/package.json').version")
+          image="mcr.microsoft.com/playwright:v${version}-noble"
+          docker pull "$image"
+          echo "image=$image" >> "$GITHUB_OUTPUT"
+      - name: Test Chromium, Firefox and WebKit
         working-directory: website
         env:
-          DOCS_BASE: /rs-decimal/
+          BROWSER_IMAGE: ${{ steps.browsers.outputs.image }}
+        run: |
+          mkdir -p ../.cache
+          docker run --rm --init --shm-size=1g --user "$(id -u):$(id -g)" --env HOME=/tmp \
+            --volume "$PWD:/work/website:ro" --volume "$PWD/../.cache:/work/.cache" \
+            --workdir /work/website "$BROWSER_IMAGE" node tests/browser-engines.mjs
       - name: Select the matching browser binary
         run: python3 -c 'import json, os; open("webdriver.json", "w").write(json.dumps({"goog:chromeOptions":{"binary":os.environ["TEST_CHROME_BINARY"]}}))'
         env:
