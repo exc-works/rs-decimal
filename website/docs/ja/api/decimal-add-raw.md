@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 872ef2a43e7ac5d06f4ea120672471b0a862ee6f8a70e48db9f1f9367f2518f7
+source_revision: c983f6ed089705857a773a0bcfbea0bf32771eb2c76c31e24f0160ce317c8980
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::add_raw
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="arithmetic-decimal-add-raw" locale="ja" />
-
-## ブラウザーの制約
-
-入力は借用され、成功後も通常のエラー後も使用できます。返された Decimal は独立したデータを所有し、演算結果は初期化済みです。ブラウザーはコアの呼び出し前に[リソースポリシー](../resource-policy)を確認し、桁揃え、中間積、除算時のスケール調整、出力精度を制限します。保守的な事前検査により、最終結果が小さくても拒否される場合があります。リソースエラーと数値ライブラリのエラーは区別され、パニックは実行を終了します。
 
 ## 関連メソッド
 

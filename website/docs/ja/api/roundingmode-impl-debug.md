@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 22b226c9626e0bfe9b6ad82b4e6efbc955c78f9e4b48acf530ad413ce7ec7c69
+source_revision: 823f73234f73cba4c9bfd0b5f1d418fa482625a8365337d1d27eb5d7306b4e6d
 translation_provenance: en-US-japanese-reviewed
 api_id: RoundingMode::impl Debug
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="rounding-roundingmode-impl-debug" locale="ja" />
-
-## ブラウザーの制約
-
-整数引数は wasm32 の範囲内である必要があります。ブラウザーはさらに[リソースポリシー](../resource-policy)を適用し、指定スケール、係数の増大、呼び出し回数を制限します。リソースエラーと数値ライブラリのエラーは区別されます。借用メソッドは入力を消費しません。Rust 専用のトレイト構文はネイティブで検証するものとして明示します。
 
 ## 関連メソッド
 

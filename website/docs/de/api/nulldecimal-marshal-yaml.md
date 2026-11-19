@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 14c3a4a68a793992e79fa29a86d0ef2a5b8427f3e5ce4523962a0b1a25a66098
+source_revision: 634992be26686e49442a948ce62a476a4bcc34db498b408945e4ad08ce9f7530
 translation_provenance: en-US-german-reviewed
 api_id: "NullDecimal::marshal_yaml"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="yaml-xml-nulldecimal-marshal-yaml" locale="de" />
-
-## Grenzen im Browser
-
-Die Quelle ist auf 8192 UTF-8-Bytes begrenzt. Vor dem numerischen Kernparser prüft Rust den decodierten ersten YAML-Skalar bzw. XML-Elementtext, einschließlich Escapes, CDATA, Unterstrichnormalisierung und Nulleinfügung bei YAML-Gleitkommazahlen. YAML-Skalare erlauben höchstens 4096 hexadezimale Ziffernzeichen zur Begrenzung basisabhängiger Ganzzahlallokation; konservative Prüfungen können nativ gültige Eingaben ablehnen. Skala, Koeffizient und Operationszahl folgen der [Ressourcenrichtlinie](../resource-policy). Verschobene Handles können weder gelesen noch verändert werden.
 
 ## Verwandte Methoden
 

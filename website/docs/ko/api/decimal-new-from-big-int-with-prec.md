@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: bf618b8d345d150746683bfe2d04e5a166f48e4917e60db9f1d6a2719994d91a
+source_revision: 89b834d2c11952f4f6bb0f4503b5e891bf052db7e48a72abe6c367e79b9b8c68
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::new_from_big_int_with_prec
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-big-int-with-prec" locale="ko" />
 
-## 사용 시 주의점과 제한
+## 사용 시 참고 사항
 
-계수의 숫자가 아니라 계수를 해석하는 방법을 바꿉니다. 음수 정밀도는 `InvalidPrecision`입니다. playground는 입력 숫자 개수와 소수 자릿수를 별도로 제한합니다. `resource` 오류는 수치 정밀도가 손실되었다는 뜻이 아닙니다.
-
-브라우저는 [리소스 정책](../resource-policy)도 적용합니다. JavaScript 입력은 Rust 호출 전에 검사합니다.
+계수의 숫자가 아니라 계수를 해석하는 방법을 바꿉니다. 음수 정밀도는 `InvalidPrecision`입니다.
 
 ## 관련 메서드
 

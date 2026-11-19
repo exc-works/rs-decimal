@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: a19e9628caaaa2c66221e7031ee01f75dd38995c9d2873827f8d6308231f84ca
+source_revision: 84ba3002f85664068a9d9ececc408a7d6f0214a486be55b19a41d101ddf845eb
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: RoundingMode::HalfEven
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="rounding-roundingmode-halfeven" locale="zh-Hant" />
-
-## 瀏覽器邊界
-
-所有整數參數必須位於 wasm32 對應範圍。瀏覽器還施加 [資源限制](../resource-policy)，包括目標小數位數、係數增長及呼叫次數。資源錯誤與數值程式庫錯誤分開報告。借用方法不會消耗輸入；僅 Rust 的 trait 語法明確標注為原生測試。
 
 ## 相關方法
 

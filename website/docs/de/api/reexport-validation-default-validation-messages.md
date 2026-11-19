@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 96429a6b772c7e5f91528e442f9be3179ac231b38327e61764d5f24018444428
+source_revision: c829b94ceed61e0a65772da94750a53ecb8269151bdb6f1efd6a7c407ad09f12
 translation_provenance: en-US-german-reviewed
 api_id: "reexport::validation::default_validation_messages"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="validation-reexport-validation-default-validation-messages" locale="de" />
-
-## Grenzen im Browser
-
-Das Feature validation ist aktiviert. Jede Zeichenfolge ist auf 8192 UTF-8-Bytes begrenzt, Regel-/Fehlerlisten und Nachrichtenmaps auf 64 Einträge, JSON-Transport auf 65536 Bytes. Dezimale Regelparameter folgen der [Ressourcenrichtlinie](../resource-policy). Übersetzung prüft vorab konservativ eine Gesamtgrenze von 65536 Bytes für ersetzten Text und kann ein gerade noch passendes Ergebnis ablehnen. Benutzerdefinierte Tags und Felder sind Daten, niemals ausgeführter Code. Validierungsfehler, Konfigurationsfehler und Bridge-Ressourcenfehler bleiben getrennt.
 
 ## Verwandte Methoden
 

@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 0e561c16634157ba3586cee74da3c90f15491d42428e944428a8ee980c8ddeb4
+source_revision: 9d8774ce76acc603ce438d5ebe120fafe780695ef55b74ea55b1fbe183940981
 api_id: "validation::ValidationError.parameter"
 ---
 # validation::ValidationError.parameter
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="validation-validation-validationerror-parameter" locale="zh-Hans" />
-
-## 浏览器边界
-
-validation feature 已启用。单个字符串最多 8192 个 UTF-8 字节；规则列表、错误列表和消息映射最多 64 项，JSON 传输最多 65536 字节。小数规则参数遵循 [十进制资源限制](../resource-policy)。翻译前保守估计占位符展开后的总文本，超过 65536 字节时拒绝；可能拒绝实际刚好容纳的结果。自定义类别和字段是数据，不执行代码。验证失败与配置错误、bridge 资源错误分开报告。
 
 ## 相关方法
 

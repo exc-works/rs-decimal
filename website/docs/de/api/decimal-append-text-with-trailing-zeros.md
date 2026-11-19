@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 9028fbd5554cd396883d5b8bb4b06efa13e22d1b025f5ba855a44ab02e548531
+source_revision: 8f3a1f2c3a3bbab8fcd006696e4bbfc5801d795ba8c28546dfa164fc41913e69
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::append_text_with_trailing_zeros
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="formatting-decimal-append-text-with-trailing-zeros" locale="de" />
-
-## Grenzen im Browser
-
-Die [Ressourcenrichtlinie](../resource-policy) begrenzt Formatbreite auf 65536 Bytes und Präzision auf 1000; Festkommaformatierung prüft auch Koeffizientenwachstum. Puffer sind auf 65536 Bytes begrenzt. Append verwendet eine konservative Größenschätzung, die eine gerade noch passende Operation ablehnen kann. Ressourcenfehler verändern weder Eingaben noch Puffer. print kürzt lange Anzeigetexte separat; prüfen Sie für das vollständige Ergebnis die Länge oder geben Sie kleinere Abschnitte aus.
 
 ## Verwandte Methoden
 

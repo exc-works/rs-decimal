@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: dbb045138dac94f7b2691e8576e6af500d5ead689869256e178b5069283ab80d
+source_revision: 15c94f02827b09a573140cb09fd7743d1624bd74d93875d8d0450c89214f2677
 translation_provenance: en-US-german-reviewed
 api_id: "ScanValue::Float32"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-scanvalue-float32" locale="de" />
-
-## Grenzen im Browser
-
-SQL-Text-/Byteeingaben und Fehlermeldungen sind auf 8192 UTF-8-Bytes begrenzt. SQL-Text wird nach Entfernen äußerer Anführungszeichen [auf Ressourcen geprüft](../resource-policy), sodass Zitieren keine Exponentengrenzen umgeht. Ausleihende Aufrufe erhalten Eingaben; konsumierte oder freigegebene Handles sind nicht wiederverwendbar. Rust-Trait-/Importbeispiele laufen in nativen Tests und behaupten keine Browsermethodenunterstützung.
 
 ## Verwandte Methoden
 

@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 3553acc8fce2edd77d63d567220e36aee7b664b18f15fee50a17c4ee358a3283
+source_revision: 8eec4d40194be2cd158d623391729d3b1e9d3b0532af669f3499b5168782b68c
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::approx_root_with_prec
 ---
@@ -19,10 +19,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="roots-decimal-approx-root-with-prec" locale="ko" />
-
-## 브라우저 제한
-
-[리소스 정책](../resource-policy)은 출력 소수 자릿수를 1000으로 제한합니다. 비자명한 근의 차수는 최대 128이며 스케일 조정, Newton 거듭제곱, 중간점 증명의 중간값을 사전 검사합니다. 0, 부호 있는 단위 값, 차수 1의 근은 코어의 빠른 경로를 유지하지만 출력 정밀도 제한을 따릅니다. 정의역과 음수 정밀도 오류는 라이브러리 동작을 유지하며 리소스 오류는 NoConvergence와 다릅니다. 각 입력이 유효해도 모든 차수/정밀도 조합이 브라우저 예산에 맞는 것은 아닙니다.
 
 ## 관련 메서드
 

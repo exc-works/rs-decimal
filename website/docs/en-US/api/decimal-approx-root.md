@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: a269819e7b61d5a164cb35c2c28efef7424a30b1113a1fd7abc0f0da7fe8a5f9
+source_revision: 2e472bd0598b8ec796fb5adb09d98ce669a8d1defb11e5244f124c816e8d2cd8
 api_id: Decimal::approx_root
 ---
 # Decimal::approx_root
@@ -18,10 +18,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="roots-decimal-approx-root" locale="en-US" />
-
-## Browser boundaries
-
-The [resource policy](../resource-policy) caps output scale at 1000. Nontrivial roots have degree at most 128, with preflight for scaling, Newton powers and midpoint-certification intermediates. Zero, signed unit values and degree-one roots retain core fast paths but still obey output precision limits. Domain and negative-precision errors retain library behavior; resource errors differ from NoConvergence. Valid individual inputs do not imply every degree/precision combination fits the browser budget.
 
 ## Related methods
 

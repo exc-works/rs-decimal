@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 5a1796b93575e117064504cd886a99abb8187be7c4bc915a35b33888e3d8ea72
+source_revision: da8cebe24a220cbee0329a50db3c796d6390c270eb7d574cffaac17c4ddc1264
 translation_provenance: en-US-japanese-reviewed
 api_id: "NullDecimal::impl std :: fmt :: Display::fmt"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="text-json-nulldecimal-impl-std-fmt-display-fmt" locale="ja" />
-
-## ブラウザーの制約
-
-デコーダー入力は 8192 バイトまでです。パラメーター文字列も Wasm へのコピー前に長さを確認します。Rust はテキストとデコード済み JSON 文字列に[小数のリソースポリシー](../resource-policy)を再適用するため、エスケープで指数やスケールの上限を回避できません。不正な UTF-8、JSON／小数構文の診断はコアが行います。入力エラーやリソースエラーでレシーバーが部分的に更新されることはありません。ムーブ済みのラッパーは読み取りも変更もできません。
 
 ## 関連メソッド
 

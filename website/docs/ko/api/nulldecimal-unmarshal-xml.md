@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: bb5fda951c514c30196177535ed36df93d91d15de5889b17222eea8aae392724
+source_revision: e94c40441044730df649ba261de89daead4c5ce018d30a42e07e0ff558def35c
 translation_provenance: en-US-korean-reviewed
 api_id: "NullDecimal::unmarshal_xml"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="yaml-xml-nulldecimal-unmarshal-xml" locale="ko" />
-
-## 브라우저 제한
-
-소스는 UTF-8 8192바이트까지입니다. 코어 수치 파싱 전에 Rust는 디코딩된 첫 YAML 스칼라 또는 XML 요소 텍스트를 검사하며 이스케이프, CDATA, 밑줄 정규화, YAML 실수의 0 삽입도 포함합니다. YAML 스칼라는 진법별 정수 할당을 제한하기 위해 최대 4096개 16진 숫자 문자를 허용합니다. 보수적인 검사로 네이티브가 수락하는 입력도 거부할 수 있습니다. 소수 자릿수, 계수, 연산 횟수는 [리소스 정책](../resource-policy)을 따릅니다. 이동된 핸들은 읽거나 바꿀 수 없습니다.
 
 ## 관련 메서드
 

@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: f3a534483ccc1e91ef144a2c4109aaf3dd71447ded56bb396f1a854b09445c8e
+source_revision: c212a88589b656fbaa3ad6d1c770f0018ed83f06532037fe1e09556d05cb61ea
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::log2_with_prec
 ---
@@ -19,10 +19,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="log-exp-decimal-log2-with-prec" locale="ko" />
-
-## 브라우저 제한
-
-이 그룹에는 추가 [리소스 제한](../resource-policy)이 있습니다. 출력 정밀도는 최대 128, 입력 소수 자릿수는 최대 256, 입력 계수는 최대 4096비트입니다. 일반 exp 계산은 입력 절댓값도 최대 64여야 합니다. 코어가 직접 0으로 반올림된다고 증명하는 음수 입력은 빠른 경로를 유지합니다. 입력 자릿수가 크면 인수 없는 메서드의 기본 정밀도가 128을 넘을 수 있으므로 with_prec로 허용된 출력 정밀도를 명시하세요. 리소스 오류와 코어 NoConvergence는 다릅니다. Stop은 실행을 중단하며 다음 실행은 새 Wasm 인스턴스를 만듭니다.
 
 ## 관련 메서드
 

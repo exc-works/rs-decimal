@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: c41b021290595dc4c30480f34c9ca6fcd54ae6ed90ebcef6b793849dbfd2318c
+source_revision: 336fb83395651877f8e8be84274d454b59233c0e0829f7aed38b4d6aa19fe60d
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::float64
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="conversion-decimal-float64" locale="fr" />
-
-## Limites du navigateur
-
-Le transport des entiers ne passe pas par des number JavaScript avec perte. Les tuples de conversion conservent l’ordre Rust valeur/indicateur ; false ne garantit pas un résultat exact. Les entrées empruntées restent inchangées et les constructeurs initialisent les résultats. La [politique de ressources](../resource-policy) limite les entrées entières, l’échelle de sortie et la croissance des coefficients rationnels, séparément des erreurs de bibliothèque. La syntaxe d’import Rust est explicitement indiquée comme testée nativement.
 
 ## Méthodes associées
 

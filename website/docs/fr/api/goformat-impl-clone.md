@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: c53d31ac9dfb8dc26b4afb525bc6137c7550c4f8da653022910d8a3650f5e27f
+source_revision: df43bbe7e732dc8914c18a95d0b5d68a3839eb4a2b1c83d4dc811e0031827a91
 translation_provenance: en-US-french-reviewed
 api_id: GoFormat::impl Clone
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="formatting-goformat-impl-clone" locale="fr" />
-
-## Limites du navigateur
-
-La [politique de ressources](../resource-policy) limite la largeur du format à 65536 octets et la précision à 1000 ; le format fixe contrôle également la croissance du coefficient. Les tampons sont limités à 65536 octets et l’ajout utilise une estimation conservatrice de la taille, qui peut rejeter une opération tenant exactement. Les erreurs de ressources ne modifient ni les entrées ni les tampons. print tronque séparément les textes longs à l’affichage ; examinez length ou affichez des tranches plus courtes pour vérifier un résultat complet.
 
 ## Méthodes associées
 

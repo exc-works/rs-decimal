@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 8ab3953570c1516f55bc48b7c251f1cfbcd5ae142c6f5206aaaaa5635e651b35
+source_revision: f91df84f154c9cc1b9dd7b8a5909be0f1702eb57d28ff7a024367e2c25d73638
 translation_provenance: en-US-reviewed-reuse
 api_id: "DecimalError::impl Debug"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-decimalerror-impl-debug" locale="en-GB" />
-
-## Browser boundaries
-
-SQL text/byte input and error messages are capped at 8192 UTF-8 bytes. SQL text is [resource-checked](../resource-policy) after removing outer quotes, so quoting cannot bypass exponent limits. Borrowed calls preserve inputs; consumed or disposed handles cannot be reused. Rust trait/import examples run in native tests and do not claim browser method support.
 
 ## Related methods
 

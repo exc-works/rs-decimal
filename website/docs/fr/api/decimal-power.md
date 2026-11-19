@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 6c8f91b0409cc71714a4b9926acf34a3cf0aa635f8904f2e607ed3243fb8b30a
+source_revision: 01c476851989c18cecc0970b361010eee7cb4cfd902d7e4240be18102abc0899
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::power
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="owned-decimal-power" locale="fr" />
-
-## Limites du navigateur
-
-Respectez les règles de propriété ci-dessus. Un accès après déplacement renvoie une erreur moved ; free est idempotent. La vérification des types et des alias précède le déplacement, mais une erreur Rust ne restaure pas le récepteur consommé. La [politique de ressources](../resource-policy) est distincte des erreurs de la bibliothèque : les puissances contrôlent les valeurs intermédiaires et l’alignement contrôle la croissance des coefficients. Les contrôles conservateurs peuvent rejeter des calculs dont le résultat final est petit.
 
 ## Méthodes associées
 

@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: a66891e5a69e79ad1f199a0dd34da946899f3deff1662608f76ae3c569145632
+source_revision: 473b8cc7f11457cef7cc926925c4f230754afa71c4dea38c85c3b954c8ca89fd
 translation_provenance: en-US-german-reviewed
 api_id: "ErrorKind::impl Copy"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-errorkind-impl-copy" locale="de" />
-
-## Grenzen im Browser
-
-SQL-Text-/Byteeingaben und Fehlermeldungen sind auf 8192 UTF-8-Bytes begrenzt. SQL-Text wird nach Entfernen äußerer Anführungszeichen [auf Ressourcen geprüft](../resource-policy), sodass Zitieren keine Exponentengrenzen umgeht. Ausleihende Aufrufe erhalten Eingaben; konsumierte oder freigegebene Handles sind nicht wiederverwendbar. Rust-Trait-/Importbeispiele laufen in nativen Tests und behaupten keine Browsermethodenunterstützung.
 
 ## Verwandte Methoden
 

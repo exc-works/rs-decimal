@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: f9089c170fd67d069e85cf8954a7c7480acca721114dcfc662992da05df6f3cf
+source_revision: 2d051b010383c0adad95eaeacec22cce35ee5a02d1fddebba48aa1d5a1f4d4ae
 api_id: Decimal::ceil_with_prec
 ---
 # Decimal::ceil_with_prec
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="rounding-decimal-ceil-with-prec" locale="en-US" />
-
-## Browser boundaries
-
-Integer parameters must fit the wasm32 range. The browser additionally applies the [resource policy](../resource-policy), including target scale, coefficient growth and call count. Resource errors remain distinct from numerical-library errors. Borrowed methods do not consume inputs; Rust-only trait syntax is explicitly labeled as native-tested.
 
 ## Related methods
 

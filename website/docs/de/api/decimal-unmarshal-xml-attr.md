@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 8121a233cd958a145b10a44401309e0a697f7d8f9d3c70b88d07ca9cdb298e4f
+source_revision: 8e284228528617403ea37afb52c965d21d076aee976dac5cd366e305507e8e05
 translation_provenance: en-US-german-reviewed
 api_id: "Decimal::unmarshal_xml_attr"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="yaml-xml-decimal-unmarshal-xml-attr" locale="de" />
-
-## Grenzen im Browser
-
-Die Quelle ist auf 8192 UTF-8-Bytes begrenzt. Vor dem numerischen Kernparser prüft Rust den decodierten ersten YAML-Skalar bzw. XML-Elementtext, einschließlich Escapes, CDATA, Unterstrichnormalisierung und Nulleinfügung bei YAML-Gleitkommazahlen. YAML-Skalare erlauben höchstens 4096 hexadezimale Ziffernzeichen zur Begrenzung basisabhängiger Ganzzahlallokation; konservative Prüfungen können nativ gültige Eingaben ablehnen. Skala, Koeffizient und Operationszahl folgen der [Ressourcenrichtlinie](../resource-policy). Verschobene Handles können weder gelesen noch verändert werden.
 
 ## Verwandte Methoden
 

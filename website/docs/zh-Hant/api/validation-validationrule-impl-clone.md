@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 027ed2edff10b36d0b034b15dae2ca9de5412e5b203ccede0d881df699befe4b
+source_revision: b55dba0922642cda4e225685c47d97a54da01243942c47cb892b8c9136202f1a
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: "validation::ValidationRule::impl Clone"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="validation-validation-validationrule-impl-clone" locale="zh-Hant" />
-
-## 瀏覽器邊界
-
-validation feature 已啟用。單個字串最多 8192 個 UTF-8 位元組；規則清單、錯誤清單和訊息映射最多 64 項，JSON 傳輸最多 65536 位元組。小數規則參數遵循 [十進位資源限制](../resource-policy)。翻譯前保守估計預留位置展開後的總文字，超過 65536 位元組時拒絕；可能拒絕實際剛好容納的結果。自訂類別和欄位是資料，不執行程式碼。驗證失敗與組態錯誤、bridge 資源錯誤分開報告。
 
 ## 相關方法
 

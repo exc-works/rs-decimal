@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 52852655da8fa507f812b593c8e5ba40f3e2342d29c1bda28c254c4a87933fda
+source_revision: 48f0114735b7fdf69a527f5e2e6dcf6a17a2e69d41b0a53a9ff65fb0ac1362fd
 api_id: "NullDecimal::impl Serialize"
 ---
 # NullDecimal::impl Serialize
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="config-serde-nulldecimal-impl-serialize" locale="zh-Hans" />
-
-## 浏览器边界
-
-config 与 serde feature 已启用。源文本和字节最多 8192 个 UTF-8 字节；Rust 在解析前检查小数文本和 JSON 解码后的字符串，因此转义不能绕过 [资源限制](../resource-policy)。128 位整数必须使用范围内的 bigint。借用的 Decimal/NullDecimal 在解码时必须仍有效，转换生成独立值，不消耗输入。Serde 的通用 trait 语法由具体 JSON 适配器演示。
 
 ## 相关方法
 

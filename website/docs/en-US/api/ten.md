@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: df5bdc8fba1feff0933958fdceab2cd0bf8d1a541a0f2e47f17bffe6a6338d47
+source_revision: 37b57334dcd3fd469d86572a66aa34315b91919270af861524b7fae399085f7c
 api_id: ten
 ---
 # ten
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="helper-ten" locale="en-US" />
-
-## Boundaries
-
-The bridge preserves Rust names and parameter order. Free functions are available directly in the playground. Borrowed inputs are not consumed or changed; the bridge rejects invalid or foreign-run handles. All operations follow the [resource policy](../resource-policy).
 
 ## Related methods
 

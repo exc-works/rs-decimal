@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 40f2750ccc6afed4e917ce4038d5c5a19643a90b97f7264c770c82c1da409a91
+source_revision: 24e00c21cccbe1d37441ecf7320c640c608396a025aad09f2a518e2a7e914703
 translation_provenance: en-US-french-reviewed
 api_id: "Decimal::impl Deserialize < 'de >::deserialize"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="config-serde-decimal-impl-deserialize-de-deserialize" locale="fr" />
-
-## Limites du navigateur
-
-Les fonctionnalités config et serde sont activées. Le texte et les octets source sont limités à 8192 octets UTF-8 ; Rust contrôle le texte décimal et les chaînes JSON décodées avant l’analyse, afin que les échappements ne puissent pas contourner la [politique de ressources](../resource-policy). Les entiers sur 128 bits exigent un bigint dans les limites. Les handles Decimal/NullDecimal empruntés doivent être encore actifs lors du décodage ; la conversion crée des valeurs indépendantes sans consommer les entrées. Le comportement du trait Serde générique est illustré par des adaptateurs JSON concrets.
 
 ## Méthodes associées
 

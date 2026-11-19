@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 59688cddd572412f36dd0f36cc15c34efbc891dab38cd57b614763347d469369
+source_revision: 7d0c030a450a67fa4b0e618dbc6cb501daeb5fbc64647ae39a02ca84be312b44
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::is_nil
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="basic-is-nil" locale="fr" />
-
-## Erreurs et limites
-
-Ces méthodes empruntent les entrées sans les consommer ni les modifier. L’opération de la bibliothèque ne renvoie pas Result. Le bridge rejette les handles libérés, déplacés ou provenant d’une autre exécution et applique la [politique de ressources](../resource-policy). Les exemples placent une sortie scalaire dans un champ `value` ; une sortie Decimal utilise son instantané complet.
 
 ## Méthodes associées
 

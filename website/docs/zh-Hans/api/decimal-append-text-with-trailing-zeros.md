@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 9028fbd5554cd396883d5b8bb4b06efa13e22d1b025f5ba855a44ab02e548531
+source_revision: 8f3a1f2c3a3bbab8fcd006696e4bbfc5801d795ba8c28546dfa164fc41913e69
 api_id: Decimal::append_text_with_trailing_zeros
 ---
 # Decimal::append_text_with_trailing_zeros
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="formatting-decimal-append-text-with-trailing-zeros" locale="zh-Hans" />
-
-## 浏览器边界
-
-遵循 [资源限制](../resource-policy)：格式宽度最多 65536 字节，precision 最多 1000，固定格式还检查系数增长。缓冲区总长最多 65536 字节，追加前使用保守长度估计，因此可能拒绝实际可容纳的临界操作。资源错误不会改变输入或缓冲区。print 对长文本另有显示上限；需要检查完整输出时可读取 length 或分段打印。
 
 ## 相关方法
 

@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: e777d7a0d2eada54e45b9094274df294b6fb9f6fd490746dfc2797aa8d3acb40
+source_revision: db26ba148bd1b6fe560088f6be1bce313faff866656299f7c24eeb47568b46bf
 translation_provenance: en-US-french-reviewed
 api_id: "config::ConfigValue::impl Clone"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="config-serde-config-configvalue-impl-clone" locale="fr" />
-
-## Limites du navigateur
-
-Les fonctionnalités config et serde sont activées. Le texte et les octets source sont limités à 8192 octets UTF-8 ; Rust contrôle le texte décimal et les chaînes JSON décodées avant l’analyse, afin que les échappements ne puissent pas contourner la [politique de ressources](../resource-policy). Les entiers sur 128 bits exigent un bigint dans les limites. Les handles Decimal/NullDecimal empruntés doivent être encore actifs lors du décodage ; la conversion crée des valeurs indépendantes sans consommer les entrées. Le comportement du trait Serde générique est illustré par des adaptateurs JSON concrets.
 
 ## Méthodes associées
 

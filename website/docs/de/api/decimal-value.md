@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: ab8ea6bf03391270a33235fc649739ef25b1cdab822e201005d40879c5be9299
+source_revision: 8064cdb13ca114f6f1b29d727ed53f33f638f79926b35e606248ced643f822e9
 translation_provenance: en-US-german-reviewed
 api_id: "Decimal::value"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-decimal-value" locale="de" />
-
-## Grenzen im Browser
-
-SQL-Text-/Byteeingaben und Fehlermeldungen sind auf 8192 UTF-8-Bytes begrenzt. SQL-Text wird nach Entfernen äußerer Anführungszeichen [auf Ressourcen geprüft](../resource-policy), sodass Zitieren keine Exponentengrenzen umgeht. Ausleihende Aufrufe erhalten Eingaben; konsumierte oder freigegebene Handles sind nicht wiederverwendbar. Rust-Trait-/Importbeispiele laufen in nativen Tests und behaupten keine Browsermethodenunterstützung.
 
 ## Verwandte Methoden
 

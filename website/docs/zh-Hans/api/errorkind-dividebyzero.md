@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 65e698cc918f9afeb389a84627e95883beff1af27e6fb5183194df8bba07cbc9
+source_revision: c5bc8b97bab18c557c0918fb7ad15cabc2fd824c618c469b8f007d1f6299272b
 api_id: "ErrorKind::DivideByZero"
 ---
 # ErrorKind::DivideByZero
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-errorkind-dividebyzero" locale="zh-Hans" />
-
-## 浏览器边界
-
-SQL 文本及字节输入、错误消息最多 8192 个 UTF-8 字节。SQL 去除外围引号后的文本仍经过 [十进制资源检查](../resource-policy)，不能借引号绕过指数限制。借用操作不消耗输入；消耗后或释放后的句柄不能复用。原生 Rust trait 和导入示例由原生测试执行，不计作浏览器方法。
 
 ## 相关方法
 

@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 78d4bcb73439eeefbcaa373b59f6572230d9fd809bde6e3821566e584e60e547
+source_revision: 2cba3a645b36c53756ae013b43e89956dee5ee0f736cbeccecbeb94e8966c7b4
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::new_with_prec
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-with-prec" locale="de" />
 
-## Hinweise und Grenzen
+## Hinweise zur Verwendung
 
 Präzision zählt Nachkommastellen, nicht signifikante Ziffern. Dies hängt keine Nullen an eine numerisch unveränderte Ganzzahl an; verwenden Sie für 12.00 `new_with_append_prec`. Negative Präzision liefert `InvalidPrecision`. Ein Nullkoeffizient behält die angeforderte Skala.
-
-Der Browser wendet auch die [Ressourcenrichtlinie](../resource-policy) an. JavaScript-Eingaben werden vor dem Rust-Aufruf validiert.
 
 ## Verwandte Methoden
 

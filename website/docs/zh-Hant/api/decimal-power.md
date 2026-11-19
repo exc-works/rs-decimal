@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 6c8f91b0409cc71714a4b9926acf34a3cf0aa635f8904f2e607ed3243fb8b30a
+source_revision: 01c476851989c18cecc0970b361010eee7cb4cfd902d7e4240be18102abc0899
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::power
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="owned-decimal-power" locale="zh-Hant" />
-
-## 瀏覽器邊界
-
-遵循上述所有權規則。移動後的物件再次存取會回傳 moved 錯誤；free 可重複呼叫。類型或別名檢查在移動前執行，進入 Rust 後的錯誤不會恢復已移動的接收者。[資源限制](../resource-policy) 獨立於程式庫錯誤；冪運算檢查中間值，對齊運算檢查係數增長。保守檢查可能拒絕最終結果很小的運算。
 
 ## 相關方法
 

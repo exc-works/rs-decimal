@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 2bcf37ee1521720789e7103cecdce4020a906f8f85dfb286e500fd7c881d8638
+source_revision: 72523519c8ccf1aad4c8baebb6ac1ef42e8070b9cc7f7f72b600ff77781eaf4e
 translation_provenance: en-US-german-reviewed
 api_id: "ErrorKind::InvalidFormat"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-errorkind-invalidformat" locale="de" />
-
-## Grenzen im Browser
-
-SQL-Text-/Byteeingaben und Fehlermeldungen sind auf 8192 UTF-8-Bytes begrenzt. SQL-Text wird nach Entfernen äußerer Anführungszeichen [auf Ressourcen geprüft](../resource-policy), sodass Zitieren keine Exponentengrenzen umgeht. Ausleihende Aufrufe erhalten Eingaben; konsumierte oder freigegebene Handles sind nicht wiederverwendbar. Rust-Trait-/Importbeispiele laufen in nativen Tests und behaupten keine Browsermethodenunterstützung.
 
 ## Verwandte Methoden
 

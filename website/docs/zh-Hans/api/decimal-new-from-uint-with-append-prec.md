@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 2f8f701187893878a876b218458ba92b8464c997083c08e62c584ef14b118454
+source_revision: 1f2a665c28ead224f75ed902dd02b6b36626040f13db084f643088b5ff82188f
 api_id: Decimal::new_from_uint_with_append_prec
 ---
 # Decimal::new_from_uint_with_append_prec
@@ -21,11 +21,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-uint-with-append-prec" locale="zh-Hans" />
 
-## 用法注意事项和边界
+## 使用说明
 
-负值和超出范围的值属于 bridge 参数错误。负 precision 返回 `InvalidPrecision`；过大 precision 触及独立的 Playground 资源限制。请通过保留尾零的输出查看追加的小数位数。
-
-浏览器还应用[资源限制](../resource-policy)。JavaScript 参数在调用 Rust 前进行类型及范围检查。
+负值和超出范围的值属于 bridge 参数错误。负 precision 返回 `InvalidPrecision`。请通过保留尾零的输出查看追加的小数位数。
 
 ## 相关方法
 

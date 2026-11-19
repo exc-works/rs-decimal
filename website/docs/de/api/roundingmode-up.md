@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: aec9d4c9d2a5eeca4a577ca8099051ca021bc718a47c3458f4e1e7ab0bca048b
+source_revision: e0028e1081b0309d3901334cb20b25aa450fe2c46a4c364db5668c9213b4477b
 translation_provenance: en-US-german-reviewed
 api_id: RoundingMode::Up
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="rounding-roundingmode-up" locale="de" />
-
-## Grenzen im Browser
-
-Ganzzahlparameter müssen in den wasm32-Bereich passen. Der Browser wendet zusätzlich die [Ressourcenrichtlinie](../resource-policy) für Zielskala, Koeffizientenwachstum und Aufrufzahl an. Ressourcenfehler bleiben von numerischen Bibliotheksfehlern getrennt. Ausleihende Methoden konsumieren keine Eingaben; reine Rust-Trait-Syntax ist ausdrücklich als nativ getestet gekennzeichnet.
 
 ## Verwandte Methoden
 

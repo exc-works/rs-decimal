@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: bb2070c90fbcf81b9f15485debb923fef5e838831e150577f2d283f059db73b6
+source_revision: 7805847022fc73cbb47e3960021e981cfb8ac4ab47a7b0a542ffa809d986fb9d
 api_id: Decimal::must_from_string
 ---
 # Decimal::must_from_string
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="helper-decimal-must-from-string" locale="zh-Hans" />
-
-## 边界
-
-bridge 保留 Rust 方法名及参数顺序。自由函数在 Playground 中可直接调用。借用的输入不会被消耗或改变；bridge 拒绝失效或其他运行实例的对象。全部操作遵守 [资源限制](../resource-policy)。
 
 ## 相关方法
 

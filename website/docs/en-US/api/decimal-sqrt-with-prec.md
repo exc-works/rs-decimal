@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 9142df8b7aad31accc1292d48cdb5af145b94888294db67afaa241b5146ec0d5
+source_revision: 1364e2c70db38e747614af95f661a59bb822316d59013022933d2987f410c846
 api_id: Decimal::sqrt_with_prec
 ---
 # Decimal::sqrt_with_prec
@@ -18,10 +18,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="roots-decimal-sqrt-with-prec" locale="en-US" />
-
-## Browser boundaries
-
-The [resource policy](../resource-policy) caps output scale at 1000. Nontrivial roots have degree at most 128, with preflight for scaling, Newton powers and midpoint-certification intermediates. Zero, signed unit values and degree-one roots retain core fast paths but still obey output precision limits. Domain and negative-precision errors retain library behavior; resource errors differ from NoConvergence. Valid individual inputs do not imply every degree/precision combination fits the browser budget.
 
 ## Related methods
 

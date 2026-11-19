@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 9436e2c2329251e2adecf17884000bc9408c12b9f0b7fd847a1b861820048eb7
+source_revision: ff9a08f2b3feca78c7b4250dd2c69ee67ba05009b21ca77af28e0824e74ae8d9
 api_id: "ScanValue::impl Debug"
 ---
 # ScanValue::impl Debug
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-scanvalue-impl-debug" locale="en-US" />
-
-## Browser boundaries
-
-SQL text/byte input and error messages are capped at 8192 UTF-8 bytes. SQL text is [resource-checked](../resource-policy) after removing outer quotes, so quoting cannot bypass exponent limits. Borrowed calls preserve inputs; consumed or disposed handles cannot be reused. Rust trait/import examples run in native tests and do not claim browser method support.
 
 ## Related methods
 

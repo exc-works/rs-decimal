@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: a35340d9c55b8a08723d8ff0cfa4529bad65cad374d1045d7ce321047fc2a260
+source_revision: c4fc0f977bb46b55b53465df0296b049aa252fbfa98d47634f13b46fd3108bd0
 api_id: Decimal::new_from_uint64
 ---
 # Decimal::new_from_uint64
@@ -21,11 +21,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-uint64" locale="zh-Hans" />
 
-## 用法注意事项和边界
+## 使用说明
 
 负值和超过 u64::MAX 的值会在进入 Rust 前被拒绝。负 precision 返回库错误 `InvalidPrecision`。JavaScript number 无法安全承载完整的 u64 范围。
-
-浏览器还应用[资源限制](../resource-policy)。JavaScript 参数在调用 Rust 前进行类型及范围检查。
 
 ## 相关方法
 

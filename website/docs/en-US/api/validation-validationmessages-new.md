@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: d38eb31907db7ef2944305de43af506a13542551be2fcba604fea1ed0a54e78f
+source_revision: 2b24eac398b765662bae8967979a2547332ee566c8d7e9c0bb785ba0d1f9e478
 api_id: "validation::ValidationMessages::new"
 ---
 # validation::ValidationMessages::new
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="validation-validation-validationmessages-new" locale="en-US" />
-
-## Browser boundaries
-
-The validation feature is enabled. Each string is capped at 8192 UTF-8 bytes; rule/error lists and message maps at 64 entries; JSON transport at 65536 bytes. Decimal rule parameters follow the [resource policy](../resource-policy). Translation preflights a conservative total substituted-text bound of 65536 bytes and may reject a just-fitting result. Custom tags and fields are data, never executed code. Validation failures, configuration errors and bridge resource errors remain distinct.
 
 ## Related methods
 

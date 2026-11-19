@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: aad24e4a42d458d995751545010904db4f3e9453abb0fa3c66514c8c59b55494
+source_revision: dd3a6777ec0d2daf335730b8ca67dd44bd500850bf5f5a894aa8a18b1d5c40f9
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::new_from_int
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-int" locale="ko" />
 
-## 사용 시 주의점과 제한
+## 사용 시 참고 사항
 
 브라우저 대상은 wasm32이므로 네이티브 Rust가 64비트 환경에서 실행되어도 허용 범위는 -2147483648부터 2147483647까지입니다. 소수, NaN, 무한대는 매개변수 오류입니다.
-
-브라우저는 [리소스 정책](../resource-policy)도 적용합니다. JavaScript 입력은 Rust 호출 전에 검사합니다.
 
 ## 관련 메서드
 

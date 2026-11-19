@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: c6bfdc5a275f1528f234a1a54bc09c0ed6112246616c753d2e81d844db37231b
+source_revision: be26937ee4bcd1a30b10deb30b4ced946f0371e3015f1e537f8c85709084d801
 translation_provenance: en-US-reviewed-reuse
 api_id: RoundingMode::impl Clone
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="rounding-roundingmode-impl-clone" locale="en-GB" />
-
-## Browser boundaries
-
-Integer parameters must fit the wasm32 range. The browser additionally applies the [resource policy](../resource-policy), including target scale, coefficient growth and call count. Resource errors remain distinct from numerical-library errors. Borrowed methods do not consume inputs; Rust-only trait syntax is explicitly labeled as native-tested.
 
 ## Related methods
 

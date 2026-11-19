@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: cd0b0af7153d96e3d2f3f7126c5b673c301639179f9c4225b3dd81e2a74678a4
+source_revision: 851de95326d3b1f10839fcbae723fc6950eca60bcbb6e43b9e406040ff806dc1
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::add_owned
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="owned-decimal-add-owned" locale="de" />
-
-## Grenzen im Browser
-
-Beachten Sie die obigen Besitzregeln. Zugriff nach einem Move liefert einen moved-Fehler; free ist idempotent. Typen und Aliase werden vor dem Move geprüft, aber Rust-Fehler stellen den konsumierten Empfänger nicht wieder her. Die [Ressourcenrichtlinie](../resource-policy) ist von Bibliotheksfehlern getrennt: Potenzen prüfen Zwischenwerte, die Skalenausrichtung prüft das Koeffizientenwachstum. Konservative Prüfungen können auch kleine Endergebnisse ablehnen.
 
 ## Verwandte Methoden
 

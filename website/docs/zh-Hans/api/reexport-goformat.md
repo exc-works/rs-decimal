@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 4beaa8ccdf2751ba7bce74d134b8de29fabd5c0d82d0d4eebee1575a204be12d
+source_revision: 266c839ce0a1398a080d1caafecf9137464511eaa48f3f421a20630b91e8fdc2
 api_id: reexport::GoFormat
 ---
 # reexport::GoFormat
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="formatting-reexport-goformat" locale="zh-Hans" />
-
-## 浏览器边界
-
-遵循 [资源限制](../resource-policy)：格式宽度最多 65536 字节，precision 最多 1000，固定格式还检查系数增长。缓冲区总长最多 65536 字节，追加前使用保守长度估计，因此可能拒绝实际可容纳的临界操作。资源错误不会改变输入或缓冲区。print 对长文本另有显示上限；需要检查完整输出时可读取 length 或分段打印。
 
 ## 相关方法
 

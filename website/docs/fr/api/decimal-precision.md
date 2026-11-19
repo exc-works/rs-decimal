@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: c8a99895a920cbd49f4dba891779055021c167a0addb6791872293807a1937f8
+source_revision: 0ad97f33b356cd281b88951f90d8d3c10dff06f728f22f7136b85c34bc769e4e
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::precision
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="basic-precision" locale="fr" />
-
-## Erreurs et limites
-
-Ces méthodes empruntent les entrées sans les consommer ni les modifier. L’opération de la bibliothèque ne renvoie pas Result. Le bridge rejette les handles libérés, déplacés ou provenant d’une autre exécution et applique la [politique de ressources](../resource-policy). Les exemples placent une sortie scalaire dans un champ `value` ; une sortie Decimal utilise son instantané complet.
 
 ## Méthodes associées
 

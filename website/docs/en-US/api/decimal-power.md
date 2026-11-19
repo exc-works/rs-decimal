@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 6c8f91b0409cc71714a4b9926acf34a3cf0aa635f8904f2e607ed3243fb8b30a
+source_revision: 01c476851989c18cecc0970b361010eee7cb4cfd902d7e4240be18102abc0899
 api_id: Decimal::power
 ---
 # Decimal::power
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="owned-decimal-power" locale="en-US" />
-
-## Browser boundaries
-
-Follow the ownership rules above. Access after a move returns a moved error; free is idempotent. Type and alias validation precede a move, but Rust errors do not restore the consumed receiver. The [resource policy](../resource-policy) is separate from library errors: powers check intermediate values and alignment checks coefficient growth. Conservative checks can reject small final results.
 
 ## Related methods
 

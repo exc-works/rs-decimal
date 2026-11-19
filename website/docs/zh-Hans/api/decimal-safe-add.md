@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: afcf4f720c241e6c6d4a096ef63464bb4e6b4cfb060705652f6b168cfc059cbe
+source_revision: 197565e31e34527cbc33f567c65ff6fb5c5304500454cb2da830919e852c5158
 api_id: Decimal::safe_add
 ---
 # Decimal::safe_add
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="arithmetic-decimal-safe-add" locale="zh-Hans" />
-
-## 浏览器边界
-
-输入均被借用，成功和普通错误都不会消耗输入。返回的 Decimal 独立拥有数据，算术结果已初始化。浏览器在调用核心前检查 [资源限制](../resource-policy)：对齐、乘积中间系数、除法缩放及输出精度。保守的预检查可能拒绝最终结果很小的运算。资源错误与数值库错误分开报告；panic 会终止运行。
 
 ## 相关方法
 

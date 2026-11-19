@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: b70b6d632eef5a013491ea47ed27e9d8eea36fee70b75cd0db8637b8b6a6ccc5
+source_revision: 9626ec029554d531f95257728b45431467328baf3b8968c06412f5cc58c689ec
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::coefficient
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="basic-coefficient" locale="de" />
-
-## Fehler und Grenzen
-
-Diese Methoden leihen Eingaben aus, ohne sie zu konsumieren oder zu verändern. Die Bibliotheksoperation liefert kein Result. Die Bridge weist freigegebene, verschobene oder fremden Läufen zugehörige Handles ab und wendet die [Ressourcenrichtlinie](../resource-policy) an. Beispiele verpacken skalare Ausgaben in einem `value`-Feld; Decimal-Ausgaben verwenden einen vollständigen Snapshot.
 
 ## Verwandte Methoden
 

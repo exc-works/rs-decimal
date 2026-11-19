@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: c8e9892bcbbaa01844a1c6c7f625a7680f4f756c37b722e825b006201909c45f
+source_revision: 7350b5ad5bfd585c249094865cd49a6bad71c645ac5e1b3b72695308a1cc7d0a
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::log10_with_prec
 ---
@@ -19,10 +19,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="log-exp-decimal-log10-with-prec" locale="de" />
-
-## Grenzen im Browser
-
-Diese Gruppe hat zusätzliche [Ressourcengrenzen](../resource-policy): Ausgabepräzision höchstens 128, Eingabeskala höchstens 256 und Eingabekoeffizient höchstens 4096 Bits. Gewöhnliche exp-Auswertung verlangt außerdem einen Eingabebetrag von höchstens 64; negative Eingaben, deren direkte Rundung auf null der Kern beweist, behalten den schnellen Pfad. Große Eingabeskala kann bei parameterlosen Methoden eine Standardpräzision über 128 wählen; wählen Sie mit with_prec explizit eine erlaubte Ausgabepräzision. Ressourcenfehler unterscheiden sich von NoConvergence im Kern. Stop unterbricht den Lauf; der nächste Lauf erzeugt eine frische Wasm-Instanz.
 
 ## Verwandte Methoden
 

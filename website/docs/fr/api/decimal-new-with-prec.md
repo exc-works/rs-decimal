@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 78d4bcb73439eeefbcaa373b59f6572230d9fd809bde6e3821566e584e60e547
+source_revision: 2cba3a645b36c53756ae013b43e89956dee5ee0f736cbeccecbeb94e8966c7b4
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::new_with_prec
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-with-prec" locale="fr" />
 
-## Remarques et limites
+## Conseils d’utilisation
 
 La précision compte les décimales, pas les chiffres significatifs. Cette méthode n’ajoute pas des zéros à un entier dont la valeur resterait inchangée ; utilisez `new_with_append_prec` pour obtenir 12.00. Une précision négative produit `InvalidPrecision`. Un coefficient nul conserve l’échelle demandée.
-
-Le navigateur applique également la [politique de ressources](../resource-policy). Les entrées JavaScript sont validées avant l’appel à Rust.
 
 ## Méthodes associées
 

@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 72730d41ab3e71fa242fbf48a88a0c6a502506e0eb80815d9391890ebfff87d8
+source_revision: f9048a3e7634cd109eea9581928de5e077f7c7324b6f3b621f732137009253fb
 translation_provenance: en-US-japanese-reviewed
 api_id: "NullDecimal::unmarshal_xml_attr"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="yaml-xml-nulldecimal-unmarshal-xml-attr" locale="ja" />
-
-## ブラウザーの制約
-
-ソース入力は UTF-8 で 8192 バイトまでです。コアの数値解析前に、Rust は最初の YAML スカラーまたは XML 要素のデコード済みテキストを検査します。エスケープ、CDATA、アンダースコアの正規化、YAML 浮動小数点へのゼロ挿入も含みます。YAML スカラーは基数に応じた整数割り当てを制限するため、16 進数字文字が最大 4096 文字です。保守的な検査によりネイティブでは受理される入力も拒否する場合があります。スケール、係数、操作回数は[リソースポリシー](../resource-policy)に従います。ムーブ済みのハンドルは読み取りも変更もできません。
 
 ## 関連メソッド
 

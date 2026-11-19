@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 8106ef71942ee657518a42cba33a247697b1ac2ebfcf011160e32c4adeb6e0b5
+source_revision: aeee866ebb54f7c571b272cc891ca3bbdde24c5f9e28cb0b34c79bb294453b29
 translation_provenance: en-US-reviewed-reuse
 api_id: "reexport::ScanValue"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-reexport-scanvalue" locale="en-GB" />
-
-## Browser boundaries
-
-SQL text/byte input and error messages are capped at 8192 UTF-8 bytes. SQL text is [resource-checked](../resource-policy) after removing outer quotes, so quoting cannot bypass exponent limits. Borrowed calls preserve inputs; consumed or disposed handles cannot be reused. Rust trait/import examples run in native tests and do not claim browser method support.
 
 ## Related methods
 

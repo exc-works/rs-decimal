@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 3ce1c461a5149267a6d290d24a336549ce4f3b1fe8eb45cc970b59fa53adfd15
+source_revision: 873d615adf07acd5810e5a3d2447199c951d65cd40cb07c1afb47b23535aad17
 translation_provenance: en-US-german-reviewed
 api_id: GoFormat::impl Default::default
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="formatting-goformat-impl-default-default" locale="de" />
-
-## Grenzen im Browser
-
-Die [Ressourcenrichtlinie](../resource-policy) begrenzt Formatbreite auf 65536 Bytes und Präzision auf 1000; Festkommaformatierung prüft auch Koeffizientenwachstum. Puffer sind auf 65536 Bytes begrenzt. Append verwendet eine konservative Größenschätzung, die eine gerade noch passende Operation ablehnen kann. Ressourcenfehler verändern weder Eingaben noch Puffer. print kürzt lange Anzeigetexte separat; prüfen Sie für das vollständige Ergebnis die Länge oder geben Sie kleinere Abschnitte aus.
 
 ## Verwandte Methoden
 

@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 49e05880780d4157422be53a7d3d5c1a0d8d4e809a77bd78ae251e8f6c7889c8
+source_revision: 0bbd6c78da40405c6e9ad9c68a14878f98d98b4601eb8ff1296abba0bbf809ae
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::sqrt
 ---
@@ -19,10 +19,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="roots-decimal-sqrt" locale="de" />
-
-## Grenzen im Browser
-
-Die [Ressourcenrichtlinie](../resource-policy) begrenzt die Ausgabeskala auf 1000. Nichttriviale Wurzeln haben höchstens Grad 128; Skalierung, Newton-Potenzen und Zwischenwerte der Mittelpunktzertifizierung werden vorgeprüft. Null, vorzeichenbehaftete Einheitswerte und Wurzeln ersten Grades behalten schnelle Kernpfade, unterliegen aber weiter den Ausgabepräzisionsgrenzen. Definitionsbereichsfehler und negative Präzision behalten Bibliotheksverhalten; Ressourcenfehler unterscheiden sich von NoConvergence. Gültige Einzeleingaben garantieren nicht, dass jede Grad-/Präzisionskombination ins Browserbudget passt.
 
 ## Verwandte Methoden
 

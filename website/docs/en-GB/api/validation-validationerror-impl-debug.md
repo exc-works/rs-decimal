@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: fe3bd2e902ba9fe68764646409ba97ea78fcd42d5400a08b8d590625aefe9c57
+source_revision: 0da87c25bd0ca11269721d2b8d815d7bac612f73d7110e87ce497372ebbaf01e
 translation_provenance: en-US-reviewed-reuse
 api_id: "validation::ValidationError::impl Debug"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="validation-validation-validationerror-impl-debug" locale="en-GB" />
-
-## Browser boundaries
-
-The validation feature is enabled. Each string is capped at 8192 UTF-8 bytes; rule/error lists and message maps at 64 entries; JSON transport at 65536 bytes. Decimal rule parameters follow the [resource policy](../resource-policy). Translation preflights a conservative total substituted-text bound of 65536 bytes and may reject a just-fitting result. Custom tags and fields are data, never executed code. Validation failures, configuration errors and bridge resource errors remain distinct.
 
 ## Related methods
 

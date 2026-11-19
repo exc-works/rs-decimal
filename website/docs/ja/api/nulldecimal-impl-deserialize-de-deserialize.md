@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 4824e4dc634e3ef762c96aa330a4aec14949a376f5c5d2b586754496c1c0639f
+source_revision: c31182c59d69a63bcf444ed429e3135dcff513f7463525a159b980c0e11afd3d
 translation_provenance: en-US-japanese-reviewed
 api_id: "NullDecimal::impl Deserialize < 'de >::deserialize"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="config-serde-nulldecimal-impl-deserialize-de-deserialize" locale="ja" />
-
-## ブラウザーの制約
-
-config と serde 機能は有効です。ソーステキスト／バイト列は UTF-8 で 8192 バイトまでです。Rust は解析前に小数テキストとデコード済み JSON 文字列を確認するため、エスケープで[リソースポリシー](../resource-policy)を回避できません。128 ビット整数には範囲内の bigint が必要です。借用する Decimal/NullDecimal ハンドルはデコード時に使用可能である必要があります。変換は入力を消費せず、独立した値を作ります。汎用 Serde トレイトの動作は具体的な JSON アダプターで示します。
 
 ## 関連メソッド
 

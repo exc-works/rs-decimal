@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 178894cd0af1970f19442cd816169372cdb2496adc78c87aaec82dd961b0da2e
+source_revision: 39668a70027991d27730b01fd29253411ac796d1b8a82a794c00f60c687cf5f8
 api_id: "config::ConfigValue::impl Copy"
 ---
 # config::ConfigValue::impl Copy
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="config-serde-config-configvalue-impl-copy" locale="en-US" />
-
-## Browser boundaries
-
-The config and serde features are enabled. Source text/bytes are capped at 8192 UTF-8 bytes; Rust checks decimal text and decoded JSON strings before parsing, so escapes cannot bypass the [resource policy](../resource-policy). 128-bit integers require in-range bigint. Borrowed Decimal/NullDecimal handles must still be live when decoded; conversion creates independent values without consuming inputs. Generic Serde trait behavior is demonstrated through concrete JSON adapters.
 
 ## Related methods
 

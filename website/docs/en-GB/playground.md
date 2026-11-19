@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: d62c9d14668960966b8d4b8ce2f6a65282abf78ff3e9cfea0c0c0f5225f8d9bc
+source_revision: eebc95321692656eeaf68196d3bb7fece103772431d4688264c85fec9c739db3
 ---
 # Playground
 
@@ -20,3 +20,5 @@ Method pages provide forms for literal arguments in their shared examples. Param
 
 Share creates a URL fragment containing up to 4 KiB of UTF-8 code and the library build commit. The code is not uploaded to a server. A shared link requires the same build, loads without running, and clears previous results. Invalid links leave your current draft intact. Review the code and click Run. Export larger scripts as files; the editor accepts up to 64 KiB. Links can contain any text in your script, so inspect the code before sharing.
 :::
+
+[Playground resource policy](./resource-policy)

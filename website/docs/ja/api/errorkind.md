@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: c136bea39fff64039ef208c269a0655f2c126075df944740bc4d24f9d953ef55
+source_revision: 3bfbb5926961d9d892e3da2738bc0fc6133b23f056d8610803f8a02d24a533d4
 translation_provenance: en-US-japanese-reviewed
 api_id: "ErrorKind"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-errorkind" locale="ja" />
-
-## ブラウザーの制約
-
-SQL のテキスト／バイト入力とエラーメッセージは UTF-8 で 8192 バイトまでです。SQL テキストは外側の引用符を除去した後で[リソース検査](../resource-policy)を受けるため、引用符で指数上限を回避できません。借用呼び出しは入力を保持し、消費済みや解放済みのハンドルは再利用できません。Rust のトレイト／インポート例はネイティブテストで実行し、ブラウザーのメソッド対応を意味しません。
 
 ## 関連メソッド
 

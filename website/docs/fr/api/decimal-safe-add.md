@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: afcf4f720c241e6c6d4a096ef63464bb4e6b4cfb060705652f6b168cfc059cbe
+source_revision: 197565e31e34527cbc33f567c65ff6fb5c5304500454cb2da830919e852c5158
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::safe_add
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="arithmetic-decimal-safe-add" locale="fr" />
-
-## Limites du navigateur
-
-Les entrées sont empruntées et restent utilisables après une réussite ou une erreur ordinaire. Les Decimal renvoyés possèdent des données indépendantes ; les résultats arithmétiques sont initialisés. Le navigateur vérifie la [politique de ressources](../resource-policy) avant d’appeler le cœur : alignement, produits intermédiaires, mise à l’échelle de la division et précision de sortie. Ces contrôles conservateurs peuvent rejeter un calcul dont le résultat final est petit. Les erreurs de ressources restent distinctes des erreurs numériques de la bibliothèque ; un panic termine l’exécution.
 
 ## Méthodes associées
 

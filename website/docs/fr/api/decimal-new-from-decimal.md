@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 37b6ebebec69abdf2809e71eb7e3cad7353a792a069c7217103a51f2eea16c7f
+source_revision: 3e32f687004e72286fa606992f7977ccbc210f3d36756c6006ab536cd5091f5a
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::new_from_decimal
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-decimal" locale="fr" />
 
-## Remarques et limites
+## Conseils d’utilisation
 
 Copier `Decimal::default()` conserve l’état non initialisé ; cela ne le transforme pas en zéro initialisé. En JavaScript, fournissez un Decimal encore valide provenant de la même exécution. Ce constructeur ne le consomme pas.
-
-Le navigateur applique également la [politique de ressources](../resource-policy). Les entrées JavaScript sont validées avant l’appel à Rust.
 
 ## Méthodes associées
 

@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 2bcf37ee1521720789e7103cecdce4020a906f8f85dfb286e500fd7c881d8638
+source_revision: 72523519c8ccf1aad4c8baebb6ac1ef42e8070b9cc7f7f72b600ff77781eaf4e
 translation_provenance: en-US-reviewed-reuse
 api_id: "ErrorKind::InvalidFormat"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-errorkind-invalidformat" locale="en-GB" />
-
-## Browser boundaries
-
-SQL text/byte input and error messages are capped at 8192 UTF-8 bytes. SQL text is [resource-checked](../resource-policy) after removing outer quotes, so quoting cannot bypass exponent limits. Borrowed calls preserve inputs; consumed or disposed handles cannot be reused. Rust trait/import examples run in native tests and do not claim browser method support.
 
 ## Related methods
 

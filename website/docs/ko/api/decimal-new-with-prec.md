@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 78d4bcb73439eeefbcaa373b59f6572230d9fd809bde6e3821566e584e60e547
+source_revision: 2cba3a645b36c53756ae013b43e89956dee5ee0f736cbeccecbeb94e8966c7b4
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::new_with_prec
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-with-prec" locale="ko" />
 
-## 사용 시 주의점과 제한
+## 사용 시 참고 사항
 
 정밀도는 유효 숫자가 아니라 소수 자릿수입니다. 정수의 수치를 그대로 두고 0을 붙이는 것이 아닙니다. 12.00에는 `new_with_append_prec`를 사용하세요. 음수 정밀도는 `InvalidPrecision`입니다. 계수가 0이어도 요청한 소수 자릿수를 유지합니다.
-
-브라우저는 [리소스 정책](../resource-policy)도 적용합니다. JavaScript 입력은 Rust 호출 전에 검사합니다.
 
 ## 관련 메서드
 

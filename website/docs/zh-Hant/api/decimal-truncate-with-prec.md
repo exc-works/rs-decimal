@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: cce5cfd2a6bfd3edbc32da84fa417cbea83f61f7b1bcf9e77c7c5b49aaed3994
+source_revision: 6f37682196df5b201aacde1b52aa54d192c469e0d50cfead6f78c24b12704f29
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::truncate_with_prec
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="rounding-decimal-truncate-with-prec" locale="zh-Hant" />
-
-## 瀏覽器邊界
-
-所有整數參數必須位於 wasm32 對應範圍。瀏覽器還施加 [資源限制](../resource-policy)，包括目標小數位數、係數增長及呼叫次數。資源錯誤與數值程式庫錯誤分開報告。借用方法不會消耗輸入；僅 Rust 的 trait 語法明確標注為原生測試。
 
 ## 相關方法
 

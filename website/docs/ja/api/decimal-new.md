@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: fe9121bf755dd82c88fc1274dc43b09d6173d99c7a22441eb84bc6a73587fa71
+source_revision: d578df6b6b71b8ce4b0e165f6e630705dc946bcefab55f8b43fc9cba6d60bb70
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::new
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new" locale="ja" />
 
-## 使用上の注意と制約
+## 使い方の補足
 
 JavaScript number ではなく `12n` を使ってください。i64 範囲外の値は bridge が拒否します。小数値には `new_from_string` を使います。
-
-ブラウザーは[リソースポリシー](../resource-policy)も適用します。JavaScript 入力は Rust の呼び出し前に検証します。
 
 ## 関連メソッド
 

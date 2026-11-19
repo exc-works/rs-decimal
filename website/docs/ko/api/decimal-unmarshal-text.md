@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 7e0df53b59ae6c40ced288a2a324fe9ef0557e3dc38c029cf8a66e1749c4ce28
+source_revision: 6fa89e7d9fd5a43bce6d83be2495a38047592a77e9611dcd781da000b62e4862
 translation_provenance: en-US-korean-reviewed
 api_id: "Decimal::unmarshal_text"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="text-json-decimal-unmarshal-text" locale="ko" />
-
-## 브라우저 제한
-
-디코더 입력은 8192바이트까지이며 매개변수 문자열도 Wasm에 복사하기 전에 길이를 검사합니다. Rust는 텍스트와 디코딩된 JSON 문자열에 [소수 리소스 정책](../resource-policy)을 다시 적용하므로 이스케이프로 지수/자릿수 제한을 우회할 수 없습니다. 잘못된 UTF-8과 JSON/소수 문법 진단은 코어가 처리합니다. 입력과 리소스 오류는 수신 객체를 부분적으로 갱신하지 않으며 이동된 래퍼는 읽거나 바꿀 수 없습니다.
 
 ## 관련 메서드
 

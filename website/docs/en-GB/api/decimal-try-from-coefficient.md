@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 34aa17297c2ce6b5b73e997c910f57874da73c70f9cf52cd3fadd2ab710a529d
+source_revision: 3430467a0f3b43857ec837a38512411503e4016266c068e3065f8bd60687547d
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::try_from_coefficient
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="owned-decimal-try-from-coefficient" locale="en-GB" />
-
-## Browser boundaries
-
-Follow the ownership rules above. Access after a move returns a moved error; free is idempotent. Type and alias validation precede a move, but Rust errors do not restore the consumed receiver. The [resource policy](../resource-policy) is separate from library errors: powers check intermediate values and alignment checks coefficient growth. Conservative checks can reject small final results.
 
 ## Related methods
 

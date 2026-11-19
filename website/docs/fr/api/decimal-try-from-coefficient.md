@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 34aa17297c2ce6b5b73e997c910f57874da73c70f9cf52cd3fadd2ab710a529d
+source_revision: 3430467a0f3b43857ec837a38512411503e4016266c068e3065f8bd60687547d
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::try_from_coefficient
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="owned-decimal-try-from-coefficient" locale="fr" />
-
-## Limites du navigateur
-
-Respectez les règles de propriété ci-dessus. Un accès après déplacement renvoie une erreur moved ; free est idempotent. La vérification des types et des alias précède le déplacement, mais une erreur Rust ne restaure pas le récepteur consommé. La [politique de ressources](../resource-policy) est distincte des erreurs de la bibliothèque : les puissances contrôlent les valeurs intermédiaires et l’alignement contrôle la croissance des coefficients. Les contrôles conservateurs peuvent rejeter des calculs dont le résultat final est petit.
 
 ## Méthodes associées
 

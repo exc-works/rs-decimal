@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 2a8346ce45dbd45b20992f8d2634279ac1b05e18f68e660feb98bc0c9b86803d
+source_revision: 8fb2de8eaa72e1390b09fd949ca444ffb681b4ab0d4c0a3535431123d0666727
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::floor_with_prec
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="rounding-decimal-floor-with-prec" locale="zh-Hant" />
-
-## 瀏覽器邊界
-
-所有整數參數必須位於 wasm32 對應範圍。瀏覽器還施加 [資源限制](../resource-policy)，包括目標小數位數、係數增長及呼叫次數。資源錯誤與數值程式庫錯誤分開報告。借用方法不會消耗輸入；僅 Rust 的 trait 語法明確標注為原生測試。
 
 ## 相關方法
 

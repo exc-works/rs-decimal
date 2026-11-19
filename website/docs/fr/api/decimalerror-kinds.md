@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 51d80d897f775a7466e06561586b9d500a34859b5d00dfee1f00a368a7a33f1e
+source_revision: 51be5745f7c3de3ef96d99823418ed54f498b3a9d7e9e49834c1ccd963cd3475
 translation_provenance: en-US-french-reviewed
 api_id: "DecimalError::kinds"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-decimalerror-kinds" locale="fr" />
-
-## Limites du navigateur
-
-Les entrées SQL texte/octets et les messages d’erreur sont limités à 8192 octets UTF-8. Le texte SQL est soumis au [contrôle des ressources](../resource-policy) après retrait des guillemets extérieurs : ceux-ci ne peuvent donc pas contourner les limites d’exposant. Les appels avec emprunt préservent les entrées ; les handles consommés ou libérés ne peuvent pas être réutilisés. Les exemples de traits et d’imports Rust s’exécutent dans les tests natifs et ne prétendent pas fournir des méthodes du navigateur.
 
 ## Méthodes associées
 

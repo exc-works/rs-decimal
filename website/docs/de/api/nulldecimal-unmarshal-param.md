@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 098847ed019375f939ef5ba1a900bfb15c1c278feadb8bae9f85384666b02bf1
+source_revision: 7c807773ded0adcdcd91027cab2d90a4029760f6cf1ca4fd49648d1e294b17d6
 translation_provenance: en-US-german-reviewed
 api_id: "NullDecimal::unmarshal_param"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="text-json-nulldecimal-unmarshal-param" locale="de" />
-
-## Grenzen im Browser
-
-Decodereingaben sind auf 8192 Bytes begrenzt; Parameterzeichenfolgen werden ebenfalls vor dem Kopieren nach Wasm auf Länge geprüft. Rust prüft die [Dezimalressourcenrichtlinie](../resource-policy) erneut für Text und decodierte JSON-Zeichenfolgen; Escapes umgehen daher keine Exponenten-/Skalengrenzen. Diagnosen für ungültiges UTF-8 sowie JSON-/Dezimalsyntax stammen vom Kern. Eingabe- und Ressourcenfehler ändern Empfänger nicht teilweise; verschobene Wrapper können weder gelesen noch verändert werden.
 
 ## Verwandte Methoden
 

@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 027ed2edff10b36d0b034b15dae2ca9de5412e5b203ccede0d881df699befe4b
+source_revision: b55dba0922642cda4e225685c47d97a54da01243942c47cb892b8c9136202f1a
 translation_provenance: en-US-korean-reviewed
 api_id: "validation::ValidationRule::impl Clone"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="validation-validation-validationrule-impl-clone" locale="ko" />
-
-## 브라우저 제한
-
-validation 기능은 활성화되어 있습니다. 각 문자열은 UTF-8 8192바이트, 규칙/오류 목록과 메시지 맵은 64항목, JSON 전송은 65536바이트까지입니다. 규칙의 소수 매개변수는 [리소스 정책](../resource-policy)을 따릅니다. 번역 전에 치환 텍스트의 보수적인 총합 상한 65536바이트를 검사하므로 실제로는 딱 맞는 결과도 거부할 수 있습니다. 사용자 태그와 필드는 데이터이며 실행 코드가 아닙니다. 검증 실패, 설정 오류, bridge 리소스 오류는 구분합니다.
 
 ## 관련 메서드
 

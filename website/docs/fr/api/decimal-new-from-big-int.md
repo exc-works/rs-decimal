@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: e8f2b09a741088cc99921865f54ef434d0d70ac376d4e29b7efc3c00a51c3956
+source_revision: 41da382d7882f55308ed631f052fb5ac78093f335752392d35d023f744890035
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::new_from_big_int
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-big-int" locale="fr" />
 
-## Remarques et limites
+## Conseils d’utilisation
 
-Ne convertissez pas un number JavaScript en bigint après une perte de précision ; partez d’un littéral entier se terminant par `n` ou d’un texte entier exact. Le playground accepte au maximum 4096 chiffres en entrée ; la bibliothèque native n’est pas soumise à cette politique du playground.
-
-Le navigateur applique également la [politique de ressources](../resource-policy). Les entrées JavaScript sont validées avant l’appel à Rust.
+Ne convertissez pas un number JavaScript en bigint après une perte de précision ; partez d’un littéral entier se terminant par `n` ou d’un texte entier exact.
 
 ## Méthodes associées
 

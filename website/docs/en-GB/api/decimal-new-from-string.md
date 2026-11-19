@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 3ef0ab66b1050d81978ffe9504c298d164d62d052b64bfd1ad02ddce4a039f36
+source_revision: ade28fb6fdcde851797c02557b97ea1da6938690477fe011590975bc67fbbf2e
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::new_from_string
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-string" locale="en-GB" />
 
-## Usage notes and boundaries
+## Usage notes
 
-Input is trimmed and may contain a sign and exponent. Both sides of a decimal point require digits. The separator is always `.`, independent of UI language. Nonzero trailing zeros are retained, but `"0.00"` normalizes to initialized scale-zero zero. Invalid syntax is `InvalidFormat`; expanded inputs can hit the separate playground resource limit.
-
-The browser also applies the [resource policy](../resource-policy). JavaScript inputs are validated before calling Rust.
+Input is trimmed and may contain a sign and exponent. Both sides of a decimal point require digits. The separator is always `.`, independent of UI language. Nonzero trailing zeros are retained, but `"0.00"` normalizes to initialized scale-zero zero. Invalid syntax is `InvalidFormat`.
 
 ## Related methods
 

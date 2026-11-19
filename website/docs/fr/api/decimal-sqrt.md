@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 49e05880780d4157422be53a7d3d5c1a0d8d4e809a77bd78ae251e8f6c7889c8
+source_revision: 0bbd6c78da40405c6e9ad9c68a14878f98d98b4601eb8ff1296abba0bbf809ae
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::sqrt
 ---
@@ -19,10 +19,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="roots-decimal-sqrt" locale="fr" />
-
-## Limites du navigateur
-
-La [politique de ressources](../resource-policy) limite l’échelle de sortie à 1000. Les racines non triviales ont un degré maximal de 128, avec des contrôles préalables sur la mise à l’échelle, les puissances de Newton et les valeurs intermédiaires de certification du point médian. Zéro, les unités signées et les racines de degré un conservent les chemins rapides du cœur, tout en respectant les limites de précision de sortie. Les erreurs de domaine et de précision négative conservent le comportement de la bibliothèque ; les erreurs de ressources diffèrent de NoConvergence. Des entrées individuellement valides ne garantissent pas que toute combinaison degré/précision respecte le budget du navigateur.
 
 ## Méthodes associées
 

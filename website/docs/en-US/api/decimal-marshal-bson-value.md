@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 18a49744a56694725a1fe7d677be386e97a4c76f0669871a289c86113d20f3e2
+source_revision: 44afbeff0d59cbde33e83e7f33c7e22c9903950f7ecf43d6f8230c6cde4b2ec4
 api_id: "Decimal::marshal_bson_value"
 ---
 # Decimal::marshal_bson_value
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="binary-bson-decimal-marshal-bson-value" locale="en-US" />
-
-## Browser boundaries
-
-Input must be Uint8Array, and kind an integer in 0–255. Inputs are capped at 65536 bytes before copying to Wasm. Rust checks binary scale up to 1000 and actual coefficient size up to 16384 bits. BSON strings follow the 8192-byte text limit, and Decimal128 exponent expansion is also [resource-checked](../resource-policy). These limits can be narrower than the native library. Checks precede receiver mutation; core and resource errors remain distinct, and moved handles cannot be reused.
 
 ## Related methods
 

@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 04ccd2d93879c885eeb5c5c9d73e97e09115c8bc883b68449691de9e950117bb
+source_revision: 5acf1a9800c0d02bd1cb1fa68c2c1f7068c1bb36cf20034e0a1e404758ce2bc4
 translation_provenance: en-US-french-reviewed
 api_id: "ErrorKind::InvalidRoot"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-errorkind-invalidroot" locale="fr" />
-
-## Limites du navigateur
-
-Les entrées SQL texte/octets et les messages d’erreur sont limités à 8192 octets UTF-8. Le texte SQL est soumis au [contrôle des ressources](../resource-policy) après retrait des guillemets extérieurs : ceux-ci ne peuvent donc pas contourner les limites d’exposant. Les appels avec emprunt préservent les entrées ; les handles consommés ou libérés ne peuvent pas être réutilisés. Les exemples de traits et d’imports Rust s’exécutent dans les tests natifs et ne prétendent pas fournir des méthodes du navigateur.
 
 ## Méthodes associées
 

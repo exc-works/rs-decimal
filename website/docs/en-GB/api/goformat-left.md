@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 1bcdb4a809c3db807556fea8772e6afac8daed8fef0faa997fbb848ae1a34a13
+source_revision: 9b1c2ac4982ef348ecf9982f858e7f552532e21dc0129fa816673741276acaf7
 translation_provenance: en-US-reviewed-reuse
 api_id: GoFormat.left
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="formatting-goformat-left" locale="en-GB" />
-
-## Browser boundaries
-
-The [resource policy](../resource-policy) caps format width at 65536 bytes and precision at 1000; fixed formatting also checks coefficient growth. Buffers are limited to 65536 bytes and append uses a conservative size estimate, which may reject an operation that would just fit. Resource errors do not mutate inputs or buffers. print separately truncates long display text; inspect length or print smaller slices when examining a full result.
 
 ## Related methods
 

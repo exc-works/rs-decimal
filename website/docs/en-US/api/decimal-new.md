@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: fe9121bf755dd82c88fc1274dc43b09d6173d99c7a22441eb84bc6a73587fa71
+source_revision: d578df6b6b71b8ce4b0e165f6e630705dc946bcefab55f8b43fc9cba6d60bb70
 api_id: Decimal::new
 ---
 # Decimal::new
@@ -21,11 +21,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new" locale="en-US" />
 
-## Usage notes and boundaries
+## Usage notes
 
 Use `12n`, not a JavaScript number. Values outside i64 are rejected by the bridge; decimal fractions belong in `new_from_string`.
-
-The browser also applies the [resource policy](../resource-policy). JavaScript inputs are validated before calling Rust.
 
 ## Related methods
 

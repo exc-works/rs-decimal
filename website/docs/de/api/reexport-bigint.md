@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 8110d2fd30808fd737c3f5730a5be2d19cf89f407f5d688859de476689342458
+source_revision: f07542c46478fd9edd09bbf3af9bd03d15608eb33e9ed99beb51b022df098d6a
 translation_provenance: en-US-german-reviewed
 api_id: reexport::BigInt
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="conversion-reexport-bigint" locale="de" />
-
-## Grenzen im Browser
-
-Ganzzahlen werden nicht über verlustbehaftete JS-Zahlen übertragen. Konvertierungstupel erhalten Rusts Reihenfolge Wert/Kennzeichen; false verspricht kein exaktes Ergebnis. Ausgeliehene Eingaben bleiben unverändert, Konstruktoren initialisieren Ergebnisse. Die [Ressourcenrichtlinie](../resource-policy) begrenzt Ganzzahleingaben, Ausgabeskala und rationales Koeffizientenwachstum getrennt von Bibliotheksfehlern. Rust-Importsyntax ist ausdrücklich als nativ getestet gekennzeichnet.
 
 ## Verwandte Methoden
 

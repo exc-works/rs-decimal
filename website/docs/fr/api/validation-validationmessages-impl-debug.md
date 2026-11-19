@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 0ee4a72ff112d52d1fe74af33099195201a24147830d9b414e5d9feccaa1d9af
+source_revision: 7a64350820a080b0916474e0345c7585e0ee7cbba8ee07735fc7ef97c519f08f
 translation_provenance: en-US-french-reviewed
 api_id: "validation::ValidationMessages::impl Debug"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="validation-validation-validationmessages-impl-debug" locale="fr" />
-
-## Limites du navigateur
-
-La fonctionnalité validation est activée. Chaque chaîne est limitée à 8192 octets UTF-8 ; les listes de règles/erreurs et les tables de messages à 64 entrées ; le transport JSON à 65536 octets. Les paramètres décimaux des règles suivent la [politique de ressources](../resource-policy). La traduction contrôle préalablement une estimation conservatrice de 65536 octets pour le texte total après substitution et peut rejeter un résultat qui tiendrait exactement. Les étiquettes et champs personnalisés sont des données, jamais du code exécuté. Les échecs de validation, erreurs de configuration et erreurs de ressources du bridge restent distincts.
 
 ## Méthodes associées
 

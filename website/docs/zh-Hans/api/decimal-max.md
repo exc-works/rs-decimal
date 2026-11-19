@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 5956431328357316a87f05c2d1543bb100b12923bb2d50b1e21ff3f96212db45
+source_revision: c7a338ce433accfeb61051f993009577dfae7589a629a17bae6043234f27ca38
 api_id: Decimal::max
 ---
 # Decimal::max
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="basic-max" locale="zh-Hans" />
-
-## 错误及边界
-
-这些方法借用输入，不会消耗或改变输入。库操作本身不返回 Result。bridge 拒绝已释放、已移动或来自其他运行实例的对象，并应用 [资源限制](../resource-policy)。示例用 `value` 字段展示标量结果；Decimal 结果展示完整快照。
 
 ## 相关方法
 

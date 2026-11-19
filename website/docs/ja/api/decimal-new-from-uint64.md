@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: a35340d9c55b8a08723d8ff0cfa4529bad65cad374d1045d7ce321047fc2a260
+source_revision: c4fc0f977bb46b55b53465df0296b049aa252fbfa98d47634f13b46fd3108bd0
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::new_from_uint64
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-uint64" locale="ja" />
 
-## 使用上の注意と制約
+## 使い方の補足
 
 負の値と u64::MAX を超える値は Rust に入る前に拒否されます。負の精度はライブラリエラー `InvalidPrecision` です。JavaScript number では u64 の全範囲を安全に保持できません。
-
-ブラウザーは[リソースポリシー](../resource-policy)も適用します。JavaScript 入力は Rust の呼び出し前に検証します。
 
 ## 関連メソッド
 

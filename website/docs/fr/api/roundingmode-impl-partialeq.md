@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: d358fea1722186e0df2e76e232b3793bff18d2e3a10cb6ef0ae0a724a40da40b
+source_revision: dce0eeed904ef266b7197b18fd411cf158683a2fe3f9074f19a11965111706e9
 translation_provenance: en-US-french-reviewed
 api_id: RoundingMode::impl PartialEq
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="rounding-roundingmode-impl-partialeq" locale="fr" />
-
-## Limites du navigateur
-
-Les paramètres entiers doivent tenir dans la plage wasm32. Le navigateur applique aussi la [politique de ressources](../resource-policy), notamment l’échelle cible, la croissance des coefficients et le nombre d’appels. Les erreurs de ressources restent distinctes des erreurs numériques de la bibliothèque. Les méthodes avec emprunt ne consomment pas les entrées ; la syntaxe des traits propre à Rust est explicitement indiquée comme testée nativement.
 
 ## Méthodes associées
 

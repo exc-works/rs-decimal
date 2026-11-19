@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: d175f05e819f4b3e7b18eefbd00d8a57a38edc9a97413b4a95e100580b76c12b
+source_revision: 001b8b003c099ab66879c97c5d63d2105fa698bcbc3c15c760670300d17a20a3
 translation_provenance: en-US-french-reviewed
 api_id: "ErrorKind::impl Eq"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-errorkind-impl-eq" locale="fr" />
-
-## Limites du navigateur
-
-Les entrées SQL texte/octets et les messages d’erreur sont limités à 8192 octets UTF-8. Le texte SQL est soumis au [contrôle des ressources](../resource-policy) après retrait des guillemets extérieurs : ceux-ci ne peuvent donc pas contourner les limites d’exposant. Les appels avec emprunt préservent les entrées ; les handles consommés ou libérés ne peuvent pas être réutilisés. Les exemples de traits et d’imports Rust s’exécutent dans les tests natifs et ne prétendent pas fournir des méthodes du navigateur.
 
 ## Méthodes associées
 

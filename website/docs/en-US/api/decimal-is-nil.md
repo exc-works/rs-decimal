@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 59688cddd572412f36dd0f36cc15c34efbc891dab38cd57b614763347d469369
+source_revision: 7d0c030a450a67fa4b0e618dbc6cb501daeb5fbc64647ae39a02ca84be312b44
 api_id: Decimal::is_nil
 ---
 # Decimal::is_nil
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="basic-is-nil" locale="en-US" />
-
-## Errors and boundaries
-
-These methods borrow inputs without consuming or changing them. The library operation does not return Result. The bridge rejects disposed, moved or foreign-run handles and applies the [resource policy](../resource-policy). Examples wrap scalar output in a `value` field; Decimal output uses its complete snapshot.
 
 ## Related methods
 

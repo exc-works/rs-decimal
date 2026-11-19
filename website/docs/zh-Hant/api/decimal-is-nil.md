@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 59688cddd572412f36dd0f36cc15c34efbc891dab38cd57b614763347d469369
+source_revision: 7d0c030a450a67fa4b0e618dbc6cb501daeb5fbc64647ae39a02ca84be312b44
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::is_nil
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="basic-is-nil" locale="zh-Hant" />
-
-## 錯誤及邊界
-
-這些方法借用輸入，不會消耗或改變輸入。程式庫操作本身不回傳 Result。bridge 拒絕已釋放、已移動或來自其他執行實例的物件，並應用 [資源限制](../resource-policy)。範例用 `value` 欄位展示標量結果；Decimal 結果展示完整快照。
 
 ## 相關方法
 

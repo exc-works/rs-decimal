@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 0d692c90930959d30189d9870456cce3ed78a046b51b42c8004981e031486270
+source_revision: f9b1eaa0c6a10e9f32908baa1f2c09a9aafeb3265bffa095bb0a0b210e1e1f05
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::format_go
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="formatting-decimal-format-go" locale="ja" />
-
-## ブラウザーの制約
-
-[リソースポリシー](../resource-policy)は書式幅を 65536 バイト、精度を 1000 に制限し、固定小数点の書式では係数増大も確認します。バッファーは 65536 バイトまでです。追記は保守的なサイズ見積もりを使うため、実際にはちょうど収まる操作も拒否する場合があります。リソースエラーは入力やバッファーを変更しません。print は別途長い表示テキストを切り詰めます。全結果を調べるには長さを確認するか、小さな部分に分けて出力してください。
 
 ## 関連メソッド
 

@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: b8d0350ab2d3257ebc2822de61360d2033648c92799436b97481a4c0e75947bf
+source_revision: 0989f60fe84cf7be4e7708a7140f9cc16468c21ad57d855b67f896084ddd8606
 translation_provenance: en-US-reviewed-reuse
 api_id: GoFormat.plus
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="formatting-goformat-plus" locale="en-GB" />
-
-## Browser boundaries
-
-The [resource policy](../resource-policy) caps format width at 65536 bytes and precision at 1000; fixed formatting also checks coefficient growth. Buffers are limited to 65536 bytes and append uses a conservative size estimate, which may reject an operation that would just fit. Resource errors do not mutate inputs or buffers. print separately truncates long display text; inspect length or print smaller slices when examining a full result.
 
 ## Related methods
 

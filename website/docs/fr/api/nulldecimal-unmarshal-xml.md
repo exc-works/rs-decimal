@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: bb5fda951c514c30196177535ed36df93d91d15de5889b17222eea8aae392724
+source_revision: e94c40441044730df649ba261de89daead4c5ce018d30a42e07e0ff558def35c
 translation_provenance: en-US-french-reviewed
 api_id: "NullDecimal::unmarshal_xml"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="yaml-xml-nulldecimal-unmarshal-xml" locale="fr" />
-
-## Limites du navigateur
-
-La source est limitée à 8192 octets UTF-8. Avant l’analyse numérique du cœur, Rust contrôle le premier scalaire YAML décodé ou le texte de l’élément XML, y compris les échappements, CDATA, la normalisation des traits de soulignement et l’insertion de zéros dans les flottants YAML. Les scalaires YAML acceptent au maximum 4096 caractères de chiffres hexadécimaux pour limiter l’allocation des entiers selon leur base ; les contrôles conservateurs peuvent rejeter des entrées acceptées nativement. L’échelle, le coefficient et le nombre d’opérations suivent la [politique de ressources](../resource-policy). Les handles déplacés ne peuvent plus être lus ni modifiés.
 
 ## Méthodes associées
 

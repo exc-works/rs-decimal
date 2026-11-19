@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: aad24e4a42d458d995751545010904db4f3e9453abb0fa3c66514c8c59b55494
+source_revision: dd3a6777ec0d2daf335730b8ca67dd44bd500850bf5f5a894aa8a18b1d5c40f9
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::new_from_int
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-int" locale="ja" />
 
-## 使用上の注意と制約
+## 使い方の補足
 
 ブラウザーのターゲットは wasm32 なので、ネイティブ Rust が 64 ビット環境でも、受け付ける範囲は -2147483648 から 2147483647 です。小数、NaN、無限大は引数エラーになります。
-
-ブラウザーは[リソースポリシー](../resource-policy)も適用します。JavaScript 入力は Rust の呼び出し前に検証します。
 
 ## 関連メソッド
 

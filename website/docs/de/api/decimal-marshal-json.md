@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: ce7a1e6d51ea25aa6e22728a52c66d3bfd202ca324cd22c0d1d0545a351bced2
+source_revision: 76052d80c386b89ac2428898d57b9ce525f22161fd5cd3ee7956cceafe3b11e9
 translation_provenance: en-US-german-reviewed
 api_id: "Decimal::marshal_json"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="text-json-decimal-marshal-json" locale="de" />
-
-## Grenzen im Browser
-
-Decodereingaben sind auf 8192 Bytes begrenzt; Parameterzeichenfolgen werden ebenfalls vor dem Kopieren nach Wasm auf Länge geprüft. Rust prüft die [Dezimalressourcenrichtlinie](../resource-policy) erneut für Text und decodierte JSON-Zeichenfolgen; Escapes umgehen daher keine Exponenten-/Skalengrenzen. Diagnosen für ungültiges UTF-8 sowie JSON-/Dezimalsyntax stammen vom Kern. Eingabe- und Ressourcenfehler ändern Empfänger nicht teilweise; verschobene Wrapper können weder gelesen noch verändert werden.
 
 ## Verwandte Methoden
 

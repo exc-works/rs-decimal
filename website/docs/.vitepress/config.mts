@@ -15,7 +15,6 @@ function documentationSidebar(lang: string) {
     { text: text.docs, items: [
       { text: text.home, link: `/${lang}/` },
       { text: text.guide, link: `/${lang}/guide` },
-      { text: text.playground, link: `/${lang}/playground` },
       { text: text.glossary, link: `/${lang}/glossary` },
     ] },
     { text: text.api, collapsed: false, items: [

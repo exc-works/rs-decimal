@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 49e05880780d4157422be53a7d3d5c1a0d8d4e809a77bd78ae251e8f6c7889c8
+source_revision: 0bbd6c78da40405c6e9ad9c68a14878f98d98b4601eb8ff1296abba0bbf809ae
 api_id: Decimal::sqrt
 ---
 # Decimal::sqrt
@@ -18,10 +18,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="roots-decimal-sqrt" locale="zh-Hans" />
-
-## 浏览器边界
-
-[资源策略](../resource-policy) 将输出 scale 限制为 1000。非平凡根的 degree 最多为 128，并在分配前检查缩放、Newton 迭代及中点验证的中间系数预算。零、正负 1 和一次根保留核心快速路径，但仍受输出精度限制。定义域错误与负精度错误保持库行为；资源错误与 NoConvergence 不同。输入范围合法不代表每个 degree/prec 组合都能通过资源检查。
 
 ## 相关方法
 

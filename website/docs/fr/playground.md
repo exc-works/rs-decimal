@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: d62c9d14668960966b8d4b8ce2f6a65282abf78ff3e9cfea0c0c0f5225f8d9bc
+source_revision: eebc95321692656eeaf68196d3bb7fece103772431d4688264c85fec9c739db3
 ---
 # Playground
 
@@ -20,3 +20,5 @@ Les pages des méthodes proposent des formulaires pour les arguments littéraux 
 
 Le partage place au maximum 4 Kio de code UTF-8 et le commit du build de la bibliothèque dans le fragment de l’URL. Le code n’est pas envoyé à un serveur. Un lien partagé nécessite le même build, charge le code sans l’exécuter et efface les résultats précédents. Un lien incorrect conserve votre brouillon actuel. Vérifiez le code, puis cliquez sur Exécuter. Exportez les scripts plus longs dans un fichier ; l’éditeur accepte jusqu’à 64 Kio. Les liens contiennent le texte du script : vérifiez-le avant de le partager.
 :::
+
+[Politique de ressources du Playground](./resource-policy)

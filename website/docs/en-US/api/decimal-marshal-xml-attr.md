@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: dbdcc64998397a143c045f2ffbee812382399e55664aea5f55e50930e8723a2a
+source_revision: 8ca020b2d56652a32165b4756446630d2a88be60a068a89e4f65ce218930abe5
 api_id: "Decimal::marshal_xml_attr"
 ---
 # Decimal::marshal_xml_attr
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="yaml-xml-decimal-marshal-xml-attr" locale="en-US" />
-
-## Browser boundaries
-
-Source input is capped at 8192 UTF-8 bytes. Before core numeric parsing, Rust checks the decoded first YAML scalar or XML element text, including escapes, CDATA, underscore normalization and YAML float zero insertion. YAML scalars permit at most 4096 hexadecimal digit characters to bound radix integer allocation; conservative checks may reject inputs accepted natively. Scale, coefficient and operation counts follow the [resource policy](../resource-policy). Moved handles cannot be read or mutated.
 
 ## Related methods
 

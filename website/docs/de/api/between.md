@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 4488da41f235921047e8f85b8a68b47bc497bf199529326773333d8f22d38585
+source_revision: 536eae84e3e9c7c0c702cbcb339f82c64bf0aafab561d4a3f87590939cb52d8e
 translation_provenance: en-US-german-reviewed
 api_id: between
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="helper-between" locale="de" />
-
-## Grenzen
-
-Die Bridge erhält Rust-Namen und Parameterreihenfolge. Freie Funktionen stehen im Playground direkt bereit. Ausgeliehene Eingaben werden weder konsumiert noch verändert; ungültige Handles oder solche aus fremden Läufen werden abgewiesen. Alle Operationen folgen der [Ressourcenrichtlinie](../resource-policy).
 
 ## Verwandte Methoden
 

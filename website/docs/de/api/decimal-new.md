@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: fe9121bf755dd82c88fc1274dc43b09d6173d99c7a22441eb84bc6a73587fa71
+source_revision: d578df6b6b71b8ce4b0e165f6e630705dc946bcefab55f8b43fc9cba6d60bb70
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::new
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new" locale="de" />
 
-## Hinweise und Grenzen
+## Hinweise zur Verwendung
 
 Verwenden Sie `12n`, keine JavaScript number. Werte außerhalb von i64 weist die Bridge ab; Dezimalbrüche gehören in `new_from_string`.
-
-Der Browser wendet auch die [Ressourcenrichtlinie](../resource-policy) an. JavaScript-Eingaben werden vor dem Rust-Aufruf validiert.
 
 ## Verwandte Methoden
 

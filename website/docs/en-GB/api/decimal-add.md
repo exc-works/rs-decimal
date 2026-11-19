@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 8c45e8f4230346a7c6fcd3cbb920d429b7a02acbcd8eb534c1f096fa8233828d
+source_revision: 1edc6ba7e191babd98a0717864d8696548b2086ee97162b567ea1d847a357dad
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::add
 ---
@@ -14,17 +14,13 @@ fn add (& self , other : & Self) -> Self
 
 ## Parameters, return and normal usage
 
-other: &Decimal; returns a new Decimal at the larger operand scale. Alignment is exact and does not discard digits. The Rust method is infallible; browser allocation limits can still return a resource error.
+other: &Decimal; returns a new Decimal at the larger operand scale. Alignment is exact and does not discard digits.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="arithmetic-decimal-add" locale="en-GB" />
-
-## Browser boundaries
-
-Inputs are borrowed and remain usable after success or ordinary errors. Returned Decimals own independent data; arithmetic results are initialized. The browser checks the [resource policy](../resource-policy) before calling the core: alignment, intermediate products, division scaling and output precision. Conservative preflight may reject calculations with small final results. Resource errors remain distinct from numerical-library errors; a panic terminates the run.
 
 ## Related methods
 

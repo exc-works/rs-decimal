@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 6a6affd7edee5f9f6a79808e07e39ddb921cd55aaa2ca467fd846fc75b95d0c2
+source_revision: 9f9019ab26936086c52db8997b79603161a6ca91ecf3ebbb2e2fc9ec02fd1a05
 translation_provenance: en-US-japanese-reviewed
 api_id: GoFormat::impl Default
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="formatting-goformat-impl-default" locale="ja" />
-
-## ブラウザーの制約
-
-[リソースポリシー](../resource-policy)は書式幅を 65536 バイト、精度を 1000 に制限し、固定小数点の書式では係数増大も確認します。バッファーは 65536 バイトまでです。追記は保守的なサイズ見積もりを使うため、実際にはちょうど収まる操作も拒否する場合があります。リソースエラーは入力やバッファーを変更しません。print は別途長い表示テキストを切り詰めます。全結果を調べるには長さを確認するか、小さな部分に分けて出力してください。
 
 ## 関連メソッド
 

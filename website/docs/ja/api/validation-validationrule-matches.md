@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 788e3facaf7bb31d022529aaea08540d91c8a4001537b0085ab4e604ef0e3ae8
+source_revision: 816a5e8449654efb901339ad5516b3fdb94be2af25e3c709a61823154b83be91
 translation_provenance: en-US-japanese-reviewed
 api_id: "validation::ValidationRule::matches"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="validation-validation-validationrule-matches" locale="ja" />
-
-## ブラウザーの制約
-
-validation 機能は有効です。各文字列は UTF-8 で 8192 バイト、規則／エラーのリストとメッセージマップは 64 項目、JSON 転送は 65536 バイトまでです。規則の小数引数は[リソースポリシー](../resource-policy)に従います。翻訳前に置換後テキストの保守的な合計上限 65536 バイトを検査し、実際にはちょうど収まる結果も拒否する場合があります。独自のタグとフィールドはデータであり、実行するコードではありません。検証失敗、設定エラー、bridge のリソースエラーは区別します。
 
 ## 関連メソッド
 

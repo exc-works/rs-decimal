@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: c6bfdc5a275f1528f234a1a54bc09c0ed6112246616c753d2e81d844db37231b
+source_revision: be26937ee4bcd1a30b10deb30b4ced946f0371e3015f1e537f8c85709084d801
 translation_provenance: en-US-korean-reviewed
 api_id: RoundingMode::impl Clone
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="rounding-roundingmode-impl-clone" locale="ko" />
-
-## 브라우저 제한
-
-정수 매개변수는 wasm32 범위 안에 있어야 합니다. 브라우저는 목표 소수 자릿수, 계수 증가, 호출 횟수를 포함하는 [리소스 정책](../resource-policy)도 적용합니다. 리소스 오류와 수치 라이브러리 오류는 구분합니다. 빌림 메서드는 입력을 소비하지 않으며 Rust 전용 트레이트 문법은 네이티브에서 검사한다고 명시합니다.
 
 ## 관련 메서드
 

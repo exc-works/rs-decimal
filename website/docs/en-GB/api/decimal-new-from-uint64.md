@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: a35340d9c55b8a08723d8ff0cfa4529bad65cad374d1045d7ce321047fc2a260
+source_revision: c4fc0f977bb46b55b53465df0296b049aa252fbfa98d47634f13b46fd3108bd0
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::new_from_uint64
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-uint64" locale="en-GB" />
 
-## Usage notes and boundaries
+## Usage notes
 
 Negative values and values above u64::MAX are rejected before entering Rust. Negative precision is the library error `InvalidPrecision`. A JavaScript number cannot safely carry the full u64 range.
-
-The browser also applies the [resource policy](../resource-policy). JavaScript inputs are validated before calling Rust.
 
 ## Related methods
 

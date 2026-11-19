@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: d62c9d14668960966b8d4b8ce2f6a65282abf78ff3e9cfea0c0c0f5225f8d9bc
+source_revision: eebc95321692656eeaf68196d3bb7fece103772431d4688264c85fec9c739db3
 ---
 # Playground
 
@@ -20,3 +20,5 @@ import { locales } from "../../locales.mjs";
 
 分享功能將最多 4 KiB 的 UTF-8 程式碼與程式庫建置提交編號放入 URL 片段，不會將程式碼上傳至伺服器。分享連結需要相同的建置版本，載入時會清除先前的結果，但不會自動執行。無效連結會保留目前的草稿。檢查程式碼後按下執行。較大的腳本請匯出為檔案；編輯器最多接受 64 KiB。連結會包含腳本中的文字，分享前請檢查程式碼。
 :::
+
+[Playground 資源限制](./resource-policy)

@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: f8d4a19c8dfdd338ced205f1c85d4c5643f5573e19f1a55cd3492da89573f098
+source_revision: 68b84662c55e7239d15b1fe54a5a2076eb45cea41916719d90f7dbe8ab9e7150
 translation_provenance: en-US-reviewed-reuse
 api_id: "ErrorKind::InvalidPrecision"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-errorkind-invalidprecision" locale="en-GB" />
-
-## Browser boundaries
-
-SQL text/byte input and error messages are capped at 8192 UTF-8 bytes. SQL text is [resource-checked](../resource-policy) after removing outer quotes, so quoting cannot bypass exponent limits. Borrowed calls preserve inputs; consumed or disposed handles cannot be reused. Rust trait/import examples run in native tests and do not claim browser method support.
 
 ## Related methods
 

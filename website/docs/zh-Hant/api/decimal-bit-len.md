@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: ce7339c2b8115fd42455e27eb624e03a51de3a069de71c01158ea752ddf6833a
+source_revision: 3cc2ce52c4d0ed0d111f2e4df3eea8f2b90cb54656fa97590458dae94eb7b967
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::bit_len
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="conversion-decimal-bit-len" locale="zh-Hant" />
-
-## 瀏覽器邊界
-
-整數不會經過有損的 JS number 轉換。轉換元組按 Rust 順序保留值和旗標；旗標為 false 時不能假定結果精確。借用輸入保持不變，建構結果已初始化。[資源限制](../resource-policy) 限制整數輸入、輸出精度及有理數係數增長，與程式庫錯誤分開報告。僅 Rust 匯入語法的範例標記為原生測試。
 
 ## 相關方法
 

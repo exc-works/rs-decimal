@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 1a045fe49700f86179604a439c8da809b0c8210bc17954bf4d71660df81e03c8
+source_revision: 22a6d48f36f7716bfae657ccf09549a7c182a92cb0e3afef6f24a947535edb2b
 api_id: "NullDecimal::impl Deserialize < 'de >"
 ---
 # NullDecimal::impl Deserialize < 'de >
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="config-serde-nulldecimal-impl-deserialize-de" locale="en-US" />
-
-## Browser boundaries
-
-The config and serde features are enabled. Source text/bytes are capped at 8192 UTF-8 bytes; Rust checks decimal text and decoded JSON strings before parsing, so escapes cannot bypass the [resource policy](../resource-policy). 128-bit integers require in-range bigint. Borrowed Decimal/NullDecimal handles must still be live when decoded; conversion creates independent values without consuming inputs. Generic Serde trait behavior is demonstrated through concrete JSON adapters.
 
 ## Related methods
 

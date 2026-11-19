@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 1cd08b3844b9339373458bc008707757ca17e7772da4c888bc88a31f9efef788
+source_revision: eafc21e4a88e29bea4168f39bfe3b5db899f2a28bccbd47f88733ffdaab27a0c
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::min
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="basic-min" locale="ko" />
-
-## 오류와 제한
-
-이 메서드들은 입력을 빌리며 소비하거나 바꾸지 않습니다. 라이브러리 연산은 Result를 반환하지 않습니다. bridge는 해제되거나 이동된 핸들, 다른 실행의 핸들을 거부하고 [리소스 정책](../resource-policy)을 적용합니다. 예제는 스칼라 출력을 `value` 필드로 감싸며 Decimal 출력에는 전체 스냅샷을 사용합니다.
 
 ## 관련 메서드
 

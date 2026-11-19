@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: f2e44024c5b91fa0d6b53bc06008f77209b308fe37fd208a3ffa67a94ede4eb1
+source_revision: 290824d81667633f4375180726adda2c851b5415686c46a9a13af6b626baaf4f
 translation_provenance: en-US-korean-reviewed
 api_id: "Decimal::impl Deserialize < 'de >"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="config-serde-decimal-impl-deserialize-de" locale="ko" />
-
-## 브라우저 제한
-
-config와 serde 기능이 켜져 있습니다. 원문/바이트는 8192 UTF-8 바이트로 제한합니다. Rust는 소수 텍스트와 디코딩한 JSON 문자열을 파싱 전에 검사하여 이스케이프로 [리소스 정책](../resource-policy)을 우회하지 못하게 합니다. 128비트 정수는 범위 안의 bigint가 필요합니다. 빌린 Decimal/NullDecimal 핸들은 디코딩할 때 살아 있어야 합니다. 변환은 입력을 소비하지 않고 독립된 값을 만듭니다. 일반 Serde 트레이트 동작은 구체적인 JSON 어댑터로 보여 줍니다.
 
 ## 관련 메서드
 

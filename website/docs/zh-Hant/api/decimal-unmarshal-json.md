@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 8ab6c44a0e4cf327b955869493409ea9bcd447a1bc1451590926853f00b0ca0b
+source_revision: b2646b52b58adc30058be6fedbac290221f3b2b947946b06b25fe8783f697afc
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: "Decimal::unmarshal_json"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="text-json-decimal-unmarshal-json" locale="zh-Hant" />
-
-## 瀏覽器邊界
-
-解碼輸入最多 8192 位元組，參數字串還在複製到 Wasm 前檢查長度。Rust 對文字及 JSON 解碼後的字串再次檢查 [十進位資源限制](../resource-policy)，因此跳脫字元不能繞過指數展開或精度限制。無效 UTF-8 和 JSON/小數語法仍由核心報告。輸入錯誤和資源錯誤都不會部分更新接收者；已移動的物件不可再讀寫。
 
 ## 相關方法
 

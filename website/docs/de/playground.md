@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: d62c9d14668960966b8d4b8ce2f6a65282abf78ff3e9cfea0c0c0f5225f8d9bc
+source_revision: eebc95321692656eeaf68196d3bb7fece103772431d4688264c85fec9c739db3
 ---
 # Playground
 
@@ -20,3 +20,5 @@ Methodenseiten bieten Formulare für literale Argumente ihrer gemeinsamen Beispi
 
 Beim Teilen werden bis zu 4 KiB UTF-8-Code und der Build-Commit der Bibliothek im URL-Fragment gespeichert. Der Code wird nicht an einen Server hochgeladen. Ein Freigabelink erfordert denselben Build, lädt den Code ohne Ausführung und löscht vorherige Ergebnisse. Ungültige Links lassen den aktuellen Entwurf unverändert. Prüfen Sie den Code und klicken Sie auf Ausführen. Exportieren Sie größere Skripte als Datei; der Editor akzeptiert bis zu 64 KiB. Links enthalten den Text Ihres Skripts. Prüfen Sie ihn vor dem Teilen.
 :::
+
+[Ressourcenrichtlinie des Playgrounds](./resource-policy)

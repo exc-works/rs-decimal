@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 32a89fd803ef33f414f98138648ca1bbfe7cf03c12443bee715ec01ffb382e0d
+source_revision: db004727284a336c6f0e549dbc589384cfceb8780f95c6036a8917d02c730891
 api_id: Decimal::floor
 ---
 # Decimal::floor
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="rounding-decimal-floor" locale="zh-Hans" />
-
-## 浏览器边界
-
-所有整数参数必须位于 wasm32 对应范围。浏览器还施加 [资源限制](../resource-policy)，包括目标小数位数、系数增长及调用次数。资源错误与数值库错误分开报告。借用方法不会消耗输入；仅 Rust 的 trait 语法明确标注为原生测试。
 
 ## 相关方法
 

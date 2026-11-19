@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 775716427f3737c65dee2b46317125f81d53dce3779b9de7255849e290c2308b
+source_revision: 2ea2866a9b7493c17d529f3372e5bbb238200663f6cd52e7c63d668cc43d0ffe
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::is_positive
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="basic-is-positive" locale="de" />
-
-## Fehler und Grenzen
-
-Diese Methoden leihen Eingaben aus, ohne sie zu konsumieren oder zu verändern. Die Bibliotheksoperation liefert kein Result. Die Bridge weist freigegebene, verschobene oder fremden Läufen zugehörige Handles ab und wendet die [Ressourcenrichtlinie](../resource-policy) an. Beispiele verpacken skalare Ausgaben in einem `value`-Feld; Decimal-Ausgaben verwenden einen vollständigen Snapshot.
 
 ## Verwandte Methoden
 

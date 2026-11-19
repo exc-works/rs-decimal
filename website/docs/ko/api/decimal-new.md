@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: fe9121bf755dd82c88fc1274dc43b09d6173d99c7a22441eb84bc6a73587fa71
+source_revision: d578df6b6b71b8ce4b0e165f6e630705dc946bcefab55f8b43fc9cba6d60bb70
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::new
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new" locale="ko" />
 
-## 사용 시 주의점과 제한
+## 사용 시 참고 사항
 
 JavaScript number 대신 `12n`을 사용하세요. bridge는 i64 범위 밖의 값을 거부합니다. 소수 값에는 `new_from_string`을 사용하세요.
-
-브라우저는 [리소스 정책](../resource-policy)도 적용합니다. JavaScript 입력은 Rust 호출 전에 검사합니다.
 
 ## 관련 메서드
 

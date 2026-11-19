@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: b631f8fdb1af3892cb757d904b4d60d1b414fcbef2aa47e1b869bbbd124ff385
+source_revision: a329356af92d18ac765420533258b5c608220d0cf27b5772304a0e1b5b8d5f9e
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::log2
 ---
@@ -19,10 +19,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="log-exp-decimal-log2" locale="ja" />
-
-## ブラウザーの制約
-
-このグループには追加の[リソース制限](../resource-policy)があります。出力精度は最大 128、入力スケールは最大 256、入力係数は最大 4096 ビットです。通常の exp 計算では入力の絶対値も最大 64 です。コアが直接ゼロに丸められると証明できる負の入力は高速経路を保持します。入力スケールが大きいと、引数なしのメソッドが 128 を超える既定精度を選ぶ場合があります。with_prec で許可された出力精度を明示してください。リソースエラーとコアの NoConvergence は区別します。Stop は実行を中断し、次の実行では新しい Wasm インスタンスを作ります。
 
 ## 関連メソッド
 

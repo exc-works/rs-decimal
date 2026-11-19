@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: dfbad807bf85fc60fbbfb720800bbf36eb483a86897e4245a66f95ff012fb636
+source_revision: ddfedf2b2a7b0914238752b884265b0c43b55c647cf39e728c8143e706a5b5ba
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::sub_owned
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="owned-decimal-sub-owned" locale="fr" />
-
-## Limites du navigateur
-
-Respectez les règles de propriété ci-dessus. Un accès après déplacement renvoie une erreur moved ; free est idempotent. La vérification des types et des alias précède le déplacement, mais une erreur Rust ne restaure pas le récepteur consommé. La [politique de ressources](../resource-policy) est distincte des erreurs de la bibliothèque : les puissances contrôlent les valeurs intermédiaires et l’alignement contrôle la croissance des coefficients. Les contrôles conservateurs peuvent rejeter des calculs dont le résultat final est petit.
 
 ## Méthodes associées
 

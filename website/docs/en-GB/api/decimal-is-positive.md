@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 775716427f3737c65dee2b46317125f81d53dce3779b9de7255849e290c2308b
+source_revision: 2ea2866a9b7493c17d529f3372e5bbb238200663f6cd52e7c63d668cc43d0ffe
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::is_positive
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="basic-is-positive" locale="en-GB" />
-
-## Errors and boundaries
-
-These methods borrow inputs without consuming or changing them. The library operation does not return Result. The bridge rejects disposed, moved or foreign-run handles and applies the [resource policy](../resource-policy). Examples wrap scalar output in a `value` field; Decimal output uses its complete snapshot.
 
 ## Related methods
 

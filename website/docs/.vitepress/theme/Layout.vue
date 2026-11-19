@@ -41,6 +41,10 @@ const groups = computed(() => {
 
 <template>
   <DefaultTheme.Layout>
+    <template #nav-bar-content-after>
+      <a class="playground-nav" :href="withBase('/' + lang + '/playground.html')"
+         :aria-current="page.relativePath === lang + '/playground.md' ? 'page' : undefined">Playground</a>
+    </template>
     <template #sidebar-nav-after>
       <nav v-if="reference?.current && !reference.operation" class="ref-context" :aria-label="locales[lang].api">
         <a :href="catalogue">{{ labels.all }}</a>

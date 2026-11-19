@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 8121a233cd958a145b10a44401309e0a697f7d8f9d3c70b88d07ca9cdb298e4f
+source_revision: 8e284228528617403ea37afb52c965d21d076aee976dac5cd366e305507e8e05
 translation_provenance: en-US-french-reviewed
 api_id: "Decimal::unmarshal_xml_attr"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="yaml-xml-decimal-unmarshal-xml-attr" locale="fr" />
-
-## Limites du navigateur
-
-La source est limitée à 8192 octets UTF-8. Avant l’analyse numérique du cœur, Rust contrôle le premier scalaire YAML décodé ou le texte de l’élément XML, y compris les échappements, CDATA, la normalisation des traits de soulignement et l’insertion de zéros dans les flottants YAML. Les scalaires YAML acceptent au maximum 4096 caractères de chiffres hexadécimaux pour limiter l’allocation des entiers selon leur base ; les contrôles conservateurs peuvent rejeter des entrées acceptées nativement. L’échelle, le coefficient et le nombre d’opérations suivent la [politique de ressources](../resource-policy). Les handles déplacés ne peuvent plus être lus ni modifiés.
 
 ## Méthodes associées
 

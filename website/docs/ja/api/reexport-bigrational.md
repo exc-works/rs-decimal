@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: c6cdb1fa94166fc30847c973c46d9437b8484555aa720145461df4786be10adf
+source_revision: f67e1caa0fb769c278b4d8058441646a0cf632963d9da4fd8b19596b64289dc8
 translation_provenance: en-US-japanese-reviewed
 api_id: reexport::BigRational
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="conversion-reexport-bigrational" locale="ja" />
-
-## ブラウザーの制約
-
-整数の転送は精度を失う JS number を経由しません。変換タプルは Rust の値／フラグの順序を保持します。false は正確な結果を保証しません。借用入力は変わらず、コンストラクターは結果を初期化します。[リソースポリシー](../resource-policy)はライブラリエラーとは別に、整数入力、出力スケール、有理数の係数増大を制限します。Rust のインポート構文はネイティブで検証するものとして明示します。
 
 ## 関連メソッド
 

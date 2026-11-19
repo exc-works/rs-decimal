@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 9743ba1e89051026e818a070b86183de419a65ca646afc51459afa17731968b9
+source_revision: b7ff1544694c51babb7af7cb99735ecc6687d86e9cd9a108af321bed93252beb
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::int_part
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="arithmetic-decimal-int-part" locale="ja" />
-
-## ブラウザーの制約
-
-入力は借用され、成功後も通常のエラー後も使用できます。返された Decimal は独立したデータを所有し、演算結果は初期化済みです。ブラウザーはコアの呼び出し前に[リソースポリシー](../resource-policy)を確認し、桁揃え、中間積、除算時のスケール調整、出力精度を制限します。保守的な事前検査により、最終結果が小さくても拒否される場合があります。リソースエラーと数値ライブラリのエラーは区別され、パニックは実行を終了します。
 
 ## 関連メソッド
 

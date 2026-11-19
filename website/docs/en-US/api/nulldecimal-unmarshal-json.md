@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 0b8d31dd4724ab3db9f7852e985c43d4d28683f87ed08364b96e0b23430c8c45
+source_revision: d67309b22e8bef25fa612b0b77506dc49f39a3b10f47781eb6058acd17162dd3
 api_id: "NullDecimal::unmarshal_json"
 ---
 # NullDecimal::unmarshal_json
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="text-json-nulldecimal-unmarshal-json" locale="en-US" />
-
-## Browser boundaries
-
-Decoder input is limited to 8192 bytes; parameter strings are also length-checked before copying into Wasm. Rust rechecks the [decimal resource policy](../resource-policy) on text and decoded JSON strings, so escapes cannot bypass exponent/scale limits. The core owns invalid UTF-8 and JSON/decimal syntax diagnostics. Input and resource errors cannot partially update receivers; moved wrappers cannot be read or mutated.
 
 ## Related methods
 

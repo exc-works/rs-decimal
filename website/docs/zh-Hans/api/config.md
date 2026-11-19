@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 757cd695ff3fd99873b436337d0ba545e42987b454837b0bcd26054dda6f8270
+source_revision: 03da42d48c5d8b250daaaa93d59162466d4ca8b88da11e32c7b577b2d36d0747
 api_id: "config"
 ---
 # config
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="config-serde-config" locale="zh-Hans" />
-
-## 浏览器边界
-
-config 与 serde feature 已启用。源文本和字节最多 8192 个 UTF-8 字节；Rust 在解析前检查小数文本和 JSON 解码后的字符串，因此转义不能绕过 [资源限制](../resource-policy)。128 位整数必须使用范围内的 bigint。借用的 Decimal/NullDecimal 在解码时必须仍有效，转换生成独立值，不消耗输入。Serde 的通用 trait 语法由具体 JSON 适配器演示。
 
 ## 相关方法
 

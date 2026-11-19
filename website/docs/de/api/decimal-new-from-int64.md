@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 2558a21d5d46dd2598e1fc940985c24d9012b531617d6e30f108a6afe7d17531
+source_revision: 9ec084e5d70a80123e6b5391a460c2d09074b7e750d373283106219a5cde28ed
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::new_from_int64
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-int64" locale="de" />
 
-## Hinweise und Grenzen
+## Hinweise zur Verwendung
 
 Der Wert ist ein Koeffizient, kein bereits skalierter Betrag. Negative Präzision liefert `InvalidPrecision`; Werte außerhalb von i64 sind Bridge-Parameterfehler.
-
-Der Browser wendet auch die [Ressourcenrichtlinie](../resource-policy) an. JavaScript-Eingaben werden vor dem Rust-Aufruf validiert.
 
 ## Verwandte Methoden
 

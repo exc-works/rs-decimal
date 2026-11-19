@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: be3c0e366eb3a51881c8080b2a8de1d5f2faa06f8be431e48c0342e9c8d4c0e5
+source_revision: 80ca29e7b285c6bbe14fbaae400143c560d7d0375268641d09bff74efd458b6d
 translation_provenance: en-US-reviewed-reuse
 api_id: RoundingMode::HalfDown
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="rounding-roundingmode-halfdown" locale="en-GB" />
-
-## Browser boundaries
-
-Integer parameters must fit the wasm32 range. The browser additionally applies the [resource policy](../resource-policy), including target scale, coefficient growth and call count. Resource errors remain distinct from numerical-library errors. Borrowed methods do not consume inputs; Rust-only trait syntax is explicitly labeled as native-tested.
 
 ## Related methods
 

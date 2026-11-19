@@ -45,3 +45,12 @@
 .operation-group summary { cursor: pointer; padding: .7rem .25rem; font-weight: 600; }
 .operation-group dl { margin: 0 0 1rem 1.25rem; }
 .operation-group dd { margin: .15rem 0 .65rem; color: var(--vp-c-text-2); }
+
+.playground-nav { padding: .45rem .55rem; font-size: .875rem; font-weight: 600; }
+.playground-nav:hover, .playground-nav[aria-current] { color: var(--vp-c-brand-1); }
+@media (max-width: 400px) {
+  .VPNavBar .wrapper { padding-inline: 8px 4px; }
+  .VPNavBar .content-body { column-gap: 0; }
+  .VPNavBar .playground-nav { padding-inline: .25rem; }
+  .VPNavBar .VPNavBarTranslations button { padding-inline: 4px; }
+}
