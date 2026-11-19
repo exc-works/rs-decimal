@@ -66,7 +66,7 @@ const liveLabels:Record<string,string>={
                  :language="language === 'Rust' ? 'rust' : 'javascript'" />
     <p v-if="!example.javascript.trim()">{{ example.native_profile === "postgres-live" ? liveLabels[locale] : nativeLabels[locale] }}</p>
     <details v-if="!example.javascript.trim()"><summary>{{ labels.expectedResult }} <code v-if="result !== undefined">{{ result }}</code></summary><pre><code>{{ JSON.stringify(example.expected,null,2) }}</code></pre></details>
-    <MethodForm v-if="example.javascript.trim()" :key="example.id" :example="example" :locale="locale" :values="values" :source="script" @edit="edit" />
+    <MethodForm v-if="example.javascript.trim()" :key="example.id" :example="example" :locale="locale" @edit="edit" />
   </section>
 </template>
 <style scoped>

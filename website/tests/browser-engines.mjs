@@ -88,12 +88,38 @@ try {
       assert.ok(await page.locator('[data-example-code] .hljs-keyword').count(), 'highlight JavaScript');
       const methodUrl = page.url();
       const places = page.locator('[data-parameter="1"]');
-      await places.fill('1');
+      await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent === '-1.24');
+      const layout = () => page.evaluate(() => {
+        const input = document.querySelector('[data-parameter="1"]').getBoundingClientRect();
+        return document.querySelector('[data-action=open-example]').getBoundingClientRect().top - input.bottom;
+      });
+      const initialLayout = await layout();
+      const pending = await places.evaluate(async input => {
+        const code = document.querySelector('[data-example-code]');
+        const original = code.textContent;
+        window.methodFrames = 0;
+        new MutationObserver(records => {
+          for (const record of records) {
+            for (const node of record.addedNodes) if (node.nodeName === 'IFRAME') window.methodFrames++;
+          }
+        }).observe(document.querySelector('.method-form'), {childList:true, subtree:true});
+        for (const value of ['', '3', '1']) {
+          input.value = value;
+          input.dispatchEvent(new Event('input', {bubbles: true}));
+          await Promise.resolve();
+          if (code.textContent !== original) return 'preview updated before typing stopped';
+        }
+        return document.querySelector('.method-result[aria-busy="true"] [data-example-output]')?.textContent;
+      });
+      assert.equal(pending, '-1.24', 'retain the settled result during the debounce');
       await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent === '-1.2');
+      assert.equal(await page.evaluate(() => window.methodFrames), 1, 'one run for the typing burst');
+      assert.equal(await layout(), initialLayout);
       assert.equal(page.url(), methodUrl);
       await places.fill('-1');
-      assert.equal(await page.locator('[data-example-output]').count(), 0, 'discard stale results on edit');
       await page.locator('.method-form [role=alert]').filter({hasText:'InvalidPrecision'}).waitFor();
+      assert.equal(await page.locator('[data-example-output]').count(), 0, 'replace the previous result when the error settles');
+      assert.equal(await layout(), initialLayout, 'error and retry action fit in the same result area');
       await places.fill('2');
       await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent === '-1.24');
       await page.locator('[data-action=open-example]').click();
