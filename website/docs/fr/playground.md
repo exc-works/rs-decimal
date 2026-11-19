@@ -1,10 +1,12 @@
 ---
 locale: fr
-source_revision: fbadb341fac6ded3986e830a05797cf96857f33d92f3224a113dd3d05ba9eb85
+source_revision: d62c9d14668960966b8d4b8ce2f6a65282abf78ff3e9cfea0c0c0f5225f8d9bc
 ---
-# Bac à sable
+# Playground
 
-Appelez les méthodes Rust depuis JavaScript. Lancez le script pour examiner les valeurs exactes et leur état.
+Lancez le calcul pour deux carnets à 4,50 pièce et 1,25 de livraison. Le montant à payer est de 10,25 et la monnaie sur 20,00 est de 9,75. Passez la quantité de `2n` à `3n` et relancez le calcul pour obtenir 14,75.
+
+Si votre brouillon est ouvert, exportez-le avant de choisir **Réinitialiser** pour charger le reçu.
 
 <script setup>
 import Playground from "../_components/Playground.vue";
@@ -13,6 +15,8 @@ import { locales } from "../../locales.mjs";
 
 <Playground locale="fr" :labels="locales['fr']" />
 
+::: details Exemples de méthodes et partage
 Les pages des méthodes proposent des formulaires pour les arguments littéraux de leurs exemples partagés. Les paramètres suivent l’ordre des appels JavaScript ; les noms des méthodes Rust et l’ordre des arguments sont conservés. Ouvrez le code généré dans cet éditeur pour modifier des valeurs complexes ou ajouter des appels. L’état attendu sur la page décrit l’exemple original. Les modifications du formulaire sont conservées lors des changements de langue dans cet onglet.
 
 Le partage place au maximum 4 Kio de code UTF-8 et le commit du build de la bibliothèque dans le fragment de l’URL. Le code n’est pas envoyé à un serveur. Un lien partagé nécessite le même build, charge le code sans l’exécuter et efface les résultats précédents. Un lien incorrect conserve votre brouillon actuel. Vérifiez le code, puis cliquez sur Exécuter. Exportez les scripts plus longs dans un fichier ; l’éditeur accepte jusqu’à 64 Kio. Les liens contiennent le texte du script : vérifiez-le avant de le partager.
+:::

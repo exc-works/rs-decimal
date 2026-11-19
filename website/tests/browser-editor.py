@@ -63,9 +63,9 @@ with tempfile.TemporaryDirectory(prefix='decimal-editor-') as temp:
         def finished():return js('return document.querySelector("[data-action=stop]").disabled')
         navigate('en-US');until(ready)
         assert not output().strip(),'no auto-run'
-        click('run');until(lambda:'37050' in output());until(finished)
-        assert '"scale": "3"' in output() and '"string": "37"' in output(),output()
-        print('Exact snapshots and explicit execution passed',flush=True)
+        click('run');until(lambda:'Amount due: 10.25' in output());until(finished)
+        assert all(line in output() for line in ["Notebooks: 9.00", "Delivery: 1.25", "Change from 20.00: 9.75"]),output()
+        print('Labelled receipt and explicit execution passed',flush=True)
         import_source('show("<img src=x onerror=alert(1)>");')
         assert not output().strip(),'import must not run'
         click('run');until(lambda:'<img' in output());until(finished)
@@ -76,7 +76,7 @@ with tempfile.TemporaryDirectory(prefix='decimal-editor-') as temp:
         print('Text-only output and partial output on library errors passed',flush=True)
         import_source('while(true){}');click('run');time.sleep(.1);click('stop');until(finished)
         assert 'Stopped' in js('return document.querySelector(".pg-status").textContent')
-        click('reset');click('run');until(lambda:'37050' in output());until(finished)
+        click('reset');click('run');until(lambda:'Amount due: 10.25' in output());until(finished)
         print('Stop, reset and recovery passed',flush=True)
         # Completion lists are virtualized; filter before asserting a row is rendered.
         import_source('Decimal.new_from_s')
