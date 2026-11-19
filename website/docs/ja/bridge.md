@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: bd473c0431492bbeed88af5f453e401cc80b45775529394fc98a50e453c639ca
+source_revision: 967fc6e56bfb3ade48f0faf10b0c1e0de7e21a4d9ec093d537fb469385460f6f
 translation_provenance: en-US-japanese-reviewed
 ---
 # ブラウザーから Rust メソッドを呼び出す
@@ -19,9 +19,9 @@ total.string_with_trailing_zeros(); // '37.050'
 
 ## エラーと所有権
 
-Rust が返すエラーは、`name: 'DecimalError'`、`category: 'library'`、元の `message`、文字列配列 `kinds` を持つ Error として送出されます。デコーダーのエラーは複数の種類に一致する場合があるため、配列全体を保持してください。JS の型や範囲の失敗は `name: 'BridgeError'`、`category: 'parameter'` であり、Rust の算術エラーではありません。不正な数値の丸め判別値は Rust の検証に渡されます。
+例外の `kinds` 配列で `InvalidPrecision` などの計算エラーを判別できます。引数の型や範囲に問題がある場合、エラーの分類は `parameter` になります。
 
-借用メソッドの呼び出し後もオブジェクトは使用できます。`into_rescaled` は Rust がエラーを返す場合もレシーバーを消費します。消費済みまたは解放済みの値を使うと `moved` BridgeError になります。不正な JS 引数の型は呼び出し前に拒否され、レシーバーを消費しません。`clone()` は表現と初期化状態を保持します。`free()` は使用中のハンドルを解放し、消費後に呼んでも問題ありません。runner はファイナライザーに依存せず、完了時に Wasm インスタンスを破棄します。別の JavaScript インスタンスのオブジェクトを呼び出しに渡すことはできません。
+`rescale` を呼び出した後も元の値を使えます。`into_rescaled` は丸めに失敗した場合も元の値を消費します。元の値を残したい場合は先に `clone` を呼び出してください。
 
 ## Nullable 値とバイト列
 

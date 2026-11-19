@@ -87,22 +87,37 @@ try {
       assert.match(await page.locator('[data-example-code]').textContent(), /input\.round_with_prec/);
       assert.ok(await page.locator('[data-example-code] .hljs-keyword').count(), 'highlight JavaScript');
       const methodUrl = page.url();
-      const inlineRun = page.locator('[data-action=run-example]');
       const places = page.locator('[data-parameter="1"]');
       await places.fill('1');
-      await inlineRun.click();
       await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent === '-1.2');
       assert.equal(page.url(), methodUrl);
       await places.fill('-1');
       assert.equal(await page.locator('[data-example-output]').count(), 0, 'discard stale results on edit');
-      await inlineRun.click();
       await page.locator('.method-form [role=alert]').filter({hasText:'InvalidPrecision'}).waitFor();
       await places.fill('2');
-      await inlineRun.click();
       await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent === '-1.24');
       await page.locator('[data-action=open-example]').click();
       await page.locator('[data-action=run]:enabled').click();
       await page.waitForFunction(() => document.querySelector('.pg-output')?.textContent.includes('-1.24'));
+
+      await page.goto(`${origin}/rs-decimal/en-US/api/nulldecimal-valid.html`);
+      await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent.includes('"valid": false'));
+
+      await page.goto(`${origin}/rs-decimal/zh-Hans/api/decimal-rescale.html`);
+      await page.locator('.vp-doc p a[href$="/roundingmode.html"]').first().waitFor();
+      assert.ok(await page.locator('.vp-doc p a[href$="/errorkind-invalidprecision.html"]').count());
+      const mode = page.getByLabel('舍入模式');
+      assert.equal(await mode.locator('option').count(), 7);
+      await mode.selectOption('Down');
+      await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent === '-1.23');
+      assert.equal(await page.locator('[data-example-code] mark').textContent(), 'RoundingMode::Down');
+      await page.getByRole('button', {name:'JavaScript', exact:true}).click();
+      assert.equal(await page.locator('[data-example-code] mark').textContent(), 'RoundingMode.Down');
+      await mode.selectOption('Unnecessary');
+      await page.locator('.method-form [role=alert]').filter({hasText:'RoundUnnecessary'}).waitFor();
+      await mode.selectOption('HalfUp');
+      await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent === '-1.24');
+      assert.equal(await page.locator('[data-example-code] mark').count(), 0);
 
       await page.goto(`${origin}/rs-decimal/en-US/api/decimal-new.html`);
       await page.locator('[data-parameter="0"]').fill('9007199254740993');

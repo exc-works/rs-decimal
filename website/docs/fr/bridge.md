@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: bd473c0431492bbeed88af5f453e401cc80b45775529394fc98a50e453c639ca
+source_revision: 967fc6e56bfb3ade48f0faf10b0c1e0de7e21a4d9ec093d537fb469385460f6f
 translation_provenance: en-US-french-reviewed
 ---
 # Appeler les méthodes Rust dans le navigateur
@@ -25,18 +25,9 @@ Une précision entière négative atteint Rust et produit son erreur InvalidPrec
 
 ## Erreurs et propriété
 
-Les erreurs renvoyées par Rust lèvent une Error avec `name: 'DecimalError'`, `category: 'library'`,
-le `message` d’origine et un tableau de chaînes `kinds`. Conservez le tableau complet : une erreur
-de décodage peut appartenir à plusieurs catégories. Les erreurs JavaScript de type ou de plage portent
-`name: 'BridgeError'` et `category: 'parameter'` ; ce ne sont pas des erreurs arithmétiques Rust.
-Les discriminants numériques d’arrondi invalides sont vérifiés par Rust.
+Consultez le tableau `kinds` pour identifier une erreur de calcul telle que `InvalidPrecision`. Un argument de type ou de valeur incorrecte est signalé par la catégorie `parameter`.
 
-Les méthodes avec emprunt laissent les objets utilisables. `into_rescaled` consomme son récepteur,
-même lorsque Rust renvoie une erreur. Utiliser une valeur consommée ou libérée produit une BridgeError
-`moved`. Les types d’arguments JavaScript incorrects sont rejetés avant l’appel et ne consomment pas le
-récepteur. `clone()` conserve la représentation et l’initialisation. `free()` libère les handles encore
-actifs et reste sans effet nuisible après consommation. Chaque exécution détruit son instance Wasm à la
-fin, sans dépendre des finaliseurs. Un objet d’une autre instance de l’API JavaScript ne peut pas être passé à un appel.
+Après `rescale`, la valeur initiale reste disponible. `into_rescaled` la consomme même si l’arrondi échoue. Utilisez `clone` au préalable pour la conserver.
 
 ## Valeurs nullables et octets
 

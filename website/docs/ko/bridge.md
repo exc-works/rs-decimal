@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: bd473c0431492bbeed88af5f453e401cc80b45775529394fc98a50e453c639ca
+source_revision: 967fc6e56bfb3ade48f0faf10b0c1e0de7e21a4d9ec093d537fb469385460f6f
 translation_provenance: en-US-korean-reviewed
 ---
 # 브라우저에서 Rust 메서드 호출하기
@@ -17,9 +17,9 @@ total.string_with_trailing_zeros(); // '37.050'
 
 ## 오류와 소유권
 
-Rust가 반환한 오류는 `name: 'DecimalError'`, `category: 'library'`, 원래 `message`, 문자열 배열 `kinds`를 가진 Error로 던집니다. 디코더 오류는 여러 종류에 일치할 수 있으므로 배열 전체를 유지하세요. JS 타입/범위 오류는 `name: 'BridgeError'`, `category: 'parameter'`이며 Rust 산술 오류가 아닙니다. 잘못된 숫자 반올림 판별값은 Rust 검증으로 전달됩니다.
+오류의 `kinds` 배열에서 `InvalidPrecision`과 같은 계산 오류를 확인할 수 있습니다. 인수의 타입이나 범위가 잘못되면 오류 범주는 `parameter`입니다.
 
-빌림 메서드를 호출한 뒤에도 객체를 사용할 수 있습니다. `into_rescaled`는 Rust가 오류를 반환해도 수신 객체를 소비합니다. 소비되거나 해제된 값을 사용하면 `moved` BridgeError가 발생합니다. 잘못된 JS 인수 타입은 호출 전에 거부하며 수신 객체를 소비하지 않습니다. `clone()`은 표현과 초기화 상태를 유지합니다. `free()`는 활성 핸들을 해제하고 소비 후 호출해도 안전합니다. 각 runner는 종료 시 Wasm 인스턴스를 폐기하며 파이널라이저에 의존하지 않습니다. 다른 JavaScript 인스턴스의 객체는 호출에 전달할 수 없습니다.
+`rescale` 호출 후에는 원래 값을 다시 사용할 수 있습니다. `into_rescaled`는 반올림이 실패해도 원래 값을 소비합니다. 보관하려면 먼저 `clone`을 호출하세요.
 
 ## Nullable 값과 바이트
 

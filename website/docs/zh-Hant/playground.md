@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 60b71a4e750d3835abdec3e2e546f11a77759013f3f84ad31d530c433bd67b11
+source_revision: 284f92d20227e82946bbbcda123bebd9143e64512e1a7f0633cf17755157f389
 ---
 # Playground
 
@@ -16,7 +16,7 @@ import { locales } from "../../locales.mjs";
 <Playground locale="zh-Hant" :labels="locales['zh-Hant']" />
 
 ::: details 方法範例與分享
-在方法頁可直接修改參數並執行範例。需要編輯整段程式碼或分享時，再用 Playground 開啟。
+在方法頁修改參數，範例程式碼與預期結果會自動更新。要編輯或分享整段程式碼，可在 Playground 中開啟。
 
 分享功能將最多 4 KiB 的 UTF-8 程式碼與程式庫建置提交編號放入 URL 片段，不會將程式碼上傳至伺服器。分享連結需要相同的建置版本，載入時會清除先前的結果，但不會自動執行。無效連結會保留目前的草稿。檢查程式碼後按下執行。較大的腳本請匯出為檔案；編輯器最多接受 64 KiB。連結會包含腳本中的文字，分享前請檢查程式碼。
 :::
