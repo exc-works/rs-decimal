@@ -56,6 +56,7 @@ declare global {
   const most_significant_bit: Bridge["most_significant_bit"];
   const PRECISION_FIXED_SIZE: Bridge["PRECISION_FIXED_SIZE"];
   const COMPATIBILITY_REVISION: Bridge["COMPATIBILITY_REVISION"];
+  const console: { log(...values: unknown[]): void };
   function print(value: unknown): void;
   function show(value: unknown): void;
   function assert(condition: unknown, message?: string): asserts condition;

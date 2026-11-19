@@ -69,7 +69,7 @@ meta CSP. No separate domain or configurable HTTP headers are required.
 import/export and drafts remain local; restored or imported scripts never run
 without an explicit Run. A missing or mismatched runner reports an error.
 
-`show(value)`/`print(value)` snapshot values immediately; `assert(condition,
+`console.log(value)` captures the value for the output panel immediately. Multiple arguments appear on one line. Existing scripts can also use `show(value)` or `print(value)`. `assert(condition,
 message?)` reports a script assertion error. Output is rendered as escaped text;
 bounded partial output survives a later error. Ctrl/Cmd+Enter runs the source.
 Stop terminates execution; Reset restores the initial example. Local storage

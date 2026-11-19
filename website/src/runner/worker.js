@@ -45,7 +45,7 @@ self.onmessage = async ({ data, ports }) => {
         category: "version",
       });
     const snapshot = bridge.snapshot;
-    function print(value) {
+    function outputValue(value) {
       let nodes = 0;
       const seen = new WeakSet();
       function bounded(input, depth = 0) {
@@ -80,7 +80,9 @@ self.onmessage = async ({ data, ports }) => {
         }
         return out;
       }
-      const text = stringify(bounded(value));
+      return bounded(value);
+    }
+    function writeOutput(text) {
       const bytes = encode(text).length;
       if (
         ++outputCount > LIMITS.outputCount ||
@@ -91,6 +93,23 @@ self.onmessage = async ({ data, ports }) => {
         });
       send({ type: "output", runId, text });
     }
+    function print(value) {
+      writeOutput(stringify(outputValue(value)));
+    }
+    self.console.log = (...values) => {
+      if (values.length === 1) {
+        print(values[0]);
+        return;
+      }
+      let line = "";
+      for (const [index, value] of values.entries()) {
+        const part = outputValue(value);
+        line += (index ? " " : "") + (typeof part === "string" ? part : stringify(part));
+        if (line.length > LIMITS.outputBytes)
+          throw Object.assign(new Error("Output budget exceeded"), { category: "resource" });
+      }
+      writeOutput(stringify(line));
+    };
     await new runFunction(
       "Decimal",
       "NullDecimal",

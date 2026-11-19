@@ -42,7 +42,7 @@ test('every runnable shared fixture produces a valid default form without changi
     const fields = methodInputs(example.javascript);
     const result = formSource(example.javascript, fields, fields.map(x => x.value));
     assert.doesNotThrow(() => new Function(result), name);
-    assert.ok(result.endsWith('\nshow(value);\n'), name);
+    assert.ok(result.endsWith('\nconsole.log(value);\n'), name);
     count++;
   }
   assert.equal(count, 232);
