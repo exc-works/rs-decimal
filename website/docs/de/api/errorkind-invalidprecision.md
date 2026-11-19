@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 68b84662c55e7239d15b1fe54a5a2076eb45cea41916719d90f7dbe8ab9e7150
+source_revision: 1ee2460f040eb997988b5e15de5541a2d1cf3e469b4d8e4a76c7d05399e94590
 translation_provenance: en-US-german-reviewed
 api_id: "ErrorKind::InvalidPrecision"
 ---
@@ -14,7 +14,7 @@ InvalidPrecision
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-Die angeforderte Präzision ist ungültig. ErrorKind ist eine stabile Kategorie, keine Meldungszeichenfolge. Browser-Enumwerte sind Rust-Variantennamen; konstruierte Fehler verwenden matches(), abgefangene Bridge-Ausnahmen ein kinds-Array.
+Die angeforderte Präzision ist ungültig.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

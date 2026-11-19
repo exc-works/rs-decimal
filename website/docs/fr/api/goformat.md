@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: f89bca6a9b41c5dfaa6d534efc134c1f42c007ba065d09915785753b5a161115
+source_revision: e057a9c108e2aa51ba03c94655793b13aece7049e3b5085cd912fedc0ed1d203
 translation_provenance: en-US-french-reviewed
 api_id: GoFormat
 ---
@@ -14,7 +14,7 @@ pub struct GoFormat
 
 ## Paramètres, résultat et utilisation courante
 
-Les champs correspondent à la structure Rust : verb, width, precision, left, plus, space, zero et alternate. GoFormat.default() dans le bridge lit les valeurs par défaut de Rust et renvoie un nouvel objet mutable ; sa modification ne définit pas un format global. width/precision utilisent null pour None et des number entiers non négatifs dans la plage wasm32 pour Some. La syntaxe des traits Rust reste uniquement native.
+Les champs correspondent à la structure Rust : verb, width, precision, left, plus, space, zero et alternate. GoFormat.default() en JavaScript lit les valeurs par défaut de Rust et renvoie un nouvel objet mutable ; sa modification ne définit pas un format global. width/precision utilisent null pour None et des number entiers non négatifs dans la plage wasm32 pour Some. La syntaxe des traits Rust reste uniquement native.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

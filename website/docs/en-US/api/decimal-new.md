@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: d578df6b6b71b8ce4b0e165f6e630705dc946bcefab55f8b43fc9cba6d60bb70
+source_revision: 94e5c200ef4c48b600cdc1b46dd606d6ca8e9e2741aedbb2bac50f53ac53727e
 api_id: Decimal::new
 ---
 # Decimal::new
@@ -23,7 +23,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## Usage notes
 
-Use `12n`, not a JavaScript number. Values outside i64 are rejected by the bridge; decimal fractions belong in `new_from_string`.
+Use `12n`, not a JavaScript number. Values outside i64 are rejected in JavaScript; decimal fractions belong in `new_from_string`.
 
 ## Related methods
 

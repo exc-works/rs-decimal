@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 6f37682196df5b201aacde1b52aa54d192c469e0d50cfead6f78c24b12704f29
+source_revision: d9bfbd2d29924d270b97f6a4251656ca421cb89e51e3bdcdc1ecdf2cdefab10f
 api_id: Decimal::truncate_with_prec
 ---
 # Decimal::truncate_with_prec
@@ -13,7 +13,7 @@ fn truncate_with_prec (& self , prec : isize) -> Result < Self , DecimalError >
 
 ## 参数、返回值及常规用法
 
-prec: isize/整数 number；Rust 返回 Result<Decimal, DecimalError>，bridge 返回 Decimal 或抛出错误。负精度返回 InvalidPrecision。负数截断与向下取整不同：-1.5 截断为 -1，floor 为 -2。输入仅被借用，保持不变。结果已初始化，包括默认零输入。提高精度会追加零，不改变数值。
+prec: isize/整数 number。负精度返回 InvalidPrecision。负数截断与向下取整不同：-1.5 截断为 -1，floor 为 -2。输入仅被借用，保持不变。结果已初始化，包括默认零输入。提高精度会追加零，不改变数值。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

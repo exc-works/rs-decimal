@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 68b84662c55e7239d15b1fe54a5a2076eb45cea41916719d90f7dbe8ab9e7150
+source_revision: 1ee2460f040eb997988b5e15de5541a2d1cf3e469b4d8e4a76c7d05399e94590
 api_id: "ErrorKind::InvalidPrecision"
 ---
 # ErrorKind::InvalidPrecision
@@ -13,7 +13,7 @@ InvalidPrecision
 
 ## 参数、返回值及常规用法
 
-请求的精度无效。ErrorKind 是稳定类别，不是错误消息文本。浏览器枚举值为 Rust 变体名；构造的错误使用 matches()，捕获的 bridge 异常提供 kinds 数组。
+请求的精度无效。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

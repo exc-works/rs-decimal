@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 851de95326d3b1f10839fcbae723fc6950eca60bcbb6e43b9e406040ff806dc1
+source_revision: 181ceff066af430ef0b4f061e0d4890d14b967a20ab1d2fe96ac03e3b4f024fe
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::add_owned
 ---
@@ -14,7 +14,7 @@ fn add_owned (self , other : & Self) -> Self
 
 ## 引数、戻り値、通常の使い方
 
-other: &Decimal。入力の大きい方のスケールで初期化済み Decimal を返します。レシーバーはムーブされ、other は引き続き使用できます。記憶領域は再利用できますが、増大時には割り当てが発生することがあります。bridge は同じラッパーをレシーバーと other の両方に渡すことをムーブ前に拒否します。Rust に入ると、リソースエラーでもレシーバーを消費します。
+other: &Decimal。入力の大きい方のスケールで初期化済み Decimal を返します。レシーバーはムーブされ、other は引き続き使用できます。記憶領域は再利用できますが、増大時には割り当てが発生することがあります。JavaScript は同じラッパーをレシーバーと other の両方に渡すことをムーブ前に拒否します。Rust に入ると、リソースエラーでもレシーバーを消費します。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

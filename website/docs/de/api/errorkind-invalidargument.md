@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: e14d22e2fbe70e02eda750145ed5b1a70252e171e63aeaafcfc01281be24e818
+source_revision: 60b597f1227be3f07266a1dfff4c0523c2dc4417119eb6ee13c33512e626a58b
 translation_provenance: en-US-german-reviewed
 api_id: "ErrorKind::InvalidArgument"
 ---
@@ -14,7 +14,7 @@ InvalidArgument
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-Ein Argument, eine Validierungsregel oder Nachrichtenvorlage ist ungültig. ErrorKind ist eine stabile Kategorie, keine Meldungszeichenfolge. Browser-Enumwerte sind Rust-Variantennamen; konstruierte Fehler verwenden matches(), abgefangene Bridge-Ausnahmen ein kinds-Array.
+Ein Argument, eine Validierungsregel oder Nachrichtenvorlage ist ungültig.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

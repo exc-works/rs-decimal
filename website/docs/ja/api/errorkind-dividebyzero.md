@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: c5bc8b97bab18c557c0918fb7ad15cabc2fd824c618c469b8f007d1f6299272b
+source_revision: d5c1f534ca8b330824c58556da76c1a087af48c4167345fd17aa17a747039e3a
 translation_provenance: en-US-japanese-reviewed
 api_id: "ErrorKind::DivideByZero"
 ---
@@ -14,7 +14,7 @@ DivideByZero
 
 ## 引数、戻り値、通常の使い方
 
-除数がゼロです。ErrorKind はメッセージ文字列ではなく、安定した分類です。ブラウザーの列挙値は Rust のバリアント名です。構築したエラーでは matches() を使い、捕捉した bridge 例外では kinds 配列を使います。
+除数がゼロです。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

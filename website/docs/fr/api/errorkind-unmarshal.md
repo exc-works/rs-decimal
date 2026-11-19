@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 274359ec57012f0ef20672a2e83c98afd2d82df0c75391b519022c4925e09ca8
+source_revision: dfef28d1753fdda604c243e11a38c07cf72e87cf907f10c25cfd874f37f32cf0
 translation_provenance: en-US-french-reviewed
 api_id: "ErrorKind::Unmarshal"
 ---
@@ -14,7 +14,7 @@ Unmarshal
 
 ## Paramètres, résultat et utilisation courante
 
-Le décodage a échoué. Une autre catégorie, comme InvalidFormat, peut en préciser la cause ; testez l’appartenance plutôt que de supposer une catégorie unique. ErrorKind est une catégorie stable, pas un message textuel. Les valeurs de l’énumération du navigateur sont les noms des variantes Rust ; les erreurs construites utilisent matches(), tandis que les exceptions interceptées du bridge exposent un tableau kinds.
+Le décodage a échoué.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

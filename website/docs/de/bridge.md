@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: bc4fe0d7f63ebbaad6f009ea77ae93eee10d61514aa0fcf8907740ea4397dc70
+source_revision: bd473c0431492bbeed88af5f453e401cc80b45775529394fc98a50e453c639ca
 translation_provenance: en-US-german-reviewed
 ---
 # Rust-Methoden im Browser aufrufen
@@ -19,7 +19,7 @@ Verwenden Sie exakte Zeichenfolgen für Dezimaleingaben und `bigint` für i64-Ar
 
 Von Rust zurückgegebene Fehler werfen einen Error mit `name: 'DecimalError'`, `category: 'library'`, der ursprünglichen `message` und einem Zeichenfolgenarray `kinds`. Erhalten Sie das vollständige Array: Ein Decoderfehler kann mehreren Arten entsprechen. Fehler der JS-Typ- oder Bereichsprüfung haben dagegen `name: 'BridgeError'` und `category: 'parameter'`; sie sind keine Rust-Rechenfehler. Ungültige numerische Rundungsdiskriminanten erreichen Rusts Validierung.
 
-Ausleihende Methoden lassen Objekte nutzbar. `into_rescaled` konsumiert seinen Empfänger auch dann, wenn Rust einen Fehler liefert. Nutzung eines konsumierten oder freigegebenen Werts löst einen BridgeError mit `moved` aus. Ungültige JS-Argumenttypen werden vor dem Aufruf abgewiesen und konsumieren den Empfänger nicht. `clone()` erhält Darstellung und Initialisierung. `free()` gibt aktive Handles frei und ist nach Konsumierung harmlos. Jeder Runner verwirft seine Wasm-Instanz bei Abschluss, ohne auf Finalizer zu vertrauen. Objekte einer anderen Bridge-Instanz können nicht übergeben werden.
+Ausleihende Methoden lassen Objekte nutzbar. `into_rescaled` konsumiert seinen Empfänger auch dann, wenn Rust einen Fehler liefert. Nutzung eines konsumierten oder freigegebenen Werts löst einen BridgeError mit `moved` aus. Ungültige JS-Argumenttypen werden vor dem Aufruf abgewiesen und konsumieren den Empfänger nicht. `clone()` erhält Darstellung und Initialisierung. `free()` gibt aktive Handles frei und ist nach Konsumierung harmlos. Jeder Runner verwirft seine Wasm-Instanz bei Abschluss, ohne auf Finalizer zu vertrauen. Objekte einer anderen JavaScript-Instanz können nicht übergeben werden.
 
 ## Nullable-Werte und Bytes
 
@@ -27,4 +27,4 @@ Ausleihende Methoden lassen Objekte nutzbar. `into_rescaled` konsumiert seinen E
 
 Auch `coefficient()` liefert einen unveränderlichen JS-bigint-Snapshot. JavaScript reproduziert weder Rust-Borrow-Lebensdauern noch Trait-Prüfungen zur Compilezeit. `ByteBuffer.new(Uint8Array)` kopiert Bytes in einen eigenen Puffer; `to_uint8_array()` liefert eine Kopie, die Wasm-Speicherwachstum übersteht. Append-Methoden stehen im [Methodenkatalog](./api/).
 
-`snapshot(value)` auf Bridge-Ebene erfasst sofort den exakten Zustand, einschließlich verborgener Daten eines ungültigen nullable-Werts. Es liefert eingefrorene Daten; spätere Änderungen beeinflussen frühere Ausgaben nicht. Der isolierte Runner begrenzt rekursive Ausgaben und Ausführungszeit; siehe [Ressourcenrichtlinie](./resource-policy).
+`snapshot(value)`  erfasst sofort den exakten Zustand, einschließlich verborgener Daten eines ungültigen nullable-Werts. Es liefert eingefrorene Daten; spätere Änderungen beeinflussen frühere Ausgaben nicht. Der isolierte Runner begrenzt rekursive Ausgaben und Ausführungszeit; siehe [Ressourcenrichtlinie](./resource-policy).

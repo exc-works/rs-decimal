@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 3cc2ce52c4d0ed0d111f2e4df3eea8f2b90cb54656fa97590458dae94eb7b967
+source_revision: cd78c2dcf4b67b04ef802fd73ba3ef0da02aad24d1bb17be5cc5df5d221df3cd
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::bit_len
 ---
@@ -14,7 +14,7 @@ fn bit_len (& self) -> usize
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-Keine Parameter; Rust liefert usize, die Bridge number. Die Skala wird nicht angewandt und das Vorzeichenbit nicht gezählt: -1.20 hat Koeffizient -120 und Bitlänge 7. Null einschließlich Standardnull liefert 0. Dies ist nicht der Index des höchsten gesetzten Bits.
+Keine Parameter; Rust liefert usize, die JavaScript-API number. Die Skala wird nicht angewandt und das Vorzeichenbit nicht gezählt: -1.20 hat Koeffizient -120 und Bitlänge 7. Null einschließlich Standardnull liefert 0. Dies ist nicht der Index des höchsten gesetzten Bits.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

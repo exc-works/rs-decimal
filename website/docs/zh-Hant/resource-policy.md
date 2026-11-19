@@ -1,13 +1,11 @@
 ---
 locale: zh-Hant
-source_revision: cd012116d4b52c3d753afdb334a916afcdf34239a5a89a6aa326b13a592ef135
+source_revision: 637474c992943a95b792c86f50bfa04821ba9ba29fe9dab7696d42ada69cbe84
 translation_provenance: zh-Hans-terminology-reviewed
 ---
 # Playground 資源限制
 
-瀏覽器 bridge 的允許範圍小於 Rust 程式庫。`BridgeError` 的 `category: "resource"`
-表示達到 Playground 配額，不是數值程式庫錯誤。在限制內，方法名、參數順序和計算
-結果保持 Rust 行為；核心程式庫沒有修改。
+計算超過下列限制時，Playground 會傳回 `category: "resource"`。
 
 | 限制 | 目前值 |
 | --- | --- |

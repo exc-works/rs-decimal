@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 368adfaeea00a469d274e0e87fc3e84f66ca2848d32cfd8759858b2bac06fe99
+source_revision: bd62f5fbc640a37b2adf289a5796e4f02bc2e94ecde07c9c595d96aa3787e2b3
 api_id: "ErrorKind::Overflow"
 ---
 # ErrorKind::Overflow
@@ -13,7 +13,7 @@ Overflow
 
 ## 参数、返回值及常规用法
 
-系数、scale 或运算超过核心支持范围。ErrorKind 是稳定类别，不是错误消息文本。浏览器枚举值为 Rust 变体名；构造的错误使用 matches()，捕获的 bridge 异常提供 kinds 数组。
+系数、scale 或运算超过核心支持范围。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

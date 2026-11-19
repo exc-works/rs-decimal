@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 9459cb9d77c7f6ad22b96853baef01b1a9461529cecff18a116b5d2dee9166d3
+source_revision: 56094af9f622985dec933077af65cd0cc673023dc5a3a4be3553f2af47b621d4
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal
 ---
@@ -14,7 +14,7 @@ pub struct Decimal
 
 ## 일반적인 사용법과 의미
 
-수치는 계수 × 10^-scale입니다. scale은 소수 자릿수이며 유지된 후행 0도 포함합니다. 기본값은 미초기화 수치 0입니다. 생성자는 초기화된 값을 만들고, 빌림 메서드는 입력을 유지하며, 소비 메서드는 입력의 브라우저 래퍼를 무효화합니다. bridge에서는 이름이 있는 생성자를 사용하세요. new Decimal()은 공개 생성자가 아닙니다.
+수치는 계수 × 10^-scale입니다. scale은 소수 자릿수이며 유지된 후행 0도 포함합니다. 기본값은 미초기화 수치 0입니다. 생성자는 초기화된 값을 만들고, 빌림 메서드는 입력을 유지하며, 소비 메서드는 입력의 브라우저 래퍼를 무효화합니다. JavaScript에서는 이름이 있는 생성자를 사용하세요. new Decimal()은 공개 생성자가 아닙니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

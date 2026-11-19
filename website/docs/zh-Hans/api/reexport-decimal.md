@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 893ae85fdbe2ce4fb0a97cdee41fd9675ed135240e7df9b22b449b50279fb13c
+source_revision: 6976205af89f0a7bb675a6147933c2fe624e8c9d96703f7f354c0cb5ca52f755
 api_id: reexport::Decimal
 ---
 # reexport::Decimal
@@ -13,7 +13,7 @@ pub use decimal::Decimal as Decimal
 
 ## 常规用法及语义
 
-使用 rs_decimal::Decimal；这是同一条目的公开导入路径，不是额外的数值实现。JavaScript 没有 Rust use 语法，对应行为见 bridge 文档。
+使用 rs_decimal::Decimal；这是同一条目的公开导入路径，不是额外的数值实现。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

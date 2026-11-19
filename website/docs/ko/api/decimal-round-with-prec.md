@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 636d6e9ec2d1b0cb7be987deb57dc622bb8084f92601482a3b6418a00ec64c8b
+source_revision: d6f697a3d962962b5c45eb345607fbc6629bac0f2d7f0f5c403da5649a7d1d4a
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::round_with_prec
 ---
@@ -14,7 +14,7 @@ fn round_with_prec(&self, prec: isize) -> Result<Self, DecimalError>
 
 ## 매개변수
 
-`prec: isize` — 소수점 아래 자릿수입니다. 브리지는 JavaScript 정숫값을 받습니다.
+`prec: isize` — 유지할 소수 자릿수(정수).
 
 ## 반환값
 
@@ -24,7 +24,7 @@ fn round_with_prec(&self, prec: isize) -> Result<Self, DecimalError>
 
 ## 오류
 
-음수 정밀도가 반환하는 오류는 `InvalidPrecision`. 브리지는 해당 오류를 던집니다.
+음수 정밀도가 반환하는 오류는 `InvalidPrecision`. JavaScript는 해당 오류를 던집니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

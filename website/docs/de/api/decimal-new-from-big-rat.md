@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 609e506e194d4140e441e114e8a66b7a118a2cb443c002b71a5be2c8260307ad
+source_revision: ffab3b21dcd7c80e0222f2cd0457116e79f56aafc95fc2ed3c796e423b9661cc
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::new_from_big_rat
 ---
@@ -14,7 +14,7 @@ fn new_from_big_rat (value : & BigRational) -> Result < Self , DecimalError >
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-value: &BigRational; die Bridge akzeptiert {numerator: bigint, denominator: bigint}. Der Nenner darf nicht null sein, sonst entsteht ein Bridge-Parameterfehler. Rust BigRational normalisiert Vorzeichen und gemeinsame Faktoren. Nur gekürzte Nenner mit den Primfaktoren 2 und 5 ergeben endliche Dezimalzahlen; andere Faktoren liefern InvalidFormat. Das Ergebnis ist initialisiert. Browserprüfungen greifen nach Kürzung und begrenzen Ausgabeskala/Koeffizientenwachstum vor der Kernkonvertierung.
+value: &BigRational; die JavaScript-API akzeptiert {numerator: bigint, denominator: bigint}. Der Nenner darf nicht null sein, sonst entsteht ein JavaScript-Parameterfehler. Rust BigRational normalisiert Vorzeichen und gemeinsame Faktoren. Nur gekürzte Nenner mit den Primfaktoren 2 und 5 ergeben endliche Dezimalzahlen; andere Faktoren liefern InvalidFormat. Das Ergebnis ist initialisiert. Browserprüfungen greifen nach Kürzung und begrenzen Ausgabeskala/Koeffizientenwachstum vor der Kernkonvertierung.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

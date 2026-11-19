@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 893ae85fdbe2ce4fb0a97cdee41fd9675ed135240e7df9b22b449b50279fb13c
+source_revision: 6976205af89f0a7bb675a6147933c2fe624e8c9d96703f7f354c0cb5ca52f755
 translation_provenance: en-US-japanese-reviewed
 api_id: reexport::Decimal
 ---
@@ -14,7 +14,7 @@ pub use decimal::Decimal as Decimal
 
 ## 通常の使い方と意味
 
-rs_decimal::Decimal を使います。同じ項目の公開インポートパスであり、別の数値実装ではありません。JavaScript には Rust の use 構文がないため、対応する bridge のリファレンスを参照してください。
+rs_decimal::Decimal を使います。同じ項目の公開インポートパスであり、別の数値実装ではありません。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

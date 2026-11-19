@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 9626ec029554d531f95257728b45431467328baf3b8968c06412f5cc58c689ec
+source_revision: 8e571c100355b6f464b7992d5d9d515f9f9923a4538f1e43b8cc48af4b41a4c7
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::coefficient
 ---
@@ -14,7 +14,7 @@ fn coefficient (& self) -> & BigInt
 
 ## Paramètres, résultat et remarques
 
-Rust emprunte &BigInt ; le bridge renvoie un instantané bigint immuable, pas une référence reflétant les modifications. Le coefficient inclut les zéros finaux et n’est pas la partie entière du décimal. L’exemple affiche bigint sous forme de texte pour conserver tous les chiffres dans JSON.
+Rust emprunte &BigInt ; l’API JavaScript renvoie un instantané bigint immuable, pas une référence reflétant les modifications. Le coefficient inclut les zéros finaux et n’est pas la partie entière du décimal. L’exemple affiche bigint sous forme de texte pour conserver tous les chiffres dans JSON.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

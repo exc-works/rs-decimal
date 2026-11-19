@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 099c3533a52ede06adc92af14955d2d2a20dadf66c185c385b9eda728b52b6ba
+source_revision: d9e6c46654b05ae244bd56f7035b17e55d6f30ce2bee3665fad9be992491dd6d
 translation_provenance: en-US-german-reviewed
 api_id: reexport::zero
 ---
@@ -14,7 +14,7 @@ pub use decimal::zero as zero
 
 ## Übliche Verwendung und Semantik
 
-Verwenden Sie rs_decimal::zero; dies ist der öffentliche Importpfad desselben Elements, keine zusätzliche numerische Implementierung. JavaScript hat keine Rust-use-Syntax; siehe die entsprechende Bridge-Referenz.
+Verwenden Sie rs_decimal::zero; dies ist der öffentliche Importpfad desselben Elements, keine zusätzliche numerische Implementierung.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

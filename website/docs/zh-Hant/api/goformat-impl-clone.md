@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: df43bbe7e732dc8914c18a95d0b5d68a3839eb4a2b1c83d4dc811e0031827a91
+source_revision: 88974eef4784bf8f1c8b6ec4ce25d3380a2169d449467ecdb4cee7997d0acdd8
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: GoFormat::impl Clone
 ---
@@ -14,7 +14,7 @@ impl Clone for GoFormat
 
 ## 參數、回傳值及常規用法
 
-GoFormat 是小型 Copy 欄位結構體。Clone/Copy 保留選項；Debug 輸出欄位。Default 選擇 v，width/precision 為 None，所有旗標為 false。此 Rust 語法在原生環境測試；bridge 物件使用普通 JS 欄位物件語義及 GoFormat.default()。
+GoFormat 是小型 Copy 欄位結構體。Clone/Copy 保留選項；Debug 輸出欄位。Default 選擇 v，width/precision 為 None，所有旗標為 false。此 Rust 語法在原生環境測試；JavaScript 物件使用普通 JS 欄位物件語義及 GoFormat.default()。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

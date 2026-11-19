@@ -1,12 +1,12 @@
 ---
 locale: en-GB
-source_revision: 0bbd6c78da40405c6e9ad9c68a14878f98d98b4601eb8ff1296abba0bbf809ae
+source_revision: 7f9e2f6ed775898aae666efe4610ba891f54aadb6987e2a347de88c3c59500ea
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::sqrt
 ---
 # Decimal::sqrt
 
-Compute a square root. Returns Result<Decimal, DecimalError> in Rust and Decimal or a structured exception in the bridge. No degree parameter. Negative input returns NegativeRoot. Default precision is max(input decimal places, 20), not 20 significant digits. Rounding is half-even; exact midpoint roots such as sqrt(6.25) at precision zero round to 2. Despite the approx_root name, Rust certifies rounding using integer comparisons; exhausted core calculation/iteration budgets return NoConvergence. Input is borrowed and unchanged; results, including default zero, are initialized.
+Compute a square root. No degree parameter. Negative input returns NegativeRoot. Default precision is max(input decimal places, 20), not 20 significant digits. Rounding is half-even; exact midpoint roots such as sqrt(6.25) at precision zero round to 2. Despite the approx_root name, Rust certifies rounding using integer comparisons; exhausted core calculation/iteration budgets return NoConvergence. Input is borrowed and unchanged; results, including default zero, are initialized.
 
 ```rust
 fn sqrt (& self) -> Result < Self , DecimalError >

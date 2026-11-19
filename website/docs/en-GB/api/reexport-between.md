@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: a9093dcd1b9fe39261e7248debd207a7c4986a0a263f3e970359020a9ba293a8
+source_revision: 3300205234593fd9e0974d13d203dba364588cd233c7dd62f42452687449a8f7
 translation_provenance: en-US-reviewed-reuse
 api_id: reexport::between
 ---
@@ -14,7 +14,7 @@ pub use decimal::between as between
 
 ## Normal usage and semantics
 
-Use rs_decimal::between; this is the public import path for the same item, not an additional numerical implementation. JavaScript has no Rust use syntax; see the corresponding bridge reference.
+Use rs_decimal::between; this is the public import path for the same item, not an additional numerical implementation.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

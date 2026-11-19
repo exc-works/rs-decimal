@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 4edb7e0a9fed4047c94ce74a3f224028a33e2b9c87f41b5e744d6d68a1abd2e7
+source_revision: ae30eee52b8243c53d2363e82db8a8847f306fed0233c1fadf3d83f102fe5452
 translation_provenance: en-US-japanese-reviewed
 api_id: "Decimal::impl Neg::neg"
 ---
@@ -14,7 +14,7 @@ fn neg (self) -> Decimal
 
 ## 通常の使い方と注意点
 
-&Decimal に実装されているため、オペランドは引き続き使用できます。単項 - はスケールを保持し、既定のゼロも含め結果を初期化します。トレイトはコアの同じ名前のメソッドに委譲します。ブラウザーの JavaScript 演算子はオーバーロードされないため、bridge の add/sub/neg を使います。
+&Decimal に実装されているため、オペランドは引き続き使用できます。単項 - はスケールを保持し、既定のゼロも含め結果を初期化します。トレイトはコアの同じ名前のメソッドに委譲します。ブラウザーの JavaScript 演算子はオーバーロードされないため、JavaScript の add/sub/neg を使います。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

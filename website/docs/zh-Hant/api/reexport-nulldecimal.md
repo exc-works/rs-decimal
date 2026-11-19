@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 05a4d32c73f6c4d59c8e657272c093b1db00da738b0234c960526209d3e3196c
+source_revision: f04757565931a8e8fa648872ee9153875f735f45247f70875bf4fa04dbb2585d
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: reexport::NullDecimal
 ---
@@ -14,7 +14,7 @@ pub use decimal::NullDecimal as NullDecimal
 
 ## 常規用法及語義
 
-使用 rs_decimal::NullDecimal；這是同一條目的公開匯入路徑，不是額外的數值實現。JavaScript 沒有 Rust use 語法，對應行為見 bridge 文件。
+使用 rs_decimal::NullDecimal；這是同一條目的公開匯入路徑，不是額外的數值實現。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

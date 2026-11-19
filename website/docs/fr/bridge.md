@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: bc4fe0d7f63ebbaad6f009ea77ae93eee10d61514aa0fcf8907740ea4397dc70
+source_revision: bd473c0431492bbeed88af5f453e401cc80b45775529394fc98a50e453c639ca
 translation_provenance: en-US-french-reviewed
 ---
 # Appeler les méthodes Rust dans le navigateur
@@ -36,7 +36,7 @@ même lorsque Rust renvoie une erreur. Utiliser une valeur consommée ou libér�
 `moved`. Les types d’arguments JavaScript incorrects sont rejetés avant l’appel et ne consomment pas le
 récepteur. `clone()` conserve la représentation et l’initialisation. `free()` libère les handles encore
 actifs et reste sans effet nuisible après consommation. Chaque exécution détruit son instance Wasm à la
-fin, sans dépendre des finaliseurs. Un objet d’une autre instance du bridge ne peut pas être passé à un appel.
+fin, sans dépendre des finaliseurs. Un objet d’une autre instance de l’API JavaScript ne peut pas être passé à un appel.
 
 ## Valeurs nullables et octets
 
@@ -52,7 +52,7 @@ les durées de vie des emprunts Rust ni les contrôles de traits à la compilati
 qui reste valide après une croissance de la mémoire Wasm. Les méthodes d’ajout sont décrites dans le
 [catalogue des méthodes](./api/).
 
-Au niveau du bridge, `snapshot(value)` capture immédiatement l’état exact, y compris la valeur interne
+`snapshot(value)` capture immédiatement l’état exact, y compris la valeur interne
 masquée d’un nullable invalide. Il renvoie des données gelées ; une modification ultérieure ne change pas
 une sortie antérieure. Le moteur isolé limite la sortie récursive et le temps d’exécution ; consultez la
 [politique de ressources](./resource-policy).

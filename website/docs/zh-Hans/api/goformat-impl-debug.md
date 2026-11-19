@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 4e5c7dfa4cd03b60430392b3a97363dc09a63cee40fa7c3bab57e19b48c4d145
+source_revision: 31f0a432b373e9f77b1c47a8c72a2cfedcd5df17aa590c851611115cc0270629
 api_id: GoFormat::impl Debug
 ---
 # GoFormat::impl Debug
@@ -13,7 +13,7 @@ impl Debug for GoFormat
 
 ## 参数、返回值及常规用法
 
-GoFormat 是小型 Copy 字段结构体。Clone/Copy 保留选项；Debug 输出字段。Default 选择 v，width/precision 为 None，所有标志为 false。此 Rust 语法在原生环境测试；bridge 对象使用普通 JS 字段对象语义及 GoFormat.default()。
+GoFormat 是小型 Copy 字段结构体。Clone/Copy 保留选项；Debug 输出字段。Default 选择 v，width/precision 为 None，所有标志为 false。此 Rust 语法在原生环境测试；JavaScript 对象使用普通 JS 字段对象语义及 GoFormat.default()。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 71bc56362fd9f1c25a96932ba1ffd795db889517f58a951726bcd78e58fe2bc7
+source_revision: c654c9726a283aeb3b59ec2a73dcd6f45d404c2677f244d97a60cf2ff73a642b
 translation_provenance: en-US-korean-reviewed
 api_id: NullDecimal::impl Default
 ---
@@ -14,7 +14,7 @@ impl Default for NullDecimal
 
 ## 일반적인 사용법과 의미
 
-유효성과 내부 초기화 상태가 모두 false입니다. bridge는 NullDecimal.default()를 제공합니다.
+유효성과 내부 초기화 상태가 모두 false입니다. JavaScript는 NullDecimal.default()를 제공합니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

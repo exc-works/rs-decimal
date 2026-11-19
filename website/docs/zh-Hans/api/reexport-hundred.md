@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 8e2ccd4d5de92023ccad23e3b1ce732438fad5dab0ed6652057ad04ade8ca4a5
+source_revision: ef3aa99db04ca1bd7e821c4d4bf0be02f9db3337ae118e60dc96d5695ab892b9
 api_id: reexport::hundred
 ---
 # reexport::hundred
@@ -13,7 +13,7 @@ pub use decimal::hundred as hundred
 
 ## 常规用法及语义
 
-使用 rs_decimal::hundred；这是同一条目的公开导入路径，不是额外的数值实现。JavaScript 没有 Rust use 语法，对应行为见 bridge 文档。
+使用 rs_decimal::hundred；这是同一条目的公开导入路径，不是额外的数值实现。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

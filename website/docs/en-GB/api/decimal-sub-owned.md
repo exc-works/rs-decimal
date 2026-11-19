@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: ddfedf2b2a7b0914238752b884265b0c43b55c647cf39e728c8143e706a5b5ba
+source_revision: 347ad719aa4b33bd925c7dfe63b5e557c57b390b4d8d0b57d7aff0d9ca62ac93
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::sub_owned
 ---
@@ -14,7 +14,7 @@ fn sub_owned (self , other : & Self) -> Self
 
 ## Parameters, return and normal usage
 
-other: &Decimal; returns an initialized Decimal at the larger input scale. The receiver moves, while other remains usable. Storage can be reused, but growth can allocate. The bridge rejects the same wrapper as both receiver and other before moving it. Once Rust is entered, even a resource error consumes the receiver.
+other: &Decimal; returns an initialized Decimal at the larger input scale. The receiver moves, while other remains usable. Storage can be reused, but growth can allocate. The JavaScript API rejects the same wrapper as both receiver and other before moving it. Once Rust is entered, even a resource error consumes the receiver.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

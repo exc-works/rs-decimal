@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 3cc2ce52c4d0ed0d111f2e4df3eea8f2b90cb54656fa97590458dae94eb7b967
+source_revision: cd78c2dcf4b67b04ef802fd73ba3ef0da02aad24d1bb17be5cc5df5d221df3cd
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::bit_len
 ---
@@ -14,7 +14,7 @@ fn bit_len (& self) -> usize
 
 ## Paramètres, résultat et utilisation courante
 
-Sans paramètre ; Rust renvoie usize, le bridge renvoie number. L’échelle n’est pas appliquée et le bit de signe n’est pas compté : -1.20 a pour coefficient -120 et pour longueur en bits 7. Zéro, y compris le zéro par défaut, renvoie 0. Ce n’est pas l’indice du bit de poids fort à 1.
+Sans paramètre ; Rust renvoie usize, l’API JavaScript renvoie number. L’échelle n’est pas appliquée et le bit de signe n’est pas compté : -1.20 a pour coefficient -120 et pour longueur en bits 7. Zéro, y compris le zéro par défaut, renvoie 0. Ce n’est pas l’indice du bit de poids fort à 1.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

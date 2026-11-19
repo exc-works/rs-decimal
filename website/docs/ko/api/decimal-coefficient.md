@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 9626ec029554d531f95257728b45431467328baf3b8968c06412f5cc58c689ec
+source_revision: 8e571c100355b6f464b7992d5d9d515f9f9923a4538f1e43b8cc48af4b41a4c7
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::coefficient
 ---
@@ -14,7 +14,7 @@ fn coefficient (& self) -> & BigInt
 
 ## 매개변수, 반환값, 사용 시 주의점
 
-Rust는 &BigInt를 빌리며 bridge는 불변 bigint 스냅샷을 반환합니다. 변경을 추적하는 참조가 아닙니다. 계수에는 후행 0이 포함되며 소수의 정수 부분과 다릅니다. 예제는 JSON에서 모든 숫자를 유지하도록 bigint를 텍스트로 출력합니다.
+Rust는 &BigInt를 빌리며 JavaScript는 불변 bigint 스냅샷을 반환합니다. 변경을 추적하는 참조가 아닙니다. 계수에는 후행 0이 포함되며 소수의 정수 부분과 다릅니다. 예제는 JSON에서 모든 숫자를 유지하도록 bigint를 텍스트로 출력합니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: c5bc8b97bab18c557c0918fb7ad15cabc2fd824c618c469b8f007d1f6299272b
+source_revision: d5c1f534ca8b330824c58556da76c1a087af48c4167345fd17aa17a747039e3a
 translation_provenance: en-US-french-reviewed
 api_id: "ErrorKind::DivideByZero"
 ---
@@ -14,7 +14,7 @@ DivideByZero
 
 ## Paramètres, résultat et utilisation courante
 
-Un diviseur est nul. ErrorKind est une catégorie stable, pas un message textuel. Les valeurs de l’énumération du navigateur sont les noms des variantes Rust ; les erreurs construites utilisent matches(), tandis que les exceptions interceptées du bridge exposent un tableau kinds.
+Un diviseur est nul.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

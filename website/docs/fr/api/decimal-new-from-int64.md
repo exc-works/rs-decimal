@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 9ec084e5d70a80123e6b5391a460c2d09074b7e750d373283106219a5cde28ed
+source_revision: fae9d1b20487be5ea60841b603ab060b40d5b639bd9efc686e9fd8f0f555bd79
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::new_from_int64
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## Conseils d’utilisation
 
-La valeur est un coefficient, pas un montant déjà mis à l’échelle. Une précision négative produit `InvalidPrecision` ; les valeurs hors de la plage i64 sont des erreurs de paramètre du bridge.
+La valeur est un coefficient, pas un montant déjà mis à l’échelle. Une précision négative produit `InvalidPrecision` ; les valeurs hors de la plage i64 sont des erreurs de paramètre de l’API JavaScript.
 
 ## Méthodes associées
 

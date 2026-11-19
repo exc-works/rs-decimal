@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: c983f6ed089705857a773a0bcfbea0bf32771eb2c76c31e24f0160ce317c8980
+source_revision: ad5bc09e58ba54af3a20899560f38f4b2682294a4c7489043e5331092c1467a0
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::add_raw
 ---
@@ -14,7 +14,7 @@ fn add_raw (& self , value : i64) -> Self
 
 ## Parameters, return and normal usage
 
-value: i64, represented by bigint in the bridge. Scale is preserved: at scale 2, adding/subtracting 1 changes the number by 0.01, not by 1. Rust returns a new Decimal. Numbers and out-of-i64 bigint values are rejected by the bridge.
+value: i64, represented by bigint in JavaScript. Scale is preserved: at scale 2, adding/subtracting 1 changes the number by 0.01, not by 1. Rust returns a new Decimal. Numbers and out-of-i64 bigint values are rejected in JavaScript.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

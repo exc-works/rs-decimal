@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: a9093dcd1b9fe39261e7248debd207a7c4986a0a263f3e970359020a9ba293a8
+source_revision: 3300205234593fd9e0974d13d203dba364588cd233c7dd62f42452687449a8f7
 translation_provenance: en-US-korean-reviewed
 api_id: reexport::between
 ---
@@ -14,7 +14,7 @@ pub use decimal::between as between
 
 ## 일반적인 사용법과 의미
 
-rs_decimal::between를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다. JavaScript에는 Rust use 문법이 없으므로 대응하는 bridge 참조 문서를 확인하세요.
+rs_decimal::between를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

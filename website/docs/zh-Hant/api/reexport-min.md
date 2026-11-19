@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 0d0d53ee31abc5089791404b98708465e5ae1271ee54c709858dd761b9a5ca22
+source_revision: f747bad3502ad5af9ea13bde6cf07e23bd90f835c390a356a17c381617af16c5
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: reexport::min
 ---
@@ -14,7 +14,7 @@ pub use decimal::min as min
 
 ## 常規用法及語義
 
-使用 rs_decimal::min；這是同一條目的公開匯入路徑，不是額外的數值實現。JavaScript 沒有 Rust use 語法，對應行為見 bridge 文件。
+使用 rs_decimal::min；這是同一條目的公開匯入路徑，不是額外的數值實現。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

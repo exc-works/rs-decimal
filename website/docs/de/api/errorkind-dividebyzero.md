@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: c5bc8b97bab18c557c0918fb7ad15cabc2fd824c618c469b8f007d1f6299272b
+source_revision: d5c1f534ca8b330824c58556da76c1a087af48c4167345fd17aa17a747039e3a
 translation_provenance: en-US-german-reviewed
 api_id: "ErrorKind::DivideByZero"
 ---
@@ -14,7 +14,7 @@ DivideByZero
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-Ein Divisor ist null. ErrorKind ist eine stabile Kategorie, keine Meldungszeichenfolge. Browser-Enumwerte sind Rust-Variantennamen; konstruierte Fehler verwenden matches(), abgefangene Bridge-Ausnahmen ein kinds-Array.
+Ein Divisor ist null.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

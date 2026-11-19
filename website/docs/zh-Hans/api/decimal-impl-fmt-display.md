@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: c94998594bf6a8005b50df98354b3549d47447f21a6664735b824dda07443935
+source_revision: 97b85000fbf7a0fb6537eae68258f927a7739647e41e96de3c0f26f460f2d35a
 api_id: "Decimal::impl fmt :: Display"
 ---
 # Decimal::impl fmt :: Display
@@ -8,12 +8,12 @@ api_id: "Decimal::impl fmt :: Display"
 通过 Rust 格式化语法输出 Decimal。
 
 ```rust
-impl fmt :: Display for Decimal 
+impl fmt :: Display for Decimal
 ```
 
 ## 常规用法及语义
 
-使用 format!("{}", value)、println! 或 to_string()；fmt::Formatter 由格式化机制提供。默认格式会去掉小数末尾零。其他格式标志由格式化分组说明；bridge 使用 string()/string_with_trailing_zeros()。
+使用 format!("{}", value)、println! 或 to_string()；fmt::Formatter 由格式化机制提供。默认格式会去掉小数末尾零。其他格式标志由格式化分组说明；JavaScript 使用 string()/string_with_trailing_zeros()。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

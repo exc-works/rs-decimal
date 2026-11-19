@@ -1,11 +1,11 @@
 ---
 locale: en-US
-source_revision: 1364e2c70db38e747614af95f661a59bb822316d59013022933d2987f410c846
+source_revision: 53a165ed47764f5f661387617a1b68ba2abdefa181cac1cde270d551da87797c
 api_id: Decimal::sqrt_with_prec
 ---
 # Decimal::sqrt_with_prec
 
-Compute a square root. Returns Result<Decimal, DecimalError> in Rust and Decimal or a structured exception in the bridge. No degree parameter. Negative input returns NegativeRoot. prec: isize, transported as an integer number; selects decimal places. Negative precision returns InvalidPrecision before domain checks. Rounding is half-even; exact midpoint roots such as sqrt(6.25) at precision zero round to 2. Despite the approx_root name, Rust certifies rounding using integer comparisons; exhausted core calculation/iteration budgets return NoConvergence. Input is borrowed and unchanged; results, including default zero, are initialized.
+Compute a square root. No degree parameter. Negative input returns NegativeRoot. prec: isize, transported as an integer number; selects decimal places. Negative precision returns InvalidPrecision before domain checks. Rounding is half-even; exact midpoint roots such as sqrt(6.25) at precision zero round to 2. Despite the approx_root name, Rust certifies rounding using integer comparisons; exhausted core calculation/iteration budgets return NoConvergence. Input is borrowed and unchanged; results, including default zero, are initialized.
 
 ```rust
 fn sqrt_with_prec (& self , prec : isize) -> Result < Self , DecimalError >

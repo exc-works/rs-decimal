@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 1f2a665c28ead224f75ed902dd02b6b36626040f13db084f643088b5ff82188f
+source_revision: b1a9d67b6db859834f3ef9cd2d0fefcd4239bbf10472aedba8e0a86a95b51eeb
 api_id: Decimal::new_from_uint_with_append_prec
 ---
 # Decimal::new_from_uint_with_append_prec
@@ -23,7 +23,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 使用说明
 
-负值和超出范围的值属于 bridge 参数错误。负 precision 返回 `InvalidPrecision`。请通过保留尾零的输出查看追加的小数位数。
+负值和超出范围的值属于 JavaScript 参数错误。负 precision 返回 `InvalidPrecision`。请通过保留尾零的输出查看追加的小数位数。
 
 ## 相关方法
 

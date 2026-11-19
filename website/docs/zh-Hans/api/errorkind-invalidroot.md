@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 5acf1a9800c0d02bd1cb1fa68c2c1f7068c1bb36cf20034e0a1e404758ce2bc4
+source_revision: 01ba54dd4f70ab889a5970b66a26c88dd55da38d130bfebc961238b5400a8894
 api_id: "ErrorKind::InvalidRoot"
 ---
 # ErrorKind::InvalidRoot
@@ -13,7 +13,7 @@ InvalidRoot
 
 ## 参数、返回值及常规用法
 
-根次数不是正数。ErrorKind 是稳定类别，不是错误消息文本。浏览器枚举值为 Rust 变体名；构造的错误使用 matches()，捕获的 bridge 异常提供 kinds 数组。
+根次数不是正数。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

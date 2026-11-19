@@ -1,12 +1,12 @@
 ---
 locale: fr
-source_revision: cc1566925b96baa324fb64a51eba19d80177bb315f68b0f6a9ee1d05c6da9807
+source_revision: f662d4a18feb3987ba22a3e426a493d661feab0dd71696533c5ec29aefece86d
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::exp
 ---
 # Decimal::exp
 
-Calculer l’exponentielle e^x. Renvoie Result<Decimal, DecimalError> en Rust, et Decimal ou une exception structurée dans le bridge. Sans paramètre. La précision de sortie par défaut est max(nombre de décimales de l’entrée, 20), pas 20 chiffres significatifs. Le cœur accepte toutes les entrées réelles. exp(0) est la valeur 1 initialisée ; un argument suffisamment négatif peut être correctement arrondi à un zéro initialisé à la précision demandée. Le cœur encadre les résultats par des intervalles et ne les accepte que lorsque l’arrondi est certifié. L’arrondi est au pair, sans paramètre mode ; l’échec de la certification dans les budgets du cœur renvoie NoConvergence plutôt qu’une approximation non vérifiée. Les entrées restent inchangées et les résultats réussis sont initialisés.
+Calculer l’exponentielle e^x. Sans paramètre. La précision de sortie par défaut est max(nombre de décimales de l’entrée, 20), pas 20 chiffres significatifs. Le cœur accepte toutes les entrées réelles. exp(0) est la valeur 1 initialisée ; un argument suffisamment négatif peut être correctement arrondi à un zéro initialisé à la précision demandée. Le cœur encadre les résultats par des intervalles et ne les accepte que lorsque l’arrondi est certifié. L’arrondi est au pair, sans paramètre mode ; l’échec de la certification dans les budgets du cœur renvoie NoConvergence plutôt qu’une approximation non vérifiée. Les entrées restent inchangées et les résultats réussis sont initialisés.
 
 ```rust
 fn exp (& self) -> Result < Self , DecimalError >

@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: f5ea64d7e7a6135acc2f55f3a40411c6d9222e20ac49981dab203cb401fa6651
+source_revision: 29e91f626fd685fb0b5987fc104c1ba0e2752897194773305e3d64dcc1b16f1a
 translation_provenance: en-US-reviewed-reuse
 api_id: reexport::one
 ---
@@ -14,7 +14,7 @@ pub use decimal::one as one
 
 ## Normal usage and semantics
 
-Use rs_decimal::one; this is the public import path for the same item, not an additional numerical implementation. JavaScript has no Rust use syntax; see the corresponding bridge reference.
+Use rs_decimal::one; this is the public import path for the same item, not an additional numerical implementation.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

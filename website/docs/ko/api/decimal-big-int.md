@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: dcbc410f5dabf4a62b4cb667b765d034201be05823aeeb413148caad325fb23f
+source_revision: f7f692709bde775f34d7f5feb756c59944ff77c763bae1798b2b4306d9770c41
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::big_int
 ---
@@ -14,7 +14,7 @@ fn big_int (& self) -> BigInt
 
 ## 매개변수, 반환값, 사용 시 주의점
 
-Rust는 독립적인 BigInt, bridge는 bigint를 반환합니다. 정수로 버림 변환하는 것과 달리 후행 0이 포함됩니다. 예제는 JSON을 위해 bigint를 텍스트로 출력합니다.
+Rust는 독립적인 BigInt, JavaScript는 bigint를 반환합니다. 정수로 버림 변환하는 것과 달리 후행 0이 포함됩니다. 예제는 JSON을 위해 bigint를 텍스트로 출력합니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

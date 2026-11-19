@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 2d051b010383c0adad95eaeacec22cce35ee5a02d1fddebba48aa1d5a1f4d4ae
+source_revision: 11b8aa485f155a658e5960045fe97e0878f07fd6eb371a471f1440f29be38903
 api_id: Decimal::ceil_with_prec
 ---
 # Decimal::ceil_with_prec
@@ -13,7 +13,7 @@ fn ceil_with_prec (& self , prec : isize) -> Result < Self , DecimalError >
 
 ## Parameters, return and normal usage
 
-prec: isize/integer number; returns Result<Decimal, DecimalError> in Rust and Decimal or an exception in the bridge. Negative precision is InvalidPrecision. Inputs are borrowed and unchanged. Results are initialized, including a default-zero input. Increasing precision appends zeros without changing the numerical value.
+prec: isize/integer number. Negative precision is InvalidPrecision. Inputs are borrowed and unchanged. Results are initialized, including a default-zero input. Increasing precision appends zeros without changing the numerical value.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

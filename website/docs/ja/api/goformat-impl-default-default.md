@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 873d615adf07acd5810e5a3d2447199c951d65cd40cb07c1afb47b23535aad17
+source_revision: 6a03ad3f2e6f0755e57eb89608d0891566bd0e9c4b875afd8935ad4e0e27dd6d
 translation_provenance: en-US-japanese-reviewed
 api_id: GoFormat::impl Default::default
 ---
@@ -14,7 +14,7 @@ fn default () -> Self
 
 ## 引数、戻り値、通常の使い方
 
-GoFormat は小さな Copy フィールド構造体です。Clone/Copy はオプションを保持し、Debug はフィールドを表示します。Default は v、width/precision は None、すべてのフラグは false を選びます。この Rust 構文はネイティブで検証します。bridge のオブジェクトは通常の JS フィールドオブジェクトと GoFormat.default() を使います。
+GoFormat は小さな Copy フィールド構造体です。Clone/Copy はオプションを保持し、Debug はフィールドを表示します。Default は v、width/precision は None、すべてのフラグは false を選びます。この Rust 構文はネイティブで検証します。JavaScript のオブジェクトは通常の JS フィールドオブジェクトと GoFormat.default() を使います。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

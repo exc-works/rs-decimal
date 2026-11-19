@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 52eca22e980279ceae03e771dce435ca3ba3fd74042d6f5541b41c478a23c74f
+source_revision: a89392582e826ad7fc6bd3211e4cb0d6e43395d54a8c28051953b45e2bb320f7
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::max_ref
 ---
@@ -14,7 +14,7 @@ fn max_ref < 'a > (& 'a self , other : & 'a Self) -> & 'a Self
 
 ## 매개변수, 반환값, 일반적인 사용법
 
-other: &Decimal. Rust는 입력 수명에 맞는 공유 참조를 반환합니다. 값이 같으면 self를 선택하여 소수 자릿수와 초기화 상태를 유지합니다. bridge는 복사본이 아니라 해당 원래 래퍼를 반환합니다. 래퍼를 이동하거나 해제하면 모든 JS 별칭도 무효가 됩니다. JS는 Rust 빌림 수명을 강제할 수 없습니다. 독립적으로 소유하는 결과에는 max/min을 사용하세요.
+other: &Decimal. Rust는 입력 수명에 맞는 공유 참조를 반환합니다. 값이 같으면 self를 선택하여 소수 자릿수와 초기화 상태를 유지합니다. JavaScript는 복사본이 아니라 해당 원래 래퍼를 반환합니다. 래퍼를 이동하거나 해제하면 모든 JS 별칭도 무효가 됩니다. JS는 Rust 빌림 수명을 강제할 수 없습니다. 독립적으로 소유하는 결과에는 max/min을 사용하세요.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

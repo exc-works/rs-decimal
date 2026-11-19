@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: ed7eae766562aad92ba36a1a91ecd3051f3e73486fdc4f475516ea974adac927
+source_revision: 53c6a8acf9ea21b47dcf7e64e91f78d378746d55bbda43af84954ef21da2900f
 translation_provenance: en-US-french-reviewed
 api_id: "Decimal::impl fmt :: Display::fmt"
 ---
@@ -14,7 +14,7 @@ fn fmt (& self , f : & mut fmt :: Formatter < '_ >) -> fmt :: Result
 
 ## Utilisation courante et sémantique
 
-Utilisez format!("{}", value), println! ou to_string() ; le mécanisme de formatage fournit fmt::Formatter. Le format par défaut supprime les zéros fractionnaires finaux. Les options supplémentaires sont décrites dans le groupe de formatage ; utilisez string()/string_with_trailing_zeros() dans le bridge.
+Utilisez format!("{}", value), println! ou to_string() ; le mécanisme de formatage fournit fmt::Formatter. Le format par défaut supprime les zéros fractionnaires finaux. Les options supplémentaires sont décrites dans le groupe de formatage ; utilisez string()/string_with_trailing_zeros() en JavaScript.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

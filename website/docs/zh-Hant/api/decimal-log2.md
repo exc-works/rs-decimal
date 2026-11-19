@@ -1,12 +1,12 @@
 ---
 locale: zh-Hant
-source_revision: a329356af92d18ac765420533258b5c608220d0cf27b5772304a0e1b5b8d5f9e
+source_revision: 19e6388558d46ddb3598af453ea4bcd2872fc2f6ce5d4c459e0dfbab37170bfa
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::log2
 ---
 # Decimal::log2
 
-計算以 2 為底的對數；Rust 回傳 Result<Decimal, DecimalError>，bridge 回傳 Decimal 或拋出結構化錯誤。無參數。預設輸出精度為 max(輸入小數位數, 20)，不是 20 位有效位數。輸入必須為正；零和負數回傳 InvalidLog。底數的精確冪具有整數對數，並保留輸出小數位數。核心使用區間包圍，僅在捨入已驗證時回傳結果。使用 HalfEven，沒有 mode 參數；核心預算內無法驗證時回傳 NoConvergence，不回傳未經驗證的近似值。輸入保持不變，成功結果已初始化。
+計算以 2 為底的對數。無參數。預設輸出精度為 max(輸入小數位數, 20)，不是 20 位有效位數。輸入必須為正；零和負數回傳 InvalidLog。底數的精確冪具有整數對數，並保留輸出小數位數。核心使用區間包圍，僅在捨入已驗證時回傳結果。使用 HalfEven，沒有 mode 參數；核心預算內無法驗證時回傳 NoConvergence，不回傳未經驗證的近似值。輸入保持不變，成功結果已初始化。
 
 ```rust
 fn log2 (& self) -> Result < Self , DecimalError >

@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 636d6e9ec2d1b0cb7be987deb57dc622bb8084f92601482a3b6418a00ec64c8b
+source_revision: d6f697a3d962962b5c45eb345607fbc6629bac0f2d7f0f5c403da5649a7d1d4a
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::round_with_prec
 ---
@@ -14,7 +14,7 @@ fn round_with_prec(&self, prec: isize) -> Result<Self, DecimalError>
 
 ## Parameter
 
-`prec: isize` — Anzahl der Nachkommastellen. Die Bridge erwartet eine ganzzahlige JavaScript-Zahl.
+`prec: isize` — Anzahl der zu behaltenden Nachkommastellen (ganze Zahl).
 
 ## Rückgabewert
 
@@ -24,7 +24,7 @@ Ein initialisierter Decimal, auch bei einer nicht initialisierten Null als Einga
 
 ## Fehler
 
-Negative Präzision ergibt `InvalidPrecision`. Die Bridge wirft den entsprechenden Fehler.
+Negative Präzision ergibt `InvalidPrecision`. Die JavaScript-API wirft den entsprechenden Fehler.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

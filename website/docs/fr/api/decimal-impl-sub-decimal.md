@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 5c989601e532ba1185143daec0df2f7cc1f95dc1823993238378295a66882fcf
+source_revision: 3ae6fe26dd141a9eddf786377d4b6123ea31183925ba883a7cbc53e74c30caae
 translation_provenance: en-US-french-reviewed
 api_id: "Decimal::impl Sub < & Decimal >"
 ---
@@ -14,7 +14,7 @@ impl Sub < & Decimal > for & Decimal
 
 ## Utilisation courante et points à retenir
 
-Implémenté pour &Decimal, afin que les opérandes restent utilisables. Le résultat exact utilise la plus grande échelle des opérandes et est initialisé. Le type associé Output est Decimal. Les résultats négatifs sont autorisés ; ces opérateurs n’appliquent pas les contraintes de résultat non négatif de safe_add/safe_sub. Le trait délègue à la méthode nommée correspondante du cœur. Les opérateurs JavaScript du navigateur ne sont pas surchargés ; utilisez add/sub/neg sur le bridge.
+Implémenté pour &Decimal, afin que les opérandes restent utilisables. Le résultat exact utilise la plus grande échelle des opérandes et est initialisé. Le type associé Output est Decimal. Les résultats négatifs sont autorisés ; ces opérateurs n’appliquent pas les contraintes de résultat non négatif de safe_add/safe_sub. Le trait délègue à la méthode nommée correspondante du cœur. Les opérateurs JavaScript du navigateur ne sont pas surchargés ; utilisez add/sub/neg sur l’API JavaScript.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: dc7af33554badb1c95cd11064df3b51faeaca3112afc1b82cf2efcaf4ff1844d
+source_revision: 189b6d1ee3eb48467bf982330ec482f99ea7cd30e80f4f3c225f2808c0e03cc3
 translation_provenance: en-US-japanese-reviewed
 api_id: "ErrorKind::RoundUnnecessary"
 ---
@@ -14,7 +14,7 @@ RoundUnnecessary
 
 ## 引数、戻り値、通常の使い方
 
-正確な丸めを要求しましたが、ゼロ以外の桁を捨てる必要があります。ErrorKind はメッセージ文字列ではなく、安定した分類です。ブラウザーの列挙値は Rust のバリアント名です。構築したエラーでは matches() を使い、捕捉した bridge 例外では kinds 配列を使います。
+正確な丸めを要求しましたが、ゼロ以外の桁を捨てる必要があります。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

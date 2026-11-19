@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 9ec084e5d70a80123e6b5391a460c2d09074b7e750d373283106219a5cde28ed
+source_revision: fae9d1b20487be5ea60841b603ab060b40d5b639bd9efc686e9fd8f0f555bd79
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::new_from_int64
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 사용 시 참고 사항
 
-값은 계수이며 이미 스케일이 적용된 금액이 아닙니다. 음수 정밀도는 `InvalidPrecision`이고 i64 범위 밖의 값은 bridge 매개변수 오류입니다.
+값은 계수이며 이미 스케일이 적용된 금액이 아닙니다. 음수 정밀도는 `InvalidPrecision`이고 i64 범위 밖의 값은 JavaScript 매개변수 오류입니다.
 
 ## 관련 메서드
 

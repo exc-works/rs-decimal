@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: d578df6b6b71b8ce4b0e165f6e630705dc946bcefab55f8b43fc9cba6d60bb70
+source_revision: 94e5c200ef4c48b600cdc1b46dd606d6ca8e9e2741aedbb2bac50f53ac53727e
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::new
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 使い方の補足
 
-JavaScript number ではなく `12n` を使ってください。i64 範囲外の値は bridge が拒否します。小数値には `new_from_string` を使います。
+JavaScript number ではなく `12n` を使ってください。i64 範囲外の値は JavaScript が拒否します。小数値には `new_from_string` を使います。
 
 ## 関連メソッド
 

@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 0d0d53ee31abc5089791404b98708465e5ae1271ee54c709858dd761b9a5ca22
+source_revision: f747bad3502ad5af9ea13bde6cf07e23bd90f835c390a356a17c381617af16c5
 translation_provenance: en-US-japanese-reviewed
 api_id: reexport::min
 ---
@@ -14,7 +14,7 @@ pub use decimal::min as min
 
 ## 通常の使い方と意味
 
-rs_decimal::min を使います。同じ項目の公開インポートパスであり、別の数値実装ではありません。JavaScript には Rust の use 構文がないため、対応する bridge のリファレンスを参照してください。
+rs_decimal::min を使います。同じ項目の公開インポートパスであり、別の数値実装ではありません。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 5acf1a9800c0d02bd1cb1fa68c2c1f7068c1bb36cf20034e0a1e404758ce2bc4
+source_revision: 01ba54dd4f70ab889a5970b66a26c88dd55da38d130bfebc961238b5400a8894
 translation_provenance: en-US-french-reviewed
 api_id: "ErrorKind::InvalidRoot"
 ---
@@ -14,7 +14,7 @@ InvalidRoot
 
 ## Paramètres, résultat et utilisation courante
 
-Le degré de la racine n’est pas strictement positif. ErrorKind est une catégorie stable, pas un message textuel. Les valeurs de l’énumération du navigateur sont les noms des variantes Rust ; les erreurs construites utilisent matches(), tandis que les exceptions interceptées du bridge exposent un tableau kinds.
+Le degré de la racine n’est pas strictement positif.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

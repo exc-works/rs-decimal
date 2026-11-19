@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: c94998594bf6a8005b50df98354b3549d47447f21a6664735b824dda07443935
+source_revision: 97b85000fbf7a0fb6537eae68258f927a7739647e41e96de3c0f26f460f2d35a
 translation_provenance: en-US-korean-reviewed
 api_id: "Decimal::impl fmt :: Display"
 ---
@@ -14,7 +14,7 @@ impl fmt :: Display for Decimal
 
 ## 일반적인 사용법과 의미
 
-format!("{}", value), println!, to_string()을 사용하세요. fmt::Formatter는 서식 처리 장치가 제공합니다. 기본 서식은 소수 부분의 후행 0을 제거합니다. 추가 서식 플래그는 서식 그룹에서 설명하며 bridge에서는 string()/string_with_trailing_zeros()를 사용합니다.
+format!("{}", value), println!, to_string()을 사용하세요. fmt::Formatter는 서식 처리 장치가 제공합니다. 기본 서식은 소수 부분의 후행 0을 제거합니다. 추가 서식 플래그는 서식 그룹에서 설명하며 JavaScript에서는 string()/string_with_trailing_zeros()를 사용합니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

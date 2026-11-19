@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 8e2ccd4d5de92023ccad23e3b1ce732438fad5dab0ed6652057ad04ade8ca4a5
+source_revision: ef3aa99db04ca1bd7e821c4d4bf0be02f9db3337ae118e60dc96d5695ab892b9
 translation_provenance: en-US-korean-reviewed
 api_id: reexport::hundred
 ---
@@ -14,7 +14,7 @@ pub use decimal::hundred as hundred
 
 ## 일반적인 사용법과 의미
 
-rs_decimal::hundred를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다. JavaScript에는 Rust use 문법이 없으므로 대응하는 bridge 참조 문서를 확인하세요.
+rs_decimal::hundred를 사용하세요. 같은 항목의 공개 가져오기 경로이며 추가 수치 구현이 아닙니다.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

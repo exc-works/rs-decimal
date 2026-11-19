@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 5acf1a9800c0d02bd1cb1fa68c2c1f7068c1bb36cf20034e0a1e404758ce2bc4
+source_revision: 01ba54dd4f70ab889a5970b66a26c88dd55da38d130bfebc961238b5400a8894
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: "ErrorKind::InvalidRoot"
 ---
@@ -14,7 +14,7 @@ InvalidRoot
 
 ## 參數、回傳值及常規用法
 
-根次數不是正數。ErrorKind 是穩定類別，不是錯誤訊息文字。瀏覽器列舉值為 Rust 變體名；建構的錯誤使用 matches()，捕獲的 bridge 異常提供 kinds 陣列。
+根次數不是正數。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: d57c1e8ddb07024ed3c5c002f095b2cee086c1a0719df70a0b4ba8761f29418d
+source_revision: 2a36a5c46f57052b68644728359c44f15465f6bfca2c60d1540e40c603cc8c5b
 api_id: NullDecimal.valid
 ---
 # NullDecimal.valid
@@ -13,7 +13,7 @@ valid: bool
 
 ## 常规用法及语义
 
-Rust 公开的 bool 字段映射为 boolean getter/setter。设置 false 不会清除 decimal，设置 true 也不会将其初始化。bridge 会在修改前拒绝非 boolean 输入。
+Rust 公开的 bool 字段映射为 boolean getter/setter。设置 false 不会清除 decimal，设置 true 也不会将其初始化。JavaScript 会在修改前拒绝非 boolean 输入。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 784a138fd9dfff6c4bbabb3b837f6e63c10c904c5578943fe043993afcf99a55
+source_revision: cc52467a55bcaa7e86e52d9cf523d5b8a22924e126619052d59e51cd0b6aab8b
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::into_coefficient
 ---
@@ -14,7 +14,7 @@ fn into_coefficient (self) -> BigInt
 
 ## 매개변수, 반환값, 일반적인 사용법
 
-매개변수 없음. Rust에서는 BigInt, JS에서는 bigint를 반환합니다. 소수 자릿수와 초기화 상태는 사라지므로 1.2300은 12300이 됩니다. 기본 0은 0입니다. Decimal은 소비되어 다시 읽을 수 없습니다. bridge에서 소비하지 않고 스냅샷을 얻으려면 coefficient를 사용하세요.
+매개변수 없음. Rust에서는 BigInt, JS에서는 bigint를 반환합니다. 소수 자릿수와 초기화 상태는 사라지므로 1.2300은 12300이 됩니다. 기본 0은 0입니다. Decimal은 소비되어 다시 읽을 수 없습니다. JavaScript에서 소비하지 않고 스냅샷을 얻으려면 coefficient를 사용하세요.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

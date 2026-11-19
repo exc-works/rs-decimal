@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 0db8fa19358a4f2f8842ab2f8da65e8e108f7914cbdecf8f41f654ca5171b70c
+source_revision: 24d7fa4a2221c5f03dbc4893af4fe9b8c3b42496692a1b9ed6c8a03465745caf
 translation_provenance: en-US-german-reviewed
 api_id: reexport::max
 ---
@@ -14,7 +14,7 @@ pub use decimal::max as max
 
 ## Übliche Verwendung und Semantik
 
-Verwenden Sie rs_decimal::max; dies ist der öffentliche Importpfad desselben Elements, keine zusätzliche numerische Implementierung. JavaScript hat keine Rust-use-Syntax; siehe die entsprechende Bridge-Referenz.
+Verwenden Sie rs_decimal::max; dies ist der öffentliche Importpfad desselben Elements, keine zusätzliche numerische Implementierung.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

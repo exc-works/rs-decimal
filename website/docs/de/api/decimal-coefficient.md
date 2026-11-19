@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 9626ec029554d531f95257728b45431467328baf3b8968c06412f5cc58c689ec
+source_revision: 8e571c100355b6f464b7992d5d9d515f9f9923a4538f1e43b8cc48af4b41a4c7
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::coefficient
 ---
@@ -14,7 +14,7 @@ fn coefficient (& self) -> & BigInt
 
 ## Parameter, Rückgabe und Hinweise
 
-Rust leiht &BigInt aus; die Bridge liefert einen unveränderlichen bigint-Snapshot, keine live aktualisierte Referenz. Der Koeffizient enthält nachgestellte Nullen und ist nicht der Ganzzahlteil der Dezimalzahl. Das Beispiel gibt bigint als Text aus, damit JSON alle Ziffern erhält.
+Rust leiht &BigInt aus; die JavaScript-API liefert einen unveränderlichen bigint-Snapshot, keine live aktualisierte Referenz. Der Koeffizient enthält nachgestellte Nullen und ist nicht der Ganzzahlteil der Dezimalzahl. Das Beispiel gibt bigint als Text aus, damit JSON alle Ziffern erhält.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

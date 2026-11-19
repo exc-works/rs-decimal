@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 2d051b010383c0adad95eaeacec22cce35ee5a02d1fddebba48aa1d5a1f4d4ae
+source_revision: 11b8aa485f155a658e5960045fe97e0878f07fd6eb371a471f1440f29be38903
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::ceil_with_prec
 ---
@@ -14,7 +14,7 @@ fn ceil_with_prec (& self , prec : isize) -> Result < Self , DecimalError >
 
 ## Parameter, Rückgabe und übliche Verwendung
 
-prec: isize/ganzzahlige number; Rust liefert Result<Decimal, DecimalError>, die Bridge Decimal oder eine Ausnahme. Negative Präzision liefert InvalidPrecision. Eingaben werden ausgeliehen und bleiben unverändert. Ergebnisse sind auch bei Standardnull initialisiert. Höhere Präzision hängt Nullen an, ohne den Zahlenwert zu ändern.
+prec: isize/ganzzahlige number. Negative Präzision liefert InvalidPrecision. Eingaben werden ausgeliehen und bleiben unverändert. Ergebnisse sind auch bei Standardnull initialisiert. Höhere Präzision hängt Nullen an, ohne den Zahlenwert zu ändern.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

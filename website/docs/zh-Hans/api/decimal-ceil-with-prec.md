@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 2d051b010383c0adad95eaeacec22cce35ee5a02d1fddebba48aa1d5a1f4d4ae
+source_revision: 11b8aa485f155a658e5960045fe97e0878f07fd6eb371a471f1440f29be38903
 api_id: Decimal::ceil_with_prec
 ---
 # Decimal::ceil_with_prec
@@ -13,7 +13,7 @@ fn ceil_with_prec (& self , prec : isize) -> Result < Self , DecimalError >
 
 ## 参数、返回值及常规用法
 
-prec: isize/整数 number；Rust 返回 Result<Decimal, DecimalError>，bridge 返回 Decimal 或抛出错误。负精度返回 InvalidPrecision。输入仅被借用，保持不变。结果已初始化，包括默认零输入。提高精度会追加零，不改变数值。
+prec: isize/整数 number。负精度返回 InvalidPrecision。输入仅被借用，保持不变。结果已初始化，包括默认零输入。提高精度会追加零，不改变数值。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

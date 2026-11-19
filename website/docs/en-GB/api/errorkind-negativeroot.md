@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: e2bc3815435c7e993973dc27c3f32515fd48346d012f56633ed09feff4f0aa99
+source_revision: 5f9f5b98ed8859c985ee6b90bb4024a386c6fbdd6f1c7574c75a2557b8522f16
 translation_provenance: en-US-reviewed-reuse
 api_id: "ErrorKind::NegativeRoot"
 ---
@@ -14,7 +14,7 @@ NegativeRoot
 
 ## Parameters, return and normal usage
 
-An even root was requested for a negative value. ErrorKind is a stable category rather than a message string. Browser enum values are Rust variant names; constructed errors use matches(), while caught bridge exceptions expose a kinds array.
+An even root was requested for a negative value.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

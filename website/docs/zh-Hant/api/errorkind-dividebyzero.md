@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: c5bc8b97bab18c557c0918fb7ad15cabc2fd824c618c469b8f007d1f6299272b
+source_revision: d5c1f534ca8b330824c58556da76c1a087af48c4167345fd17aa17a747039e3a
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: "ErrorKind::DivideByZero"
 ---
@@ -14,7 +14,7 @@ DivideByZero
 
 ## 參數、回傳值及常規用法
 
-除數為零。ErrorKind 是穩定類別，不是錯誤訊息文字。瀏覽器列舉值為 Rust 變體名；建構的錯誤使用 matches()，捕獲的 bridge 異常提供 kinds 陣列。
+除數為零。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

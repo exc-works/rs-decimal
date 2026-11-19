@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 9626ec029554d531f95257728b45431467328baf3b8968c06412f5cc58c689ec
+source_revision: 8e571c100355b6f464b7992d5d9d515f9f9923a4538f1e43b8cc48af4b41a4c7
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::coefficient
 ---
@@ -14,7 +14,7 @@ fn coefficient (& self) -> & BigInt
 
 ## 引数、戻り値、使用上の注意
 
-Rust は &BigInt を借用します。bridge は不変の bigint スナップショットを返し、変更を追跡する参照ではありません。係数には末尾のゼロが含まれ、小数の整数部分とは異なります。例では JSON の全桁を保つため bigint をテキストとして表示します。
+Rust は &BigInt を借用します。JavaScript は不変の bigint スナップショットを返し、変更を追跡する参照ではありません。係数には末尾のゼロが含まれ、小数の整数部分とは異なります。例では JSON の全桁を保つため bigint をテキストとして表示します。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

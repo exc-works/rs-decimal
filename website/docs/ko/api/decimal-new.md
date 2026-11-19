@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: d578df6b6b71b8ce4b0e165f6e630705dc946bcefab55f8b43fc9cba6d60bb70
+source_revision: 94e5c200ef4c48b600cdc1b46dd606d6ca8e9e2741aedbb2bac50f53ac53727e
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::new
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 사용 시 참고 사항
 
-JavaScript number 대신 `12n`을 사용하세요. bridge는 i64 범위 밖의 값을 거부합니다. 소수 값에는 `new_from_string`을 사용하세요.
+JavaScript number 대신 `12n`을 사용하세요. JavaScript는 i64 범위 밖의 값을 거부합니다. 소수 값에는 `new_from_string`을 사용하세요.
 
 ## 관련 메서드
 

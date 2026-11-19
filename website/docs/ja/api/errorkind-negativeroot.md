@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: e2bc3815435c7e993973dc27c3f32515fd48346d012f56633ed09feff4f0aa99
+source_revision: 5f9f5b98ed8859c985ee6b90bb4024a386c6fbdd6f1c7574c75a2557b8522f16
 translation_provenance: en-US-japanese-reviewed
 api_id: "ErrorKind::NegativeRoot"
 ---
@@ -14,7 +14,7 @@ NegativeRoot
 
 ## 引数、戻り値、通常の使い方
 
-負の値に偶数次根を要求しています。ErrorKind はメッセージ文字列ではなく、安定した分類です。ブラウザーの列挙値は Rust のバリアント名です。構築したエラーでは matches() を使い、捕捉した bridge 例外では kinds 配列を使います。
+負の値に偶数次根を要求しています。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

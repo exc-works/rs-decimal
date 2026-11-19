@@ -1,14 +1,11 @@
 ---
 locale: en-GB
-source_revision: cd012116d4b52c3d753afdb334a916afcdf34239a5a89a6aa326b13a592ef135
+source_revision: 637474c992943a95b792c86f50bfa04821ba9ba29fe9dab7696d42ada69cbe84
 translation_provenance: en-US-reviewed-reuse
 ---
 # Playground resource policy
 
-The browser bridge has a deliberately smaller domain than the Rust library.
-A `BridgeError` with `category: "resource"` means a playground budget was reached;
-it is not a numerical-library error. Rust method names, parameter order and
-results within these limits remain unchanged. The core crate is not modified.
+The Playground reports `category: "resource"` when a calculation exceeds one of the limits below.
 
 | Bound | Current value |
 | --- | --- |

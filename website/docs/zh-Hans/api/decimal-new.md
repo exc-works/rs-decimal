@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: d578df6b6b71b8ce4b0e165f6e630705dc946bcefab55f8b43fc9cba6d60bb70
+source_revision: 94e5c200ef4c48b600cdc1b46dd606d6ca8e9e2741aedbb2bac50f53ac53727e
 api_id: Decimal::new
 ---
 # Decimal::new
@@ -23,7 +23,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 使用说明
 
-使用 `12n`，不能传 JavaScript number。bridge 拒绝超出 i64 的值；小数输入应使用 `new_from_string`。
+使用 `12n`，不能传 JavaScript number。JavaScript 拒绝超出 i64 的值；小数输入应使用 `new_from_string`。
 
 ## 相关方法
 

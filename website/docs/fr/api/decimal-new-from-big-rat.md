@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 609e506e194d4140e441e114e8a66b7a118a2cb443c002b71a5be2c8260307ad
+source_revision: ffab3b21dcd7c80e0222f2cd0457116e79f56aafc95fc2ed3c796e423b9661cc
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::new_from_big_rat
 ---
@@ -14,7 +14,7 @@ fn new_from_big_rat (value : & BigRational) -> Result < Self , DecimalError >
 
 ## Paramètres, résultat et utilisation courante
 
-value : &BigRational ; le bridge accepte {numerator: bigint, denominator: bigint}. Le dénominateur doit être non nul, sinon une erreur de paramètre du bridge est produite ; Rust BigRational normalise les signes et réduit les facteurs communs. Seuls les dénominateurs réduits contenant uniquement les facteurs 2 et 5 produisent un développement fini ; d’autres facteurs renvoient InvalidFormat. Le résultat est initialisé. Les contrôles du navigateur interviennent après réduction et limitent l’échelle de sortie et la croissance du coefficient avant la conversion du cœur.
+value : &BigRational ; l’API JavaScript accepte {numerator: bigint, denominator: bigint}. Le dénominateur doit être non nul, sinon une erreur de paramètre de l’API JavaScript est produite ; Rust BigRational normalise les signes et réduit les facteurs communs. Seuls les dénominateurs réduits contenant uniquement les facteurs 2 et 5 produisent un développement fini ; d’autres facteurs renvoient InvalidFormat. Le résultat est initialisé. Les contrôles du navigateur interviennent après réduction et limitent l’échelle de sortie et la croissance du coefficient avant la conversion du cœur.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

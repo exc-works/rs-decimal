@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 72523519c8ccf1aad4c8baebb6ac1ef42e8070b9cc7f7f72b600ff77781eaf4e
+source_revision: 6b629a98b1d0cf789206ec80dbc9b0fea8fe635e292ac636b6d2f18cecfbcd39
 translation_provenance: en-US-japanese-reviewed
 api_id: "ErrorKind::InvalidFormat"
 ---
@@ -14,7 +14,7 @@ InvalidFormat
 
 ## 引数、戻り値、通常の使い方
 
-入力が対応する有限の小数表現ではありません。ErrorKind はメッセージ文字列ではなく、安定した分類です。ブラウザーの列挙値は Rust のバリアント名です。構築したエラーでは matches() を使い、捕捉した bridge 例外では kinds 配列を使います。
+入力が対応する有限の小数表現ではありません。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

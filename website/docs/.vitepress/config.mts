@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { locales } from '../../locales.mjs';
 
+import { referenceLinks } from '../../scripts/reference-links.mjs';
 import { referencePage } from '../../scripts/reference-page.mjs';
 
 import { apiPath, operationGroups, symbols } from '../../scripts/reference-index.mjs';
@@ -34,6 +35,7 @@ function documentationSidebar(lang: string) {
 
 export default defineConfig({
   transformPageData: referencePage,
+  markdown: { config: md => md.use(referenceLinks) },
   title: 'rs-decimal',
   description: 'Exact decimal arithmetic, explicit scale and rounding.',
   base: process.env.DOCS_BASE || '/',

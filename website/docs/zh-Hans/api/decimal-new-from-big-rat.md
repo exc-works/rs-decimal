@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 609e506e194d4140e441e114e8a66b7a118a2cb443c002b71a5be2c8260307ad
+source_revision: ffab3b21dcd7c80e0222f2cd0457116e79f56aafc95fc2ed3c796e423b9661cc
 api_id: Decimal::new_from_big_rat
 ---
 # Decimal::new_from_big_rat
@@ -13,7 +13,7 @@ fn new_from_big_rat (value : & BigRational) -> Result < Self , DecimalError >
 
 ## 参数、返回值及常规用法
 
-value: &BigRational；bridge 接受 {numerator: bigint, denominator: bigint}。分母必须非零，否则为 bridge 参数错误；Rust BigRational 规范化符号并约分。约分后分母只能含因子 2 和 5，才能得到有限小数；其他因子返回 InvalidFormat。结果已初始化。浏览器在约分后、调用核心转换前检查输出精度和系数增长。
+value: &BigRational；JavaScript 接受 {numerator: bigint, denominator: bigint}。分母必须非零，否则为 JavaScript 参数错误；Rust BigRational 规范化符号并约分。约分后分母只能含因子 2 和 5，才能得到有限小数；其他因子返回 InvalidFormat。结果已初始化。浏览器在约分后、调用核心转换前检查输出精度和系数增长。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

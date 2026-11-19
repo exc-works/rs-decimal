@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 636d6e9ec2d1b0cb7be987deb57dc622bb8084f92601482a3b6418a00ec64c8b
+source_revision: d6f697a3d962962b5c45eb345607fbc6629bac0f2d7f0f5c403da5649a7d1d4a
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::round_with_prec
 ---
@@ -14,7 +14,7 @@ fn round_with_prec(&self, prec: isize) -> Result<Self, DecimalError>
 
 ## Paramètre
 
-`prec: isize` — Nombre de décimales. Le bridge accepte un nombre JavaScript entier.
+`prec: isize` — Nombre entier de décimales à conserver.
 
 ## Valeur de retour
 
@@ -24,7 +24,7 @@ Un Decimal initialisé, même pour un zéro par défaut. La valeur est emprunté
 
 ## Erreurs
 
-Une précision négative renvoie `InvalidPrecision`. Le bridge lève l’erreur correspondante.
+Une précision négative renvoie `InvalidPrecision`. L’API JavaScript lève l’erreur correspondante.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

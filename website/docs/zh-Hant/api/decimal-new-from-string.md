@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: ade28fb6fdcde851797c02557b97ea1da6938690477fe011590975bc67fbbf2e
+source_revision: ea81b480a27af3babe08d7b00fe374cc7cd1626376f6bcd3383174c9fcd41789
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::new_from_string
 ---
@@ -14,7 +14,7 @@ fn new_from_string (text : & str) -> Result < Self , DecimalError >
 
 ## 參數和回傳值
 
-`text: &str` 對應 JavaScript `string`。Rust 回傳 `Result<Decimal, DecimalError>`；bridge 回傳 Decimal 或拋出保留程式庫分類的錯誤。
+`text: &str` 對應 JavaScript `string`。
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

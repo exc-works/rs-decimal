@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 6f37682196df5b201aacde1b52aa54d192c469e0d50cfead6f78c24b12704f29
+source_revision: d9bfbd2d29924d270b97f6a4251656ca421cb89e51e3bdcdc1ecdf2cdefab10f
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::truncate_with_prec
 ---
@@ -14,7 +14,7 @@ fn truncate_with_prec (& self , prec : isize) -> Result < Self , DecimalError >
 
 ## Paramètres, résultat et utilisation courante
 
-prec : isize/number entier ; renvoie Result<Decimal, DecimalError> en Rust, et Decimal ou une exception dans le bridge. Une précision négative produit InvalidPrecision. Pour les valeurs négatives, la troncature diffère de floor : -1.5 est tronqué à -1, mais floor donne -2. Les entrées sont empruntées et inchangées. Les résultats sont initialisés, même pour un zéro par défaut en entrée. Augmenter la précision ajoute des zéros sans changer la valeur numérique.
+prec : isize/number entier. Une précision négative produit InvalidPrecision. Pour les valeurs négatives, la troncature diffère de floor : -1.5 est tronqué à -1, mais floor donne -2. Les entrées sont empruntées et inchangées. Les résultats sont initialisés, même pour un zéro par défaut en entrée. Augmenter la précision ajoute des zéros sans changer la valeur numérique.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

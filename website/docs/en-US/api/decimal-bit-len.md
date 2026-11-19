@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 3cc2ce52c4d0ed0d111f2e4df3eea8f2b90cb54656fa97590458dae94eb7b967
+source_revision: cd78c2dcf4b67b04ef802fd73ba3ef0da02aad24d1bb17be5cc5df5d221df3cd
 api_id: Decimal::bit_len
 ---
 # Decimal::bit_len
@@ -13,7 +13,7 @@ fn bit_len (& self) -> usize
 
 ## Parameters, return and normal usage
 
-No parameters; Rust returns usize, the bridge returns number. Scale is not applied and the sign bit is not counted: -1.20 has coefficient -120 and bit length 7. Zero, including default zero, returns 0. This is not the highest set-bit index.
+No parameters; Rust returns usize, JavaScript returns number. Scale is not applied and the sign bit is not counted: -1.20 has coefficient -120 and bit length 7. Zero, including default zero, returns 0. This is not the highest set-bit index.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";
