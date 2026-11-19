@@ -83,6 +83,8 @@ export function createEditor(
     minimap: { enabled: false },
     fontSize: 14,
     scrollBeyondLastLine: false,
+    // A textarea lets keyboard navigation extensions recognize when the user is typing.
+    editContext: false,
     ariaLabel: label,
     tabSize: 2,
     wordWrap: "on",
