@@ -130,9 +130,11 @@ try {
       await page.locator('.monaco-editor .view-line').first().click();
       assert(await page.locator('textarea.inputarea').evaluate(input => document.activeElement === input),
         'keyboard extensions should see an editable text control');
-      await page.keyboard.press('ControlOrMeta+a');
+      // WebKit can present as macOS on a Linux runner. Match Monaco's browser platform.
+      const modifier = await page.evaluate(() => navigator.userAgent.includes('Macintosh') ? 'Meta' : 'Control');
+      await page.keyboard.press(modifier + '+a');
       await page.keyboard.type('console.log("hjkl");');
-      await page.keyboard.press('ControlOrMeta+Enter');
+      await page.keyboard.press(modifier + '+Enter');
       await page.waitForFunction(() => document.querySelector('.pg-output')?.textContent.trim() === 'hjkl');
       await page.setViewportSize({width:390,height:844});
       await page.waitForFunction(() => document.documentElement.scrollWidth <= innerWidth);
