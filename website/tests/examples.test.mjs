@@ -2,6 +2,8 @@ import {readFile,readdir} from 'node:fs/promises';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import init,* as raw from '../public/wasm/decimal.js';
+import { receiptSource, isStockSource } from '../src/editor/receipt.mjs';
+import { locales } from '../locales.mjs';
 import {createBridge} from '../src/bridge/index.js';
 await init({module_or_path:await readFile(new URL('../public/wasm/decimal_bg.wasm',import.meta.url))});
 const bridge=createBridge(raw);
@@ -20,3 +22,17 @@ for(const id of ids){
     assert.deepEqual(value instanceof bridge.Decimal || value instanceof bridge.NullDecimal ? bridge.snapshot(value) : value,example.expected);value.free?.();
   });
 }
+
+test('every starter receipt computes the displayed totals when the quantity changes', () => {
+  for (const lang of Object.keys(locales)) {
+    const starter = receiptSource(lang);
+    assert.ok(isStockSource(starter));
+    for (const [quantity, expected] of [[2, ['9.00', '1.25', '10.25', '9.75']], [3, ['13.50', '1.25', '14.75', '5.25']]]) {
+      const source = starter.replace('Decimal.new(2n)', 'Decimal.new(' + quantity + 'n)');
+      if (quantity === 3) assert.equal(isStockSource(source), false);
+      const lines = [];
+      new Function('Decimal', 'show', source)(bridge.Decimal, line => lines.push(line));
+      assert.deepEqual(lines.map(line => line.split(': ').at(-1)), expected);
+    }
+  }
+});

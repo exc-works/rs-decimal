@@ -1,12 +1,6 @@
 import { sourceValid, LIMITS } from "../runner/protocol.js";
 export const DRAFT_KEY = "rs-decimal:playground:source:v1";
 export const RESULT_KEY = "rs-decimal:playground:result:v1";
-export const DEFAULT_SOURCE = `const price = Decimal.new_from_string("12.350");
-const total = price.mul_exact(Decimal.new(3n));
-show(total);
-assert(total.string() === "37.05");
-show(total.rescale(1, RoundingMode.HalfEven));
-`;
 export function decodeDraft(text) {
   if (typeof text !== "string" || text.length > LIMITS.sourceBytes * 6 + 256)
     throw Error("Invalid draft");
