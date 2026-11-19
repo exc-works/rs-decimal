@@ -1,15 +1,19 @@
 ---
 locale: de
-source_revision: d29c3aeda3724709819c046cd6261680419e70eea479d675983c407094c92b54
+source_revision: 9dbdcebee0aa8b717d5990e56743976e5e18fb73cbd32737b093a37a0ebe40de
+sidebar: false
+aside: false
 ---
 # rs-decimal
 
-Exakte Dezimalrechnung mit expliziter Skala und Rundung.
+rs-decimal ist eine Rust-Bibliothek für die Arbeit mit Dezimalzahlen. Damit lassen sich Preise addieren, Stückpreise mit Mengen multiplizieren und Beträge mit der gewünschten Anzahl an Nachkommastellen ausgeben.
 
-<div class="ref-actions">
+## Was steht auf dem Kassenbon?
 
-[Erste Schritte](./guide) · [API-Katalog](./api/) · [Spielwiese](./playground)
+Zwei Hefte zu je 4,50 plus 1,25 Versand ergeben 10,25. Mit Decimal können Sie den eingegebenen Stückpreis einlesen, den Gesamtbetrag berechnen und ihn auf dem Beleg ausgeben.
 
-</div>
+<div class="receipt-equation">4.50 × 2 + 1.25 = <strong>10.25</strong></div>
 
-<<< ../../../examples/web_getting_started.rs
+- [Die erste Bestellung berechnen](/de/guide)
+- [Die Bestellung im Browser ändern](/de/playground)
+- [Eine Methode im API-Verzeichnis finden](/de/api/)

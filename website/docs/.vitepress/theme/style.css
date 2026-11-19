@@ -26,3 +26,13 @@
 .ref-tasks { border-top: 1px solid var(--vp-c-divider); margin: 1.5rem 0; padding: 1rem 0; display: grid; gap: .6rem; color: var(--vp-c-brand-1); }
 .ref-tasks a:hover, .ref-context a:hover { text-decoration: underline; }
 .ref-actions { display: flex; flex-wrap: wrap; gap: .6rem 1.25rem; margin: 1.25rem 0; }
+
+.receipt-equation {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--vp-c-brand-1);
+  background: var(--vp-c-bg-soft);
+  font: 1.25rem/1.6 var(--vp-font-family-mono);
+}
+.receipt-equation strong { color: var(--vp-c-brand-1); }
+.VPNavBar .VPNavBarTranslations { display: flex; align-items: center; }

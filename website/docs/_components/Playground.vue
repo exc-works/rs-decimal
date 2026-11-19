@@ -6,7 +6,6 @@ import { sourceValid } from "../../src/runner/protocol.js";
 import { session } from "../../src/editor/state";
 import { HANDOFF_KEY, encodeShare, decodeShare, decodeTransfer } from '../../src/editor/transfer.mjs';
 import {
-  DEFAULT_SOURCE,
   DRAFT_KEY,
   RESULT_KEY,
   decodeDraft,
@@ -14,6 +13,7 @@ import {
   decodeResult,
   encodeResult,
 } from "../../src/editor/draft.mjs";
+import { isStockSource, receiptSource } from '../../src/editor/receipt.mjs';
 const props = defineProps<{ locale: string; labels: Record<string, string> }>();
 const { isDark } = useData();
 const editorHost = ref<HTMLElement>();
@@ -106,8 +106,8 @@ function reset() {
   session.kinds = [];
   session.status = "idle";
   session.elapsed = 0;
-  session.source = DEFAULT_SOURCE;
-  editor?.setValue(DEFAULT_SOURCE);
+  session.source = receiptSource(props.locale);
+  editor?.setValue(session.source);
   notice.value = "";
   save();
 }
@@ -190,7 +190,8 @@ const status = computed(() =>
 );
 function pretty(text: string) {
   try {
-    return JSON.stringify(JSON.parse(text), null, 2);
+    const value = JSON.parse(text);
+    return typeof value === "string" ? value : JSON.stringify(value, null, 2);
   } catch {
     return text;
   }
@@ -201,6 +202,7 @@ onMounted(async () => {
   document.addEventListener("visibilitychange", visibilityChanged);
   if (!session.initialized) {
     session.initialized = true;
+    session.source = receiptSource(props.locale);
     try {
       const text = localStorage.getItem(DRAFT_KEY);
       if (text !== null) {
@@ -214,6 +216,10 @@ onMounted(async () => {
       const text = sessionStorage.getItem(RESULT_KEY);
       if (text !== null) Object.assign(session, decodeResult(text));
     } catch {}
+  }
+  const starter = receiptSource(props.locale);
+  if (session.source !== starter && isStockSource(session.source)) {
+    loadTransfer(starter, '');
   }
   // A link takes precedence over a pending local handoff; neither runs code.
   const shared = readShare();
