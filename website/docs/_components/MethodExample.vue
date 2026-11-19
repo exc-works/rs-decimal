@@ -3,6 +3,7 @@ import { computed, ref, watch } from 'vue';
 import { referenceLabels } from '../../reference-labels.mjs';
 import { data } from '../examples.data';
 import MethodForm from './MethodForm.vue';
+import ExampleCode from './ExampleCode.vue';
 const props=defineProps<{id:string,locale:string}>();
 const example=computed(()=>data[props.id]);
 const language = ref('Rust');
@@ -33,10 +34,10 @@ const liveLabels:Record<string,string>={
       <button v-for="name in ['Rust', 'JavaScript']" :key="name" type="button"
               :aria-pressed="language === name" @click="language = name">{{ name }}</button>
     </div>
-    <pre data-example-code><code>{{ language === 'Rust' ? example.rust : example.javascript }}</code></pre>
+    <ExampleCode data-example-code :source="language === 'Rust' ? example.rust : example.javascript"
+                 :language="language === 'Rust' ? 'rust' : 'javascript'" />
     <p v-if="!example.javascript.trim()">{{ example.native_profile === "postgres-live" ? liveLabels[locale] : nativeLabels[locale] }}</p>
-    <p v-if="result !== undefined">{{ referenceLabels[locale].result }} <code>{{ result }}</code></p>
-    <details><summary>{{ labels[locale] }}</summary><pre><code>{{ JSON.stringify(example.expected,null,2) }}</code></pre></details>
+    <details><summary>{{ labels[locale] }} <code v-if="result !== undefined">{{ result }}</code></summary><pre><code>{{ JSON.stringify(example.expected,null,2) }}</code></pre></details>
     <MethodForm v-if="example.javascript.trim()" :key="example.id" :example="example" :locale="locale" />
   </section>
 </template>

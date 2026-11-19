@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: eebc95321692656eeaf68196d3bb7fece103772431d4688264c85fec9c739db3
+source_revision: 60b71a4e750d3835abdec3e2e546f11a77759013f3f84ad31d530c433bd67b11
 ---
 # Playground
 
@@ -16,7 +16,7 @@ import { locales } from "../../locales.mjs";
 <Playground locale="en-GB" :labels="locales['en-GB']" />
 
 ::: details Method examples and sharing
-Method pages provide forms for literal arguments in their shared examples. Parameters follow JavaScript call order; Rust method names and argument order are preserved. The generated preview opens in this editor for complex values and additional calls. The expected state on the method page describes the original example. Form edits survive language changes in this tab.
+Run examples on the method page to try different arguments. Open one in Playground to change the script or share it.
 
 Share creates a URL fragment containing up to 4 KiB of UTF-8 code and the library build commit. The code is not uploaded to a server. A shared link requires the same build, loads without running, and clears previous results. Invalid links leave your current draft intact. Review the code and click Run. Export larger scripts as files; the editor accepts up to 64 KiB. Links can contain any text in your script, so inspect the code before sharing.
 :::
