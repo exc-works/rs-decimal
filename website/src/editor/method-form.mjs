@@ -13,7 +13,7 @@ export function formSource(source, fields, values) {
     else throw Error('Invalid parameter');
     result = result.slice(0, field.start) + literal + result.slice(field.end);
   }
-  result += '\nshow(value);\n';
+  result += '\nconsole.log(value);\n';
   if (!sourceValid(result)) throw Error('Example too large');
   return result;
 }

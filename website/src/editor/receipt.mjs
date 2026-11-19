@@ -55,18 +55,21 @@ const quantity = Decimal.new(2n);
 const subtotal = price.mul_exact(quantity);
 const delivery = Decimal.new_from_string("1.25");
 const total = subtotal.add(delivery);
-show("${subtotal}: " + subtotal.string_with_trailing_zeros());
-show("${delivery}: " + delivery.string_with_trailing_zeros());
-show("${total}: " + total.string_with_trailing_zeros());
+console.log("${subtotal}: " + subtotal.string_with_trailing_zeros());
+console.log("${delivery}: " + delivery.string_with_trailing_zeros());
+console.log("${total}: " + total.string_with_trailing_zeros());
 
 // ${payment}
 const paid = Decimal.new_from_string("20.00");
-show("${change}: " + paid.sub(total).string_with_trailing_zeros());
+console.log("${change}: " + paid.sub(total).string_with_trailing_zeros());
 `;
 }
 
 // Recognize an untouched starter saved by an earlier visit. Custom drafts stay verbatim.
 const stockSources = new Set(Object.keys(translations).map(receiptSource));
+for (const locale of Object.keys(translations)) {
+  stockSources.add(receiptSource(locale).replaceAll('console.log(', 'show('));
+}
 stockSources.add(`const price = Decimal.new_from_string("12.350");
 const total = price.mul_exact(Decimal.new(3n));
 show(total);

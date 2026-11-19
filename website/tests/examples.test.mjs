@@ -27,11 +27,12 @@ test('every starter receipt computes the displayed totals when the quantity chan
   for (const lang of Object.keys(locales)) {
     const starter = receiptSource(lang);
     assert.ok(isStockSource(starter));
+    assert.ok(isStockSource(starter.replaceAll("console.log(", "show(")));
     for (const [quantity, expected] of [[2, ['9.00', '1.25', '10.25', '9.75']], [3, ['13.50', '1.25', '14.75', '5.25']]]) {
       const source = starter.replace('Decimal.new(2n)', 'Decimal.new(' + quantity + 'n)');
       if (quantity === 3) assert.equal(isStockSource(source), false);
       const lines = [];
-      new Function('Decimal', 'show', source)(bridge.Decimal, line => lines.push(line));
+      new Function('Decimal', 'console', source)(bridge.Decimal, {log: line => lines.push(line)});
       assert.deepEqual(lines.map(line => line.split(': ').at(-1)), expected);
     }
   }
