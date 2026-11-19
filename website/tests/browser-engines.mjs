@@ -127,6 +127,13 @@ try {
       assert.equal(await readFile(await download.path(), 'utf8'), source);
       await page.reload(); await ready();
       assert((await output.textContent()).includes('<img'), 'restore saved output without running');
+      await page.locator('.monaco-editor .view-line').first().click();
+      assert(await page.locator('textarea.inputarea').evaluate(input => document.activeElement === input),
+        'keyboard extensions should see an editable text control');
+      await page.keyboard.press('ControlOrMeta+a');
+      await page.keyboard.type('console.log("hjkl");');
+      await page.keyboard.press('ControlOrMeta+Enter');
+      await page.waitForFunction(() => document.querySelector('.pg-output')?.textContent.trim() === 'hjkl');
       await page.setViewportSize({width:390,height:844});
       await page.waitForFunction(() => document.documentElement.scrollWidth <= innerWidth);
       assert.deepEqual(failures, [], `${name}: uncaught page errors`);
