@@ -57,6 +57,16 @@ try:
         return call(f'/session/{session}/execute/sync', {'script': script, 'args': []})
     def navigate(path):
         call(f'/session/{session}/url', {'url': SITE + path})
+    def check_playground_before_search():
+        assert js('''
+            const link = document.querySelector(".VPNavBar .playground-nav");
+            const search = document.querySelector(".VPNavBar .DocSearch-Button");
+            return link.getBoundingClientRect().right <= search.getBoundingClientRect().left;
+        '''), 'Playground should appear before search'
+        js('document.querySelector(".VPNavBar .playground-nav").focus()')
+        call(f'/session/{session}/actions', {'actions': [{'type': 'key', 'id': 'keyboard', 'actions': [
+            {'type': 'keyDown', 'value': '\ue004'}, {'type': 'keyUp', 'value': '\ue004'}]}]})
+        assert js('return document.activeElement.matches(".VPNavBar .DocSearch-Button")'), 'Tab should move from Playground to search'
     def sidebar_group(label):
         js('Array.from(document.querySelectorAll(".VPSidebar .collapsible > .item"))'
            f'.find(item => item.querySelector(".text").textContent === {json.dumps(label)}).click()')
@@ -66,6 +76,7 @@ try:
     assert '10.25' in js('return document.querySelector(".vp-doc").textContent')
     # Expanding the shared tree keeps both the overview and browser history in place.
     until(lambda: js('return !!document.querySelector(".VPSidebar .is-active")'))
+    check_playground_before_search()
     history_length = js('return history.length')
     sidebar_group('API catalogue')
     assert js('return !!document.querySelector(".VPSidebarItem.level-0.collapsible.collapsed")')
@@ -170,6 +181,7 @@ try:
     call(f'/session/{session}/goog/cdp/execute', {'cmd': 'Emulation.setDeviceMetricsOverride', 'params': {'width':320,'height':700,'deviceScaleFactor':1,'mobile':True}})
     for selector in ['.playground-nav', '.VPNavBarHamburger', '.VPNavBarTranslations button']:
         assert js(f'const r=document.querySelector("{selector}").getBoundingClientRect(); return r.width > 0 && r.left >= 0 && r.right <= 320'), selector
+    check_playground_before_search()
     print('Eight locale routes, API filtering, language switching, locale search and mobile layout passed.')
 finally:
     if 'session' in globals():
