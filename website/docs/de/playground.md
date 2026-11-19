@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: eebc95321692656eeaf68196d3bb7fece103772431d4688264c85fec9c739db3
+source_revision: 60b71a4e750d3835abdec3e2e546f11a77759013f3f84ad31d530c433bd67b11
 ---
 # Playground
 
@@ -16,7 +16,7 @@ import { locales } from "../../locales.mjs";
 <Playground locale="de" :labels="locales['de']" />
 
 ::: details Methodenbeispiele und Freigabe
-Methodenseiten bieten Formulare für literale Argumente ihrer gemeinsamen Beispiele. Die Parameter folgen der JavaScript-Aufrufreihenfolge; Rust-Methodennamen und Argumentreihenfolge bleiben erhalten. Öffnen Sie die Vorschau in diesem Editor, um komplexe Werte zu ändern oder Aufrufe hinzuzufügen. Der erwartete Zustand auf der Methodenseite beschreibt das ursprüngliche Beispiel. Formularänderungen bleiben beim Sprachwechsel in diesem Tab erhalten.
+Auf der Methodenseite können Sie die Argumente ändern und das Beispiel ausführen. Öffnen Sie es im Playground, um den Code zu bearbeiten oder zu teilen.
 
 Beim Teilen werden bis zu 4 KiB UTF-8-Code und der Build-Commit der Bibliothek im URL-Fragment gespeichert. Der Code wird nicht an einen Server hochgeladen. Ein Freigabelink erfordert denselben Build, lädt den Code ohne Ausführung und löscht vorherige Ergebnisse. Ungültige Links lassen den aktuellen Entwurf unverändert. Prüfen Sie den Code und klicken Sie auf Ausführen. Exportieren Sie größere Skripte als Datei; der Editor akzeptiert bis zu 64 KiB. Links enthalten den Text Ihres Skripts. Prüfen Sie ihn vor dem Teilen.
 :::

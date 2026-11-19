@@ -70,6 +70,8 @@ try {
         assert.equal(response.status(), 200);
         await page.locator('[data-parameter="0"]').waitFor();
         assert.equal(await page.locator('html').getAttribute('lang'), locale);
+        assert.equal(await page.locator('.VPNavBar .playground-nav').getAttribute('href'), `/rs-decimal/${locale}/playground.html`);
+        assert.equal(await page.locator('#VPSidebarNav a[href$="/playground.html"]').count(), 0);
       }
       await page.goto(`${origin}/rs-decimal/zh-Hans/`);
       await page.locator('.ref-tasks').getByRole('link', {name:'舍入并保留两位小数'}).click();
@@ -79,9 +81,25 @@ try {
       await page.locator('.ref-jump a[href="#members-precision"]').click();
       await page.locator('#members-precision').getByRole('link', {name:'Decimal::round_with_prec', exact:true}).click();
       await page.locator('h2#返回值').waitFor();
+      assert.ok(await page.locator('[data-example-code] .hljs-keyword').count(), 'highlight Rust');
       await page.getByRole('button', {name:'JavaScript', exact:true}).focus();
       await page.keyboard.press('Enter');
       assert.match(await page.locator('[data-example-code]').textContent(), /input\.round_with_prec/);
+      assert.ok(await page.locator('[data-example-code] .hljs-keyword').count(), 'highlight JavaScript');
+      const methodUrl = page.url();
+      const inlineRun = page.locator('[data-action=run-example]');
+      const places = page.locator('[data-parameter="1"]');
+      await places.fill('1');
+      await inlineRun.click();
+      await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent === '-1.2');
+      assert.equal(page.url(), methodUrl);
+      await places.fill('-1');
+      assert.equal(await page.locator('[data-example-output]').count(), 0, 'discard stale results on edit');
+      await inlineRun.click();
+      await page.locator('.method-form [role=alert]').filter({hasText:'InvalidPrecision'}).waitFor();
+      await places.fill('2');
+      await inlineRun.click();
+      await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent === '-1.24');
       await page.locator('[data-action=open-example]').click();
       await page.locator('[data-action=run]:enabled').click();
       await page.waitForFunction(() => document.querySelector('.pg-output')?.textContent.includes('-1.24'));

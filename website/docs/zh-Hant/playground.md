@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: eebc95321692656eeaf68196d3bb7fece103772431d4688264c85fec9c739db3
+source_revision: 60b71a4e750d3835abdec3e2e546f11a77759013f3f84ad31d530c433bd67b11
 ---
 # Playground
 
@@ -16,7 +16,7 @@ import { locales } from "../../locales.mjs";
 <Playground locale="zh-Hant" :labels="locales['zh-Hant']" />
 
 ::: details 方法範例與分享
-方法頁面提供共用範例的常值參數表單。參數依 JavaScript 呼叫順序排列，保留 Rust 的方法名稱與參數順序。產生的程式碼可在此編輯器中繼續修改複雜值或新增呼叫。方法頁面的預期狀態對應原始範例。在本分頁切換語言後會保留表單修改。
+在方法頁可直接修改參數並執行範例。需要編輯整段程式碼或分享時，再用 Playground 開啟。
 
 分享功能將最多 4 KiB 的 UTF-8 程式碼與程式庫建置提交編號放入 URL 片段，不會將程式碼上傳至伺服器。分享連結需要相同的建置版本，載入時會清除先前的結果，但不會自動執行。無效連結會保留目前的草稿。檢查程式碼後按下執行。較大的腳本請匯出為檔案；編輯器最多接受 64 KiB。連結會包含腳本中的文字，分享前請檢查程式碼。
 :::
