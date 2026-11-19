@@ -61,6 +61,8 @@ export function rustFields(javascript, rust, fields) {
   if (js.length !== rs.length || js.some((t, i) => t.key !== rs[i].key)) return null;
   return fields.map(field => {
     const start = js.findIndex(t => t.start === field.start), end = js.findIndex(t => t.end === field.end);
-    return { ...field, start: rs[start].start, end: rs[end].end };
+    const span = { start: rs[start].start, end: rs[end].end };
+    const integer = field.type === 'number' && /^-?\d+$/.test(rust.slice(span.start, span.end));
+    return { ...field, ...span, integer };
   });
 }

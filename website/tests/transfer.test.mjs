@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
-import { methodInputs } from '../scripts/method-inputs.mjs';
-import { formSource } from '../src/editor/method-form.mjs';
+import { methodInputs, rustFields } from '../scripts/method-inputs.mjs';
+import { formSource, previewParts } from '../src/editor/method-form.mjs';
 import { encodeShare, decodeShare, encodeTransfer, decodeTransfer } from '../src/editor/transfer.mjs';
 const commit = 'a'.repeat(40);
 test('shared code is Unicode-exact and rejects another build, schema and malformed input', () => {
@@ -47,4 +47,16 @@ test('every runnable shared fixture produces a valid default form without changi
     count++;
   }
   assert.equal(count, 232);
+});
+
+test('project JavaScript integer spellings onto valid Rust literals', () => {
+  const js = 'const value = Decimal.new_from_int(12);';
+  const rust = 'let value = Decimal::new_from_int(12);';
+  const inputs = rustFields(js, rust, methodInputs(js));
+  for (const text of ['1e2', '100.0']) {
+    const parts = previewParts(rust, inputs, [text], 'rust');
+    assert.equal(parts.find(part => part.changed).text, '100');
+    assert.equal(parts.map(part => part.text).join(''), 'let value = Decimal::new_from_int(100);');
+  }
+  assert.throws(() => previewParts(rust, inputs, ['1.25'], 'rust'));
 });

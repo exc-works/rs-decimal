@@ -17,18 +17,24 @@ watch(example, current => {
 const changed = computed(() => example.value?.inputs.some((field, i) => field.value !== values.value[i]));
 function edit(next: string[]) {
   values.value = next;
-  if (changed.value && !example.value.rustInputs) language.value = 'JavaScript';
+  if (changed.value && !rustPreview.value) language.value = 'JavaScript';
 }
 const script = computed(() => {
   if (!example.value) return null;
   try { return formSource(example.value.javascript, example.value.inputs, values.value); }
   catch { return null; }
 });
+const rustPreview = computed(() => {
+  const current = example.value;
+  if (!current?.rustInputs) return null;
+  try { return previewParts(current.rust, current.rustInputs, values.value, 'rust'); }
+  catch { return null; }
+});
 const parts = computed(() => {
   const current = example.value;
   if (!current || script.value === null) return [];
   if (language.value === 'JavaScript') return previewParts(current.javascript, current.inputs, values.value, 'javascript');
-  return current.rustInputs ? previewParts(current.rust, current.rustInputs, values.value, 'rust') : [{ text: current.rust }];
+  return rustPreview.value ?? [{ text: current.rust }];
 });
 const labels = computed(() => locales[props.locale]);
 const result = computed(() => {
@@ -54,7 +60,7 @@ const liveLabels:Record<string,string>={
     <h3>{{ referenceLabels[locale].example }}</h3>
     <div v-if="example.javascript.trim()" class="languages" role="group" :aria-label="referenceLabels[locale].example">
       <button v-for="name in ['Rust', 'JavaScript']" :key="name" type="button"
-              :aria-pressed="language === name" @click="language = name">{{ name === 'Rust' && changed && !example.rustInputs ? labels.rustOriginal : name }}</button>
+              :aria-pressed="language === name" @click="language = name">{{ name === 'Rust' && changed && !rustPreview ? labels.rustOriginal : name }}</button>
     </div>
     <ExampleCode v-if="script !== null" data-example-code :source="parts.map(part => part.text).join('')" :parts="parts"
                  :language="language === 'Rust' ? 'rust' : 'javascript'" />

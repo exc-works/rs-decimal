@@ -7,6 +7,7 @@ function literal(field, value, language) {
   if (field.type === 'string') {
     const quoted = JSON.stringify(value);
     if (!rust) return quoted;
+    if (/[\uD800-\uDFFF]/u.test(value)) throw Error('Rust strings require Unicode scalar values');
     return quoted.replace(/\\(?:[\\"/bfnrt]|u[\da-f]{4})/gi, escape => {
       if (escape === '\\b') return '\\u{8}';
       if (escape === '\\f') return '\\u{c}';
@@ -16,7 +17,15 @@ function literal(field, value, language) {
   }
   if (field.type === 'rounding' && Object.hasOwn(RoundingMode, value)) return 'RoundingMode' + (rust ? '::' : '.') + value;
   if (field.type === 'bigint' && /^-?(?:0|[1-9]\d*)$/.test(value)) return value + (rust ? '' : 'n');
-  if (field.type === 'number' && /^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:e[+-]?\d+)?$/i.test(value) && Number.isFinite(Number(value))) return value;
+  if (field.type === 'number' && /^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:e[+-]?\d+)?$/i.test(value) && Number.isFinite(Number(value))) {
+    if (!rust) return value;
+    const number = Number(value);
+    if (field.integer) {
+      if (!Number.isSafeInteger(number)) throw Error('Not a Rust integer');
+      return String(number);
+    }
+    return /[.e]/i.test(value) ? value : value + '.0';
+  }
   if (field.type === 'boolean' && ['true', 'false'].includes(value)) return value;
   throw Error('Invalid parameter');
 }
