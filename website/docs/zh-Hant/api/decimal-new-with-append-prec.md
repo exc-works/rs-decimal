@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 5a350c30c073c772c4921158a8a0d829d4480ae375ec35f7532a213f3f45e557
+source_revision: 845ec62ddce327ca5b797a7a47302c991bc3fbeb2f329134a32bdc0e5d88f53e
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::new_with_append_prec
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 使用說明
 
-`string()` 輸出 12，`string_with_trailing_zeros()` 輸出 12.00。與 `new_with_prec` 不同，數值不會變成 0.12。負 precision 回傳 `InvalidPrecision`；過大的請求在分配十次冪之前被拒絕。
+`string()` 輸出 12，`string_with_trailing_zeros()` 輸出 12.00。與 `new_with_prec` 不同，數值不會變成 0.12。負 precision 回傳 `InvalidPrecision`。
 
 ## 相關方法
 

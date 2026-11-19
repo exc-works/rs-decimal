@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 2264e63e21d4ba0bb0732ee23526e08fc191d66bd401bfd2f899bab466b9c36e
+source_revision: ade28fb6fdcde851797c02557b97ea1da6938690477fe011590975bc67fbbf2e
 api_id: Decimal::new_from_string
 ---
 # Decimal::new_from_string
@@ -23,7 +23,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 使用说明
 
-输入会去掉首尾空白，可包含符号和指数。小数点两边都必须有数字，分隔符始终是 `.`，不随界面语言改变。非零值保留尾零，但 `"0.00"` 会规范化为已初始化的 scale 为零的零。错误语法返回 `InvalidFormat`；指数展开后可能触及独立的 Playground 资源限制。
+输入会去掉首尾空白，可包含符号和指数。小数点两边都必须有数字，分隔符始终是 `.`，不随界面语言改变。非零值保留尾零，但 `"0.00"` 会规范化为已初始化的 scale 为零的零。错误语法返回 `InvalidFormat`。
 
 ## 相关方法
 

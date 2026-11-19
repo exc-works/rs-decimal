@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: cc346dbc73e3d203c64f61c0e3e68ec08682dec8479c74ee4ea48b4441aef5c2
+source_revision: 41da382d7882f55308ed631f052fb5ac78093f335752392d35d023f744890035
 api_id: Decimal::new_from_big_int
 ---
 # Decimal::new_from_big_int
@@ -23,7 +23,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## Usage notes
 
-Do not convert a JavaScript number to bigint after it has already lost precision; start with an integer literal ending in `n` or exact integer text. The playground accepts at most 4096 input digits; the native library is not subject to this playground policy.
+Do not convert a JavaScript number to bigint after it has already lost precision; start with an integer literal ending in `n` or exact integer text.
 
 ## Related methods
 

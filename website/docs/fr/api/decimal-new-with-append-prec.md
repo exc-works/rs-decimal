@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 5a350c30c073c772c4921158a8a0d829d4480ae375ec35f7532a213f3f45e557
+source_revision: 845ec62ddce327ca5b797a7a47302c991bc3fbeb2f329134a32bdc0e5d88f53e
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::new_with_append_prec
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## Conseils d’utilisation
 
-`string()` affiche 12 ; `string_with_trailing_zeros()` affiche 12.00. Contrairement à `new_with_prec`, la valeur numérique ne devient pas 0.12. Une précision négative produit `InvalidPrecision` ; les demandes trop grandes sont rejetées avant l’allocation des puissances de dix.
+`string()` affiche 12 ; `string_with_trailing_zeros()` affiche 12.00. Contrairement à `new_with_prec`, la valeur numérique ne devient pas 0.12. Une précision négative produit `InvalidPrecision`.
 
 ## Méthodes associées
 

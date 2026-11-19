@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: cc346dbc73e3d203c64f61c0e3e68ec08682dec8479c74ee4ea48b4441aef5c2
+source_revision: 41da382d7882f55308ed631f052fb5ac78093f335752392d35d023f744890035
 api_id: Decimal::new_from_big_int
 ---
 # Decimal::new_from_big_int
@@ -23,7 +23,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 使用说明
 
-不要先用 JavaScript number 丢失精度后再转 bigint；应直接使用以 `n` 结尾的整数字面量或精确整数文本。Playground 最多接受 4096 位输入数字；原生库不受此 Playground 策略限制。
+不要先用 JavaScript number 丢失精度后再转 bigint；应直接使用以 `n` 结尾的整数字面量或精确整数文本。
 
 ## 相关方法
 

@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 7a4da4f8ddb22857191bcc95e49dde5161555ab6aaf013e72ff12ef5cff5913d
+source_revision: 89b834d2c11952f4f6bb0f4503b5e891bf052db7e48a72abe6c367e79b9b8c68
 api_id: Decimal::new_from_big_int_with_prec
 ---
 # Decimal::new_from_big_int_with_prec
@@ -23,7 +23,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## Usage notes
 
-This changes the interpretation of the coefficient, not its digits. Negative precision is `InvalidPrecision`. The playground independently limits input digits and scale; `resource` errors do not indicate loss of numerical precision.
+This changes the interpretation of the coefficient, not its digits. Negative precision is `InvalidPrecision`.
 
 ## Related methods
 

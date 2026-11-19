@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 7a4da4f8ddb22857191bcc95e49dde5161555ab6aaf013e72ff12ef5cff5913d
+source_revision: 89b834d2c11952f4f6bb0f4503b5e891bf052db7e48a72abe6c367e79b9b8c68
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::new_from_big_int_with_prec
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## Conseils d’utilisation
 
-Cela change l’interprétation du coefficient, pas ses chiffres. Une précision négative produit `InvalidPrecision`. Le playground limite séparément les chiffres d’entrée et l’échelle ; les erreurs `resource` ne signalent pas une perte de précision numérique.
+Cela change l’interprétation du coefficient, pas ses chiffres. Une précision négative produit `InvalidPrecision`.
 
 ## Méthodes associées
 
