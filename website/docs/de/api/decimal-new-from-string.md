@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 2264e63e21d4ba0bb0732ee23526e08fc191d66bd401bfd2f899bab466b9c36e
+source_revision: ade28fb6fdcde851797c02557b97ea1da6938690477fe011590975bc67fbbf2e
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::new_from_string
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## Hinweise zur Verwendung
 
-Äußerer Leerraum wird entfernt; Vorzeichen und Exponent sind erlaubt. Auf beiden Seiten des Dezimalpunkts sind Ziffern nötig. Das Trennzeichen ist unabhängig von der Oberflächensprache stets `.`. Bei Werten ungleich null bleiben nachgestellte Nullen erhalten, aber `"0.00"` wird zur initialisierten Null mit Skala null normalisiert. Ungültige Syntax liefert `InvalidFormat`; expandierte Eingaben können die separate Ressourcengrenze des Playgrounds erreichen.
+Äußerer Leerraum wird entfernt; Vorzeichen und Exponent sind erlaubt. Auf beiden Seiten des Dezimalpunkts sind Ziffern nötig. Das Trennzeichen ist unabhängig von der Oberflächensprache stets `.`. Bei Werten ungleich null bleiben nachgestellte Nullen erhalten, aber `"0.00"` wird zur initialisierten Null mit Skala null normalisiert. Ungültige Syntax liefert `InvalidFormat`.
 
 ## Verwandte Methoden
 

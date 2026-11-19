@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 6eb93b97fb5de84f7620ea6f0aa7d8d8ce7bbe38e3bab65b24ca028dc1ed97cd
+source_revision: 368adfaeea00a469d274e0e87fc3e84f66ca2848d32cfd8759858b2bac06fe99
 api_id: "ErrorKind::Overflow"
 ---
 # ErrorKind::Overflow
@@ -13,7 +13,7 @@ Overflow
 
 ## Parameters, return and normal usage
 
-A coefficient, scale or operation exceeds the core supported range. Browser resource errors are separate. ErrorKind is a stable category rather than a message string. Browser enum values are Rust variant names; constructed errors use matches(), while caught bridge exceptions expose a kinds array.
+A coefficient, scale or operation exceeds the core supported range. ErrorKind is a stable category rather than a message string. Browser enum values are Rust variant names; constructed errors use matches(), while caught bridge exceptions expose a kinds array.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

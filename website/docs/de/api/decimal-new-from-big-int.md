@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: cc346dbc73e3d203c64f61c0e3e68ec08682dec8479c74ee4ea48b4441aef5c2
+source_revision: 41da382d7882f55308ed631f052fb5ac78093f335752392d35d023f744890035
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::new_from_big_int
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## Hinweise zur Verwendung
 
-Wandeln Sie eine JavaScript number nicht erst nach einem Genauigkeitsverlust in bigint um. Beginnen Sie mit einem auf `n` endenden Ganzzahlliteral oder exaktem Ganzzahltext. Der Playground akzeptiert höchstens 4096 Eingabeziffern; diese Playground-Regel gilt nicht für die native Bibliothek.
+Wandeln Sie eine JavaScript number nicht erst nach einem Genauigkeitsverlust in bigint um. Beginnen Sie mit einem auf `n` endenden Ganzzahlliteral oder exaktem Ganzzahltext.
 
 ## Verwandte Methoden
 

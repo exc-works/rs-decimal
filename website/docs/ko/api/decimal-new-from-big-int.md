@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: cc346dbc73e3d203c64f61c0e3e68ec08682dec8479c74ee4ea48b4441aef5c2
+source_revision: 41da382d7882f55308ed631f052fb5ac78093f335752392d35d023f744890035
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::new_from_big_int
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 사용 시 참고 사항
 
-이미 정밀도를 잃은 JavaScript number를 나중에 bigint로 바꾸지 마세요. `n`으로 끝나는 정수 리터럴이나 정확한 정수 텍스트에서 시작하세요. playground 입력은 최대 4096자리이며, 네이티브 라이브러리에는 이 playground 전용 제한이 없습니다.
+이미 정밀도를 잃은 JavaScript number를 나중에 bigint로 바꾸지 마세요. `n`으로 끝나는 정수 리터럴이나 정확한 정수 텍스트에서 시작하세요.
 
 ## 관련 메서드
 

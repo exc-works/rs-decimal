@@ -167,6 +167,9 @@ try:
     js('document.querySelector(".VPSidebar a[href$=\'/decimal-sub.html\']").click()')
     until(lambda: js('return location.pathname') == '/rs-decimal/zh-Hans/api/decimal-sub.html')
     until(lambda: js('return !document.querySelector(".VPSidebar.open")'))
+    call(f'/session/{session}/goog/cdp/execute', {'cmd': 'Emulation.setDeviceMetricsOverride', 'params': {'width':320,'height':700,'deviceScaleFactor':1,'mobile':True}})
+    for selector in ['.playground-nav', '.VPNavBarHamburger', '.VPNavBarTranslations button']:
+        assert js(f'const r=document.querySelector("{selector}").getBoundingClientRect(); return r.width > 0 && r.left >= 0 && r.right <= 320'), selector
     print('Eight locale routes, API filtering, language switching, locale search and mobile layout passed.')
 finally:
     if 'session' in globals():

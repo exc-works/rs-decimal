@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 7a4da4f8ddb22857191bcc95e49dde5161555ab6aaf013e72ff12ef5cff5913d
+source_revision: 89b834d2c11952f4f6bb0f4503b5e891bf052db7e48a72abe6c367e79b9b8c68
 api_id: Decimal::new_from_big_int_with_prec
 ---
 # Decimal::new_from_big_int_with_prec
@@ -23,7 +23,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 使用说明
 
-此方法改变系数的小数位解释，不改变系数本身的数字。负 precision 返回 `InvalidPrecision`。Playground 独立限制输入位数和 scale；`resource` 错误不表示数值精度损失。
+此方法改变系数的小数位解释，不改变系数本身的数字。负 precision 返回 `InvalidPrecision`。
 
 ## 相关方法
 

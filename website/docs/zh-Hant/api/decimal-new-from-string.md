@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 2264e63e21d4ba0bb0732ee23526e08fc191d66bd401bfd2f899bab466b9c36e
+source_revision: ade28fb6fdcde851797c02557b97ea1da6938690477fe011590975bc67fbbf2e
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::new_from_string
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 使用說明
 
-輸入會去掉首尾空白，可包含符號和指數。小數點兩邊都必須有數字，分隔符始終是 `.`，不隨介面語言改變。非零值保留尾零，但 `"0.00"` 會正規化為已初始化的 scale 為零的零。錯誤語法回傳 `InvalidFormat`；指數展開後可能觸及獨立的 Playground 資源限制。
+輸入會去掉首尾空白，可包含符號和指數。小數點兩邊都必須有數字，分隔符始終是 `.`，不隨介面語言改變。非零值保留尾零，但 `"0.00"` 會正規化為已初始化的 scale 為零的零。錯誤語法回傳 `InvalidFormat`。
 
 ## 相關方法
 

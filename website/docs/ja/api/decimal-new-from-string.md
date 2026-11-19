@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 2264e63e21d4ba0bb0732ee23526e08fc191d66bd401bfd2f899bab466b9c36e
+source_revision: ade28fb6fdcde851797c02557b97ea1da6938690477fe011590975bc67fbbf2e
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::new_from_string
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 使い方の補足
 
-入力の前後の空白は除去され、符号と指数を含められます。小数点の両側には数字が必要です。区切りは UI 言語に関係なく常に `.` です。ゼロ以外の値では末尾のゼロを保持しますが、`"0.00"` はスケール 0 の初期化済みゼロに正規化します。不正な構文は `InvalidFormat` です。展開後の入力は別途 playground のリソース制限に達することがあります。
+入力の前後の空白は除去され、符号と指数を含められます。小数点の両側には数字が必要です。区切りは UI 言語に関係なく常に `.` です。ゼロ以外の値では末尾のゼロを保持しますが、`"0.00"` はスケール 0 の初期化済みゼロに正規化します。不正な構文は `InvalidFormat` です。
 
 ## 関連メソッド
 

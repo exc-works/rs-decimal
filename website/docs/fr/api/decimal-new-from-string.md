@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 2264e63e21d4ba0bb0732ee23526e08fc191d66bd401bfd2f899bab466b9c36e
+source_revision: ade28fb6fdcde851797c02557b97ea1da6938690477fe011590975bc67fbbf2e
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::new_from_string
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## Conseils d’utilisation
 
-Les espaces aux extrémités sont supprimés ; l’entrée peut contenir un signe et un exposant. Des chiffres sont nécessaires de part et d’autre du point décimal. Le séparateur reste `.`, quelle que soit la langue de l’interface. Les zéros finaux des valeurs non nulles sont conservés, mais `"0.00"` est normalisé en zéro initialisé d’échelle zéro. Une syntaxe incorrecte produit `InvalidFormat` ; l’expansion des entrées peut atteindre la limite de ressources distincte du playground.
+Les espaces aux extrémités sont supprimés ; l’entrée peut contenir un signe et un exposant. Des chiffres sont nécessaires de part et d’autre du point décimal. Le séparateur reste `.`, quelle que soit la langue de l’interface. Les zéros finaux des valeurs non nulles sont conservés, mais `"0.00"` est normalisé en zéro initialisé d’échelle zéro. Une syntaxe incorrecte produit `InvalidFormat`.
 
 ## Méthodes associées
 

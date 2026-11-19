@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 5a350c30c073c772c4921158a8a0d829d4480ae375ec35f7532a213f3f45e557
+source_revision: 845ec62ddce327ca5b797a7a47302c991bc3fbeb2f329134a32bdc0e5d88f53e
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::new_with_append_prec
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 사용 시 참고 사항
 
-`string()`은 12를, `string_with_trailing_zeros()`는 12.00을 출력합니다. `new_with_prec`와 달리 수치가 0.12로 바뀌지 않습니다. 음수 정밀도는 `InvalidPrecision`이며 큰 요청은 10의 거듭제곱을 할당하기 전에 거부합니다.
+`string()`은 12를, `string_with_trailing_zeros()`는 12.00을 출력합니다. `new_with_prec`와 달리 수치가 0.12로 바뀌지 않습니다. 음수 정밀도는 `InvalidPrecision`입니다.
 
 ## 관련 메서드
 

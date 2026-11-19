@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 6d142adfffddbbc67008e17859ebe097a896ff7983bb306596fd170c8b867b28
+source_revision: 50b84c140827ca9ee14623ef754490d47ed0de164e4d5e55011356b86e00545d
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::shift
 ---
@@ -14,7 +14,7 @@ fn shift (& self , places : isize) -> Result < Self , DecimalError >
 
 ## Parameters, return and normal usage
 
-places: isize/integer number. Positive places move the decimal point right; negative places move it left. This changes the numerical value, unlike rescale. The core returns Overflow when a nonzero shift produces scale above i32::MAX. Browser growth/scale checks can instead return a separate resource error before allocation. Even shift(0) initializes default zero.
+places: isize/integer number. Positive places move the decimal point right; negative places move it left. This changes the numerical value, unlike rescale. The core returns Overflow when a nonzero shift produces scale above i32::MAX. Even shift(0) initializes default zero.
 
 <script setup>
 import MethodExample from "../../_components/MethodExample.vue";

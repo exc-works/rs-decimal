@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 276b5ccc2b5a962810bbd0b08cd40698f00e48d79a517b96783f1d6cae65ea86
+source_revision: 1f2a665c28ead224f75ed902dd02b6b36626040f13db084f643088b5ff82188f
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::new_from_uint_with_append_prec
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## Conseils d’utilisation
 
-Les valeurs négatives ou hors plage sont des erreurs de paramètre du bridge. Une précision négative produit `InvalidPrecision` ; une précision trop grande atteint la limite de ressources distincte du playground. Examinez la sortie avec zéros finaux pour voir les décimales ajoutées.
+Les valeurs négatives ou hors plage sont des erreurs de paramètre du bridge. Une précision négative produit `InvalidPrecision`. Examinez la sortie avec zéros finaux pour voir les décimales ajoutées.
 
 ## Méthodes associées
 

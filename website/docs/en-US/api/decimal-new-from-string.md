@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 2264e63e21d4ba0bb0732ee23526e08fc191d66bd401bfd2f899bab466b9c36e
+source_revision: ade28fb6fdcde851797c02557b97ea1da6938690477fe011590975bc67fbbf2e
 api_id: Decimal::new_from_string
 ---
 # Decimal::new_from_string
@@ -23,7 +23,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## Usage notes
 
-Input is trimmed and may contain a sign and exponent. Both sides of a decimal point require digits. The separator is always `.`, independent of UI language. Nonzero trailing zeros are retained, but `"0.00"` normalizes to initialized scale-zero zero. Invalid syntax is `InvalidFormat`; expanded inputs can hit the separate playground resource limit.
+Input is trimmed and may contain a sign and exponent. Both sides of a decimal point require digits. The separator is always `.`, independent of UI language. Nonzero trailing zeros are retained, but `"0.00"` normalizes to initialized scale-zero zero. Invalid syntax is `InvalidFormat`.
 
 ## Related methods
 

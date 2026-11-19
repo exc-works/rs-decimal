@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 7a4da4f8ddb22857191bcc95e49dde5161555ab6aaf013e72ff12ef5cff5913d
+source_revision: 89b834d2c11952f4f6bb0f4503b5e891bf052db7e48a72abe6c367e79b9b8c68
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::new_from_big_int_with_prec
 ---
@@ -24,7 +24,7 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 ## 使用說明
 
-此方法改變係數的小數位解釋，不改變係數本身的數字。負 precision 回傳 `InvalidPrecision`。Playground 獨立限制輸入位數和 scale；`resource` 錯誤不表示數值精度損失。
+此方法改變係數的小數位解釋，不改變係數本身的數字。負 precision 回傳 `InvalidPrecision`。
 
 ## 相關方法
 
