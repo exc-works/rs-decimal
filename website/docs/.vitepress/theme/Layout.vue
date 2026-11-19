@@ -41,9 +41,9 @@ const groups = computed(() => {
 
 <template>
   <DefaultTheme.Layout>
-    <template #sidebar-nav-before>
+    <template #sidebar-nav-after>
       <nav v-if="reference?.current && !reference.operation" class="ref-context" :aria-label="locales[lang].api">
-        <a :href="catalogue">{{ locales[lang].api }}</a>
+        <a :href="catalogue">{{ labels.all }}</a>
         <a v-if="reference.parent" :href="withBase(reference.parent.href)">{{ reference.parent.id }}</a>
         <strong>{{ labels[reference.current.group] }}</strong>
         <a v-for="item in reference.siblings" :key="item.id" :href="withBase(item.href)"
@@ -52,7 +52,7 @@ const groups = computed(() => {
     </template>
     <template #doc-before>
       <nav v-if="reference?.current" class="ref-path" :aria-label="locales[lang].api">
-        <a :href="catalogue">{{ locales[lang].api }}</a>
+        <a :href="catalogue">{{ labels.all }}</a>
         <template v-if="reference.parent"> / <a :href="withBase(reference.parent.href)">{{ reference.parent.id }}</a></template>
         / {{ labels[reference.operation ?? reference.current.group] }}
       </nav>

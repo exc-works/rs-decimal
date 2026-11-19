@@ -25,7 +25,11 @@
 .ref-jump a { text-decoration: underline; }
 .ref-tasks { border-top: 1px solid var(--vp-c-divider); margin: 1.5rem 0; padding: 1rem 0; display: grid; gap: .6rem; color: var(--vp-c-brand-1); }
 .ref-tasks a:hover, .ref-context a:hover { text-decoration: underline; }
-.ref-actions { display: flex; flex-wrap: wrap; gap: .6rem 1.25rem; margin: 1.25rem 0; }
+.ref-actions p { display: flex; flex-wrap: wrap; gap: .6rem; }
+.ref-actions a { padding: .45rem 1rem; border: 1px solid var(--vp-c-divider); border-radius: 6px; text-decoration: none; }
+.ref-actions a:first-child { background: var(--vp-button-brand-bg); color: var(--vp-button-brand-text); }
+.ref-actions a:first-child:hover { background: var(--vp-button-brand-hover-bg); color: var(--vp-button-brand-hover-text); }
+.ref-actions a:hover { border-color: var(--vp-c-brand-1); }
 
 .receipt-equation {
   margin: 1.5rem 0;

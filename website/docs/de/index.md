@@ -1,7 +1,6 @@
 ---
 locale: de
-source_revision: 9dbdcebee0aa8b717d5990e56743976e5e18fb73cbd32737b093a37a0ebe40de
-sidebar: false
+source_revision: 92be186c5740ac6d22b3ca742b8ced1f5ab7822e9ab835f05db11a750bdadf79
 aside: false
 ---
 # rs-decimal
@@ -14,6 +13,9 @@ Zwei Hefte zu je 4,50 plus 1,25 Versand ergeben 10,25. Mit Decimal können Sie d
 
 <div class="receipt-equation">4.50 × 2 + 1.25 = <strong>10.25</strong></div>
 
-- [Die erste Bestellung berechnen](/de/guide)
-- [Die Bestellung im Browser ändern](/de/playground)
-- [Eine Methode im API-Verzeichnis finden](/de/api/)
+<div class="ref-actions">
+
+[Die erste Bestellung berechnen](/de/guide)
+[Die Bestellung im Browser ändern](/de/playground)
+
+</div>

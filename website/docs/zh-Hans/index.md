@@ -1,7 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 9dbdcebee0aa8b717d5990e56743976e5e18fb73cbd32737b093a37a0ebe40de
-sidebar: false
+source_revision: 92be186c5740ac6d22b3ca742b8ced1f5ab7822e9ab835f05db11a750bdadf79
 aside: false
 ---
 # rs-decimal
@@ -14,6 +13,9 @@ rs-decimal 是一个用 Rust 处理十进制数的库。你可以用它把几笔
 
 <div class="receipt-equation">4.50 × 2 + 1.25 = <strong>10.25</strong></div>
 
-- [跟着算一张小票](/zh-Hans/guide)
-- [在浏览器里改数量、看结果](/zh-Hans/playground)
-- [按操作查找 API 方法](/zh-Hans/api/)
+<div class="ref-actions">
+
+[跟着算一张小票](/zh-Hans/guide)
+[在浏览器里改数量、看结果](/zh-Hans/playground)
+
+</div>

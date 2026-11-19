@@ -1,7 +1,6 @@
 ---
 locale: fr
-source_revision: 9dbdcebee0aa8b717d5990e56743976e5e18fb73cbd32737b093a37a0ebe40de
-sidebar: false
+source_revision: 92be186c5740ac6d22b3ca742b8ced1f5ab7822e9ab835f05db11a750bdadf79
 aside: false
 ---
 # rs-decimal
@@ -14,6 +13,9 @@ Deux carnets à 4,50 pièce et 1,25 de livraison donnent un total de 10,25. Deci
 
 <div class="receipt-equation">4.50 × 2 + 1.25 = <strong>10.25</strong></div>
 
-- [Calculer son premier total](/fr/guide)
-- [Modifier la commande dans le navigateur](/fr/playground)
-- [Trouver une méthode dans la référence API](/fr/api/)
+<div class="ref-actions">
+
+[Calculer son premier total](/fr/guide)
+[Modifier la commande dans le navigateur](/fr/playground)
+
+</div>

@@ -1,7 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 9dbdcebee0aa8b717d5990e56743976e5e18fb73cbd32737b093a37a0ebe40de
-sidebar: false
+source_revision: 92be186c5740ac6d22b3ca742b8ced1f5ab7822e9ab835f05db11a750bdadf79
 aside: false
 ---
 # rs-decimal
@@ -14,6 +13,9 @@ rs-decimal 是用 Rust 處理十進位數的函式庫。你可以用它加總金
 
 <div class="receipt-equation">4.50 × 2 + 1.25 = <strong>10.25</strong></div>
 
-- [動手算一張收據](/zh-Hant/guide)
-- [在瀏覽器裡改數量、看結果](/zh-Hant/playground)
-- [依操作查找 API 方法](/zh-Hant/api/)
+<div class="ref-actions">
+
+[動手算一張收據](/zh-Hant/guide)
+[在瀏覽器裡改數量、看結果](/zh-Hant/playground)
+
+</div>
