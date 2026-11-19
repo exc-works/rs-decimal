@@ -1,5 +1,14 @@
 name: CI
-on: [push, pull_request]
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+  push:
+    branches: [main]
+    tags: ['**']
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 permissions:
   contents: read
 jobs:
@@ -60,7 +69,7 @@ jobs:
       - run: python3 tools/check-baseline.py --source .cache/go-source
       - run: python3 tools/check-release-matrix.py
       - run: python3 tools/test-baseline.py --source .cache/go-source
-      - run: go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.7 -shellcheck= .github/workflows/ci.yml .github/workflows/fuzz.yml
+      - run: go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.7 -shellcheck= .github/workflows/*.yml
   conformance:
     runs-on: ubuntu-latest
     steps:
