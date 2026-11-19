@@ -36,3 +36,8 @@
 }
 .receipt-equation strong { color: var(--vp-c-brand-1); }
 .VPNavBar .VPNavBarTranslations { display: flex; align-items: center; }
+
+.operation-group { border-bottom: 1px solid var(--vp-c-divider); }
+.operation-group summary { cursor: pointer; padding: .7rem .25rem; font-weight: 600; }
+.operation-group dl { margin: 0 0 1rem 1.25rem; }
+.operation-group dd { margin: .15rem 0 .65rem; color: var(--vp-c-text-2); }

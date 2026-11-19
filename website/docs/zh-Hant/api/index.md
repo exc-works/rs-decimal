@@ -1,10 +1,10 @@
 ---
 locale: zh-Hant
-source_revision: b0ed31c9fd5b925f380c834184c84a74d9c454dd7b30cb7cce9e6b371d0d2219
+source_revision: 974636c006525c0dc2f0ef33be87e64d33379c470023c0c2d4923ca3b0f63d0a
 ---
 # API 目錄
 
-本清單從 Rust 原始碼擷取，包含方法、型別、欄位、列舉成員、trait 與 re-export。項目總數不等於可執行方法數量。規劃中項目尚未實作；僅 Rust 項目提供原生用法範例，不在瀏覽器執行。
+展開一項操作即可比較各個方法的用途。知道 Rust 方法名稱時，也可以直接搜尋。
 
 <script setup>
 import ApiInventory from "../../_components/ApiInventory.vue";

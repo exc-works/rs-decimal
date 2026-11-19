@@ -52,7 +52,7 @@ try:
             return False
     until(ready)
     session = call('/session', {'capabilities': {'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': 'eager', 'goog:chromeOptions': {
-        'binary': os.environ['TEST_CHROME_BINARY'], 'args': ['--headless=new', '--window-size=1440,1000'] + (['--no-sandbox'] if sys.platform.startswith('linux') else [])}}}})['sessionId']
+        'binary': os.environ['TEST_CHROME_BINARY'], 'prefs': {'intl.accept_languages': 'en-US,en'}, 'args': ['--headless=new', '--window-size=1440,1000'] + (['--no-sandbox'] if sys.platform.startswith('linux') else [])}}}})['sessionId']
     def js(script):
         return call(f'/session/{session}/execute/sync', {'script': script, 'args': []})
     def navigate(path):
@@ -78,6 +78,13 @@ try:
         js('const el=document.querySelector("#api-query"); el.value="mul_exact"; el.dispatchEvent(new Event("input",{bubbles:true}));')
         until(lambda: 0 < js('return document.querySelectorAll("tbody tr").length') < count)
         assert js('return [...document.querySelectorAll("tbody tr")].every(x=>x.textContent.includes("mul_exact"))')
+    navigate('zh-Hans/api/')
+    js('Array.from(document.querySelectorAll(".operation-group summary")).find(x=>x.textContent==="加法").click()')
+    links = js('return Array.from(document.querySelectorAll(".operation-group[open] a")).map(a=>a.textContent)')
+    assert links == ['add', 'safe_add', 'add_raw', 'add_owned'], links
+    js('document.querySelector(".operation-group[open] a").click()')
+    until(lambda: js('return location.pathname') == '/rs-decimal/zh-Hans/api/decimal-add.html')
+    until(lambda: js('return [...document.querySelectorAll(".VPSidebar a")].some(a=>a.pathname.endsWith("/decimal-safe-add.html"))'))
     core_locales = ['en-US', 'zh-Hans', 'en-GB'] + [locale for locale, owners in groups.items() if '*' in owners or 'WEB-07a' in owners]
     for locale in core_locales:
         navigate(f'{locale}/api/decimal-new-with-prec.html')

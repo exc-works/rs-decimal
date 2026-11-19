@@ -1,10 +1,10 @@
 ---
 locale: en-US
-source_revision: b0ed31c9fd5b925f380c834184c84a74d9c454dd7b30cb7cce9e6b371d0d2219
+source_revision: 974636c006525c0dc2f0ef33be87e64d33379c470023c0c2d4923ca3b0f63d0a
 ---
 # API catalogue
 
-This inventory is extracted from the Rust source, including methods, types, fields, variants, traits and re-exports. The count is not a count of runnable methods. Planned entries are not yet implemented; Rust-only entries require a native usage example rather than browser execution.
+Choose an operation to compare its methods. If you know the Rust name, enter it in the search box.
 
 <script setup>
 import ApiInventory from "../../_components/ApiInventory.vue";

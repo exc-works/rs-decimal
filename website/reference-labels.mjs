@@ -12,3 +12,18 @@ const labels = {
 labels['en-GB'] = labels['en-US'];
 export const referenceLabels = Object.fromEntries(Object.entries(labels).map(([lang, row]) =>
   [lang, Object.fromEntries(row.split('|').map((label, index) => [keys[index], label]))]));
+
+const operations = {
+  'en-US': ['Browse by operation', 'Addition', 'Subtraction', 'Multiplication', 'Division', 'Remainders', 'Powers and roots', 'Logarithms and exponentials', 'Sign and decimal shifts'],
+  'zh-Hans': ['按操作查找', '加法', '减法', '乘法', '除法', '取余', '乘方与开方', '对数与指数', '符号与小数点移动'],
+  'zh-Hant': ['依操作查找', '加法', '減法', '乘法', '除法', '取餘數', '乘方與開根號', '對數與指數', '正負號與小數點移位'],
+  fr: ['Par opération', 'Addition', 'Soustraction', 'Multiplication', 'Division', 'Restes', 'Puissances et racines', 'Logarithmes et exponentielles', 'Signe et décalage décimal'],
+  de: ['Nach Rechenoperation', 'Addition', 'Subtraktion', 'Multiplikation', 'Division', 'Restberechnung', 'Potenzen und Wurzeln', 'Logarithmen und Exponentialfunktion', 'Vorzeichen und Dezimalverschiebung'],
+  ja: ['操作から探す', '加算', '減算', '乗算', '除算', '剰余', '累乗と根', '対数と指数', '符号と小数点の移動'],
+  ko: ['연산별로 찾기', '덧셈', '뺄셈', '곱셈', '나눗셈', '나머지', '거듭제곱과 근', '로그와 지수', '부호와 소수점 이동'],
+};
+operations['en-GB'] = operations['en-US'];
+const operationKeys = ['operations', 'addition', 'subtraction', 'multiplication', 'division', 'remainders', 'powers', 'logs', 'signs'];
+for (const [lang, values] of Object.entries(operations)) {
+  operationKeys.forEach((key, index) => { referenceLabels[lang][key] = values[index]; });
+}

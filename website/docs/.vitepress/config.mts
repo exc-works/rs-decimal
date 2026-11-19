@@ -5,6 +5,16 @@ import { locales } from '../../locales.mjs';
 
 import { referencePage } from '../../scripts/reference-page.mjs';
 
+import { apiPath, operationGroups } from '../../scripts/reference-index.mjs';
+import { referenceLabels } from '../../reference-labels.mjs';
+
+function operationSidebar(lang: string) {
+  return operationGroups.map(({ key, items }) => ({
+    text: referenceLabels[lang][key], collapsed: true,
+    items: items.map(item => ({ text: item.id.slice('Decimal::'.length), link: apiPath(lang, item) })),
+  }));
+}
+
 export default defineConfig({
   transformPageData: referencePage,
   title: 'rs-decimal',
@@ -12,6 +22,7 @@ export default defineConfig({
   base: process.env.DOCS_BASE || '/',
   cleanUrls: false,
   lastUpdated: true,
+  metaChunk: true,
   vite: { publicDir: fileURLToPath(new URL('../../public', import.meta.url)), define: { __PLAYGROUND_CONFIG__: JSON.stringify({runnerUrl:(process.env.DOCS_BASE || '/') + 'runner/',commit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim()}) } },
   locales: Object.fromEntries(Object.entries(locales).map(([lang, text]) => [lang, {
     lang,
@@ -25,13 +36,16 @@ export default defineConfig({
         { text: text.glossary, link: `/${lang}/glossary` },
         { text: text.playground, link: `/${lang}/playground` },
       ],
-      sidebar: [{ text: text.docs, items: [
-        { text: text.home, link: `/${lang}/` },
-        { text: text.guide, link: `/${lang}/guide` },
-        { text: text.api, link: `/${lang}/api/` },
-        { text: text.glossary, link: `/${lang}/glossary` },
-        { text: text.playground, link: `/${lang}/playground` },
-      ] }],
+      sidebar: {
+        [`/${lang}/api/`]: [{ text: text.api, link: `/${lang}/api/`, items: operationSidebar(lang) }],
+        [`/${lang}/`]: [{ text: text.docs, items: [
+          { text: text.home, link: `/${lang}/` },
+          { text: text.guide, link: `/${lang}/guide` },
+          { text: text.api, link: `/${lang}/api/` },
+          { text: text.glossary, link: `/${lang}/glossary` },
+          { text: text.playground, link: `/${lang}/playground` },
+        ] }],
+      },
       outline: { label: text.onThisPage },
       docFooter: { prev: text.previous, next: text.next },
       lastUpdated: { text: text.updated },

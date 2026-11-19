@@ -1,10 +1,10 @@
 ---
 locale: ja
-source_revision: b0ed31c9fd5b925f380c834184c84a74d9c454dd7b30cb7cce9e6b371d0d2219
+source_revision: 974636c006525c0dc2f0ef33be87e64d33379c470023c0c2d4923ca3b0f63d0a
 ---
 # API 一覧
 
-Rust ソースから抽出したメソッド、型、フィールド、列挙型の要素、trait、再エクスポートの一覧です。総数は実行可能なメソッド数ではありません。予定の項目は未実装です。Rust 専用の項目にはネイティブの使用例を用意します。
+操作を開くと、メソッドごとの用途を比較できます。Rust の名前が分かっている場合は検索できます。
 
 <script setup>
 import ApiInventory from "../../_components/ApiInventory.vue";

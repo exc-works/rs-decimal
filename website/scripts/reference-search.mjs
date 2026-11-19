@@ -7,6 +7,7 @@ export function searchReference(items, query, labels) {
     if (id === term) return 0;
     if (id.split(/::|\./).at(-1) === term) return 1;
     if (id.includes(term)) return 2;
+    if (labels[item.operation]?.toLowerCase().includes(term)) return 3;
     if (item.task?.toLowerCase().includes(term)) return 3;
     if (item.summary.toLowerCase().includes(term) || labels[item.group].toLowerCase().includes(term)) return 4;
     return Infinity;
