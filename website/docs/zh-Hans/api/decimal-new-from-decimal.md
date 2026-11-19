@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 37b6ebebec69abdf2809e71eb7e3cad7353a792a069c7217103a51f2eea16c7f
+source_revision: 3e32f687004e72286fa606992f7977ccbc210f3d36756c6006ab536cd5091f5a
 api_id: Decimal::new_from_decimal
 ---
 # Decimal::new_from_decimal
@@ -21,11 +21,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-decimal" locale="zh-Hans" />
 
-## 用法注意事项和边界
+## 使用说明
 
 复制 `Decimal::default()` 会保留未初始化状态，不会变成已初始化的零。JavaScript 必须传入同一次运行中仍有效的 Decimal；此构造器不消耗它。
-
-浏览器还应用[资源限制](../resource-policy)。JavaScript 参数在调用 Rust 前进行类型及范围检查。
 
 ## 相关方法
 

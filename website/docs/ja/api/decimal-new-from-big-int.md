@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: e8f2b09a741088cc99921865f54ef434d0d70ac376d4e29b7efc3c00a51c3956
+source_revision: cc346dbc73e3d203c64f61c0e3e68ec08682dec8479c74ee4ea48b4441aef5c2
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::new_from_big_int
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-big-int" locale="ja" />
 
-## 使用上の注意と制約
+## 使い方の補足
 
 精度を失った JavaScript number を後から bigint に変換しないでください。末尾が `n` の整数リテラルか、正確な整数テキストから始めてください。playground の入力は最大 4096 桁です。ネイティブライブラリにはこの playground 固有の制限はありません。
-
-ブラウザーは[リソースポリシー](../resource-policy)も適用します。JavaScript 入力は Rust の呼び出し前に検証します。
 
 ## 関連メソッド
 

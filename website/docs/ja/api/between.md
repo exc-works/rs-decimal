@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 4488da41f235921047e8f85b8a68b47bc497bf199529326773333d8f22d38585
+source_revision: 536eae84e3e9c7c0c702cbcb339f82c64bf0aafab561d4a3f87590939cb52d8e
 translation_provenance: en-US-japanese-reviewed
 api_id: between
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="helper-between" locale="ja" />
-
-## 制約
-
-bridge は Rust の名前と引数の順序を保持します。自由関数は playground で直接使用できます。借用入力を消費したり変更したりせず、不正なハンドルや別の実行のハンドルは拒否します。すべての操作は[リソースポリシー](../resource-policy)に従います。
 
 ## 関連メソッド
 

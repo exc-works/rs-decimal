@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 821c4c23615da2c03d94630c3843c11502e27fc2644faac01dc3a81234b52029
+source_revision: c7bf1c667592f8239154dc21841d27e0f4e94230da52fdab553a96aeaa5e48bf
 api_id: Decimal::float32
 ---
 # Decimal::float32
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="conversion-decimal-float32" locale="en-US" />
-
-## Browser boundaries
-
-Integer transport does not pass through lossy JS numbers. Conversion tuples retain Rust value/flag order; false does not promise an exact result. Borrowed inputs remain unchanged and constructors initialize results. The [resource policy](../resource-policy) bounds integer inputs, output scale and rational coefficient growth separately from library errors. Rust import syntax is explicitly labeled as native-tested.
 
 ## Related methods
 

@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 3ef0ab66b1050d81978ffe9504c298d164d62d052b64bfd1ad02ddce4a039f36
+source_revision: 2264e63e21d4ba0bb0732ee23526e08fc191d66bd401bfd2f899bab466b9c36e
 api_id: Decimal::new_from_string
 ---
 # Decimal::new_from_string
@@ -21,11 +21,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-string" locale="zh-Hans" />
 
-## 用法注意事项和边界
+## 使用说明
 
 输入会去掉首尾空白，可包含符号和指数。小数点两边都必须有数字，分隔符始终是 `.`，不随界面语言改变。非零值保留尾零，但 `"0.00"` 会规范化为已初始化的 scale 为零的零。错误语法返回 `InvalidFormat`；指数展开后可能触及独立的 Playground 资源限制。
-
-浏览器还应用[资源限制](../resource-policy)。JavaScript 参数在调用 Rust 前进行类型及范围检查。
 
 ## 相关方法
 

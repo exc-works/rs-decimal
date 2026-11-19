@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: c98261b50ba3febe344cea19fd963c1739045fe7ff1872b278b97c36e7fef20b
+source_revision: c3fbe0927c540d91118929ccf7291b490ab739216719c7655f9f81744f8edff3
 api_id: Decimal::format_with_separators
 ---
 # Decimal::format_with_separators
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="formatting-decimal-format-with-separators" locale="zh-Hans" />
-
-## 浏览器边界
-
-遵循 [资源限制](../resource-policy)：格式宽度最多 65536 字节，precision 最多 1000，固定格式还检查系数增长。缓冲区总长最多 65536 字节，追加前使用保守长度估计，因此可能拒绝实际可容纳的临界操作。资源错误不会改变输入或缓冲区。print 对长文本另有显示上限；需要检查完整输出时可读取 length 或分段打印。
 
 ## 相关方法
 

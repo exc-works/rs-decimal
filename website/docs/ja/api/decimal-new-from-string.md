@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 3ef0ab66b1050d81978ffe9504c298d164d62d052b64bfd1ad02ddce4a039f36
+source_revision: 2264e63e21d4ba0bb0732ee23526e08fc191d66bd401bfd2f899bab466b9c36e
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::new_from_string
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-string" locale="ja" />
 
-## 使用上の注意と制約
+## 使い方の補足
 
 入力の前後の空白は除去され、符号と指数を含められます。小数点の両側には数字が必要です。区切りは UI 言語に関係なく常に `.` です。ゼロ以外の値では末尾のゼロを保持しますが、`"0.00"` はスケール 0 の初期化済みゼロに正規化します。不正な構文は `InvalidFormat` です。展開後の入力は別途 playground のリソース制限に達することがあります。
-
-ブラウザーは[リソースポリシー](../resource-policy)も適用します。JavaScript 入力は Rust の呼び出し前に検証します。
 
 ## 関連メソッド
 

@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: b9b1d10da5aca99066127a0b0f1b72dc4589201f0d6b4df7f7823433f8faad44
+source_revision: 725ef7f08917b0c306a1f269aaa8e188bc4212046b8491281df04a8f33b0e006
 translation_provenance: en-US-reviewed-reuse
 api_id: "DecimalError::impl fmt :: Display::fmt"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-decimalerror-impl-fmt-display-fmt" locale="en-GB" />
-
-## Browser boundaries
-
-SQL text/byte input and error messages are capped at 8192 UTF-8 bytes. SQL text is [resource-checked](../resource-policy) after removing outer quotes, so quoting cannot bypass exponent limits. Borrowed calls preserve inputs; consumed or disposed handles cannot be reused. Rust trait/import examples run in native tests and do not claim browser method support.
 
 ## Related methods
 

@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 4812fffbe74c100e5632736fe3ca1c5dd726efa9358bb2ca70cc5db51e55bd14
+source_revision: cc1566925b96baa324fb64a51eba19d80177bb315f68b0f6a9ee1d05c6da9807
 api_id: Decimal::exp
 ---
 # Decimal::exp
@@ -18,10 +18,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="log-exp-decimal-exp" locale="zh-Hans" />
-
-## 浏览器边界
-
-这组方法有额外的 [资源限制](../resource-policy)：输出精度最多 128，输入 scale 最多 256，输入系数最多 4096 个二进制位。exp 的普通计算还要求绝对值不超过 64；核心可直接证明舍入为零的负输入保留快速路径。较大的输入 scale 可能使无参数方法的默认精度超过 128，可用 with_prec 明确选择允许的输出精度。资源错误与库的 NoConvergence 不同。运行可通过 Stop 中断；重新运行使用新的 Wasm 实例。
 
 ## 相关方法
 

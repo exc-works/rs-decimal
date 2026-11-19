@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 7e14f36bf17f5e06d930d4aefd01137eff4589a325eb7eee0237e89f396a3ba8
+source_revision: 5a350c30c073c772c4921158a8a0d829d4480ae375ec35f7532a213f3f45e557
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::new_with_append_prec
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-with-append-prec" locale="zh-Hant" />
 
-## 用法注意事項和邊界
+## 使用說明
 
 `string()` 輸出 12，`string_with_trailing_zeros()` 輸出 12.00。與 `new_with_prec` 不同，數值不會變成 0.12。負 precision 回傳 `InvalidPrecision`；過大的請求在分配十次冪之前被拒絕。
-
-瀏覽器還應用[資源限制](../resource-policy)。JavaScript 參數在呼叫 Rust 前進行類型及範圍檢查。
 
 ## 相關方法
 

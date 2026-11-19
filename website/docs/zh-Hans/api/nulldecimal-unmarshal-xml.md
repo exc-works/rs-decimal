@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: bb5fda951c514c30196177535ed36df93d91d15de5889b17222eea8aae392724
+source_revision: e94c40441044730df649ba261de89daead4c5ce018d30a42e07e0ff558def35c
 api_id: "NullDecimal::unmarshal_xml"
 ---
 # NullDecimal::unmarshal_xml
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="yaml-xml-nulldecimal-unmarshal-xml" locale="zh-Hans" />
-
-## 浏览器边界
-
-源输入最多 8192 个 UTF-8 字节。Rust 在核心数值解析之前检查解码后的首个 YAML 标量或 XML 元素文本，包含转义、CDATA、下划线归一化及 YAML 浮点补零。YAML 标量最多 4096 个十六进制数字字符，以限制进制整数分配；保守检查可能拒绝原生库可接受的输入。scale、系数和调用次数遵循 [资源限制](../resource-policy)。已移动的句柄不能再读写。
 
 ## 相关方法
 

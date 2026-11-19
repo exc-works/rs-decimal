@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 9743ba1e89051026e818a070b86183de419a65ca646afc51459afa17731968b9
+source_revision: b7ff1544694c51babb7af7cb99735ecc6687d86e9cd9a108af321bed93252beb
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::int_part
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="arithmetic-decimal-int-part" locale="fr" />
-
-## Limites du navigateur
-
-Les entrées sont empruntées et restent utilisables après une réussite ou une erreur ordinaire. Les Decimal renvoyés possèdent des données indépendantes ; les résultats arithmétiques sont initialisés. Le navigateur vérifie la [politique de ressources](../resource-policy) avant d’appeler le cœur : alignement, produits intermédiaires, mise à l’échelle de la division et précision de sortie. Ces contrôles conservateurs peuvent rejeter un calcul dont le résultat final est petit. Les erreurs de ressources restent distinctes des erreurs numériques de la bibliothèque ; un panic termine l’exécution.
 
 ## Méthodes associées
 

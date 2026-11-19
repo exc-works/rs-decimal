@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: bf618b8d345d150746683bfe2d04e5a166f48e4917e60db9f1d6a2719994d91a
+source_revision: 7a4da4f8ddb22857191bcc95e49dde5161555ab6aaf013e72ff12ef5cff5913d
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::new_from_big_int_with_prec
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-big-int-with-prec" locale="ja" />
 
-## 使用上の注意と制約
+## 使い方の補足
 
 係数の数字自体ではなく、係数の解釈を変更します。負の精度は `InvalidPrecision` です。playground は入力桁数とスケールを独立に制限します。`resource` エラーは数値精度の損失を意味しません。
-
-ブラウザーは[リソースポリシー](../resource-policy)も適用します。JavaScript 入力は Rust の呼び出し前に検証します。
 
 ## 関連メソッド
 

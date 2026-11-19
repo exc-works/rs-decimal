@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 2f8f701187893878a876b218458ba92b8464c997083c08e62c584ef14b118454
+source_revision: 276b5ccc2b5a962810bbd0b08cd40698f00e48d79a517b96783f1d6cae65ea86
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::new_from_uint_with_append_prec
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-uint-with-append-prec" locale="fr" />
 
-## Remarques et limites
+## Conseils d’utilisation
 
 Les valeurs négatives ou hors plage sont des erreurs de paramètre du bridge. Une précision négative produit `InvalidPrecision` ; une précision trop grande atteint la limite de ressources distincte du playground. Examinez la sortie avec zéros finaux pour voir les décimales ajoutées.
-
-Le navigateur applique également la [politique de ressources](../resource-policy). Les entrées JavaScript sont validées avant l’appel à Rust.
 
 ## Méthodes associées
 

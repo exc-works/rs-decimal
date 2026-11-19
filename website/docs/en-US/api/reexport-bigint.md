@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: 8110d2fd30808fd737c3f5730a5be2d19cf89f407f5d688859de476689342458
+source_revision: f07542c46478fd9edd09bbf3af9bd03d15608eb33e9ed99beb51b022df098d6a
 api_id: reexport::BigInt
 ---
 # reexport::BigInt
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="conversion-reexport-bigint" locale="en-US" />
-
-## Browser boundaries
-
-Integer transport does not pass through lossy JS numbers. Conversion tuples retain Rust value/flag order; false does not promise an exact result. Borrowed inputs remain unchanged and constructors initialize results. The [resource policy](../resource-policy) bounds integer inputs, output scale and rational coefficient growth separately from library errors. Rust import syntax is explicitly labeled as native-tested.
 
 ## Related methods
 

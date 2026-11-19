@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: c53d31ac9dfb8dc26b4afb525bc6137c7550c4f8da653022910d8a3650f5e27f
+source_revision: df43bbe7e732dc8914c18a95d0b5d68a3839eb4a2b1c83d4dc811e0031827a91
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: GoFormat::impl Clone
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="formatting-goformat-impl-clone" locale="zh-Hant" />
-
-## 瀏覽器邊界
-
-遵循 [資源限制](../resource-policy)：格式寬度最多 65536 位元組，precision 最多 1000，固定格式還檢查係數增長。緩衝區總長最多 65536 位元組，追加前使用保守長度估計，因此可能拒絕實際可容納的臨界操作。資源錯誤不會改變輸入或緩衝區。print 對長文字另有顯示上限；需要檢查完整輸出時可讀取 length 或分段輸出。
 
 ## 相關方法
 

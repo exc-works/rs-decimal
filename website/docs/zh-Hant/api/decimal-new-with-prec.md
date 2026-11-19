@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 78d4bcb73439eeefbcaa373b59f6572230d9fd809bde6e3821566e584e60e547
+source_revision: 2cba3a645b36c53756ae013b43e89956dee5ee0f736cbeccecbeb94e8966c7b4
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::new_with_prec
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-with-prec" locale="zh-Hant" />
 
-## 用法注意事項和邊界
+## 使用說明
 
 precision 表示小數位數，不是有效位數位數。它不會在保持整數值不變的前提下追加零；需要 12.00 時使用 `new_with_append_prec`。負 precision 回傳 `InvalidPrecision`，零係數也保留指定 scale。
-
-瀏覽器還應用[資源限制](../resource-policy)。JavaScript 參數在呼叫 Rust 前進行類型及範圍檢查。
 
 ## 相關方法
 

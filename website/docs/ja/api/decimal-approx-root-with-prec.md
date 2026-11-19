@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 3553acc8fce2edd77d63d567220e36aee7b664b18f15fee50a17c4ee358a3283
+source_revision: 8eec4d40194be2cd158d623391729d3b1e9d3b0532af669f3499b5168782b68c
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::approx_root_with_prec
 ---
@@ -19,10 +19,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="roots-decimal-approx-root-with-prec" locale="ja" />
-
-## ブラウザーの制約
-
-[リソースポリシー](../resource-policy)は出力スケールを 1000 に制限します。非自明な累乗根の次数は最大 128 で、スケール調整、Newton 法の累乗、中間点の証明の中間値を事前検査します。ゼロ、符号付き単位値、次数 1 の根はコアの高速経路を保持しますが、出力精度の制限には従います。定義域と負の精度のエラーはライブラリの動作を保持し、リソースエラーは NoConvergence と区別します。各入力が有効でも、すべての次数と精度の組み合わせがブラウザーの上限内とは限りません。
 
 ## 関連メソッド
 

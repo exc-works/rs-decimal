@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 753b858d717076ef46e98ae0c0b43697fb31b0651286396a37e7378758f67207
+source_revision: 5f7a180e14ebabfd6785a42604765a6ece20be12513e46794eb1f0299f911006
 translation_provenance: en-US-japanese-reviewed
 api_id: "NullDecimal::string"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="text-json-nulldecimal-string" locale="ja" />
-
-## ブラウザーの制約
-
-デコーダー入力は 8192 バイトまでです。パラメーター文字列も Wasm へのコピー前に長さを確認します。Rust はテキストとデコード済み JSON 文字列に[小数のリソースポリシー](../resource-policy)を再適用するため、エスケープで指数やスケールの上限を回避できません。不正な UTF-8、JSON／小数構文の診断はコアが行います。入力エラーやリソースエラーでレシーバーが部分的に更新されることはありません。ムーブ済みのラッパーは読み取りも変更もできません。
 
 ## 関連メソッド
 

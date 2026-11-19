@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: c8e9892bcbbaa01844a1c6c7f625a7680f4f756c37b722e825b006201909c45f
+source_revision: 7350b5ad5bfd585c249094865cd49a6bad71c645ac5e1b3b72695308a1cc7d0a
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::log10_with_prec
 ---
@@ -19,10 +19,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="log-exp-decimal-log10-with-prec" locale="fr" />
-
-## Limites du navigateur
-
-Cette famille impose des [limites de ressources](../resource-policy) supplémentaires : précision de sortie de 128 au maximum, échelle d’entrée de 256 au maximum et coefficient d’entrée de 4096 bits au maximum. Le calcul ordinaire de exp exige aussi une entrée de valeur absolue au plus 64 ; les entrées négatives dont le cœur prouve l’arrondi direct à zéro conservent ce chemin rapide. Une grande échelle d’entrée peut conduire une méthode sans argument à choisir une précision par défaut supérieure à 128 ; utilisez with_prec pour choisir explicitement une précision de sortie autorisée. Les erreurs de ressources diffèrent de NoConvergence du cœur. Stop interrompt l’exécution ; la suivante crée une nouvelle instance Wasm.
 
 ## Méthodes associées
 

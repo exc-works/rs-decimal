@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 78d4bcb73439eeefbcaa373b59f6572230d9fd809bde6e3821566e584e60e547
+source_revision: 2cba3a645b36c53756ae013b43e89956dee5ee0f736cbeccecbeb94e8966c7b4
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::new_with_prec
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-with-prec" locale="ja" />
 
-## 使用上の注意と制約
+## 使い方の補足
 
 精度は有効数字ではなく、小数点以下の桁数です。整数の数値を保ってゼロを追加するものではありません。12.00 には `new_with_append_prec` を使います。負の精度は `InvalidPrecision` です。係数がゼロでも指定したスケールを保持します。
-
-ブラウザーは[リソースポリシー](../resource-policy)も適用します。JavaScript 入力は Rust の呼び出し前に検証します。
 
 ## 関連メソッド
 

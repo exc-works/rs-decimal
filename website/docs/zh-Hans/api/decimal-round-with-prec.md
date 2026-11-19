@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 9cb35d36232b48dfa841cf9ea23e2fcf6d9b36b6ef45c2f68538158901813e1b
+source_revision: 636d6e9ec2d1b0cb7be987deb57dc622bb8084f92601482a3b6418a00ec64c8b
 api_id: Decimal::round_with_prec
 ---
 # Decimal::round_with_prec
@@ -30,10 +30,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="rounding-decimal-round-with-prec" locale="zh-Hans" />
-
-## 浏览器边界
-
-所有整数参数必须位于 wasm32 对应范围。浏览器还施加 [资源限制](../resource-policy)，包括目标小数位数、系数增长及调用次数。资源错误与数值库错误分开报告。借用方法不会消耗输入；仅 Rust 的 trait 语法明确标注为原生测试。
 
 ## 相关方法
 

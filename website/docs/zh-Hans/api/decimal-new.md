@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: fe9121bf755dd82c88fc1274dc43b09d6173d99c7a22441eb84bc6a73587fa71
+source_revision: d578df6b6b71b8ce4b0e165f6e630705dc946bcefab55f8b43fc9cba6d60bb70
 api_id: Decimal::new
 ---
 # Decimal::new
@@ -21,11 +21,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new" locale="zh-Hans" />
 
-## 用法注意事项和边界
+## 使用说明
 
 使用 `12n`，不能传 JavaScript number。bridge 拒绝超出 i64 的值；小数输入应使用 `new_from_string`。
-
-浏览器还应用[资源限制](../resource-policy)。JavaScript 参数在调用 Rust 前进行类型及范围检查。
 
 ## 相关方法
 

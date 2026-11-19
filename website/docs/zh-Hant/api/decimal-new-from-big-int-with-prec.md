@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: bf618b8d345d150746683bfe2d04e5a166f48e4917e60db9f1d6a2719994d91a
+source_revision: 7a4da4f8ddb22857191bcc95e49dde5161555ab6aaf013e72ff12ef5cff5913d
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::new_from_big_int_with_prec
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-big-int-with-prec" locale="zh-Hant" />
 
-## 用法注意事項和邊界
+## 使用說明
 
 此方法改變係數的小數位解釋，不改變係數本身的數字。負 precision 回傳 `InvalidPrecision`。Playground 獨立限制輸入位數和 scale；`resource` 錯誤不表示數值精度損失。
-
-瀏覽器還應用[資源限制](../resource-policy)。JavaScript 參數在呼叫 Rust 前進行類型及範圍檢查。
 
 ## 相關方法
 

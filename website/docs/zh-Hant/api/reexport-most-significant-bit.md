@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: fe0a2cbd7e86aa455f6274096dc78e80786ab081e8fd78826b22f34970a7dfa9
+source_revision: 4dbb3243d87fbea749c6125aa317b428f042277042cac2013a35af18c6318228
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: reexport::most_significant_bit
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="conversion-reexport-most-significant-bit" locale="zh-Hant" />
-
-## 瀏覽器邊界
-
-整數不會經過有損的 JS number 轉換。轉換元組按 Rust 順序保留值和旗標；旗標為 false 時不能假定結果精確。借用輸入保持不變，建構結果已初始化。[資源限制](../resource-policy) 限制整數輸入、輸出精度及有理數係數增長，與程式庫錯誤分開報告。僅 Rust 匯入語法的範例標記為原生測試。
 
 ## 相關方法
 

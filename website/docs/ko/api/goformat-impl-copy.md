@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: c07644d3e3d75d66141539a54d5f6c78026aea2ec5a96a31f2d985d0d9ec6fc0
+source_revision: d5ce77b83bcc1f28279c44d6d96fc602e4eb59aa65aad6eb814e4e715f060309
 translation_provenance: en-US-korean-reviewed
 api_id: GoFormat::impl Copy
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="formatting-goformat-impl-copy" locale="ko" />
-
-## 브라우저 제한
-
-[리소스 정책](../resource-policy)은 서식 폭을 65536바이트, 정밀도를 1000으로 제한하며 고정소수점 서식은 계수 증가도 검사합니다. 버퍼는 65536바이트까지입니다. 추가 연산은 보수적인 크기 추정을 사용하므로 실제로는 딱 맞는 연산도 거부할 수 있습니다. 리소스 오류는 입력이나 버퍼를 바꾸지 않습니다. print는 긴 표시 텍스트를 별도로 자릅니다. 전체 결과를 확인하려면 길이를 검사하거나 작은 부분으로 나눠 출력하세요.
 
 ## 관련 메서드
 

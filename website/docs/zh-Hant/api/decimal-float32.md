@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 821c4c23615da2c03d94630c3843c11502e27fc2644faac01dc3a81234b52029
+source_revision: c7bf1c667592f8239154dc21841d27e0f4e94230da52fdab553a96aeaa5e48bf
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::float32
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="conversion-decimal-float32" locale="zh-Hant" />
-
-## 瀏覽器邊界
-
-整數不會經過有損的 JS number 轉換。轉換元組按 Rust 順序保留值和旗標；旗標為 false 時不能假定結果精確。借用輸入保持不變，建構結果已初始化。[資源限制](../resource-policy) 限制整數輸入、輸出精度及有理數係數增長，與程式庫錯誤分開報告。僅 Rust 匯入語法的範例標記為原生測試。
 
 ## 相關方法
 

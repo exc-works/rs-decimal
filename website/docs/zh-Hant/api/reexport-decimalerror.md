@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 0dd0f243213461bb54e73305b48db01cf1b491f68e6951552c4179ef98edf6bf
+source_revision: a05ca564dfe87099807667e6786e1ddb35d8b5d7c1f1fab0448e61b9ee97240c
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: "reexport::DecimalError"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="scan-errors-reexport-decimalerror" locale="zh-Hant" />
-
-## 瀏覽器邊界
-
-SQL 文字及位元組輸入、錯誤訊息最多 8192 個 UTF-8 位元組。SQL 去除外圍引號後的文字仍經過 [十進位資源檢查](../resource-policy)，不能借引號繞過指數限制。借用操作不消耗輸入；消耗後或釋放後的控制代碼不能重複使用。原生 Rust trait 和匯入範例由原生測試執行，不計作瀏覽器方法。
 
 ## 相關方法
 

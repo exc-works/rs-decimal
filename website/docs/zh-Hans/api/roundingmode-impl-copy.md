@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 4689fa28c94f2db26b471c2a8694afab36dc5eb945d0739ba6a3d98fb3e08c56
+source_revision: ce0e6eba90e03ef0b3ea77c71d25c9216e58acb759f414a585091bbcd0fa1215
 api_id: RoundingMode::impl Copy
 ---
 # RoundingMode::impl Copy
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="rounding-roundingmode-impl-copy" locale="zh-Hans" />
-
-## 浏览器边界
-
-所有整数参数必须位于 wasm32 对应范围。浏览器还施加 [资源限制](../resource-policy)，包括目标小数位数、系数增长及调用次数。资源错误与数值库错误分开报告。借用方法不会消耗输入；仅 Rust 的 trait 语法明确标注为原生测试。
 
 ## 相关方法
 

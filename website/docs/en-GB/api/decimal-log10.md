@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 451ec0bab626d0ba18b68c82b3fd8391b7b06c98aa89fa00c9f2a7af5fce4bb4
+source_revision: f6ac67ade686a05f843dc87d1f500f37c5f0e8254beaf3f0349f29b119eae8d0
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::log10
 ---
@@ -19,10 +19,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="log-exp-decimal-log10" locale="en-GB" />
-
-## Browser boundaries
-
-This family has additional [resource limits](../resource-policy): output precision at most 128, input scale at most 256 and input coefficient at most 4096 bits. Ordinary exp evaluation also requires absolute input at most 64; negative inputs that the core proves round directly to zero retain that fast path. Large input scale can make a no-argument method choose a default precision above 128; use with_prec to select an allowed output precision explicitly. Resource errors differ from core NoConvergence. Stop interrupts a run; the next run creates a fresh Wasm instance.
 
 ## Related methods
 

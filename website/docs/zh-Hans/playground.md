@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: d62c9d14668960966b8d4b8ce2f6a65282abf78ff3e9cfea0c0c0f5225f8d9bc
+source_revision: eebc95321692656eeaf68196d3bb7fece103772431d4688264c85fec9c739db3
 ---
 # Playground
 
@@ -20,3 +20,5 @@ import { locales } from "../../locales.mjs";
 
 分享功能将最多 4 KiB 的 UTF-8 代码和库构建提交号放入 URL 片段，不会将代码上传至服务器。分享链接要求相同构建版本，载入时清空之前的结果，但不会自动运行。无效链接会保留当前草稿。检查代码后点击运行。较大的脚本请导出为文件；编辑器最多接受 64 KiB。链接会包含脚本中的文本，分享前请检查代码。
 :::
+
+[Playground 资源限制](./resource-policy)

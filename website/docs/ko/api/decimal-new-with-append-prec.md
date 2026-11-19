@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 7e14f36bf17f5e06d930d4aefd01137eff4589a325eb7eee0237e89f396a3ba8
+source_revision: 5a350c30c073c772c4921158a8a0d829d4480ae375ec35f7532a213f3f45e557
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::new_with_append_prec
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-with-append-prec" locale="ko" />
 
-## 사용 시 주의점과 제한
+## 사용 시 참고 사항
 
 `string()`은 12를, `string_with_trailing_zeros()`는 12.00을 출력합니다. `new_with_prec`와 달리 수치가 0.12로 바뀌지 않습니다. 음수 정밀도는 `InvalidPrecision`이며 큰 요청은 10의 거듭제곱을 할당하기 전에 거부합니다.
-
-브라우저는 [리소스 정책](../resource-policy)도 적용합니다. JavaScript 입력은 Rust 호출 전에 검사합니다.
 
 ## 관련 메서드
 

@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 49e05880780d4157422be53a7d3d5c1a0d8d4e809a77bd78ae251e8f6c7889c8
+source_revision: 0bbd6c78da40405c6e9ad9c68a14878f98d98b4601eb8ff1296abba0bbf809ae
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::sqrt
 ---
@@ -19,10 +19,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="roots-decimal-sqrt" locale="ko" />
-
-## 브라우저 제한
-
-[리소스 정책](../resource-policy)은 출력 소수 자릿수를 1000으로 제한합니다. 비자명한 근의 차수는 최대 128이며 스케일 조정, Newton 거듭제곱, 중간점 증명의 중간값을 사전 검사합니다. 0, 부호 있는 단위 값, 차수 1의 근은 코어의 빠른 경로를 유지하지만 출력 정밀도 제한을 따릅니다. 정의역과 음수 정밀도 오류는 라이브러리 동작을 유지하며 리소스 오류는 NoConvergence와 다릅니다. 각 입력이 유효해도 모든 차수/정밀도 조합이 브라우저 예산에 맞는 것은 아닙니다.
 
 ## 관련 메서드
 

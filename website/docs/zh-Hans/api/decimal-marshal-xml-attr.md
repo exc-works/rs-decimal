@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: dbdcc64998397a143c045f2ffbee812382399e55664aea5f55e50930e8723a2a
+source_revision: 8ca020b2d56652a32165b4756446630d2a88be60a068a89e4f65ce218930abe5
 api_id: "Decimal::marshal_xml_attr"
 ---
 # Decimal::marshal_xml_attr
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="yaml-xml-decimal-marshal-xml-attr" locale="zh-Hans" />
-
-## 浏览器边界
-
-源输入最多 8192 个 UTF-8 字节。Rust 在核心数值解析之前检查解码后的首个 YAML 标量或 XML 元素文本，包含转义、CDATA、下划线归一化及 YAML 浮点补零。YAML 标量最多 4096 个十六进制数字字符，以限制进制整数分配；保守检查可能拒绝原生库可接受的输入。scale、系数和调用次数遵循 [资源限制](../resource-policy)。已移动的句柄不能再读写。
 
 ## 相关方法
 

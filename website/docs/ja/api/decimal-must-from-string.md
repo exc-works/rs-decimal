@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: bb2070c90fbcf81b9f15485debb923fef5e838831e150577f2d283f059db73b6
+source_revision: 7805847022fc73cbb47e3960021e981cfb8ac4ab47a7b0a542ffa809d986fb9d
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::must_from_string
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="helper-decimal-must-from-string" locale="ja" />
-
-## 制約
-
-bridge は Rust の名前と引数の順序を保持します。自由関数は playground で直接使用できます。借用入力を消費したり変更したりせず、不正なハンドルや別の実行のハンドルは拒否します。すべての操作は[リソースポリシー](../resource-policy)に従います。
 
 ## 関連メソッド
 

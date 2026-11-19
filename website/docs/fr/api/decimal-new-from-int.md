@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: aad24e4a42d458d995751545010904db4f3e9453abb0fa3c66514c8c59b55494
+source_revision: dd3a6777ec0d2daf335730b8ca67dd44bd500850bf5f5a894aa8a18b1d5c40f9
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::new_from_int
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-int" locale="fr" />
 
-## Remarques et limites
+## Conseils d’utilisation
 
 La cible du navigateur est wasm32 : la plage acceptée va donc de -2147483648 à 2147483647, même si Rust natif s’exécute sur une machine 64 bits. Les fractions, NaN et l’infini sont des erreurs de paramètre.
-
-Le navigateur applique également la [politique de ressources](../resource-policy). Les entrées JavaScript sont validées avant l’appel à Rust.
 
 ## Méthodes associées
 

@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 8ab6c44a0e4cf327b955869493409ea9bcd447a1bc1451590926853f00b0ca0b
+source_revision: b2646b52b58adc30058be6fedbac290221f3b2b947946b06b25fe8783f697afc
 translation_provenance: en-US-japanese-reviewed
 api_id: "Decimal::unmarshal_json"
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="text-json-decimal-unmarshal-json" locale="ja" />
-
-## ブラウザーの制約
-
-デコーダー入力は 8192 バイトまでです。パラメーター文字列も Wasm へのコピー前に長さを確認します。Rust はテキストとデコード済み JSON 文字列に[小数のリソースポリシー](../resource-policy)を再適用するため、エスケープで指数やスケールの上限を回避できません。不正な UTF-8、JSON／小数構文の診断はコアが行います。入力エラーやリソースエラーでレシーバーが部分的に更新されることはありません。ムーブ済みのラッパーは読み取りも変更もできません。
 
 ## 関連メソッド
 

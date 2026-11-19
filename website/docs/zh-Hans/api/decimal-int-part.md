@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: 9743ba1e89051026e818a070b86183de419a65ca646afc51459afa17731968b9
+source_revision: b7ff1544694c51babb7af7cb99735ecc6687d86e9cd9a108af321bed93252beb
 api_id: Decimal::int_part
 ---
 # Decimal::int_part
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="arithmetic-decimal-int-part" locale="zh-Hans" />
-
-## 浏览器边界
-
-输入均被借用，成功和普通错误都不会消耗输入。返回的 Decimal 独立拥有数据，算术结果已初始化。浏览器在调用核心前检查 [资源限制](../resource-policy)：对齐、乘积中间系数、除法缩放及输出精度。保守的预检查可能拒绝最终结果很小的运算。资源错误与数值库错误分开报告；panic 会终止运行。
 
 ## 相关方法
 

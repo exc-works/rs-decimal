@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: e8f2b09a741088cc99921865f54ef434d0d70ac376d4e29b7efc3c00a51c3956
+source_revision: cc346dbc73e3d203c64f61c0e3e68ec08682dec8479c74ee4ea48b4441aef5c2
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::new_from_big_int
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-big-int" locale="de" />
 
-## Hinweise und Grenzen
+## Hinweise zur Verwendung
 
 Wandeln Sie eine JavaScript number nicht erst nach einem Genauigkeitsverlust in bigint um. Beginnen Sie mit einem auf `n` endenden Ganzzahlliteral oder exaktem Ganzzahltext. Der Playground akzeptiert höchstens 4096 Eingabeziffern; diese Playground-Regel gilt nicht für die native Bibliothek.
-
-Der Browser wendet auch die [Ressourcenrichtlinie](../resource-policy) an. JavaScript-Eingaben werden vor dem Rust-Aufruf validiert.
 
 ## Verwandte Methoden
 

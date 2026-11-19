@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: cd679689311c552a10e0f46bebe2c6d4b3b7c9ae648dc393862458b144cd8b20
+source_revision: 14996308295f3d9761be44a618304820607fea78ed2b85488ce4a81975821f38
 api_id: Decimal::ln_with_prec
 ---
 # Decimal::ln_with_prec
@@ -18,10 +18,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="log-exp-decimal-ln-with-prec" locale="zh-Hans" />
-
-## 浏览器边界
-
-这组方法有额外的 [资源限制](../resource-policy)：输出精度最多 128，输入 scale 最多 256，输入系数最多 4096 个二进制位。exp 的普通计算还要求绝对值不超过 64；核心可直接证明舍入为零的负输入保留快速路径。较大的输入 scale 可能使无参数方法的默认精度超过 128，可用 with_prec 明确选择允许的输出精度。资源错误与库的 NoConvergence 不同。运行可通过 Stop 中断；重新运行使用新的 Wasm 实例。
 
 ## 相关方法
 

@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: c6cdb1fa94166fc30847c973c46d9437b8484555aa720145461df4786be10adf
+source_revision: f67e1caa0fb769c278b4d8058441646a0cf632963d9da4fd8b19596b64289dc8
 translation_provenance: en-US-korean-reviewed
 api_id: reexport::BigRational
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="conversion-reexport-bigrational" locale="ko" />
-
-## 브라우저 제한
-
-정수 전송은 손실이 있는 JS number를 거치지 않습니다. 변환 튜플은 Rust의 값/플래그 순서를 유지하며 false는 정확한 결과를 보장하지 않습니다. 빌린 입력은 바뀌지 않고 생성자는 결과를 초기화합니다. [리소스 정책](../resource-policy)은 라이브러리 오류와 별개로 정수 입력, 출력 자릿수, 유리수 계수 증가를 제한합니다. Rust 가져오기 문법은 네이티브에서 검사한다고 명시합니다.
 
 ## 관련 메서드
 

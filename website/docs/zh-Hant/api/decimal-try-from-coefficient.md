@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 34aa17297c2ce6b5b73e997c910f57874da73c70f9cf52cd3fadd2ab710a529d
+source_revision: 3430467a0f3b43857ec837a38512411503e4016266c068e3065f8bd60687547d
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::try_from_coefficient
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="owned-decimal-try-from-coefficient" locale="zh-Hant" />
-
-## 瀏覽器邊界
-
-遵循上述所有權規則。移動後的物件再次存取會回傳 moved 錯誤；free 可重複呼叫。類型或別名檢查在移動前執行，進入 Rust 後的錯誤不會恢復已移動的接收者。[資源限制](../resource-policy) 獨立於程式庫錯誤；冪運算檢查中間值，對齊運算檢查係數增長。保守檢查可能拒絕最終結果很小的運算。
 
 ## 相關方法
 

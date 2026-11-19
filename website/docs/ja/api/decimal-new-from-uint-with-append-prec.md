@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 2f8f701187893878a876b218458ba92b8464c997083c08e62c584ef14b118454
+source_revision: 276b5ccc2b5a962810bbd0b08cd40698f00e48d79a517b96783f1d6cae65ea86
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::new_from_uint_with_append_prec
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-uint-with-append-prec" locale="ja" />
 
-## 使用上の注意と制約
+## 使い方の補足
 
 負の値や範囲外の値は bridge の引数エラーです。負の精度は `InvalidPrecision` になり、大きな精度は別途 playground のリソース制限に達します。末尾のゼロを保持する出力で追加された桁を確認できます。
-
-ブラウザーは[リソースポリシー](../resource-policy)も適用します。JavaScript 入力は Rust の呼び出し前に検証します。
 
 ## 関連メソッド
 

@@ -1,6 +1,6 @@
 ---
 locale: en-US
-source_revision: bf618b8d345d150746683bfe2d04e5a166f48e4917e60db9f1d6a2719994d91a
+source_revision: 7a4da4f8ddb22857191bcc95e49dde5161555ab6aaf013e72ff12ef5cff5913d
 api_id: Decimal::new_from_big_int_with_prec
 ---
 # Decimal::new_from_big_int_with_prec
@@ -21,11 +21,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-big-int-with-prec" locale="en-US" />
 
-## Usage notes and boundaries
+## Usage notes
 
 This changes the interpretation of the coefficient, not its digits. Negative precision is `InvalidPrecision`. The playground independently limits input digits and scale; `resource` errors do not indicate loss of numerical precision.
-
-The browser also applies the [resource policy](../resource-policy). JavaScript inputs are validated before calling Rust.
 
 ## Related methods
 

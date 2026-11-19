@@ -1,6 +1,6 @@
 ---
 locale: ja
-source_revision: 9142df8b7aad31accc1292d48cdb5af145b94888294db67afaa241b5146ec0d5
+source_revision: 1364e2c70db38e747614af95f661a59bb822316d59013022933d2987f410c846
 translation_provenance: en-US-japanese-reviewed
 api_id: Decimal::sqrt_with_prec
 ---
@@ -19,10 +19,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="roots-decimal-sqrt-with-prec" locale="ja" />
-
-## ブラウザーの制約
-
-[リソースポリシー](../resource-policy)は出力スケールを 1000 に制限します。非自明な累乗根の次数は最大 128 で、スケール調整、Newton 法の累乗、中間点の証明の中間値を事前検査します。ゼロ、符号付き単位値、次数 1 の根はコアの高速経路を保持しますが、出力精度の制限には従います。定義域と負の精度のエラーはライブラリの動作を保持し、リソースエラーは NoConvergence と区別します。各入力が有効でも、すべての次数と精度の組み合わせがブラウザーの上限内とは限りません。
 
 ## 関連メソッド
 

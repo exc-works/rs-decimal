@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 49e05880780d4157422be53a7d3d5c1a0d8d4e809a77bd78ae251e8f6c7889c8
+source_revision: 0bbd6c78da40405c6e9ad9c68a14878f98d98b4601eb8ff1296abba0bbf809ae
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::sqrt
 ---
@@ -19,10 +19,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="roots-decimal-sqrt" locale="zh-Hant" />
-
-## 瀏覽器邊界
-
-[資源策略](../resource-policy) 將輸出 scale 限制為 1000。非平凡根的 degree 最多為 128，並在分配前檢查縮放、Newton 迭代及中點驗證的中間係數預算。零、正負 1 和一次根保留核心快速路徑，但仍受輸出精度限制。定義域錯誤與負精度錯誤保持程式庫行為；資源錯誤與 NoConvergence 不同。輸入範圍合法不代表每個 degree/prec 組合都能透過資源檢查。
 
 ## 相關方法
 

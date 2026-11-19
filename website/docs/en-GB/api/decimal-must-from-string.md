@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: bb2070c90fbcf81b9f15485debb923fef5e838831e150577f2d283f059db73b6
+source_revision: 7805847022fc73cbb47e3960021e981cfb8ac4ab47a7b0a542ffa809d986fb9d
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::must_from_string
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="helper-decimal-must-from-string" locale="en-GB" />
-
-## Boundaries
-
-The bridge preserves Rust names and parameter order. Free functions are available directly in the playground. Borrowed inputs are not consumed or changed; the bridge rejects invalid or foreign-run handles. All operations follow the [resource policy](../resource-policy).
 
 ## Related methods
 

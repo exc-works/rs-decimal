@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: bf618b8d345d150746683bfe2d04e5a166f48e4917e60db9f1d6a2719994d91a
+source_revision: 7a4da4f8ddb22857191bcc95e49dde5161555ab6aaf013e72ff12ef5cff5913d
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::new_from_big_int_with_prec
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-big-int-with-prec" locale="de" />
 
-## Hinweise und Grenzen
+## Hinweise zur Verwendung
 
 Dies ändert die Interpretation des Koeffizienten, nicht seine Ziffern. Negative Präzision liefert `InvalidPrecision`. Der Playground begrenzt Eingabeziffern und Skala unabhängig; `resource`-Fehler bedeuten keinen Verlust numerischer Genauigkeit.
-
-Der Browser wendet auch die [Ressourcenrichtlinie](../resource-policy) an. JavaScript-Eingaben werden vor dem Rust-Aufruf validiert.
 
 ## Verwandte Methoden
 

@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 2f8f701187893878a876b218458ba92b8464c997083c08e62c584ef14b118454
+source_revision: 276b5ccc2b5a962810bbd0b08cd40698f00e48d79a517b96783f1d6cae65ea86
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::new_from_uint_with_append_prec
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-uint-with-append-prec" locale="ko" />
 
-## 사용 시 주의점과 제한
+## 사용 시 참고 사항
 
 음수나 범위 밖의 값은 bridge 매개변수 오류입니다. 음수 정밀도는 `InvalidPrecision`이며 큰 정밀도는 별도의 playground 리소스 제한에 걸립니다. 후행 0을 유지하는 출력으로 추가된 자릿수를 확인하세요.
-
-브라우저는 [리소스 정책](../resource-policy)도 적용합니다. JavaScript 입력은 Rust 호출 전에 검사합니다.
 
 ## 관련 메서드
 

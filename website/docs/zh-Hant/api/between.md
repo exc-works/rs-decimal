@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: 4488da41f235921047e8f85b8a68b47bc497bf199529326773333d8f22d38585
+source_revision: 536eae84e3e9c7c0c702cbcb339f82c64bf0aafab561d4a3f87590939cb52d8e
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: between
 ---
@@ -21,10 +21,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="helper-between" locale="zh-Hant" />
-
-## 邊界
-
-bridge 保留 Rust 方法名及參數順序。自由函數在 Playground 中可直接呼叫。借用的輸入不會被消耗或改變；bridge 拒絕失效或其他執行實例的物件。全部操作遵守 [資源限制](../resource-policy)。
 
 ## 相關方法
 

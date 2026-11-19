@@ -1,6 +1,6 @@
 ---
 locale: en-GB
-source_revision: 2558a21d5d46dd2598e1fc940985c24d9012b531617d6e30f108a6afe7d17531
+source_revision: 9ec084e5d70a80123e6b5391a460c2d09074b7e750d373283106219a5cde28ed
 translation_provenance: en-US-reviewed-reuse
 api_id: Decimal::new_from_int64
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-int64" locale="en-GB" />
 
-## Usage notes and boundaries
+## Usage notes
 
 The value is a coefficient, not an already-scaled amount. Negative precision is `InvalidPrecision`; out-of-range i64 values are bridge parameter errors.
-
-The browser also applies the [resource policy](../resource-policy). JavaScript inputs are validated before calling Rust.
 
 ## Related methods
 

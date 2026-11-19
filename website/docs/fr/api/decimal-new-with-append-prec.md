@@ -1,6 +1,6 @@
 ---
 locale: fr
-source_revision: 7e14f36bf17f5e06d930d4aefd01137eff4589a325eb7eee0237e89f396a3ba8
+source_revision: 5a350c30c073c772c4921158a8a0d829d4480ae375ec35f7532a213f3f45e557
 translation_provenance: en-US-french-reviewed
 api_id: Decimal::new_with_append_prec
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-with-append-prec" locale="fr" />
 
-## Remarques et limites
+## Conseils d’utilisation
 
 `string()` affiche 12 ; `string_with_trailing_zeros()` affiche 12.00. Contrairement à `new_with_prec`, la valeur numérique ne devient pas 0.12. Une précision négative produit `InvalidPrecision` ; les demandes trop grandes sont rejetées avant l’allocation des puissances de dix.
-
-Le navigateur applique également la [politique de ressources](../resource-policy). Les entrées JavaScript sont validées avant l’appel à Rust.
 
 ## Méthodes associées
 

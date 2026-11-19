@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 3ef0ab66b1050d81978ffe9504c298d164d62d052b64bfd1ad02ddce4a039f36
+source_revision: 2264e63e21d4ba0bb0732ee23526e08fc191d66bd401bfd2f899bab466b9c36e
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::new_from_string
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-string" locale="ko" />
 
-## 사용 시 주의점과 제한
+## 사용 시 참고 사항
 
 입력 앞뒤 공백을 제거하며 부호와 지수를 포함할 수 있습니다. 소수점 양쪽에 숫자가 필요합니다. 구분자는 UI 언어와 무관하게 항상 `.`입니다. 0이 아닌 수치의 후행 0은 유지하지만 `"0.00"`은 소수 자릿수 0인 초기화된 0으로 정규화합니다. 잘못된 문법은 `InvalidFormat`이며, 확장된 입력은 별도의 playground 리소스 제한에 걸릴 수 있습니다.
-
-브라우저는 [리소스 정책](../resource-policy)도 적용합니다. JavaScript 입력은 Rust 호출 전에 검사합니다.
 
 ## 관련 메서드
 

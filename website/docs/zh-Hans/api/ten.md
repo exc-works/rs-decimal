@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: df5bdc8fba1feff0933958fdceab2cd0bf8d1a541a0f2e47f17bffe6a6338d47
+source_revision: 37b57334dcd3fd469d86572a66aa34315b91919270af861524b7fae399085f7c
 api_id: ten
 ---
 # ten
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="helper-ten" locale="zh-Hans" />
-
-## 边界
-
-bridge 保留 Rust 方法名及参数顺序。自由函数在 Playground 中可直接调用。借用的输入不会被消耗或改变；bridge 拒绝失效或其他运行实例的对象。全部操作遵守 [资源限制](../resource-policy)。
 
 ## 相关方法
 

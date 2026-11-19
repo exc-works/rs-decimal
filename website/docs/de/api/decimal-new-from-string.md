@@ -1,6 +1,6 @@
 ---
 locale: de
-source_revision: 3ef0ab66b1050d81978ffe9504c298d164d62d052b64bfd1ad02ddce4a039f36
+source_revision: 2264e63e21d4ba0bb0732ee23526e08fc191d66bd401bfd2f899bab466b9c36e
 translation_provenance: en-US-german-reviewed
 api_id: Decimal::new_from_string
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-string" locale="de" />
 
-## Hinweise und Grenzen
+## Hinweise zur Verwendung
 
 Äußerer Leerraum wird entfernt; Vorzeichen und Exponent sind erlaubt. Auf beiden Seiten des Dezimalpunkts sind Ziffern nötig. Das Trennzeichen ist unabhängig von der Oberflächensprache stets `.`. Bei Werten ungleich null bleiben nachgestellte Nullen erhalten, aber `"0.00"` wird zur initialisierten Null mit Skala null normalisiert. Ungültige Syntax liefert `InvalidFormat`; expandierte Eingaben können die separate Ressourcengrenze des Playgrounds erreichen.
-
-Der Browser wendet auch die [Ressourcenrichtlinie](../resource-policy) an. JavaScript-Eingaben werden vor dem Rust-Aufruf validiert.
 
 ## Verwandte Methoden
 

@@ -1,6 +1,6 @@
 ---
 locale: ko
-source_revision: 2558a21d5d46dd2598e1fc940985c24d9012b531617d6e30f108a6afe7d17531
+source_revision: 9ec084e5d70a80123e6b5391a460c2d09074b7e750d373283106219a5cde28ed
 translation_provenance: en-US-korean-reviewed
 api_id: Decimal::new_from_int64
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-int64" locale="ko" />
 
-## 사용 시 주의점과 제한
+## 사용 시 참고 사항
 
 값은 계수이며 이미 스케일이 적용된 금액이 아닙니다. 음수 정밀도는 `InvalidPrecision`이고 i64 범위 밖의 값은 bridge 매개변수 오류입니다.
-
-브라우저는 [리소스 정책](../resource-policy)도 적용합니다. JavaScript 입력은 Rust 호출 전에 검사합니다.
 
 ## 관련 메서드
 

@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: e8f2b09a741088cc99921865f54ef434d0d70ac376d4e29b7efc3c00a51c3956
+source_revision: cc346dbc73e3d203c64f61c0e3e68ec08682dec8479c74ee4ea48b4441aef5c2
 api_id: Decimal::new_from_big_int
 ---
 # Decimal::new_from_big_int
@@ -21,11 +21,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-big-int" locale="zh-Hans" />
 
-## 用法注意事项和边界
+## 使用说明
 
 不要先用 JavaScript number 丢失精度后再转 bigint；应直接使用以 `n` 结尾的整数字面量或精确整数文本。Playground 最多接受 4096 位输入数字；原生库不受此 Playground 策略限制。
-
-浏览器还应用[资源限制](../resource-policy)。JavaScript 参数在调用 Rust 前进行类型及范围检查。
 
 ## 相关方法
 

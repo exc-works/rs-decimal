@@ -1,6 +1,6 @@
 ---
 locale: zh-Hans
-source_revision: b6885bfd89f5c1e43b9c4a8ab207ccde2aef139d913f8cd028eda20cd2081e75
+source_revision: 949ffe2e68cd75d5b05be8db37757052323a51952d74093deec642c235953650
 api_id: "NullDecimal::unmarshal_text"
 ---
 # NullDecimal::unmarshal_text
@@ -20,10 +20,6 @@ import MethodExample from "../../_components/MethodExample.vue";
 </script>
 
 <MethodExample id="text-json-nulldecimal-unmarshal-text" locale="zh-Hans" />
-
-## 浏览器边界
-
-解码输入最多 8192 字节，参数字符串还在复制到 Wasm 前检查长度。Rust 对文本及 JSON 解码后的字符串再次检查 [十进制资源限制](../resource-policy)，因此转义字符不能绕过指数展开或精度限制。无效 UTF-8 和 JSON/小数语法仍由核心报告。输入错误和资源错误都不会部分更新接收者；已移动的对象不可再读写。
 
 ## 相关方法
 

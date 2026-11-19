@@ -1,6 +1,6 @@
 ---
 locale: zh-Hant
-source_revision: aad24e4a42d458d995751545010904db4f3e9453abb0fa3c66514c8c59b55494
+source_revision: dd3a6777ec0d2daf335730b8ca67dd44bd500850bf5f5a894aa8a18b1d5c40f9
 translation_provenance: zh-Hans-terminology-reviewed
 api_id: Decimal::new_from_int
 ---
@@ -22,11 +22,9 @@ import MethodExample from "../../_components/MethodExample.vue";
 
 <MethodExample id="constructor-new-from-int" locale="zh-Hant" />
 
-## 用法注意事項和邊界
+## 使用說明
 
 瀏覽器目標是 wasm32，接受範圍始終為 -2147483648 至 2147483647，即使原生 Rust 執行在 64 位機器上。小數、NaN 和無窮大屬於參數錯誤。
-
-瀏覽器還應用[資源限制](../resource-policy)。JavaScript 參數在呼叫 Rust 前進行類型及範圍檢查。
 
 ## 相關方法
 
