@@ -1,7 +1,6 @@
 ---
 locale: en-GB
-source_revision: 9dbdcebee0aa8b717d5990e56743976e5e18fb73cbd32737b093a37a0ebe40de
-sidebar: false
+source_revision: 92be186c5740ac6d22b3ca742b8ced1f5ab7822e9ab835f05db11a750bdadf79
 aside: false
 ---
 # rs-decimal
@@ -14,6 +13,9 @@ Two notebooks at 4.50 each, plus 1.25 for delivery. The customer pays 10.25. Wit
 
 <div class="receipt-equation">4.50 × 2 + 1.25 = <strong>10.25</strong></div>
 
-- [Calculate your first total](/en-GB/guide)
-- [Try the receipt in your browser](/en-GB/playground)
-- [Find a method in the API reference](/en-GB/api/)
+<div class="ref-actions">
+
+[Calculate your first total](/en-GB/guide)
+[Try the receipt in your browser](/en-GB/playground)
+
+</div>

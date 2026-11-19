@@ -5,14 +5,32 @@ import { locales } from '../../locales.mjs';
 
 import { referencePage } from '../../scripts/reference-page.mjs';
 
-import { apiPath, operationGroups } from '../../scripts/reference-index.mjs';
+import { apiPath, operationGroups, symbols } from '../../scripts/reference-index.mjs';
 import { referenceLabels } from '../../reference-labels.mjs';
 
-function operationSidebar(lang: string) {
-  return operationGroups.map(({ key, items }) => ({
-    text: referenceLabels[lang][key], collapsed: true,
-    items: items.map(item => ({ text: item.id.slice('Decimal::'.length), link: apiPath(lang, item) })),
-  }));
+function documentationSidebar(lang: string) {
+  const text = locales[lang];
+  const labels = referenceLabels[lang];
+  return [
+    { text: text.docs, items: [
+      { text: text.home, link: `/${lang}/` },
+      { text: text.guide, link: `/${lang}/guide` },
+      { text: text.playground, link: `/${lang}/playground` },
+      { text: text.glossary, link: `/${lang}/glossary` },
+    ] },
+    { text: text.api, collapsed: false, items: [
+      ...operationGroups.map(({ key, items }) => ({
+        text: labels[key], collapsed: true,
+        items: items.map(item => ({ text: item.id.slice('Decimal::'.length), link: apiPath(lang, item) })),
+      })),
+      { text: labels.types, collapsed: true,
+        items: symbols.filter(item => item.group === 'types').map(item => ({
+          text: item.id, link: apiPath(lang, item),
+        })),
+      },
+      { text: labels.all, link: `/${lang}/api/` },
+    ] },
+  ];
 }
 
 export default defineConfig({
@@ -30,22 +48,7 @@ export default defineConfig({
     title: 'rs-decimal',
     description: text.description,
     themeConfig: {
-      nav: [
-        { text: text.guide, link: `/${lang}/guide` },
-        { text: text.api, link: `/${lang}/api/` },
-        { text: text.glossary, link: `/${lang}/glossary` },
-        { text: text.playground, link: `/${lang}/playground` },
-      ],
-      sidebar: {
-        [`/${lang}/api/`]: [{ text: text.api, link: `/${lang}/api/`, items: operationSidebar(lang) }],
-        [`/${lang}/`]: [{ text: text.docs, items: [
-          { text: text.home, link: `/${lang}/` },
-          { text: text.guide, link: `/${lang}/guide` },
-          { text: text.api, link: `/${lang}/api/` },
-          { text: text.glossary, link: `/${lang}/glossary` },
-          { text: text.playground, link: `/${lang}/playground` },
-        ] }],
-      },
+      sidebar: documentationSidebar(lang),
       outline: { label: text.onThisPage },
       docFooter: { prev: text.previous, next: text.next },
       lastUpdated: { text: text.updated },
@@ -59,6 +62,7 @@ export default defineConfig({
     },
   }])),
   themeConfig: {
+    sidebar: documentationSidebar('en-US'),
     search: { provider: 'local', options: { locales: Object.fromEntries(Object.entries(locales).map(([lang, text]) => [lang, { translations: { button: { buttonText: text.search, buttonAriaLabel: text.search }, modal: { displayDetails: text.details, resetButtonTitle: text.reset, backButtonTitle: text.back, noResultsText: text.noResults, footer: { selectText: text.select, selectKeyAriaLabel: text.enter, navigateText: text.navigate, navigateUpKeyAriaLabel: text.up, navigateDownKeyAriaLabel: text.down, closeText: text.close, closeKeyAriaLabel: text.escape } } } }])) } },
     socialLinks: [{ icon: 'github', link: 'https://github.com/exc-works/rs-decimal' }],
   },

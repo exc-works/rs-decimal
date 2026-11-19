@@ -57,9 +57,29 @@ try:
         return call(f'/session/{session}/execute/sync', {'script': script, 'args': []})
     def navigate(path):
         call(f'/session/{session}/url', {'url': SITE + path})
+    def sidebar_group(label):
+        js('Array.from(document.querySelectorAll(".VPSidebar .collapsible > .item"))'
+           f'.find(item => item.querySelector(".text").textContent === {json.dumps(label)}).click()')
+
     navigate('')
     until(lambda: js('return location.pathname') == '/rs-decimal/en-US/')
     assert '10.25' in js('return document.querySelector(".vp-doc").textContent')
+    # Expanding the shared tree keeps both the overview and browser history in place.
+    until(lambda: js('return !!document.querySelector(".VPSidebar .is-active")'))
+    history_length = js('return history.length')
+    sidebar_group('API catalogue')
+    assert js('return !!document.querySelector(".VPSidebarItem.level-0.collapsible.collapsed")')
+    sidebar_group('API catalogue')
+    assert not js('return !!document.querySelector(".VPSidebarItem.level-0.collapsible.collapsed")')
+    sidebar_group('Addition')
+    assert js('return location.pathname') == '/rs-decimal/en-US/'
+    assert js('return history.length') == history_length
+    assert js('return [...document.querySelectorAll(".VPSidebar a")].some(a => a.textContent === "add" && a.offsetWidth)')
+    js('document.querySelector(".VPSidebar a[href$=\'/decimal-add.html\']").click()')
+    until(lambda: js('return location.pathname') == '/rs-decimal/en-US/api/decimal-add.html')
+    assert js('return [...document.querySelectorAll(".VPSidebar a")].some(a => a.textContent === "safe_add" && a.offsetWidth)')
+    call(f'/session/{session}/back', {})
+    until(lambda: js('return location.pathname') == '/rs-decimal/en-US/')
     count = len(json.loads((ROOT / 'api/rust-api.json').read_text()))
     coverage = {entry['id']: entry for entry in json.loads((ROOT / 'api/coverage.json').read_text())}
     groups = json.loads((ROOT / 'translation-manifest.json').read_text()).get('method_locale_owners', {})
@@ -138,6 +158,15 @@ try:
     assert js('return document.querySelector(".VPNavBarTranslations button").getBoundingClientRect().width > 0')
     navigate('')
     until(lambda: js('return location.pathname') == '/rs-decimal/zh-Hans/')
+    menu = 'document.querySelector(".VPLocalNav .menu")'
+    until(lambda: js('return !!document.querySelector(".VPSidebar .is-active")'))
+    js(menu + '.click()')
+    until(lambda: js('return !!document.querySelector(".VPSidebar.open")'))
+    sidebar_group('减法')
+    assert js('return location.pathname') == '/rs-decimal/zh-Hans/'
+    js('document.querySelector(".VPSidebar a[href$=\'/decimal-sub.html\']").click()')
+    until(lambda: js('return location.pathname') == '/rs-decimal/zh-Hans/api/decimal-sub.html')
+    until(lambda: js('return !document.querySelector(".VPSidebar.open")'))
     print('Eight locale routes, API filtering, language switching, locale search and mobile layout passed.')
 finally:
     if 'session' in globals():

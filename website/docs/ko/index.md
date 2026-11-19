@@ -1,7 +1,6 @@
 ---
 locale: ko
-source_revision: 9dbdcebee0aa8b717d5990e56743976e5e18fb73cbd32737b093a37a0ebe40de
-sidebar: false
+source_revision: 92be186c5740ac6d22b3ca742b8ced1f5ab7822e9ab835f05db11a750bdadf79
 aside: false
 ---
 # rs-decimal
@@ -14,6 +13,9 @@ rs-decimal은 Rust에서 십진수를 다루는 라이브러리입니다. 가격
 
 <div class="receipt-equation">4.50 × 2 + 1.25 = <strong>10.25</strong></div>
 
-- [첫 주문 금액 계산하기](/ko/guide)
-- [브라우저에서 수량 바꿔 보기](/ko/playground)
-- [원하는 연산의 API 메서드 찾기](/ko/api/)
+<div class="ref-actions">
+
+[첫 주문 금액 계산하기](/ko/guide)
+[브라우저에서 수량 바꿔 보기](/ko/playground)
+
+</div>
