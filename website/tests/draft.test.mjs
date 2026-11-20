@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   encodeDraft,
   decodeDraft,
+  encodeResult,
   decodeResult,
 } from "../src/editor/draft.mjs";
 test("drafts preserve source exactly, without evaluating it", () => {
@@ -31,6 +32,14 @@ test("restored outputs are bounded strings, never HTML nodes", () => {
     { schema: 1, output: ["x".repeat(262145)] },
   ])
     assert.throws(() => decodeResult(JSON.stringify(invalid)));
+});
+
+test("result history preserves Decimal table cells alongside text", () => {
+  const row = { value: "4.50", coefficient: "450", scale: "2" };
+  const output = ['"4.50"', row];
+  assert.deepEqual(decodeResult(encodeResult({ output })).output, output);
+  assert.throws(() => encodeResult({ output: [{ ...row, scale: 2 }] }));
+  assert.throws(() => encodeResult({ output: [{ ...row, coefficient: "9".repeat(262145) }] }));
 });
 
 import { createEditorLoader } from "../src/editor/load-once.mjs";

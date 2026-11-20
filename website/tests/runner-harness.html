@@ -33,16 +33,22 @@
         );
         checks.push("exact Rust result");
         out = [];
+        const formats = [];
         result = await client.run(`
           const amount = Decimal.new_from_string("4.50");
           console.log(amount);
-          console.log("price", amount.string_with_trailing_zeros(), 2n, { quantity: 2 });
+          console.log("price", amount, 2n, { quantity: 2 });
+          console.log({ prices: [amount, amount] });
+          console.log(snapshot(amount));
           console.log();
-        `, { onOutput: text => out.push(JSON.parse(text)) });
-        assert(result.type === 'done' && out.length === 3 &&
-          out[0].string_with_trailing_zeros === '4.50' &&
-          out[1] === 'price 4.50 2n {"quantity":2}' && out[2] === '', 'console output');
-        checks.push('console.log snapshots and multiple arguments');
+        `, { onOutput: (text, format) => { out.push(JSON.parse(text)); formats.push(format); } });
+        assert(result.type === 'done' && out.length === 5 &&
+          formats.join(',') === 'decimal,text,text,text,text' &&
+          out[0].string_with_trailing_zeros === '4.50' && out[0].coefficient === '450' &&
+          out[0].scale === '2' && out[1] === 'price 4.50 2n {"quantity":2}' &&
+          JSON.stringify(out[2]) === '{"prices":["4.50","4.50"]}' &&
+          out[3].coefficient === '450' && out[3].scale === '2' && out[4] === '', 'console output');
+        checks.push('console.log Decimal values and explicit snapshots');
 
         assert(client.frame.getAttribute('sandbox') === 'allow-scripts', 'no same-origin sandbox permission');
         let parentAccess = false;

@@ -18,13 +18,24 @@ export function decodeResult(text) {
     throw Error("Invalid result");
   const data = JSON.parse(text);
   if (
-    data?.schema !== 1 ||
+    ![1, 2].includes(data?.schema) ||
     !Array.isArray(data.output) ||
-    data.output.length > LIMITS.outputCount ||
-    data.output.some((x) => typeof x !== "string") ||
-    new TextEncoder().encode(data.output.join("")).length > LIMITS.outputBytes
+    data.output.length > LIMITS.outputCount
   )
     throw Error("Invalid result");
+  const encoder = new TextEncoder();
+  let bytes = 0;
+  for (const line of data.output) {
+    if (typeof line === "string") {
+      bytes += encoder.encode(line).length;
+    } else {
+      if (data.schema !== 2 || !line || Object.keys(line).length !== 3 ||
+          typeof line.value !== "string" || typeof line.coefficient !== "string" || typeof line.scale !== "string")
+        throw Error("Invalid Decimal output");
+      bytes += encoder.encode(JSON.stringify(line)).length;
+    }
+    if (bytes > LIMITS.outputBytes) throw Error("Invalid result");
+  }
   const status = data.status ?? "idle",
     message = data.message ?? "",
     kinds = data.kinds ?? [],
@@ -47,7 +58,7 @@ export function decodeResult(text) {
 
 export function encodeResult(state) {
   const text = JSON.stringify({
-    schema: 1,
+    schema: 2,
     output: state.output,
     status: state.status,
     message: state.message,

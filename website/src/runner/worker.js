@@ -45,7 +45,8 @@ self.onmessage = async ({ data, ports }) => {
         category: "version",
       });
     const snapshot = bridge.snapshot;
-    function outputValue(value) {
+    const decimalText = Function.prototype.call.bind(bridge.Decimal.prototype.string_with_trailing_zeros);
+    function outputValue(value, compactDecimals = false) {
       let nodes = 0;
       const seen = new WeakSet();
       function bounded(input, depth = 0) {
@@ -60,6 +61,7 @@ self.onmessage = async ({ data, ports }) => {
           return input;
         if (typeof input === "number") return numberSnapshot(input);
         if (typeof input !== "object") return `[${typeof input}]`;
+        if (compactDecimals && input instanceof bridge.Decimal) return decimalText(input);
         if (seen.has(input)) return "[circular]";
         seen.add(input);
         if (
@@ -82,7 +84,7 @@ self.onmessage = async ({ data, ports }) => {
       }
       return bounded(value);
     }
-    function writeOutput(text) {
+    function writeOutput(text, format = "text") {
       const bytes = encode(text).length;
       if (
         ++outputCount > LIMITS.outputCount ||
@@ -91,19 +93,24 @@ self.onmessage = async ({ data, ports }) => {
         throw Object.assign(new Error("Output budget exceeded"), {
           category: "resource",
         });
-      send({ type: "output", runId, text });
+      send({ type: "output", runId, text, format });
     }
     function print(value) {
       writeOutput(stringify(outputValue(value)));
     }
     self.console.log = (...values) => {
       if (values.length === 1) {
-        print(values[0]);
+        const value = values[0];
+        if (value instanceof bridge.Decimal) {
+          writeOutput(stringify(snapshot(value)), "decimal");
+        } else {
+          writeOutput(stringify(outputValue(value, true)));
+        }
         return;
       }
       let line = "";
       for (const [index, value] of values.entries()) {
-        const part = outputValue(value);
+        const part = outputValue(value, true);
         line += (index ? " " : "") + (typeof part === "string" ? part : stringify(part));
         if (line.length > LIMITS.outputBytes)
           throw Object.assign(new Error("Output budget exceeded"), { category: "resource" });
