@@ -147,7 +147,10 @@ try {
       await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent === '-1.24');
       await page.locator('[data-action=open-example]').click();
       await page.locator('[data-action=run]:enabled').click();
-      await page.waitForFunction(() => document.querySelector('.pg-output')?.textContent.includes('-1.24'));
+      const decimalTable = page.locator('.pg-output table');
+      await decimalTable.waitFor();
+      assert.deepEqual(await decimalTable.locator('td').allTextContents(), ['-1.24', '-124', '2']);
+      assert.match(await decimalTable.locator('thead').textContent(), /系数.*去掉小数点/);
 
       await page.goto(`${origin}/rs-decimal/en-US/api/nulldecimal-valid.html`);
       await page.waitForFunction(() => document.querySelector('[data-example-output]')?.textContent.includes('"valid": false'));
@@ -176,7 +179,8 @@ try {
       await ready();
       assert.equal((await output.textContent()).trim(), '', 'handoff must not run');
       await page.locator('[data-action=run]').click();
-      await page.waitForFunction(() => document.querySelector('.pg-output')?.textContent.includes('9007199254740993'));
+      await decimalTable.waitFor();
+      assert.deepEqual(await decimalTable.locator('td').allTextContents(), ['9007199254740993', '9007199254740993', '0']);
       await page.waitForFunction(() => document.querySelector('[data-action=stop]').disabled);
       const runnerFrame = page.locator('.playground iframe');
       assert.equal(await runnerFrame.count(), 1, 'execution frame is mounted');
@@ -195,6 +199,8 @@ try {
       await page.locator('[data-action=run]').click();
       await page.waitForFunction(() => document.querySelector('.pg-output')?.textContent.includes('9007199254740993'));
       await page.waitForFunction(() => document.querySelector('[data-action=stop]').disabled);
+      await page.reload(); await ready();
+      assert.equal(await decimalTable.locator('td').first().textContent(), '9007199254740993');
       const source = 'show("<img src=x onerror=alert(1)>");';
       await page.locator('input[type=file]').setInputFiles({name:'input.js',mimeType:'text/javascript',buffer:Buffer.from(source)});
       await page.waitForFunction(() => document.querySelector('.pg-status')?.textContent.includes('Ready'));

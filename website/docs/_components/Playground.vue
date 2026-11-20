@@ -75,8 +75,14 @@ async function run() {
       commit: __PLAYGROUND_CONFIG__.commit,
     });
     const result = await client.run(session.source, {
-      onOutput: (text: string) => {
-        if (!disposed && current === generation) session.output.push(text);
+      onOutput: (text: string, format: string) => {
+        if (disposed || current !== generation) return;
+        if (format === "decimal") {
+          const { string_with_trailing_zeros: value, coefficient, scale } = JSON.parse(text);
+          session.output.push({ value, coefficient, scale });
+        } else {
+          session.output.push(text);
+        }
       },
     });
     if (disposed || current !== generation) return;
@@ -323,9 +329,20 @@ onBeforeUnmount(() => {
     <h2>{{ labels.pgOutput }}</h2>
     <p v-if="!session.output.length">{{ labels.pgEmpty }}</p>
     <div class="pg-output" aria-live="polite" :aria-label="labels.pgOutput">
-      <pre v-for="(text, index) in session.output" :key="index">{{
-        pretty(text)
-      }}</pre>
+      <template v-for="(line, index) in session.output" :key="index">
+        <pre v-if="typeof line === 'string'">{{ pretty(line) }}</pre>
+        <table v-else class="pg-decimal">
+          <caption>Decimal</caption>
+          <thead><tr>
+            <th scope="col">{{ labels.fieldValue }}</th>
+            <th scope="col">{{ labels.pgCoefficient }}<small>{{ labels.pgCoefficientHelp }}</small></th>
+            <th scope="col">{{ labels.fieldPrec }}<small>{{ labels.pgScaleHelp }}</small></th>
+          </tr></thead>
+          <tbody><tr>
+            <td>{{ line.value }}</td><td>{{ line.coefficient }}</td><td>{{ line.scale }}</td>
+          </tr></tbody>
+        </table>
+      </template>
     </div>
     <div v-if="session.message" role="alert" class="pg-error">
       <strong>{{ labels.pgError }} · {{ session.status }}</strong>
@@ -392,6 +409,29 @@ onBeforeUnmount(() => {
   padding: 14px;
   background: var(--vp-c-bg-soft);
   border-radius: 6px;
+}
+.pg-output .pg-decimal {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  overflow-wrap: anywhere;
+}
+.pg-decimal caption {
+  text-align: start;
+  font-weight: 600;
+  padding-bottom: 4px;
+}
+.pg-decimal th, .pg-decimal td {
+  text-align: start;
+  vertical-align: top;
+}
+.pg-decimal small {
+  display: block;
+  font-weight: normal;
+  color: var(--vp-c-text-2);
+}
+.pg-decimal td {
+  font-family: var(--vp-font-family-mono);
 }
 .pg-error {
   border-left: 3px solid var(--vp-c-danger-1);

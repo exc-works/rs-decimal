@@ -69,7 +69,12 @@ meta CSP. No separate domain or configurable HTTP headers are required.
 import/export and drafts remain local; restored or imported scripts never run
 without an explicit Run. A missing or mismatched runner reports an error.
 
-`console.log(value)` captures the value for the output panel immediately. Multiple arguments appear on one line. Existing scripts can also use `show(value)` or `print(value)`. `assert(condition,
+`console.log(value)` displays a Decimal in an annotated table with its exact
+value, integer coefficient and decimal places. For example, `4.50` has a
+coefficient of `450` and two decimal places. Multiple arguments appear on one
+line with Decimals formatted as exact text. Use `console.log(snapshot(value))`
+to inspect the coefficient, scale and other fields. Existing scripts can also
+use `show(value)` or `print(value)` for snapshots. `assert(condition,
 message?)` reports a script assertion error. Output is rendered as escaped text;
 bounded partial output survives a later error. Ctrl/Cmd+Enter runs the source.
 Stop terminates execution; Reset restores the initial example. Local storage

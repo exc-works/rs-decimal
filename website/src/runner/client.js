@@ -94,7 +94,7 @@ export class RunnerClient {
             return;
           }
           try {
-            run.onOutput(data.text);
+            run.onOutput(data.text, data.format);
           } catch {
             this.stop("runtime");
           }

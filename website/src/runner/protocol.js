@@ -19,6 +19,7 @@ export function eventValid(data, runId) {
     ["output", "done", "error"].includes(data.type) &&
     (data.type !== "output" ||
       (typeof data.text === "string" &&
+        (data.format === undefined || data.format === "text" || data.format === "decimal") &&
         data.text.length <= LIMITS.outputBytes)) &&
     (data.type !== "error" ||
       (typeof data.category === "string" &&
